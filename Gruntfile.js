@@ -392,6 +392,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'php-moodle-part',
+          src: '**/*.*',
+          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
@@ -453,7 +458,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'postcss',
     'connect:test',
-    'karma'
+    //'karma'
   ]);
 
   grunt.registerTask('build', [

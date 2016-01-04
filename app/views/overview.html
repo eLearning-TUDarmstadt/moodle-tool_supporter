@@ -1,5 +1,11 @@
 <h1>Overview</h1>
-<div ui-view="coursesearch"></div>
-<div ui-view="courseinfo"></div>
-<div ui-view="usersearch"></div>
-<div ui-view="userinfo"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div ui-view="courseinfo"></div>
+        <div ui-view="coursesearch"></div>
+    </div>
+    <div class="col-md-6">
+        <div ui-view="userinfo"></div>
+        <div ui-view="usersearch"></div>
+    </div>
+</div>

@@ -8,7 +8,8 @@
  * Controller of the supporterApp
  */
 angular.module('supporterApp')
-  .controller('UserinfoCtrl', function () {
+  .controller('UserinfoCtrl', function ($scope) {
+      $scope.user = null;
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
