@@ -25,19 +25,24 @@ angular
                 url: '/overview',
                 views: {
                     '': {
-                        templateUrl: 'views/overview.html'
+                        templateUrl: 'views/overview.html',
+                        controller: 'MainCtrl',
                     },
                     'coursesearch@overview': {
-                        templateUrl: 'views/coursesearch.html'
+                        templateUrl: 'views/coursesearch.html',
+                        controller: 'CoursesearchCtrl',
                     },
                     'courseinfo@overview': {
-                        templateUrl: 'views/courseinfo.html'
+                        templateUrl: 'views/courseinfo.html',
+                        controller: 'CourseinfoCtrl',
                     },
                     'usersearch@overview': {
-                        templateUrl: 'views/usersearch.html'
+                        templateUrl: 'views/usersearch.html',
+                        controller: 'UsersearchCtrl',
                     },
                     'userinfo@overview': {
-                        templateUrl: 'views/userinfo.html'
+                        templateUrl: 'views/userinfo.html',
+                        controller: 'UserinfoCtrl',
                     },
                 }
             });
