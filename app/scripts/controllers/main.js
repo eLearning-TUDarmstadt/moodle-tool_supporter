@@ -8,10 +8,8 @@
  * Controller of the supporterApp
  */
 angular.module('supporterApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('MainCtrl', function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        $state.transitionTo('overview.subs');
+    });
