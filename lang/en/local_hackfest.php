@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'local_hackfest', language 'en'
+ * Strings for component 'tool_supporter', language 'en'
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pagetitle'] = 'Page with all the awesome.';
-$string['pluginname'] = 'Hackfest Demo';
+$string['pluginname'] = 'Tool Supporter';

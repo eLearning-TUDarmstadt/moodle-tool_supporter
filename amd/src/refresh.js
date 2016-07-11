@@ -18,14 +18,14 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     local_hackfest/refresh
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese <damyon@moodle.com>
+ * @module     tool_supporter/refresh
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) { 
-    return /** @alias module:local_hackfest/refresh */ {
+    return /** @alias module:tool_supporter/refresh */ {
         
         /**
          * Refresh the middle of the page!
@@ -38,13 +38,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 // First - reload the data for the page.
                 var promises = ajax.call([{
-                    methodname: 'local_hackfest_get_site_info',
+                    methodname: 'tool_supporter',
                     args:{ }
                 }]);
                 promises[0].done(function(data) {
 
                     // We have the data - lets re-render the template with it.
-                    templates.render('local_hackfest/index_page', data).done(function(html, js) {
+                    templates.render('tool_supporter/index_page', data).done(function(html, js) {
                         $('[data-region="index-page"]').replaceWith(html);
                         // And execute any JS that was in the template.
                         templates.runTemplateJS(js);

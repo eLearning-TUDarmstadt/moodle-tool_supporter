@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local hackfest external services.
+ * Tool Supporter external services.
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,9 +26,9 @@ $functions = array(
 
     // For each functuon: Which class provides the function?
 
-    //Name of webservice: "local_hackfest"
-    'local_hackfest_get_site_info' => array(
-        'classname'   => 'local_hackfest\external',
+    //Name of webservice: "tool_supporter"
+    'tool_supporter_get_site_info' => array(
+        'classname'   => 'tool_supporter\external',
         'methodname'  => 'get_site_info',
         'classpath'   => '',
         'description' => 'Return some site info.',

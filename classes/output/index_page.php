@@ -17,11 +17,11 @@
 /**
  * Class containing data for index page
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace local_hackfest\output;
+namespace tool_supporter\output;
 
 require_once("$CFG->dirroot/webservice/externallib.php");
 
@@ -34,7 +34,7 @@ use stdClass;
  * Class containing data for index page
  Gets passed to the renderer
  *
- * @copyright  2015 Damyon Wiese
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class index_page implements renderable, templatable {

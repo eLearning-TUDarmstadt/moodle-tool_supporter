@@ -17,25 +17,25 @@
 /**
  * This is the only page in this plugin.
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(__DIR__ . '/../../config.php');
 
-$title = get_string('pagetitle', 'local_hackfest'); //dev moodle: String API
-$pagetitle = get_string('pagetitle', 'local_hackfest');
+$title = get_string('pagetitle', 'tool_supporter'); //dev moodle: String API
+$pagetitle = get_string('pagetitle', 'tool_supporter');
 // Set up the page.
-$url = new moodle_url("/local/hackfest/index.php");
+$url = new moodle_url("/local/tool_supporter/index.php"); // HIER EVENTUELL DIE URL ÄNDERN!
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title); //title und header sollten später verschieden sein
 $PAGE->set_heading($title);
-$output = $PAGE->get_renderer('local_hackfest');
+$output = $PAGE->get_renderer('tool_supporter');
 echo $output->header();
 
-$page = new \local_hackfest\output\index_page(); //renderable
+$page = new \tool_supporter\output\index_page(); //renderable
 echo $output->render($page);
 
 echo $output->footer(); //javascript ist hier drin

@@ -16,11 +16,11 @@
 /**
  * Plugin version info
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 $plugin->version   = 2015060501; // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2015050500; // Requires this Moodle version.
-$plugin->component = 'local_hackfest'; // Full name of the plugin (used for diagnostics).
+$plugin->component = 'tool_supporter'; // Full name of the plugin (used for diagnostics).

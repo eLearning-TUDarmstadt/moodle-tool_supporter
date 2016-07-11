@@ -19,11 +19,11 @@
 
  "Geklauter Webservice"
  *
- * @package    local_hackfest
- * @copyright  2015 Damyon Wiese
+ * @package    tool_supporter
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace local_hackfest;
+namespace tool_supporter;
 
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
@@ -68,8 +68,8 @@ class external extends external_api {
      */
     public static function get_site_info($serviceshortnames = array()) {
         global $PAGE;
-        $renderer = $PAGE->get_renderer('local_hackfest');
-        $page = new \local_hackfest\output\index_page();
+        $renderer = $PAGE->get_renderer('tool_supporter');
+        $page = new \tool_supporter\output\index_page();
         return $page->export_for_template($renderer);
     }
 
