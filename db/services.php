@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Tool Supporter external services.
+ * tool supporter external services.
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
@@ -26,7 +26,6 @@ $functions = array(
 
     // For each functuon: Which class provides the function?
 
-    //Name of webservice: "tool_supporter"
     'tool_supporter_get_site_info' => array(
         'classname'   => 'tool_supporter\external',
         'methodname'  => 'get_site_info',
@@ -36,4 +35,3 @@ $functions = array(
         'capabilities'=> '',
     )
 );
-

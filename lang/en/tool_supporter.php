@@ -22,5 +22,5 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pagetitle'] = 'Page with all the awesome.';
-$string['pluginname'] = 'Tool Supporter';
+$string['pagetitle'] = 'This is the tool for supporters!';
+$string['pluginname'] = 'Supporter';

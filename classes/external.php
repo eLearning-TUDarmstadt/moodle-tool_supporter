@@ -16,8 +16,6 @@
 
 /**
  * This is the external API for this plugin.
-
- "Geklauter Webservice"
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
@@ -39,7 +37,7 @@ use invalid_parameter_exception;
 /**
  * This is the external API for this plugin.
  *
- * @copyright  2015 Damyon Wiese
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class external extends external_api {
@@ -56,9 +54,9 @@ class external extends external_api {
     /**
      * Expose to AJAX
      * @return boolean
+     *
+     * By default this is turned off - security issues
      */
-
-     // By default this is turned off - security issues
     public static function get_site_info_is_allowed_from_ajax() {
         return true;
     }

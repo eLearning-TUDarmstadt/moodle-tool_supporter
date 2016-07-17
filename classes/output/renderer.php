@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderer class for Tool Supporter.
+ * Renderer class for tool supporter.
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 use plugin_renderer_base;
 
 /**
- * Renderer class for Tool Supporter.
+ * Renderer class for tool supporter.
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
@@ -43,7 +43,7 @@ class renderer extends plugin_renderer_base {
      *
      * @return string html for the page
      */
-    public function render_index_page($page) {   //index_page: type of renderable; "render" muss immer davor
+    public function render_index_page($page) { //index_page: type of renderable; "render" muss immer davor
         $data = $page->export_for_template($this);
         return parent::render_from_template('tool_supporter/index_page', $data);
     }

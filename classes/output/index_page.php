@@ -32,7 +32,7 @@ use stdClass;
 
 /**
  * Class containing data for index page
- Gets passed to the renderer
+ * Gets passed to the renderer
  *
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -45,7 +45,7 @@ class index_page implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        //"Flattens" the data
+        // "Flattens" the data
         $data = \core_webservice_external::get_site_info();
         $data['currenttime'] = userdate(time()) . ' ' . rand();
 

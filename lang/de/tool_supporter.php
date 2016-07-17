@@ -15,27 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is the only page in this plugin.
+ * Strings for component 'tool_supporter', language 'de'
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(__DIR__ . '/../../../config.php');
 
-$title = get_string('pagetitle', 'tool_supporter');
-$pagetitle = get_string('pagetitle', 'tool_supporter');
-// Set up the page.
-$url = new moodle_url("/admin/tool/supporter/index.php");
-
-$PAGE->set_context(context_system::instance());
-$PAGE->set_url($url);
-$PAGE->set_title($title);
-$PAGE->set_heading($title);
-$output = $PAGE->get_renderer('tool_supporter');
-echo $output->header();
-
-$page = new \tool_supporter\output\index_page();
-echo $output->render($page);
-
-echo $output->footer();
+$string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
+$string['pluginname'] = 'Supporter';

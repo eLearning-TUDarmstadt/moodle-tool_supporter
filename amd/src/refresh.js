@@ -20,13 +20,13 @@
  *
  * @module     tool_supporter/refresh
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider <damyon@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) { 
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
     return /** @alias module:tool_supporter/refresh */ {
-        
+
         /**
          * Refresh the middle of the page!
          *
@@ -38,7 +38,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 // First - reload the data for the page.
                 var promises = ajax.call([{
-                    methodname: 'tool_supporter',
+                    methodname: 'tool_supporter_get_site_info',
                     args:{ }
                 }]);
                 promises[0].done(function(data) {
