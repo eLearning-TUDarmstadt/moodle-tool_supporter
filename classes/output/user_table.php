@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderer class for tool supporter.
+ * Class containing data for index page
  *
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
@@ -23,34 +23,31 @@
  */
 namespace tool_supporter\output;
 
-defined('MOODLE_INTERNAL') || die;
+require_once("$CFG->dirroot/user/externallib.php");
 
-use plugin_renderer_base;
+use renderable;
+use templatable;
+use renderer_base;
+use stdClass;
 
 /**
- * Renderer class for tool supporter.
+ * Class containing data for index page
+ * Gets passed to the renderer
  *
- * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class renderer extends plugin_renderer_base {
+class user_table implements renderable, templatable {
 
     /**
-     * Defer to template.
+     * Export this data so it can be used as the context for a mustache template.
      *
-     * @param index_page $page
-     *
-     * @return string html for the page
+     * @return stdClass
      */
-    public function render_index_page($page) { //index_page: type of renderable; "render" muss immer davor
-        $data = $page->export_for_template($this);
-        return parent::render_from_template('tool_supporter/index_page', $data);
+    public function export_for_template(renderer_base $output) {
+        // "Flattens" the data
+        $data = \core_user_external::get_users();
+        echo "<pre>" . print_r($data, true) . "</pre>";
+        return $data;
     }
-
-    public function render_user_table($user) { //index_page: type of renderable; "render" muss immer davor
-        $data = $user->export_for_template($this);
-        return parent::render_from_template('tool_supporter/user_table', $data);
-    }
-
 }

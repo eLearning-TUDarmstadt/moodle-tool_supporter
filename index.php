@@ -35,7 +35,9 @@ $PAGE->set_heading($title);
 $output = $PAGE->get_renderer('tool_supporter');
 echo $output->header();
 
-$page = new \tool_supporter\output\index_page();
-echo $output->render($page);
+//$page = new \tool_supporter\output\index_page();
+$user = new \tool_supporter\output\user_table();
+//echo $output->render($page);
+echo $output->render($user);
 
 echo $output->footer();
