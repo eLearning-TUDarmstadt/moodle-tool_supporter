@@ -11,13 +11,13 @@ and
 https://www.youtube.com/watch?v=UTePjRZqAg8
 
 ### Technologies which should be used:
-template
-web services
-amd (require.js)
-	- ajax
-	- jquery
-	- grunt
-XMLDB
+*template
+*web services
+*amd (require.js)
+	* ajax
+	* jquery
+	* grunt
+*XMLDB
 
 ### Webservices
 http://127.0.0.1/admin/webservice/documentation.php
