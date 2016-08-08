@@ -18,13 +18,13 @@
  * Class containing data for index page
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
 
 require_once("$CFG->dirroot/webservice/externallib.php");
-//require_once("$CFG->dirroot/user/externallib.php");
+require_once("$CFG->dirroot/user/externallib.php");
 
 use renderable;
 use templatable;
@@ -50,7 +50,7 @@ class index_page implements renderable, templatable {
         $data = \core_webservice_external::get_site_info();
         $data['currenttime'] = userdate(time());
         $data['rand'] = rand();
-        //$data = \core_user_external::get_users();
+        $data['users'] = \core_user_external::get_users();
         echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }

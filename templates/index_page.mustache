@@ -24,17 +24,16 @@
     Starting point for an awesome template.
 
 }}
-<div data-region="index-page">
-    <h3>Seitenname: {{sitename}}</h3>
-    <h4>You are: {{fullname}}</h4>
-    <h4>Time is: {{currenttime}}</h4>
-    <h4>Random number: {{rand}}</h4>
-    Hier muss der eigentliche Inhalt rein! <br>
-    <button id="refresh">{{#str}}refresh{{/str}}</button>
-    <input id="input">{{#str}}search{{/str}}</input>
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Supporter</a>
+    <ul class="nav">
+      <li><a href="#">Verwaltung</a></li>
+      <li><a href="#">Statistik</a></li>
+    </ul>
+  </div>
 </div>
-{{#js}}
-    require(['tool_supporter/refresh'], function(refresh) {
-        refresh.refresh();
-    });
-{{/js}}
+
+<div>
+  {{> tool_supporter/user_table}}
+</div>

@@ -18,7 +18,7 @@
  * Renderer class for tool supporter.
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
@@ -48,9 +48,9 @@ class renderer extends plugin_renderer_base {
         return parent::render_from_template('tool_supporter/index_page', $data);
     }
 
-    public function render_user_table($user) { //index_page: type of renderable; "render" muss immer davor
+    /**public function render_user_table($user) { //index_page: type of renderable; "render" muss immer davor
         $data = $user->export_for_template($this);
         return parent::render_from_template('tool_supporter/user_table', $data);
-    }
+    }*/
 
 }

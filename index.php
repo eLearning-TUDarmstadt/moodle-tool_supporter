@@ -18,7 +18,7 @@
  * This is the only page in this plugin.
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(__DIR__ . '/../../../config.php');
@@ -35,9 +35,7 @@ $PAGE->set_heading($title);
 $output = $PAGE->get_renderer('tool_supporter');
 echo $output->header();
 
-//$page = new \tool_supporter\output\index_page();
-$user = new \tool_supporter\output\user_table();
-//echo $output->render($page);
-echo $output->render($user);
+$page = new \tool_supporter\output\index_page();
+echo $output->render($page);
 
 echo $output->footer();
