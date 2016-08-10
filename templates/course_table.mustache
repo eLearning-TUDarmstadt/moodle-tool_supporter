@@ -19,17 +19,33 @@
   Documentation gets here!
   --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
 
-    @template tool_supporter/index_page
+    @template tool_supporter/course_table
 
     Starting point for an awesome template.
 
 }}
-<div class="navbar">
-  <div class="navbar-inner">
-    <a class="brand" href="#">Supporter</a>
-    <ul class="nav">
-      <li><a href="#">Verwaltung</a></li>
-      <li><a href="#">Statistik</a></li>
-    </ul>
-  </div>
-</div>
+<form class = "navbar-search pull-left">
+  <input type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
+  <button type="submit" class="btn">Search</button>
+</form>
+
+<table class = "table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>TU-ID</th>
+      <th>Vorname</th>
+      <th>Nachname</th>
+      <th>E-Mail Adresse</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#users}}
+    <tr>
+      <td>{{username}}</td>
+      <td>{{firstname}}</td>
+      <td>{{lastname}}</td>
+      <td>{{email}}</td>
+    </tr>
+    {{/users}}
+  </tbody>
+<table>

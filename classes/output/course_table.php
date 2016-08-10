@@ -23,7 +23,6 @@
  */
 namespace tool_supporter\output;
 
-require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/user/externallib.php");
 
 use renderable;
@@ -38,7 +37,7 @@ use stdClass;
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class index_page implements renderable, templatable {
+class course_table implements renderable, templatable {
 
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -47,11 +46,7 @@ class index_page implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         // "Flattens" the data
-        $data = \core_webservice_external::get_site_info();
-        $data['currenttime'] = userdate(time());
-        $data['rand'] = rand();
-        //$data['users'] = \core_user_external::get_users();
-        echo "<pre>" . print_r($data, true) . "</pre>";
+        $data = \core_user_external::get_users();
         return $data;
     }
 }

@@ -36,6 +36,34 @@ $output = $PAGE->get_renderer('tool_supporter');
 echo $output->header();
 
 $page = new \tool_supporter\output\index_page();
-echo $output->render($page);
+$index = $output->render($page);
+//print( $index_page);
 
-echo $output->footer();
+
+$user = new \tool_supporter\output\user_table();
+$user_table = $output->render($user);
+
+//$course = new \tool_supporter\output\course_table();
+//$course_table = $output->render($course);
+echo $index;
+//echo $user_table;
+
+?>
+
+  <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="row-fluid">
+            <div class"span6">
+              <?php echo $user_table; ?>
+            </div>
+            <div class="span6">
+              <?php echo $user_table; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<?php echo $output->footer(); ?>

@@ -1,0 +1,9 @@
+index_page: Einbinden von user_table über js
+<div data-region = "user_table">
+</div>
+
+ {{#js}}
+  require(['tool_supporter/user_table_load'], function(load){
+    load.load();
+  });
+ {{/js}}
