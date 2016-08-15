@@ -32,19 +32,21 @@
 <table class = "table table-hover table-bordered">
   <thead>
     <tr>
-      <th>TU-ID</th>
-      <th>Vorname</th>
-      <th>Nachname</th>
-      <th>E-Mail Adresse</th>
+      <th>id</th>
+      <th>Name</th>
+      <th>Short name</th>
+      <th>Direct course category</th>
+      <th>Parent course category</th>
     </tr>
   </thead>
   <tbody>
     {{#users}}
     <tr>
-      <td>{{username}}</td>
-      <td>{{firstname}}</td>
-      <td>{{lastname}}</td>
-      <td>{{email}}</td>
+      <td>{{id}}</td>
+      <td>{{fullname}}</td>
+      <td>{{shortname}}</td>
+      <td>{{category}}</td>
+      <td>{{parent_category}}</td>
     </tr>
     {{/users}}
   </tbody>

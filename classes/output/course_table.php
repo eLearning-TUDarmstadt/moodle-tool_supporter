@@ -23,7 +23,8 @@
  */
 namespace tool_supporter\output;
 
-require_once("$CFG->dirroot/user/externallib.php");
+//require_once("$CFG->dirroot/user/externallib.php");
+require_once("$CFG->dirroot/config.php");
 
 use renderable;
 use templatable;
@@ -34,7 +35,7 @@ use stdClass;
  * Class containing data for index page
  * Gets passed to the renderer
  *
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_table implements renderable, templatable {
@@ -44,9 +45,32 @@ class course_table implements renderable, templatable {
      *
      * @return stdClass
      */
+    /**function get_category_name($category){
+      $catgory = $DB->get_record('course_categories', array('id'=> (string)$category ), 'name, parent');
+      $category['parent_category'] = $DB->get_record('course_categories', array('id'=> (string)$category['parent'] ), 'name');
+      echo "<pre>" . print_r($category, true) . "</pre>";
+    }*/
+
     public function export_for_template(renderer_base $output) {
         // "Flattens" the data
-        $data = \core_user_external::get_users();
+        global $DB;
+        $rs = $DB->get_recordset('course', null, null, 'id, fullname, shortname, category' );
+        foreach ($rs as $record) {
+          $record = (array)$record;
+          $category = $DB->get_record('course_categories', array('id'=> $record['category'] ), 'name, parent');
+          $record['category'] = null;
+          $record['parent-category'] = null;
+          if ($category !=null){
+            $parent = $DB->get_record('course_categories', array('id'=> $category->parent ), 'name');
+            $record['category'] = $category->name;
+            if($parent != null){
+              $record['parent-category'] = $parent->name;
+            }
+          }
+          $courses[] = $record;
+        }
+        $data['courses'] = $courses;
+        echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
 }

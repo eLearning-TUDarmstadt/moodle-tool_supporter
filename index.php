@@ -43,8 +43,8 @@ $index = $output->render($page);
 $user = new \tool_supporter\output\user_table();
 $user_table = $output->render($user);
 
-//$course = new \tool_supporter\output\course_table();
-//$course_table = $output->render($course);
+$course = new \tool_supporter\output\course_table();
+$course_table = $output->render($course);
 echo $index;
 //echo $user_table;
 
@@ -52,13 +52,13 @@ echo $index;
 
   <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span12">
+        <div class="span">
           <div class="row-fluid">
-            <div class"span6">
+            <div class"span">
               <?php echo $user_table; ?>
             </div>
-            <div class="span6">
-              <?php echo $user_table; ?>
+            <div class="span">
+              <?php echo $course_table; ?>
             </div>
           </div>
         </div>

@@ -23,7 +23,8 @@
  */
 namespace tool_supporter\output;
 
-require_once("$CFG->dirroot/user/externallib.php");
+//require_once("$CFG->dirroot/user/externallib.php");
+require_once("$CFG->dirroot/config.php");
 
 use renderable;
 use templatable;
@@ -31,10 +32,10 @@ use renderer_base;
 use stdClass;
 
 /**
- * Class containing data for index page
+ * Class containing data for user_table
  * Gets passed to the renderer
  *
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class user_table implements renderable, templatable {
@@ -46,7 +47,15 @@ class user_table implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         // "Flattens" the data
-        $data = \core_user_external::get_users();
+        //$data2 = \core_user_external::get_users();
+        global $DB;
+        $rs = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
+        foreach ($rs as $record) {
+          $users[] = (array)$record;
+        }
+        $rs->close();
+        $data['users'] = $users;
+      //  echo "<pre>" . print_r($data2, true) . "</pre>";
         echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
