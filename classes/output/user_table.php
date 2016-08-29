@@ -23,8 +23,8 @@
  */
 namespace tool_supporter\output;
 
-//require_once("$CFG->dirroot/user/externallib.php");
-require_once("$CFG-> ./externallib.php");
+//require_once($CFG->dirroot . "/user/externallib.php");
+require_once($CFG->dirroot . "/admin/tool/supporter/classes/externallib.php");
 
 
 use renderable;
@@ -49,8 +49,9 @@ class user_table implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         // "Flattens" the data
         $array[] = null;
+        //echo "in export_for_template user_table";
         $data = \tool_supporter_external::get_users($array);
-        //echo "<pre>" . print_r($data, true) . "</pre>";
+      //  echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
 }

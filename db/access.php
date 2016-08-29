@@ -22,10 +22,20 @@
  */
 defined ( 'MOODLE_INTERNAL' ) || die ();
 $capabilities = array (
-          'tool_supporter:get_users' => array(
-            'riskbitmask' => ,
+          'tool/supporter:get_users' => array(
+            // 'riskbitmask' => RISK_PERSONAL,
             'captype' => 'write',
-            'contextlevel' => CONTEXT_MODULE,
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes' => array(
+              'manager' => CAP_ALLOW,
+              'coursecreator' => CAP_ALLOW
+            )
+          ),
+
+          'tool/supporter:get_courses' => array(
+            // 'riskbitmask' => RISK_PERSONAL,
+            'captype' => 'write',
+            'contextlevel' => CONTEXT_SYSTEM,
             'archetypes' => array(
               'manager' => CAP_ALLOW,
               'coursecreator' => CAP_ALLOW

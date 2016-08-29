@@ -33,18 +33,18 @@ $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $output = $PAGE->get_renderer('tool_supporter');
-echo $output->header();
 
 $page = new \tool_supporter\output\index_page();
 $index = $output->render($page);
 //print( $index_page);
 
-
 $user = new \tool_supporter\output\user_table();
 $user_table = $output->render($user);
 
-//$course = new \tool_supporter\output\course_table();
-//$course_table = $output->render($course);
+$course = new \tool_supporter\output\course_table();
+$course_table = $output->render($course);
+
+echo $output->header();
 echo $index;
 //echo $user_table;
 
@@ -55,12 +55,10 @@ echo $index;
         <div class"span6">
           <?php echo $user_table; ?>
         </div>
-    <!-- 
         <div class="span6">
          <?php echo $course_table; ?>
-        </div>
+       </div>
       </div>
-    -->
   </div>
 
 

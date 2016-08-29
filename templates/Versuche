@@ -25,7 +25,7 @@ OR prefix_course_categories.path LIKE '/$s'
 )
 
 Datenbank abfrage courses, kumulierte Tabelle: Felder: id, name, visible, parent category, category
-SELECT c.id, c.shortname, c.visible, cat.name AS fb, (SELECT name FROM mdl_course_categories WHERE id = cat.parent) AS semester FROM `mdl_course` c, mdl_course_categories cat WHERE c.category = cat.id
+
 
 
 Course_table.php: Erster Versuch Dtenbankabfrage, kleinteilig, ohne webservice
