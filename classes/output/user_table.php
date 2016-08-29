@@ -24,7 +24,8 @@
 namespace tool_supporter\output;
 
 //require_once("$CFG->dirroot/user/externallib.php");
-require_once("$CFG->dirroot/config.php");
+require_once("$CFG-> ./externallib.php");
+
 
 use renderable;
 use templatable;
@@ -47,16 +48,9 @@ class user_table implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         // "Flattens" the data
-        //$data2 = \core_user_external::get_users();
-        global $DB;
-        $rs = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
-        foreach ($rs as $record) {
-          $users[] = (array)$record;
-        }
-        $rs->close();
-        $data['users'] = $users;
-      //  echo "<pre>" . print_r($data2, true) . "</pre>";
-        echo "<pre>" . print_r($data, true) . "</pre>";
+        $array[] = null;
+        $data = \tool_supporter_external::get_users($array);
+        //echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
 }

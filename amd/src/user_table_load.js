@@ -25,6 +25,8 @@
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+
+
     return /** @alias module:tool_supporter_user_table_laod */ {
 
 
