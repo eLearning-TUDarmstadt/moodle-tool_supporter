@@ -51,7 +51,7 @@ class index_page implements renderable, templatable {
         $data['currenttime'] = userdate(time());
         $data['rand'] = rand();
         //$data['users'] = \core_user_external::get_users();
-        echo "<pre>" . print_r($data, true) . "</pre>";
+        //echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
 }

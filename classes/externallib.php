@@ -37,7 +37,7 @@ class tool_supporter_external extends external_api {
       );
  }
 
- public static function get_users($array){
+ public static function get_users(){
    global $DB;
 
    // now security checks
@@ -77,7 +77,7 @@ class tool_supporter_external extends external_api {
       );
  }
 
- public static function get_courses($array){
+ public static function get_courses(){
    global $DB;
 
    // now security checks

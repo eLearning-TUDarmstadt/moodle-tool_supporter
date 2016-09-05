@@ -27,31 +27,46 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
 
-    return /** @alias module:tool_supporter_user_table_laod */ {
+    return /** @alias module:tool_supporter_table_search */ {
 
 
         /**
-         * Refresh the middle of the page!
+         * Refresh the table!
          *
          * @method load
          */
-        load: function() {
+        search: function() {
           console.log("Hello World");
-            // Add a click handler to the button.
+            /**
               var promises = ajax.call([{
                   //methodname: '\core_user_external::get_users()',
                   methodname: 'core_user_get_users',
                   args:{ }
                 }]);
-                promises[0].done(function(data) {
+                */
+                var $rows = $('#table tr');
+                $('#search').keyup(function() {
+                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+
+                    $rows.hide().filter(function() {
+                      var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                      var matchesSearch = true;
+                      $(val).each(function(index, value) {
+                        matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
+                      });
+                      return matchesSearch;
+                    }).show();
+                  });
+
+              //  promises[0].done(function(data) {
 
                     // We have the data - lets re-render the template with it.
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
                         $('[data-region="user_table"]').replaceWith(html);
                         // And execute any JS that was in the template.
                         templates.runTemplateJS(js);
-                    }).fail(notification.exception);
-                }).fail(notification.exception);
-            }
+                //    }).fail(notification.exception);
+                //}).fail(notification.exception);
+                    };
           };
         });
