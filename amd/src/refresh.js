@@ -52,14 +52,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }).fail(notification.exception);
             });
 
-            $('[data-region="index-page"] #search').on('change', function() {
+        /*    $('[data-region="index-page"] #search').on('change', function() {
               templates.render('tool_supporter/index_page', data).done(function(html, js) {
                 $('[data-region='index-page']').replaceWith("got replaced");
                 templates.runTemplateJS(js);
               }).fail(notification.exception);
-            }
-
-
+            });*/
         }
     };
 });

@@ -1,3 +1,5 @@
+/*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
+/*global define */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,55 +20,76 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     tool_supporter/user_table_load
+ * @module     tool_supporter/table_search
  * @package    tool_supporter
  * @copyright  2016 Klara Saary <damyon@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+//define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+define(['jquery'], function($) {
+  /*
+    var users;
+
+    var getUser = function(){
+      var d = $.Deferred();
+      var promises = ajax.call([{
+				methodname: 'tool_supporters_get_users',
+				args: { },
+				fail: function (e) {
+					//notification.exception;
+					console.log(e);
+					d.reject();
+				}
+      }]);
+
+      promises[0].done(function(data){
+        users = data;
+      });
+      return d.promises();
+    };
 
 
-    return /** @alias module:tool_supporter_table_search */ {
+
+    var render = function(data){
+      var d = $.Deferred();
+      templates.render('tool_supporter/user_table', data).done(function(html, js) {
+          $('[data-region="user_table"]').replaceWith(html);
+          // And execute any JS that was in the template.
+          templates.runTemplateJS(js);
+        }).fail(notification.exception);
+    };
+*/
 
 
-        /**
-         * Refresh the table!
-         *
-         * @method load
-         */
-        search: function() {
-          console.log("Hello World");
-            /**
-              var promises = ajax.call([{
-                  //methodname: '\core_user_external::get_users()',
-                  methodname: 'core_user_get_users',
-                  args:{ }
-                }]);
-                */
-                var $rows = $('#table tr');
-                $('#search').keyup(function() {
-                    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+    var search = function(){
+      console.log("Hello_search");
+      var $rows = $('#body tr');
+      //$('#searchUserInput').keyup(function() {
+          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+                reg = new RegExp(val, 'i'),
+                text;
 
-                    $rows.hide().filter(function() {
-                      var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-                      var matchesSearch = true;
-                      $(val).each(function(index, value) {
-                        matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
-                      });
-                      return matchesSearch;
-                    }).show();
-                  });
+            $rows.show().filter(function() {
+                 text = $(this).text().replace(/\s+/g, ' ');
+                 return !reg.test(text);
+            }).hide();
+      //  });
+    };
 
-              //  promises[0].done(function(data) {
 
-                    // We have the data - lets re-render the template with it.
-                    templates.render('tool_supporter/user_table', data).done(function(html, js) {
-                        $('[data-region="user_table"]').replaceWith(html);
-                        // And execute any JS that was in the template.
-                        templates.runTemplateJS(js);
-                //    }).fail(notification.exception);
-                //}).fail(notification.exception);
-                    };
-          };
-        });
+    return /** @alias module:tool_supporter/table_search */ {
+          /**
+           * Refresh the table!
+           *
+           * @method userSearchEvent
+           */
+          userSearchEvent: function() {
+            //var $rows = $('#table tr');
+            $('#userSearchInput').keyup(function() {
+              console.log("In keyup Event");
+              search();
+            });
+          }
+        };
+  });
