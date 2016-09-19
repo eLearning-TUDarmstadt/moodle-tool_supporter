@@ -22,6 +22,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ $services = array(
+       'supporterservice' => array(                                                //the name of the web service
+           'functions' => array ('tool_supporter_create_course'), //web service functions of this service
+           'requiredcapability' => '',                //if set, the web service user need this capability to access
+                                                                               //any function of this service. For example: 'some/capability:specified'
+           'restrictedusers' =>0,                                             //if enabled, the Moodle administrator must link some user to this service
+                                                                               //into the administration
+           'enabled'=>1,                                                       //if enabled, the service can be reachable on a default installation
+           'ajax' => true
+           )
+   );
+
 $functions = array(
 
     // For each functuon: Which class provides the function?
@@ -33,5 +45,14 @@ $functions = array(
         'description' => 'Return some site info.',
         'type'        => 'read',
         'capabilities'=> '',
+    ),
+    'tool_supporter_create_course' => array(         //web service function name
+        'classname'   => 'tool_supporter\external',  //class containing the external function
+        'methodname'  => 'create_course',          //external function name
+        'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
+        'description' => 'Create a course',    //human readable description of the web service function
+        'type'        => 'write',                  //database rights of the web service function (read, write)
+        'ajax'        => true
+        //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
     )
 );
