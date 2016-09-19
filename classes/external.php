@@ -81,4 +81,77 @@ class external extends external_api {
         $result->keys['currenttime'] = new external_value(PARAM_RAW, 'the current time');
         return $result;
     }
+
+          /**
+           * Create a coruse.
+           *
+           * @return external_function_parameters
+           */
+          public static function create_course_parameters($shortname, $fullname) {
+            /*
+            Hier müssen später noch rein: categoryid und visible
+            */
+            return new external_function_parameters ( array (
+                // an external_description can be: external_value, external_single_structure or external_multiple structure
+                'shortname' => new external_value ( PARAM_TEXT, 'The short name for the course to be created. Must not be taken.' ),
+                'fullname' => new external_value ( PARAM_TEXT, 'The full name for the course to be created.' )
+            ) );
+          }
+
+          /**
+           * Wrap the core function create_course.
+           */
+          public static function create_course($shortname, $fullname) {
+
+            /** aus Hackfest Beispiel
+              global $PAGE;
+              $renderer = $PAGE->get_renderer('tool_supporter');
+              $page = new \tool_supporter\output\create_course();
+              return $page->export_for_template($renderer);
+              */
+
+
+
+              global $DB;
+
+              console.log("Something");
+              alert("Something");
+
+              /*
+              $record = new stdClass();
+              $record -> shortname = $shortname;
+              $record -> shortname = $fullname;
+
+              /*
+
+              // Parameters validation
+              $params = self::validate_parameters ( self::create_course_parameters (), array ('shortname' => $shortname, 'fullname' => $fullname) );
+              if ($DB->record_exists('course', array('shortname' => $shortname))) {
+                  console.log("There was an error! The shortname is already taken! Quit and display ");
+                  alert("There was an error! The shortname is already taken! Quit and display ");
+              }
+              console.log("Shortname was not yet taken. Create the course now!");
+
+              /*
+
+              $DB->insert_record($table, $dataobject, $returnid=true, $bulk=false)
+
+              $record = new stdClass();
+              $record->name         = 'overview';
+              $record->displayorder = '10000';
+              $lastinsertid = $DB->insert_record('quiz_report', $record, false);
+
+              */
+
+              return 70; //Dummy; später: id des Kurses, der angelegt wurde
+          }
+
+          /**
+           * Wrap the core function course_create_course
+           *
+           * @return external_description
+           */
+          public static function create_course_returns() {
+              return new external_value(PARAM_INT, 'The course id that was created');
+          }
 }

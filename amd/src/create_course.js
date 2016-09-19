@@ -18,19 +18,19 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     tool_supporter/refresh
+ * @module     tool_supporter/create_course
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider <damyon@moodle.com>
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-    return /** @alias module:local_hackfest/refresh */ {
+    return /** @alias module:tool_supporter/create_course */ {
 
         /**
-         * Refresh the middle of the page!
+         * Create a course
          *
-         * @method refresh
+         * @method create_course
          */
         create_course: function() {
             // Add a click handler to the button.
@@ -40,7 +40,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var fullname = $('#short_name_input').attr('value');
                 console.log("Kurzer Name: " + shortname);
                 console.log("Voller Name: " + fullname);
-                alert(fullname);
 
                 var promises = ajax.call([{
                   // Hier muss ein eigener Webservice in externallib geschrieben werden, den man von AJAX aus abrufen kann
@@ -48,26 +47,34 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     methodname: 'webservice_external_course_create_courses',
                     args:{"fullname": "fullname", "shortname": "shortname", "categoryid": 0}
                     */
-                    methodname: 'mod_supporter_create_course',
+                    methodname: 'tool_supporter_create_course',
                     args: {
                       shortname: shortname,
-                      fullname: fullname
+                      fullname: fullname,
                     }
                 }]);
-                promises[0].done(function(data) {
 
+                promises[0].done(function(data) {
+                  console.log("promise is done with return id: " + data)
                     // We have the data - lets re-render the template with it.
+
+                    /*
+                    !!! Hier muss später das Template rein, mit dem man einen ausgewählten Kurs anzeigen lassen kann, z.B. "Show course(id)"
+
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
-                        $('[data-region="create_course"]').replaceWith('some html that sbahdsad');
+                      console.log("Return id: " + html);
+
+                        $('[data-region="create_course"]').replaceWith(html);
                         // And execute any JS that was in the template.
 
                         //JS: select course which was created
                         templates.runTemplateJS(js);
-                    }).fail(notification.exception);
-                }).fail(notification.exception);
 
+                    }).fail(notification.exception);
+
+                    */
+                }).fail(notification.exception);
             });
         }
-
     };
 });
