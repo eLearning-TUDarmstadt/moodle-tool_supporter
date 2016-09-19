@@ -26,55 +26,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
-//define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 define(['jquery'], function($) {
-  /*
-    var users;
 
-    var getUser = function(){
-      var d = $.Deferred();
-      var promises = ajax.call([{
-				methodname: 'tool_supporters_get_users',
-				args: { },
-				fail: function (e) {
-					//notification.exception;
-					console.log(e);
-					d.reject();
-				}
-      }]);
-
-      promises[0].done(function(data){
-        users = data;
-      });
-      return d.promises();
-    };
-
-
-
-    var render = function(data){
-      var d = $.Deferred();
-      templates.render('tool_supporter/user_table', data).done(function(html, js) {
-          $('[data-region="user_table"]').replaceWith(html);
-          // And execute any JS that was in the template.
-          templates.runTemplateJS(js);
-        }).fail(notification.exception);
-    };
-*/
-
-
-    var search = function(){
-      console.log("Hello_search");
-      var $rows = $('#body tr');
-      //$('#searchUserInput').keyup(function() {
-          var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-                reg = new RegExp(val, 'i'),
-                text;
-
-            $rows.show().filter(function() {
-                 text = $(this).text().replace(/\s+/g, ' ');
-                 return !reg.test(text);
-            }).hide();
-      //  });
+//Hides all rows, which don't match which the search input. The search-function is case insensitive and also recognizes inner word parts
+    var search = function(element, tableID){
+      var rows = $(tableID + ' tr');
+      var val = $.trim($(element).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+      rows.hide().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+          var matchesSearch = true;
+          $(val).each(function(index, value) {
+            matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
+          });
+          return matchesSearch;
+        }).show();
     };
 
 
@@ -83,12 +48,13 @@ define(['jquery'], function($) {
            * Refresh the table!
            *
            * @method userSearchEvent
+           * @param searchInputID, tableID
+           * searchInputID: ID of searchfield
+           * tableID: ID of the table or part of the table you want to filter
            */
-          userSearchEvent: function() {
-            //var $rows = $('#table tr');
-            $('#userSearchInput').keyup(function() {
-              console.log("In keyup Event");
-              search();
+          userSearchEvent: function(searchInputID,tableID) {
+            $(searchInputID).keyup(function() {
+              search(this,tableID);
             });
           }
         };

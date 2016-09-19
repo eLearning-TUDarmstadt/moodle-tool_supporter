@@ -26,9 +26,10 @@
 }}
 
 <form class = "navbar-search pull-left">
-  <input id="userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
+  <input id="courseSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
   <button type="submit" class="btn">Search</button>
 </form>
+
 <div class="table-responsive">
 <table class = "table-condensed table-striped table-hover table-bordered">
   <thead>
@@ -40,7 +41,7 @@
       <th>visible</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="courseTableBody">
     {{#courses}}
     <tr>
       <td>{{id}}</td>
@@ -53,3 +54,9 @@
   </tbody>
 <table>
 </div>
+
+{{#js}}
+ require(['tool_supporter/table_search'], function(search){
+   search.userSearchEvent('#courseSearchInput','#courseTableBody');
+ });
+{{/js}}

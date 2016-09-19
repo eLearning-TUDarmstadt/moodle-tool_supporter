@@ -31,7 +31,7 @@
 </form>
 
 <div class="table-responsive" data-region="user_table">
-<table class = "table-condensed table-hover table-bordered" id = "table">
+<table class = "table-condensed table-hover table-bordered">
   <thead>
     <tr>
       <th>id</th>
@@ -41,7 +41,7 @@
       <th>E-Mail Adresse</th>
     </tr>
   </thead>
-  <tbody id = "body">
+  <tbody id = "userTableBody">
     {{#users}}
     <tr>
       <td>{{id}}</td>
@@ -57,7 +57,6 @@
 
 {{#js}}
  require(['tool_supporter/table_search'], function(search){
-   console.log("Guten tag");
-   search.userSearchEvent();
+   search.userSearchEvent('#userSearchInput','#userTableBody');
  });
 {{/js}}
