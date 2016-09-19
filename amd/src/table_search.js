@@ -52,7 +52,7 @@ define(['jquery'], function($) {
            * searchInputID: ID of searchfield
            * tableID: ID of the table or part of the table you want to filter
            */
-          userSearchEvent: function(searchInputID,tableID) {
+          searchEvent: function(searchInputID,tableID) {
             $(searchInputID).keyup(function() {
               search(this,tableID);
             });

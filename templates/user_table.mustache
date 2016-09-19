@@ -26,7 +26,7 @@
 }}
 
 <form class = "navbar-search pull-left">
-  <input id="userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
+  <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
   <button type="submit" class="btn">Search</button>
 </form>
 
@@ -41,7 +41,7 @@
       <th>E-Mail Adresse</th>
     </tr>
   </thead>
-  <tbody id = "userTableBody">
+  <tbody id = "{{uniqid}}-userTableBody">
     {{#users}}
     <tr>
       <td>{{id}}</td>
@@ -57,6 +57,6 @@
 
 {{#js}}
  require(['tool_supporter/table_search'], function(search){
-   search.userSearchEvent('#userSearchInput','#userTableBody');
+   search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTableBody');
  });
 {{/js}}
