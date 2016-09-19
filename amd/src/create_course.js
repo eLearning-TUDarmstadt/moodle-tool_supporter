@@ -35,7 +35,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         create_course: function() {
             // Add a click handler to the button.
             $('#create_course_button').on('click', function() {
-                console.log("Der Button wurde geklickt!")
+                console.log("Der Button wurde geklickt!");
                 var shortname = $('#full_name_input').attr('value');
                 var fullname = $('#short_name_input').attr('value');
                 console.log("Kurzer Name: " + shortname);
