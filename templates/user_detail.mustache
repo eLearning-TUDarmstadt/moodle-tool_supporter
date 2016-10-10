@@ -1,0 +1,111 @@
+<!--View details after clicking on a user in user table.  -->
+<div class = "container">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#">{{userName}}</a>
+      <ul class="nav">
+        <!-- Place for buttons like "Show User", "close detail information"-->
+      </ul>
+    </div>
+  </div>
+<!--Show user details  -->
+  <div class="table-responsive">
+    <table class = "table borderless">
+      <tbody>
+        {{#userDetails}}
+        <tr>
+          <th>ID</th>
+          <td>{{id}}</td>
+        </tr>
+        <tr>
+          <th>TU-ID</th>
+          <td>{{username}}</td>
+        </tr>
+        <tr>
+          <th>Vorname</th>
+          <td>{{firstname}}</td>
+        </tr>
+        <tr>
+          <th>Nachname</th>
+          <td>{{lastname}}</td>
+        </tr>
+        <tr>
+          <th>E-Mail Adresse</th>
+          <td>{{email}}</td>
+        </tr>
+        <tr>
+          <th>Erster Zugriff</th>
+          <td>{{firstLog}}</td>
+        </tr>
+        <tr>
+          <th>Letzter Zugriff</th>
+          <td>{{lastLog}}</td>
+        </tr>
+        <tr>
+          <th>Letzter Login</th>
+          <td>{{lastLogin}}</td>
+        </tr>
+        {{/userDetails}}
+      </tbody>
+    <table>
+  </div>
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#">Kurse</a>
+      <ul class="nav">
+        <li class="dropdown">
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">
+            Semester
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            {{#semesters}}
+            <li><a href="#"> {{name}}</a></li>
+            {{/semesters}}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">
+            Fachbereich
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            {{#fachbereiche}}
+            <li><a href="#"> {{name}}</a></li>
+            {{/fachbereiche}}
+          </ul>
+        </li>
+        <form class ="navbar-search">
+          <input id="{{uniqid}}-userCourseSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+        </form>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+  <table class = "table-condensed table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>FB (direct course category)</th>
+        <th>Semester</th>
+        <th>visible</th>
+      </tr>
+    </thead>
+    <tbody id="{{uniqid}}-userCourseTableBody">
+      {{#courses}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{fullname}}</td>
+        <td>{{fb}}</td>
+        <td>{{semester}}</td>
+        <td>{{visible}}</td>
+      </tr>
+      {{/courses}}
+    </tbody>
+  <table>
+  </div>
+
+</div>
