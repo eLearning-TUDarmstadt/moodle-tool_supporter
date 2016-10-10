@@ -1,0 +1,117 @@
+<!--View details after clicking on a course in course table.  -->
+<div class = "container">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#">Kursinformationen</a>
+      <ul class="nav">
+        <!-- Place for buttons like "Show Course", "close detail information", "delete Course"-->
+      </ul>
+    </div>
+  </div>
+<!--Show course details  -->
+  <div class="table-responsive">
+    <table class = "table borderless table-striped">
+      <tbody>
+        {{#courseDetails}}
+        <tr>
+          <th>Kurs-ID</th>
+          <td>{{id}}</td>
+        </tr>
+        <tr>
+          <th>Kurzer Kursname</th>
+          <td>{{shortname}}</td>
+        </tr>
+        <tr>
+          <th>Vollständiger Kursname</th>
+          <td>{{fullname}}</td>
+        </tr>
+        <tr>
+          <th>Sichtbar</th>
+          <td>{{visible}}</td>
+        </tr>
+        <tr>
+          <th>Kurs-Pfad</th>
+          <td>{{pfad}}</td>
+        </tr>
+        <tr>
+          <th>Teilnehmer_innen</th>
+          <td>{{enroledUsers}}</td>
+        </tr>
+        {{#roles}}
+        <tr>
+          <th>{{roleName}}</th>
+          <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
+        </tr>
+        {{/roles}}
+        {{/courseDetails}}
+      </tbody>
+    <table>
+  </div>
+
+  <div class="navbar">
+    <div class = "navbar-inner">
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a data-toggle="pill" href="#CoursePill_1">Eingeschriebene Nutzer_innen</a></li>
+        <li><a data-toggle="pill" href="#CoursePill_2">Aktivitäten</a></li>
+      </ul>
+      <form class ="navbar-search">
+        <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+      </form>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div id="CoursePill_1" class="tab-pane fade in active">
+      <!--table of users in this course-->
+      <div class="table-responsive">
+        <table class = "table table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>TU-ID</th>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>Rolle</th>
+            </tr>
+          </thead>
+          <tbody id = "{{uniqid}}-userInCourse">
+            {{#users}}
+            <tr>
+              <td>{{id}}</td>
+              <td>{{username}}</td>
+              <td>{{firstname}}</td>
+              <td>{{lastname}}</td>
+              <td>{{role}}</td>
+            </tr>
+            {{/users}}
+          </tbody>
+        <table>
+      </div>
+    </div>
+    <div id="CoursePill_2" class="tab-pane fade">
+      <!--table of activites in this course-->
+      <div class="table-responsive">
+        <table class = "table table-striped">
+          <thead>
+            <tr>
+              <th>Name des Abschnitts</th>
+              <th>Aktivität</th>
+              <th>Name</th>
+              <th>Sichtbar</th>
+            </tr>
+          </thead>
+          <tbody id = "{{uniqid}}-activityInCourse">
+            {{#activities}}
+            <tr>
+              <td>{{section}}</td>
+              <td>{{activty}}</td>
+              <td>{{name}}</td>
+              <td>{{visibility}}</td>
+            </tr>
+            {{/activities}}
+          </tbody>
+        <table>
+      </div>
+    </div>
+  </div>
+</div>
