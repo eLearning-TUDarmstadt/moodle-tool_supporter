@@ -30,7 +30,7 @@
   <button type="submit" class="btn">Search</button>
 </form>
 
-<div class="table-responsive" data-region="user_table">
+<div class="table-responsive">
 <table class = "table-condensed table-hover table-bordered">
   <thead>
     <tr>
@@ -41,7 +41,7 @@
       <th>E-Mail Adresse</th>
     </tr>
   </thead>
-  <tbody id = "{{uniqid}}-userTableBody">
+  <tbody id = "{{uniqid}}-userTableBody" data-region="user_table_body">
     {{#users}}
     <tr>
       <td>{{id}}</td>
