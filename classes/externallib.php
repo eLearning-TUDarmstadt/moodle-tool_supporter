@@ -95,4 +95,43 @@ class tool_supporter_external extends external_api {
     $data['courses'] = $courses;
     return $data;
   }
+
+ public static function get_course_info_parameters(){
+    return new external_function_parameters(
+             array(
+                 'courseID' => new external_value(PARAM_RAW, 'id of course you want to show')
+             )
+     );
+
+  }
+
+ public static function get_course_info_returns(){
+   return new external_multiple_structure(
+      new external_single_structure(
+        array(
+          'id' => new external_value(PARAM_INT, 'id of course'),
+          'semester' => new external_value(PARAM_RAW, 'parent category'),
+          'FB' => new external_value(PARAM_RAW,'course category'),
+          'shortname' => new external_value(PARAM_RAW, 'shortname of course')
+          'fullname' => new external_value(PARAM_RAW, 'course name'),
+          'visible' => new external_value(PARAM_RAW, 'Is the course visible?')
+          'path' => new external_value(PARAM_RAW, 'path of course')
+          'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
+        )
+      )
+      'roles' => new external_multiple_structure(
+          new external_single_structure(
+          array(
+            'roleName' => new external_value(PARAM_RAW, 'name of one role in course')
+            'roleNumber' => new external_value(PARAM_INT, 'number of participant with role xy')
+          )
+        )
+      )
+    );
+  }
+
+ public static function get_course_info(){
+
+ }
+
 }
