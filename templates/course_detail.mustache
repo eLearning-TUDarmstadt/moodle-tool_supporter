@@ -61,7 +61,7 @@
   </div>
 
   <div class="tab-content">
-    <div id="CoursePill_1" class="tab-pane fade in active">
+    <div id="CoursePill_1" class="tab-pane fade active in">
       <!--table of users in this course-->
       <div class="table-responsive">
         <table class = "table table-striped">
@@ -104,7 +104,7 @@
             {{#activities}}
             <tr>
               <td>{{section}}</td>
-              <td>{{activty}}</td>
+              <td>{{activity}}</td>
               <td>{{name}}</td>
               <td>{{visibility}}</td>
             </tr>
@@ -115,3 +115,18 @@
     </div>
   </div>
 </div>
+
+{{#js}}
+require(['jquery','tool_supporter/table_search'], function($, search) {
+  var tableID;
+  //selecting the active table by selecting the active tab
+  $('a[data-toggle = "pill"]').on('shown', function(e){
+    var activeTab = e.target.getAttribute('href');
+    if (activeTab = "#CoursePill_1")
+      tableID = "{{uniqid}}-userInCourse";
+    if else (activeTab = "#CoursePill_2")
+        tableID = "{{uniqid}}-activityInCourse";
+  });
+  search.searchEvent('#{{uniqid}}-courseDetailSearch','#tableID');
+});
+{{/js}}
