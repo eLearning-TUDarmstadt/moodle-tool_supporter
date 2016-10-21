@@ -18,53 +18,55 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     tool_supporter/create_course
+ * @module     tool_supporter/create_new_course
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-    return /** @alias module:tool_supporter/create_course */ {
+    return /** @alias module:tool_supporter/create_new_course */ {
 
         /**
          * Create a course
          *
-         * @method create_course
+         * @method create_new_course
          */
-        create_course: function() {
-            // Add a click handler to the button.
-            $('#create_course_button').on('click', function() {
-                console.log("Der Button wurde geklickt!");
-                var shortname = $('#full_name_input').attr('value');
-                var fullname = $('#short_name_input').attr('value');
-                console.log("Kurzer Name: " + shortname);
+        create_new_course: function() {
+            $('#create_new_course_button').on('click', function() {
+
+                /*
+                var shortnameinput = $('#new_course_full_name_input')[0].value;
+                var fullname = $('#new_course_short_name_input')[0].value;
+                var visible = $("#new_course_is_visible").is(":checked");
+                console.log("Kurzer Name: " + shortnameinput);
                 console.log("Voller Name: " + fullname);
+                console.log("Sichtbar: " + visible);
+                */
 
                 var promises = ajax.call([{
-                  // Hier muss ein eigener Webservice in externallib geschrieben werden, den man von AJAX aus abrufen kann
-                    /**
-                    methodname: 'webservice_external_course_create_courses',
-                    args:{"fullname": "fullname", "shortname": "shortname", "categoryid": 0}
-                    */
-                    methodname: 'tool_supporter_create_course',
+                    methodname: 'tool_supporter_create_new_course',
                     args: {
-                      shortname: shortname,
-                      fullname: fullname,
+                      shortname: $('#new_course_full_name_input')[0].value,
+                      fullname: $('#new_course_short_name_input')[0].value,
+                      visible: $("#new_course_is_visible").is(":checked"),
+                      categoryid: 2
                     }
                 }]);
 
                 promises[0].done(function(data) {
-                  console.log("promise is done with return id: " + data)
+                  console.log("promise is done with return data: ")
+                  console.log(data);
+                  alert("Der Kurs mit der ID " + data + "wurde erstellt!");
                     // We have the data - lets re-render the template with it.
 
                     /*
-                    !!! Hier muss später das Template rein, mit dem man einen ausgewählten Kurs anzeigen lassen kann, z.B. "Show course(id)"
+                    !!! Hier muss später das Template rein, mit dem man einen ausgewählten Kurs anzeigen lassen kann, z.B. "Show course(id) !!!!"
 
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
                       console.log("Return id: " + html);
 
-                        $('[data-region="create_course"]').replaceWith(html);
+                        $('[data-region="create_new_course"]').replaceWith(html);
                         // And execute any JS that was in the template.
 
                         //JS: select course which was created

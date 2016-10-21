@@ -42,7 +42,7 @@ $capabilities = array (
             )
           ),
 
-          'tool/supporter:create_course' => array(
+          'tool/supporter:create_new_course' => array(
             // 'riskbitmask' => RISK_PERSONAL,
             'captype' => 'write',
             'contextlevel' => CONTEXT_SYSTEM,

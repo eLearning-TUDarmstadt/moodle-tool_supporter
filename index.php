@@ -48,18 +48,21 @@ echo $output->header();
 echo $index;
 //echo $user_table;
 
+$create_new_course = new \tool_supporter\output\create_new_course();
+echo $output->render($create_new_course);
+
 ?>
 
-  <div class="container-fluid">
-      <div class="row-fluid">
-        <div class"span6">
-          <?php echo $user_table; ?>
-        </div>
-        <div class="span6">
-         <?php echo $course_table; ?>
-       </div>
+<div class="container-fluid">
+    <div class="row-fluid">
+      <div class"span6">
+        <?php echo $user_table; ?>
       </div>
-  </div>
+      <div class="span6">
+       <?php echo $course_table; ?>
+     </div>
+    </div>
+</div>
 
 
 <?php echo $output->footer(); ?>
