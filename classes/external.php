@@ -123,28 +123,6 @@ class external extends external_api {
               $data->fullname = $params ['fullname'];
               $data->category = $params ['categoryid'];
               $data->visible = $params ['visible'];
-              // ToDo: startdate auf 1.4. oder 1.10. stellen
-              $data->startdate = time();
-
-              /*
-              $month = 0;
-              $year = 0;
-              if (strpos($str, 'WiSe') !== FALSE)
-                {
-                 $month = 10;
-                 $array_after_semester = explode('WiSe', $shortname); //Everything after the semester
-                 $year = substr($array_after_semester[1], 1, 4); //only the semester year
-                }
-                else if (strpos($str, 'SoSe') !== FALSE)
-                {
-                 $month = 4;
-                 $array_after_semester = explode('WiSe', $shortname); //Everything after the semester
-                 $year = substr($array_after_semester[1], 1, 4); //only the semester year
-                }
-              mktime(0, 0, 0, $month, 1, $year) //hour, minute, second, month, day, year
-              */
-
-              //Input Validation
 
               if (trim($params['shortname']) == '') {
                  throw new invalid_parameter_exception('Invalid short name');
@@ -157,36 +135,27 @@ class external extends external_api {
                   throw new invalid_parameter_exception('shortnametaken already taken');
               }
 
-              /*
-
-              // $category = $DB->get_recordset('course_categories', '*', $sort='', $fields='*', $limitfrom=0, $limitnum=0);
-              $categories = $DB->get_records('course_categories', null, null, 'id, name, parent, visible');
-              // $categories = get_category();
-
-              echo "--------category-----------";
-              var_dump($category);
-              echo "--------categories-----------";
-              var_dump($categories);
-              echo "-------------------";
-
-
-
-              echo "var_dump!! <br>      ";
-              var_dump($created_course);
-              */
-
-              //echo "--<br><br>";
-
-              //var_dump($course);
-
-              //echo $params;
+              //Set Start date to 1.4. or 1.10.
+              if (strpos(shortname, 'WiSe') !== FALSE) {
+                 $array_after_semester = explode('WiSe', shortname);
+                 $year = substr($array_after_semester[1], 1, 4);
+                 $data->startdate = mktime(24, 0, 0, 10, 1, $year); //hour, minute, second, month, day, year
+                }
+                else if (strpos($shortname, 'SoSe') !== FALSE) {
+                   $array_after_semester = explode('SoSe', $shortname);
+                   $year = substr($array_after_semester[1], 1, 4);
+                   $data->startdate = mktime(24, 0, 0, 4, 1, $year);
+                  }
+                  else {
+                    $data->startdate = time();
+                  }
 
               //$transaction->allow_commit(); //DB wird commited
 
               $created_course = create_course($data);
 
               return array (
-                'id' => $created_course->id //Dummy; später: id des Kurses, der angelegt wurde
+                'id' => $created_course->id
               );
 
               /*
