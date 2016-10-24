@@ -34,9 +34,8 @@ $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $output = $PAGE->get_renderer('tool_supporter');
 
-$page = new \tool_supporter\output\index_page();
-$index = $output->render($page);
-//print( $index_page);
+$index_page = new \tool_supporter\output\index_page();
+$index = $output->render($index_page);
 
 $user = new \tool_supporter\output\user_table();
 $user_table = $output->render($user);
@@ -44,19 +43,19 @@ $user_table = $output->render($user);
 $course = new \tool_supporter\output\course_table();
 $course_table = $output->render($course);
 
+$create_new_course = $output->render(new \tool_supporter\output\create_new_course());
+
 echo $output->header();
 echo $index;
-//echo $user_table;
-
-$create_new_course = new \tool_supporter\output\create_new_course();
-echo $output->render($create_new_course);
 
 ?>
+
+<?php echo $create_new_course; ?>
 
 <div class="container-fluid">
     <div class="row-fluid">
       <div class"span6">
-        <?php echo $user_table; ?>
+        <?php //echo $user_table; ?>
       </div>
       <div class="span6">
        <?php echo $course_table; ?>

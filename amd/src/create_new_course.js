@@ -50,14 +50,14 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                       shortname: $('#new_course_full_name_input')[0].value,
                       fullname: $('#new_course_short_name_input')[0].value,
                       visible: $("#new_course_is_visible").is(":checked"),
-                      categoryid: 2
+                      categoryid: $('#new_course_category_input')[0].value
                     }
                 }]);
 
                 promises[0].done(function(data) {
                   console.log("promise is done with return data: ")
                   console.log(data);
-                  alert("Der Kurs mit der ID " + data + "wurde erstellt!");
+                  alert("Der Kurs mit der ID " + data['id'] + "wurde erstellt!");
                     // We have the data - lets re-render the template with it.
 
                     /*

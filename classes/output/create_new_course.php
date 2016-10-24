@@ -25,7 +25,7 @@ namespace tool_supporter\output;
 
 //require_once($CFG->dirroot . "/user/externallib.php");
 require_once($CFG->dirroot . "/admin/tool/supporter/classes/externallib.php");
-
+require_once("$CFG->dirroot/config.php");
 
 use renderable;
 use templatable;
@@ -47,8 +47,14 @@ class create_new_course implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        // "Flattens" the data
-        $data = 'something';
+        global $DB;
+        // $data = $DB->get_records('course_categories', null, null, 'id, name, parent, visible');
+        $data = $DB->get_records('course_categories', null, null, 'id, name');
+        // $data = $DB->get_records_menu('course_categories', null, null, 'id, name'); // Wird als 2er-Array ausgegeben
+        foreach ($data as $row) {
+          $categories[] = (array)$row;
+        }
+        $data['categories'] = $categories;
         return $data;
     }
 }

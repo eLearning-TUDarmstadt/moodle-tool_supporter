@@ -27,10 +27,26 @@
 
 <div data-region="create_new_course">
     <div>
-      <input type="text" class="search-query" placeholder = "Vollständiger Kursname" id="new_course_full_name_input">
-      <input type="text" class="search-query" placeholder = "Kurzer Kursname" id="new_course_short_name_input">
-      Sichtbar: <input id="new_course_is_visible" type="checkbox" name="is_visible">
-      <button class="btn" id="create_new_course_button">Kurs anlegen</button>
+      <div>
+        Vollständiger Name: <input type="text" placeholder = "Vollständiger Kursname" id="new_course_full_name_input">
+      </div>
+      <div>
+        Kurzer Name: <input type="text" placeholder = "Kurzer Kursname" id="new_course_short_name_input">
+      </div>
+      <div>
+        Kursbereich:
+        <select id="new_course_category_input">
+          {{#categories}}
+          <option value="{{id}}">{{id}}, {{name}}</option>
+          {{/categories}}
+        </select>
+      </div>
+      <div>
+        Sichtbar: <input id="new_course_is_visible" type="checkbox" name="is_visible">
+      </div>
+      <div>
+        <button class="btn" id="create_new_course_button">Kurs anlegen</button>
+      </div>
     </div>
 </div>
 

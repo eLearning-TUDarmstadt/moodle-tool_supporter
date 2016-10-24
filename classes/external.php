@@ -157,7 +157,10 @@ class external extends external_api {
                   throw new invalid_parameter_exception('shortnametaken already taken');
               }
 
+              /*
+
               // $category = $DB->get_recordset('course_categories', '*', $sort='', $fields='*', $limitfrom=0, $limitnum=0);
+              $categories = $DB->get_records('course_categories', null, null, 'id, name, parent, visible');
               // $categories = get_category();
 
               echo "--------category-----------";
@@ -166,10 +169,11 @@ class external extends external_api {
               var_dump($categories);
               echo "-------------------";
 
-              $created_course = create_course($data);
+
 
               echo "var_dump!! <br>      ";
               var_dump($created_course);
+              */
 
               //echo "--<br><br>";
 
@@ -178,6 +182,8 @@ class external extends external_api {
               //echo $params;
 
               //$transaction->allow_commit(); //DB wird commited
+
+              $created_course = create_course($data);
 
               return array (
                 'id' => $created_course->id //Dummy; später: id des Kurses, der angelegt wurde
