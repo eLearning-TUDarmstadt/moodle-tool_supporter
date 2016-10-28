@@ -25,29 +25,34 @@
 
 }}
 
-<div data-region="create_new_course">
-    <div>
-      <div>
-        Vollständiger Name: <input type="text" placeholder = "Vollständiger Kursname" id="new_course_full_name_input">
-      </div>
-      <div>
-        Kurzer Name: <input type="text" placeholder = "Kurzer Kursname" id="new_course_short_name_input">
-      </div>
-      <div>
-        Kursbereich:
+<div data-region="create_new_course" class="well well-sm">
+
+  <table>
+    <tr>
+      <td>Vollständiger Name:</td>
+      <td><input type="text" placeholder = "Vollständiger Kursname" id="new_course_full_name_input"></td>
+    </tr>
+    <tr>
+      <td>Kurzer Name:</td>
+      <td><input type="text" placeholder = "Kurzer Kursname" id="new_course_short_name_input"></td>
+    </tr>
+    <tr>
+      <td>Kursbereich:</td>
+      <td>
         <select id="new_course_category_input">
           {{#categories}}
           <option value="{{id}}">{{id}}, {{name}}</option>
           {{/categories}}
         </select>
-      </div>
-      <div>
-        Sichtbar: <input id="new_course_is_visible" type="checkbox" name="is_visible">
-      </div>
-      <div>
-        <button class="btn" id="create_new_course_button">Kurs anlegen</button>
-      </div>
-    </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Sichtbar:</td>
+      <td><input id="new_course_is_visible" type="checkbox" name="is_visible"></td>
+    </tr>
+  </tr>
+  </table>
+  <td><button class="btn" id="create_new_course_button">Kurs anlegen</button></td>
 </div>
 
 {{#js}}
