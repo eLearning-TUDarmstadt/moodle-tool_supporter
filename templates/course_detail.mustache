@@ -35,15 +35,15 @@
         </tr>
         <tr>
           <th>Teilnehmer_innen</th>
-          <td>{{enrolledUsers}}</td>
+          <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
         </tr>
+        {{/courseDetails}}
         {{#roles}}
         <tr>
           <th>{{roleName}}</th>
           <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
         </tr>
         {{/roles}}
-        {{/courseDetails}}
       </tbody>
     <table>
   </div>
@@ -119,14 +119,16 @@
 {{#js}}
 require(['jquery','tool_supporter/table_search'], function($, search) {
   var tableID;
+  console.log('js in user detail');
   //selecting the active table by selecting the active tab
   $('a[data-toggle = "pill"]').on('shown', function(e){
+    console.log(e.target);
     var activeTab = e.target.getAttribute('href');
-    if (activeTab = "#CoursePill_1")
+    if (activeTab == "#CoursePill_1")
       tableID = "{{uniqid}}-userInCourse";
-    if else (activeTab = "#CoursePill_2")
+    else (activeTab == "#CoursePill_2")
         tableID = "{{uniqid}}-activityInCourse";
   });
-  search.searchEvent('#{{uniqid}}-courseDetailSearch','#tableID');
+  search.searchEvent('#{{uniqid}}-courseDetailSearch', '#tableID');
 });
 {{/js}}

@@ -58,4 +58,9 @@ class renderer extends plugin_renderer_base {
         return parent::render_from_template('tool_supporter/course_table', $data);
     }
 
+    public function render_course_detail($course_detail) { //course_table: type of renderable; "render" muss immer davor
+        $data = $course_detail->export_for_template($this);
+        return parent::render_from_template('tool_supporter/course_detail', $data);
+    }
+
 }
