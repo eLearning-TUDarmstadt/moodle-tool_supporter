@@ -59,4 +59,7 @@
  require(['tool_supporter/table_search'], function(search){
    search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTableBody');
  });
+ require(['tool_supporter/load_information'], function(click_on_user){
+   click_on_user.click_on_user('#{{uniqid}}-userTableBody');
+ });
 {{/js}}

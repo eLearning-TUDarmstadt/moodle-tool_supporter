@@ -59,4 +59,7 @@
  require(['tool_supporter/table_search'], function(search){
    search.searchEvent('#{{uniqid}}-courseSearchInput','#{{uniqid}}-courseTableBody');
  });
+ require(['tool_supporter/load_information'], function(click_on_course){
+   click_on_course.click_on_course('#{{uniqid}}-courseTableBody');
+ });
 {{/js}}
