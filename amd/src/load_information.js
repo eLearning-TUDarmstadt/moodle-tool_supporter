@@ -37,6 +37,7 @@
                var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
 
              });
+         },
          click_on_course: function(table) {
              $(table + ' tr').on('click', function() { //click event on each row
 
