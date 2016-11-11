@@ -50,5 +50,15 @@ $capabilities = array (
               'manager' => CAP_ALLOW,
               'coursecreator' => CAP_ALLOW
             )
+          ),
+
+          'tool/supporter:get_users_courses' => array(
+            // 'riskbitmask' => RISK_PERSONAL,
+            'captype' => 'read',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes' => array(
+              'manager' => CAP_ALLOW,
+              'coursecreator' => CAP_ALLOW
+            )
           )
 );

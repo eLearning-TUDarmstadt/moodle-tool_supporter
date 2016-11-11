@@ -152,7 +152,10 @@ class external extends external_api {
 
               //$transaction->allow_commit(); //DB wird commited
 
-              $created_course = create_course($data);
+              //var test = core_enrol_get_users_courses(5);
+              //print_r(test);
+
+              //$created_course = create_course($data);
 
               return array (
                 'id' => $created_course->id
@@ -217,6 +220,57 @@ class external extends external_api {
              return new external_single_structure (
               array (
                 'id' => new external_value ( PARAM_INT, 'The id of the newly created course' )
-             ) );
+             ));
            }
+
+           public static function get_users_courses_parameters() {
+             return new external_function_parameters (
+               array (
+                 'user_id' => new external_value ( PARAM_INT, 'The id of the user' )
+               ));
+           }
+
+           /**
+            * Wrap the core function get_site_info.
+            */
+           public static function get_users_courses($user_id) {
+
+             echo "test";
+
+             //Parameters validation
+             $params = self::validate_parameters ( self::create_new_course_parameters (), $array );
+
+             echo "something";
+
+             echo "user id: " . $user_id;
+             //var test = core_enrol_get_users_courses($user_id);
+             //print_r(test);
+
+             return array (
+               'id' => 1
+             );
+           }
+
+           /**
+            * Wrap the core function get_site_info.
+            *
+            * @return external_description
+            */
+           public static function get_users_courses_returns() {
+             return new external_single_structure (
+              array (
+                'id' => new external_value ( PARAM_INT, 'Has to be changed later' )
+             ));
+           }
+
+           /*
+            * Expose to AJAX
+            * @return boolean
+            *
+            * By default this is turned off - security issues
+            *
+           public static function get_site_info_is_allowed_from_ajax() {
+               return true;
+           }
+           */
 }

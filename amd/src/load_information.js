@@ -24,23 +24,49 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
- define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-     return /** @alias module:tool_supporter/create_new_course */ {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+   return /** @alias module:tool_supporter/create_new_course */ {
 
-         /**
-          * Create a course
-          *
-          * @method create_new_course
-          */
-         click_on_user: function(table) {
-             $(table + ' tr').on('click', function() { //click event on each row
-               var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
+       /**
+        * Get Users Details
+        *
+        * @method click_on_user
+        */
+       click_on_user: function(table) {
+           $(table + ' tr').on('click', function() { //click event on each row
+             var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
+             console.log("Reihe geklickt, User-id gefunden: " + user_id);
 
-             });
-         click_on_course: function(table) {
-             $(table + ' tr').on('click', function() { //click event on each row
+             //core_enrol_get_users_courses
 
-             });
-         }
-     };
- });
+             var promises = ajax.call([{
+               methodname: 'tool_supporter_get_users_courses',
+                 //methodname: 'core_enrol_get_users_courses',
+                 // Im Dashboard nachschauen, wie die das dort gemacht haben
+                 args: {
+                   userid: 5
+                 }
+             }]);
+
+             promises[0].done(function(data) {
+               console.log("promise is done with return data: ")
+               console.log(data);
+             }).fail(notification.exception);
+
+           });
+       },
+
+       /**
+        * Get course details
+        *
+        * @method click_on_user
+        */
+       click_on_course: function(table) {
+           $(table + ' tr').on('click', function() { //click event on each row
+             var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
+             console.log("Reihe geklickt, Kurs-id gefunden: " + course_id);
+
+           });
+       }
+   };
+});
