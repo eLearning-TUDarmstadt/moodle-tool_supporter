@@ -42,7 +42,7 @@ $capabilities = array (
             )
           ),
 
-          'tool/supporter:create_course' => array(
+          'tool/supporter:create_new_course' => array(
             // 'riskbitmask' => RISK_PERSONAL,
             'captype' => 'write',
             'contextlevel' => CONTEXT_SYSTEM,
@@ -61,6 +61,15 @@ $capabilities = array (
               'coursecreator' => CAP_ALLOW,
               'teacher' => CAP_ALLOW,
               'editingteacher' => CAP_ALLOW
+            )
+          ),
+          'tool/supporter:get_users_courses' => array(
+            // 'riskbitmask' => RISK_PERSONAL,
+            'captype' => 'read',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes' => array(
+              'manager' => CAP_ALLOW,
+              'coursecreator' => CAP_ALLOW
             )
           )
 );

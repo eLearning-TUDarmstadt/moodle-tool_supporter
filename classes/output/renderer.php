@@ -31,7 +31,7 @@ use plugin_renderer_base;
  * Renderer class for tool supporter.
  *
  * @package    tool_supporter
- * @copyright  2016 Klara Saary
+ * @copyright  2016 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends plugin_renderer_base {
@@ -63,4 +63,13 @@ class renderer extends plugin_renderer_base {
         return parent::render_from_template('tool_supporter/course_detail', $data);
     }
 
+    public function render_create_new_course($create_new_course) { //create_new_course: type of renderable; "render" muss immer davor
+        $data = $create_new_course->export_for_template($this);
+        return parent::render_from_template('tool_supporter/create_new_course', $data);
+    }
+
+    public function render_get_users_courses($get_users_courses) {
+        $data = $get_users_courses->export_for_template($this);
+        return parent::render_from_template('tool_supporter/get_users_courses', $data);
+    }
 }

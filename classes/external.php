@@ -25,6 +25,7 @@ namespace tool_supporter;
 
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
+require_once("$CFG->dirroot/course/lib.php");
 
 use external_api;
 use external_function_parameters;
@@ -87,35 +88,78 @@ class external extends external_api {
            *
            * @return external_function_parameters
            */
-          public static function create_course_parameters($shortname, $fullname) {
-            /*
-            Hier müssen später noch rein: categoryid und visible
-            */
-            return new external_function_parameters ( array (
+          public static function create_new_course_parameters() {
+            return new external_function_parameters (
+              array (
                 // an external_description can be: external_value, external_single_structure or external_multiple structure
-                'shortname' => new external_value ( PARAM_TEXT, 'The short name for the course to be created. Must not be taken.' ),
-                'fullname' => new external_value ( PARAM_TEXT, 'The full name for the course to be created.' )
-            ) );
-          }
+                'shortname' => new external_value ( PARAM_TEXT, 'The short name of the course to be created' ),
+                'fullname' => new external_value ( PARAM_TEXT, 'The full name of the course to be created' ),
+                'visible' => new external_value ( PARAM_BOOL, 'Toggles visibility of course' ),
+                'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' )
+              ));
+            }
 
           /**
-           * Wrap the core function create_course.
+           * Wrap the core function create_new_course.
            */
-          public static function create_course($shortname, $fullname) {
+            public static function create_new_course($shortname, $fullname, $visible, $categoryid) {
 
-            /** aus Hackfest Beispiel
-              global $PAGE;
-              $renderer = $PAGE->get_renderer('tool_supporter');
-              $page = new \tool_supporter\output\create_course();
-              return $page->export_for_template($renderer);
-              */
+              global $DB, $CFG;
 
+              $array = array (
+              				'shortname' => $shortname,
+              				'fullname' => $fullname,
+                      'visible' => $visible,
+                      'categoryid' => $categoryid
+              		);
 
+              //Parameters validation
+		          $params = self::validate_parameters ( self::create_new_course_parameters (), $array );
 
-              global $DB;
+              //$transaction = $DB->start_delegated_transaction(); //If an exception is thrown in the below code, all DB queries in this code will be rollback.
 
-              console.log("Something");
-              alert("Something");
+              $data = new \stdClass();
+              $data->shortname = $params ['shortname'];
+              $data->fullname = $params ['fullname'];
+              $data->category = $params ['categoryid'];
+              $data->visible = $params ['visible'];
+
+              if (trim($params['shortname']) == '') {
+                 throw new invalid_parameter_exception('Invalid short name');
+                 //throw new moodle_exception('shortnametaken', '', '', $data->shortname);
+              }
+              if (trim($params['fullname']) == '') {
+                 throw new invalid_parameter_exception('Invalid full name');
+              }
+              if ($DB->record_exists('course', array('shortname' => $data->shortname))) {
+                  throw new invalid_parameter_exception('shortnametaken already taken');
+              }
+
+              //Set Start date to 1.4. or 1.10.
+              if (strpos(shortname, 'WiSe') !== FALSE) {
+                 $array_after_semester = explode('WiSe', shortname);
+                 $year = substr($array_after_semester[1], 1, 4);
+                 $data->startdate = mktime(24, 0, 0, 10, 1, $year); //hour, minute, second, month, day, year
+                }
+                else if (strpos($shortname, 'SoSe') !== FALSE) {
+                   $array_after_semester = explode('SoSe', $shortname);
+                   $year = substr($array_after_semester[1], 1, 4);
+                   $data->startdate = mktime(24, 0, 0, 4, 1, $year);
+                  }
+                  else {
+                    $data->startdate = time();
+                  }
+
+              //$transaction->allow_commit(); //DB wird commited
+
+              //var test = core_enrol_get_users_courses(5);
+              //print_r(test);
+
+              //$created_course = create_course($data);
+
+              return array (
+                'id' => $created_course->id
+              );
 
               /*
               $record = new stdClass();
@@ -125,13 +169,30 @@ class external extends external_api {
               /*
 
               // Parameters validation
-              $params = self::validate_parameters ( self::create_course_parameters (), array ('shortname' => $shortname, 'fullname' => $fullname) );
+              $params = self::validate_parameters ( self::create_new_course_parameters (), array ('shortname' => $shortname, 'fullname' => $fullname) );
               if ($DB->record_exists('course', array('shortname' => $shortname))) {
                   console.log("There was an error! The shortname is already taken! Quit and display ");
                   alert("There was an error! The shortname is already taken! Quit and display ");
               }
               console.log("Shortname was not yet taken. Create the course now!");
 
+              /*
+
+              $contextmodule = context_module::instance($cm->id);
+
+              // Context validation
+              $cmid = self::get_cmid_by_instance ( $params ['supporterinstance'] );
+              $context = context_module::instance ( $cmid );
+              self::validate_context ( $context );
+
+
+
+              // Welche Rechte muss man haben, damit man das machen darf? Wie muss der Kontext aussehen, "damit man Admin ist"?
+              /*
+              $context = context_course::instance($course->courseid);
+              self::validate_context($context);
+              require_capability('moodle/course:create', $context);
+              */
               /*
 
               $DB->insert_record($table, $dataobject, $returnid=true, $bulk=false)
@@ -141,17 +202,75 @@ class external extends external_api {
               $record->displayorder = '10000';
               $lastinsertid = $DB->insert_record('quiz_report', $record, false);
 
-              */
+              /** aus Hackfest Beispiel
+                global $PAGE;
+                $renderer = $PAGE->get_renderer('tool_supporter');
+                $page = new \tool_supporter\output\create_new_course();
+                return $page->export_for_template($renderer);
+                */
 
-              return 70; //Dummy; später: id des Kurses, der angelegt wurde
           }
 
           /**
-           * Wrap the core function course_create_course
+           * Wrap the core function course_create_new_course
            *
            * @return external_description
            */
-          public static function create_course_returns() {
-              return new external_value(PARAM_INT, 'The course id that was created');
-          }
+           public static function create_new_course_returns() {
+             return new external_single_structure (
+              array (
+                'id' => new external_value ( PARAM_INT, 'The id of the newly created course' )
+             ));
+           }
+
+           public static function get_users_courses_parameters() {
+             return new external_function_parameters (
+               array (
+                 'user_id' => new external_value ( PARAM_INT, 'The id of the user' )
+               ));
+           }
+
+           /**
+            * Wrap the core function get_site_info.
+            */
+           public static function get_users_courses($user_id) {
+
+             echo "test";
+
+             //Parameters validation
+             $params = self::validate_parameters ( self::create_new_course_parameters (), $array );
+
+             echo "something";
+
+             echo "user id: " . $user_id;
+             //var test = core_enrol_get_users_courses($user_id);
+             //print_r(test);
+
+             return array (
+               'id' => 1
+             );
+           }
+
+           /**
+            * Wrap the core function get_site_info.
+            *
+            * @return external_description
+            */
+           public static function get_users_courses_returns() {
+             return new external_single_structure (
+              array (
+                'id' => new external_value ( PARAM_INT, 'Has to be changed later' )
+             ));
+           }
+
+           /*
+            * Expose to AJAX
+            * @return boolean
+            *
+            * By default this is turned off - security issues
+            *
+           public static function get_site_info_is_allowed_from_ajax() {
+               return true;
+           }
+           */
 }
