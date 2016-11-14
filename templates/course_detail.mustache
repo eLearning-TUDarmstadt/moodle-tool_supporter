@@ -10,7 +10,11 @@
   </div>
 <!--Show course details  -->
   <div class="table-responsive">
+<<<<<<< HEAD
+    <table class = "table borderless">
+=======
     <table class = "table borderless table-striped">
+>>>>>>> b774a3b8b227b3aab538fca41a6127ee0527706a
       <tbody>
         {{#courseDetails}}
         <tr>
@@ -44,18 +48,22 @@
           <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
         </tr>
         {{/roles}}
+        {{/courseDetails}}
       </tbody>
     <table>
   </div>
 
-  <ul class="nav nav-tabs" id = "myTabs"> <!-- nav-pills nav-justified" -->
-    <li class="active"><a href="#CoursePill_1">Eingeschriebene Nutzer_innen</a></li>
-    <li><a href="#CoursePill_2">Aktivitäten</a></li>
-    <li class="navbar-search pull-right">
-      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
-    </li>
-  </ul>
-
+  <div class="navbar">
+    <div class = "navbar-inner">
+      <ul class="nav nav-pills nav-justified">
+        <li class="active"><a data-toggle="pill" href="#CoursePill_1">Eingeschriebene Nutzer_innen</a></li>
+        <li><a data-toggle="pill" href="#CoursePill_2">Aktivitäten</a></li>
+      </ul>
+      <form class ="navbar-search">
+        <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+      </form>
+    </div>
+  </div>
 
   <div class="tab-content">
    <div id="CoursePill_1" class="tab-pane fade in active">
