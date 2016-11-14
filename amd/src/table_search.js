@@ -28,7 +28,7 @@
  */
 define(['jquery'], function($) {
 
-//Hides all rows, which don't match which the search input. The search-function is case insensitive and also recognizes inner word parts
+//Hides all rows, which don't match with the search input. The search-function is case insensitive and also recognizes inner word parts
     var search = function(element, tableID){
       var rows = $(tableID + ' tr');
       var val = $.trim($(element).val()).replace(/ +/g, ' ').toLowerCase().split(' ');

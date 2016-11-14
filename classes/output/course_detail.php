@@ -24,7 +24,7 @@
 namespace tool_supporter\output;
 
 //require_once("$CFG->dirroot/user/externallib.php");
-//require_once("$CFG->dirroot/config.php");
+require_once("$CFG->dirroot/config.php");
 
 use renderable;
 use templatable;
@@ -38,7 +38,7 @@ use stdClass;
  * @copyright  2016 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class course_table implements renderable, templatable {
+class course_detail implements renderable, templatable {
 
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -48,8 +48,10 @@ class course_table implements renderable, templatable {
 
     public function export_for_template(renderer_base $output) {
       // "Flattens" the data
-      $array[] = null;
-      $data = \tool_supporter_external::get_courses();
+      //$array =[1];
+      $data = \tool_supporter_external::get_course_info(2);
+      echo "Data:";
+      print_r($data);
       return $data;
     }
 }

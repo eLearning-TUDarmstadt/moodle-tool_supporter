@@ -10,7 +10,11 @@
   </div>
 <!--Show course details  -->
   <div class="table-responsive">
+<<<<<<< HEAD
     <table class = "table borderless">
+=======
+    <table class = "table borderless table-striped">
+>>>>>>> b774a3b8b227b3aab538fca41a6127ee0527706a
       <tbody>
         {{#courseDetails}}
         <tr>
@@ -35,8 +39,9 @@
         </tr>
         <tr>
           <th>Teilnehmer_innen</th>
-          <td>{{enroledUsers}}</td>
+          <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
         </tr>
+        {{/courseDetails}}
         {{#roles}}
         <tr>
           <th>{{roleName}}</th>
@@ -61,10 +66,33 @@
   </div>
 
   <div class="tab-content">
+   <div id="CoursePill_1" class="tab-pane fade in active">
+     <h3>HOME</h3>
+     <p>Some content.
+       fsfsdfsdf
+     </p>
+     <div class="">
+       test
+     </div>
+   </div>
+   <div id="CoursePill_2" class="tab-pane fade">
+     <h3>Menu 1</h3>
+     <p>Some content in menu 1.</p>
+     <table>
+       <tr>
+         <td>
+           vdfvfdvfd
+         </td>
+       </tr>
+     </table>
+   </div>
+  </div>
+
+ <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane fade in active">
       <!--table of users in this course-->
       <div class="table-responsive">
-        <table class = "table table-striped">
+        <table class = "table table-striped" id = "CoursePill_1_table">
           <thead>
             <tr>
               <th>id</th>
@@ -85,13 +113,13 @@
             </tr>
             {{/users}}
           </tbody>
-        <table>
+        </table>
       </div>
     </div>
     <div id="CoursePill_2" class="tab-pane fade">
       <!--table of activites in this course-->
       <div class="table-responsive">
-        <table class = "table table-striped">
+        <table class = "table table-striped" id = "CoursePill_2_table">
           <thead>
             <tr>
               <th>Name des Abschnitts</th>
@@ -104,14 +132,44 @@
             {{#activities}}
             <tr>
               <td>{{section}}</td>
-              <td>{{activty}}</td>
+              <td>{{activity}}</td>
               <td>{{name}}</td>
               <td>{{visibility}}</td>
             </tr>
             {{/activities}}
           </tbody>
-        <table>
+        </table>
       </div>
     </div>
   </div>
 </div>
+
+{{#js}}
+require(['jquery','tool_supporter/table_search'], function($, search) {
+  var tableID;
+  console.log('js in user detail');
+  $('#myTabs a').click(function(e){
+    $(this).tab('show');
+    $('#CoursePill_2_table').toggle();
+    $('#CoursePill_1_table').toggle();
+    var activeTab = e.target.getAttribute('href');
+    console.log(e.target.getAttribute('href'));
+//    if (activeTab == "#CoursePill_1"){
+//      tableID = "{{uniqid}}-userInCourse";
+//    }
+//    else (activeTab == "#CoursePill_2"){
+//      tableID = "{{uniqid}}-activityInCourse";
+  //  }
+  });
+  //selecting the active table by selecting the active tab
+  $('a[data-toggle = "pill"]').on('shown', function(e){
+    console.log(e.target);
+    var activeTab = e.target.getAttribute('href');
+    if (activeTab == "#CoursePill_1")
+      tableID = "{{uniqid}}-userInCourse";
+    else (activeTab == "#CoursePill_2")
+        tableID = "{{uniqid}}-activityInCourse";
+  });
+  search.searchEvent('#{{uniqid}}-courseDetailSearch', '#tableID');
+});
+{{/js}}

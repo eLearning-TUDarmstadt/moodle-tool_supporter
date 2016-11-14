@@ -25,38 +25,43 @@
 
 }}
 
-<form class = "navbar-search pull-left">
-  <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
-  <button type="submit" class="btn">Search</button>
-</form>
+<div class = "container">
+  <form class = "navbar-search pull-left">
+    <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
+    <!-- <button type="submit" class="btn">Search</button> -->
+  </form>
 
-<div class="table-responsive" data-region="user_table">
-<table class = "table-condensed table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>TU-ID</th>
-      <th>Vorname</th>
-      <th>Nachname</th>
-      <th>E-Mail Adresse</th>
-    </tr>
-  </thead>
-  <tbody id = "{{uniqid}}-userTableBody">
-    {{#users}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{username}}</td>
-      <td>{{firstname}}</td>
-      <td>{{lastname}}</td>
-      <td>{{email}}</td>
-    </tr>
-    {{/users}}
-  </tbody>
-<table>
+  <div class="table-responsive">
+  <table class = "table-condensed table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>TU-ID</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>E-Mail Adresse</th>
+      </tr>
+    </thead>
+    <tbody id = "{{uniqid}}-userTableBody" data-region="user_table_body">
+      {{#users}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{username}}</td>
+        <td>{{firstname}}</td>
+        <td>{{lastname}}</td>
+        <td>{{email}}</td>
+      </tr>
+      {{/users}}
+    </tbody>
+  <table>
+  </div>
 </div>
 
 {{#js}}
  require(['tool_supporter/table_search'], function(search){
    search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTableBody');
+ });
+ require(['tool_supporter/load_information'], function(click_on_user){
+   click_on_user.click_on_user('#{{uniqid}}-userTableBody');
  });
 {{/js}}

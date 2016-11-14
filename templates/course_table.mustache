@@ -24,39 +24,45 @@
     Starting point for an awesome template.
 
 }}
+<div class = "container">
+  <ul class="nav nav-pills">
+    <li class = "navbar-search pull-left">
+      <input id="{{uniqid}}-courseSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
+      <!-- <button type="submit" class="btn">Search</button>-->
+    </li>
+  </ul>
 
-<form class = "navbar-search pull-left">
-  <input id="{{uniqid}}-courseSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
-  <button type="submit" class="btn">Search</button>
-</form>
-
-<div class="table-responsive">
-<table class = "table-condensed table-striped table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Name</th>
-      <th>FB (direct course category)</th>
-      <th>Semester</th>
-      <th>visible</th>
-    </tr>
-  </thead>
-  <tbody id="{{uniqid}}-courseTableBody">
-    {{#courses}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{fullname}}</td>
-      <td>{{fb}}</td>
-      <td>{{semester}}</td>
-      <td>{{visible}}</td>
-    </tr>
-    {{/courses}}
-  </tbody>
-<table>
+  <div class="table-responsive">
+  <table class = "table-condensed table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>FB (direct course category)</th>
+        <th>Semester</th>
+        <th>visible</th>
+      </tr>
+    </thead>
+    <tbody id="{{uniqid}}-courseTableBody" data-region="user_table_body">
+      {{#courses}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{fullname}}</td>
+        <td>{{fb}}</td>
+        <td>{{semester}}</td>
+        <td>{{visible}}</td>
+      </tr>
+      {{/courses}}
+    </tbody>
+  <table>
+  </div>
 </div>
 
 {{#js}}
  require(['tool_supporter/table_search'], function(search){
    search.searchEvent('#{{uniqid}}-courseSearchInput','#{{uniqid}}-courseTableBody');
+ });
+ require(['tool_supporter/load_information'], function(click_on_course){
+   click_on_course.click_on_course('#{{uniqid}}-courseTableBody');
  });
 {{/js}}

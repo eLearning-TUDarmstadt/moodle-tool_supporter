@@ -19,7 +19,10 @@ https://www.youtube.com/watch?v=UTePjRZqAg8
 	* grunt
 * XMLDB
 
-### Webservices
+### Language Strings are stored under
+* moodle/lang/en/moodle.php
+
+### Documentation of Webservices
 http://127.0.0.1/admin/webservice/documentation.php
 
 ### Reasoning for amd (asynchronous module definition) modules:
@@ -38,3 +41,4 @@ https://github.com/marinaglancy/moodle-local_moodlecheck
 * https://docs.moodle.org/dev/jQuery
 * Bootstrap Dokumentation:
 * http://getbootstrap.com/2.3.2/
+* AMOS - Moodle lang strings: https://lang.moodle.org/index.php
