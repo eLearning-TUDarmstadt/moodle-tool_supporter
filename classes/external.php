@@ -223,26 +223,24 @@ class external extends external_api {
              ));
            }
 
-           public static function get_users_courses_parameters() {
+           // --------------------------------------------------------------------------------------------------------------------------------------
+
+           public static function get_user_information_parameters() {
              return new external_function_parameters (
                array (
-                 'user_id' => new external_value ( PARAM_INT, 'The id of the user' )
+                 'userid' => new external_value ( PARAM_INT, 'The id of the user' )
                ));
            }
 
            /**
             * Wrap the core function get_site_info.
             */
-           public static function get_users_courses($user_id) {
-
-             echo "test";
+           public static function get_user_information($userid) {
 
              //Parameters validation
              $params = self::validate_parameters ( self::create_new_course_parameters (), $array );
 
-             echo "something";
-
-             echo "user id: " . $user_id;
+             echo "user id: " . $userid;
              //var test = core_enrol_get_users_courses($user_id);
              //print_r(test);
 
@@ -256,7 +254,7 @@ class external extends external_api {
             *
             * @return external_description
             */
-           public static function get_users_courses_returns() {
+           public static function get_user_information_returns() {
              return new external_single_structure (
               array (
                 'id' => new external_value ( PARAM_INT, 'Has to be changed later' )

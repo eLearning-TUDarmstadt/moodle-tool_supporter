@@ -40,7 +40,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
              //core_enrol_get_users_courses
 
              var promises = ajax.call([{
-               methodname: 'tool_supporter_get_users_courses',
+               methodname: 'tool_supporter_get_user_information',
                  //methodname: 'core_enrol_get_users_courses',
                  // Im Dashboard nachschauen, wie die das dort gemacht haben
                  args: {

@@ -63,7 +63,7 @@ $capabilities = array (
               'editingteacher' => CAP_ALLOW
             )
           ),
-          'tool/supporter:get_users_courses' => array(
+          'tool/supporter:get_user_information' => array(
             // 'riskbitmask' => RISK_PERSONAL,
             'captype' => 'read',
             'contextlevel' => CONTEXT_SYSTEM,
