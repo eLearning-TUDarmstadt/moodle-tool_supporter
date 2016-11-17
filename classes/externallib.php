@@ -170,6 +170,7 @@ class tool_supporter_external extends external_api {
     foreach($users_raw as $u){
       $users[] = (array)$u;
     }
+    
     $activities = array();
     $data = ['courseDetails' => $courseDetails, 'roles' => $roles, 'users' => $users, 'activities' => $activities];
     return $data;
