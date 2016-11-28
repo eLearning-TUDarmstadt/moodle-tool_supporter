@@ -6,7 +6,7 @@
  * @copyright  2016 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once($CFG->libdir . "/externallib.php");
+require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/config.php");
 
 class tool_supporter_external extends external_api {
@@ -157,24 +157,75 @@ class tool_supporter_external extends external_api {
     $courseDetails = (array)$courseDetails;
     $courseDetails['enrolledUsers'] = count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
     $roles = array();
-    $roleList = array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
-    foreach ($roleList as $role) {
-      // Überprüfe Inhalt des Webservices get_enrolled_users_by_capability und count_enrolled_users, da funktionen nicht über ajax aufrufbar sind
-      //Suche in Atom nach "get_enrolled_sql"!
-      $roleName = substr($role,14);
-      $roleNumber = count_enrolled_users($coursecontext, $withcapability = $role, $groupid = 0);
-      $roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
+    $roleList = get_all_roles($coursecontext); // array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
+    $count= count_role_users([1,2,3,4,5,6,7], $coursecontext);
+    print_r($roleList);
+    echo"count";
+    print_r($count);
+    foreach ($roleList as $r) {
+      if($r->coursealias != NULL)
+      	$roleName = $r->coursealias;
+      else 
+      	$roleName =$r->shortname;
+      $roleNumber = count_role_users($r->id,$coursecontext);
+      //$roleNumber = count_enrolled_users($coursecontext, $withcapability = $role, $groupid = 0);
+      if($roleNumber != 0)
+      	$roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
     }
     $users_raw = get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0, $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
     $users = array();
     foreach($users_raw as $u){
       $users[] = (array)$u;
     }
-    
     $activities = array();
+    $modules =  get_array_of_activities($courseID);   
+    foreach($modules as $mo){
+      $section = get_section_name($courseID, $mo->section);
+      $activity = ['section' =>$section, 'activity'=>$mo->mod,'name'=>$mo->name, 'visible'=>$mo->visible];
+      $activities[] = $activity;
+    }
     $data = ['courseDetails' => $courseDetails, 'roles' => $roles, 'users' => $users, 'activities' => $activities];
     return $data;
  }
 
+ public static function get_course_activities($courseID){
+ 	global $DB;
+ 
+ 	// now security checks
+ 	$context = context_system::instance();
+ 	self::validate_context($context);
+ 	//Is the user allowes to use this web service?
+ 	require_capability('tool/supporter:get_users', $context);
+ 
+ 	
+ 
+ }
+ 
+ public static function get_course_activities_parameters(){
+ 	return new external_function_parameters(
+ 			array(
+ 					'courseID' => new external_value(PARAM_RAW, 'id of course')
+ 			)
+ 			);
+ }
+ 
+ public static function get_course_activities_returns() {
+ 	return new external_multiple_structure(
+ 			new external_single_structure(
+ 					array(
+ 						'activities'=> new external_multiple_structure(
+             				 new external_single_structure(
+                				array(
+		 							'Section' => new external_value(PARAM_INT, 'Name of the section the activity appears in'),
+		 							'Kind of activity' => new external_value(PARAM_RAW, 'Kind of activity'),
+		 							'Activity name' => new external_value(PARAM_RAW,'User given Name of Activty'),
+		 							'visible' => new external_value(PARAM_RAW, 'Is the course visible?')
+ 								)
+ 							)
+ 						)
+ 					)
+ 			)
+ 		);
+ }
 
 }
