@@ -1,5 +1,5 @@
 <!--View details after clicking on a course in course table.  -->
-<div class = "container">
+<div class = "container" data-region = course_deatils>
   <div class="navbar">
     <div class="navbar-inner">
       <a class="brand" href="#">Kursinformationen</a>
@@ -22,7 +22,7 @@
           <td>{{shortname}}</td>
         </tr>
         <tr>
-          <th>Vollständiger Kursname</th>
+          <th>Vollst�ndiger Kursname</th>
           <td>{{fullname}}</td>
         </tr>
         <tr>
@@ -49,21 +49,20 @@
   </div>
 
 
-  <!-- <div class="navbar">
-    <div class = "navbar-inner"> -->
-  <ul class="nav nav-tabs nav-justified" id = "myTabs">
-    <li class="active"><a data-toggle="tab" href="#CoursePill_1">Eingeschriebene Nutzer_innen</a></li>
-    <li><a data-toggle="tab" href="#CoursePill_2">Aktivitäten</a></li>
-    <li class ="navbar-search pull-right">
-      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
-    </li>
-  </ul>
-</div>
+
+	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
+	    <li class="nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
+	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">Aktivitäten</a></li>
+	    <li class ="navbar-search pull-right">
+	      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+	    </li>
+	 </ul>
+ </div>
 
  <div class="tab-content">
-    <div id="CoursePill_1" class="tab-pane fade">
+    <div id="CoursePill_1" class="tab-pane fade" role="tabpanel">
       <!--table of users in this course-->
-      <h3>User</h3>
+      <b>User</b>
       <div>
         <table class = "table table-striped">
           <thead>
@@ -90,9 +89,9 @@
         </table>
       </div>
     </div>
-    <div id="CoursePill_2" class="tab-pane fade">
+    <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-      <h3>Activities</h3>
+      <b>Activities</b>
       <div>
         <table class = "table table-striped">
           <thead>
@@ -125,21 +124,16 @@ require(['jquery','tool_supporter/table_search'], function($, search) {
   console.log('js in user detail');
   //selecting the active table by selecting the active tab and toggle tabs
   $('#myTabs a').click(function(e){
-//    $(this).tab('show');
-//      $(this).toggle(true);
-//    $('#CoursePill_2').toggle();
-      var activeTab = e.target.getAttribute('href');
-      console.log(e.target.getAttribute('href'));
+    $(this).tab('show');
+    var activeTab = e.target.getAttribute('href');
     if(activeTab == "#CoursePill_1"){
       tabTableID = "#{{uniqid}}-userInCourse";
-      console.log(tabTableID);
     }
     else if(activeTab == "#CoursePill_2"){
       tabTableID = "#{{uniqid}}-activityInCourse";
-      console.log(tabTableID);
     }
+    $('#myTab a[href=activeTab]').tab('show');
   });
-console.log(tabTableID);
   search.searchEvent('#{{uniqid}}-courseDetailSearch',tabTableID);
 });
 {{/js}}

@@ -27,7 +27,7 @@ $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
 // Set up the page.
 $url = new moodle_url("/admin/tool/supporter/index.php");
-
+echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">';
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
@@ -56,12 +56,12 @@ echo $course_detail_v;
 
 <?php echo $create_new_course; ?>
 
-<div class="container-fluid">
+<div class="container">
     <div class="row-fluid">
-      <div class"span6">
+      <div class="cole-md">
         <?php echo $user_table; ?>
       </div>
-      <div class="span6">
+      <div class="cole-md">
         <?php echo $course_table; ?>
      </div>
     </div>
