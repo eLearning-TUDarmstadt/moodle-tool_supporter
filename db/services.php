@@ -55,9 +55,9 @@ $functions = array(
         'ajax'        => true
         //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
     ),
-    'tool_supporter_get_users_courses' => array(         //web service function name
+    'tool_supporter_get_user_information' => array(         //web service function name
         'classname'   => 'tool_supporter\external',  //class containing the external function
-        'methodname'  => 'get_users_courses',          //external function name
+        'methodname'  => 'get_user_information',          //external function name
         'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
         'description' => 'Get user information',    //human readable description of the web service function
         'type'        => 'read',                  //database rights of the web service function (read, write)
