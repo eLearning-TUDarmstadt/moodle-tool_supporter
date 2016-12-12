@@ -43,14 +43,14 @@ $user_table = $output->render($user);
 $course = new \tool_supporter\output\course_table();
 $course_table = $output->render($course);
 
-$course_detail = new \tool_supporter\output\course_detail();
-$course_detail_v = $output->render($course_detail);
+//$course_detail = new \tool_supporter\output\course_detail();
+//$course_detail_v = $output->render($course_detail);
 
 $create_new_course = $output->render(new \tool_supporter\output\create_new_course());
 
 echo $output->header();
 echo $index;
-echo $course_detail_v;
+//echo $course_detail_v;
 
 ?>
 
