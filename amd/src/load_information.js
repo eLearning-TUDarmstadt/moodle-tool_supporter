@@ -35,7 +35,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_user: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
-             console.log("Reihe geklickt, User-id gefunden: " + user_id);
+             console.log("Reihe geklickt, User-ID gefunden: " + user_id);
 
              //core_enrol_get_users_courses
 
@@ -44,7 +44,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  //methodname: 'core_enrol_get_users_courses',
                  // Im Dashboard nachschauen, wie die das dort gemacht haben
                  args: {
-                   userid: 5
+                   user_id: user_id
                  }
              }]);
 
@@ -64,8 +64,21 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_course: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
-             console.log("Reihe geklickt, Kurs-id gefunden: " + course_id);
-
+             console.log("Reihe geklickt, Kurs-ID gefunden: " + course_id);
+            var promise = ajax.call([{
+            	methodename: 'tool_supporter_get_course_info',           	 
+            	args: {courseID: course_id}              	
+             }]);
+            console.log("in promises")
+             promise[0].done(function(data){
+                 // Render template with data
+                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
+                     $('[data-region="course_details"]').replaceWith(html);
+                     // And execute any JS that was in the template.
+                     templates.runTemplateJS(js);
+                 }).fail(notification.exception);
+            	 
+             }).fail(notification.exception);
            });
        }
    };

@@ -187,8 +187,12 @@ class tool_supporter_external extends external_api {
     $data = ['courseDetails' => $courseDetails, 'roles' => $roles, 'users' => $users, 'activities' => $activities];
     return $data;
  }
+ 
+ public static function get_course_info_is_allowed_from_ajax(){
+ 	return true;
+ }
 
- public static function get_course_activities($courseID){
+/* public static function get_course_activities($courseID){
  	global $DB;
  
  	// now security checks
@@ -226,6 +230,6 @@ class tool_supporter_external extends external_api {
  					)
  			)
  		);
- }
+ }*/
 
 }

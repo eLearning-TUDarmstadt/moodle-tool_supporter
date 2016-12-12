@@ -24,7 +24,7 @@
 
  $services = array(
        'supporterservice' => array(                                                //the name of the web service
-           'functions' => array ('tool_supporter_create_new_course'), //web service functions of this service
+           'functions' => array ('tool_supporter_create_new_course', 'tool_supporter_get_course_info', 'tool_supporter_get_users_courses', 'tool_supporter_get_site_info'), //web service functions of this service
            'requiredcapability' => '',                //if set, the web service user need this capability to access
                                                                                //any function of this service. For example: 'some/capability:specified'
            'restrictedusers' =>0,                                             //if enabled, the Moodle administrator must link some user to this service
@@ -58,10 +58,20 @@ $functions = array(
     'tool_supporter_get_users_courses' => array(         //web service function name
         'classname'   => 'tool_supporter\external',  //class containing the external function
         'methodname'  => 'get_users_courses',          //external function name
-        'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
+        'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
         'description' => 'Get user information',    //human readable description of the web service function
         'type'        => 'read',                  //database rights of the web service function (read, write)
         'ajax'        => true
         //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-    )
+    ),
+	
+	'tool_supporter_get_course_info' => array(         //web service function name
+		'classname'   => 'tool_supporter\tool_supporter_external',  //class containing the external function
+		'methodname'  => 'get_course_info',        //external function name
+		'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
+		'description' => 'Get course information',    //human readable description of the web service function
+		'type'        => 'write',                  //database rights of the web service function (read, write)
+		'ajax'        => true
+		//'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
+	)		
 );

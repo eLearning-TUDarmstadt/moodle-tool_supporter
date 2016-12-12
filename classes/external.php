@@ -219,7 +219,7 @@ class external extends external_api {
            public static function create_new_course_returns() {
              return new external_single_structure (
               array (
-                'id' => new external_value ( PARAM_INT, 'The id of the newly created course' )
+                'id' => new external_value ( PARAM_RAW, 'The id of the newly created course' )
              ));
            }
 
