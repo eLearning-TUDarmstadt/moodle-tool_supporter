@@ -49,7 +49,7 @@ class course_detail implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
       // "Flattens" the data
       //$array =[1];
-      $data = \tool_supporter_external::get_course_info(2);
+      $data = tool_supporter_external::get_course_info(2);
       echo "Data:";
       print_r($data);
       return $data;

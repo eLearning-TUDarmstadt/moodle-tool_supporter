@@ -65,13 +65,30 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
            $(table + ' tr').on('click', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
              console.log("Reihe geklickt, Kurs-ID gefunden: " + course_id);
-            var promise = ajax.call([{
+             $.ajax({
+            	  url: 'classes/externallib.php',
+            	  data: {get_course_info: course_id},
+            	 // type: "GET",
+            	 // context: document.body
+            	}).done(function(data) {
+            		console.log(data);
+            		templates.render('tool_supporter/course_detail', data).done(function(html, js) {
+                        $('[data-region="course_details"]').replaceWith(html);
+                        // And execute any JS that was in the template.
+                        templates.runTemplateJS(js);
+                    }).fail(notification.exception);
+               	 
+                }).fail(notification.exception);
+            });
+             
+           /* var promise = ajax.call([{
             	methodename: 'tool_supporter_get_course_info',           	 
             	args: {courseID: course_id}              	
              }]);
-            console.log("in promises")
+            console.log(promise[0]);
              promise[0].done(function(data){
                  // Render template with data
+                 console.log(data);
                  templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
                      // And execute any JS that was in the template.
@@ -79,7 +96,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  }).fail(notification.exception);
             	 
              }).fail(notification.exception);
-           });
+           });*/
        }
    };
 });

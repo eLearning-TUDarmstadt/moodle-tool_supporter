@@ -39,7 +39,7 @@ $functions = array(
     // For each functuon: Which class provides the function?
 
     'tool_supporter_get_site_info' => array(
-        'classname'   => 'tool_supporter\external',
+        'classname'   => 'tool_supporter_external',
         'methodname'  => 'get_site_info',
         'classpath'   => '',
         'description' => 'Return some site info.',
@@ -47,7 +47,7 @@ $functions = array(
         'capabilities'=> '',
     ),
     'tool_supporter_create_new_course' => array(         //web service function name
-        'classname'   => 'tool_supporter\external',  //class containing the external function
+        'classname'   => 'tool_supporter_external',  //class containing the external function
         'methodname'  => 'create_new_course',          //external function name
         'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
         'description' => 'Create a course',    //human readable description of the web service function
@@ -56,9 +56,9 @@ $functions = array(
         //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
     ),
     'tool_supporter_get_user_information' => array(         //web service function name
-        'classname'   => 'tool_supporter\external',  //class containing the external function
+        'classname'   => 'tool_supporter_external',  //class containing the external function
         'methodname'  => 'get_user_information',          //external function name
-        'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+        'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
         'description' => 'Get user information',    //human readable description of the web service function
         'type'        => 'read',                  //database rights of the web service function (read, write)
         'ajax'        => true
@@ -66,7 +66,7 @@ $functions = array(
     ),
 	
 	'tool_supporter_get_course_info' => array(         //web service function name
-		'classname'   => 'tool_supporter\tool_supporter_external',  //class containing the external function
+		'classname'   => 'tool_supporter_external',  //class containing the external function
 		'methodname'  => 'get_course_info',        //external function name
 		'classpath'   => 'tool/supporter/classes/externallib.php',  //file containing the class/external function
 		'description' => 'Get course information',    //human readable description of the web service function
