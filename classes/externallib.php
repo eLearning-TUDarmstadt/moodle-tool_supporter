@@ -6,7 +6,7 @@
  * @copyright  2016 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+namespace test;
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
@@ -46,7 +46,7 @@ class tool_supporter_external extends external_api {
    global $DB;
 
    // now security checks
-    $context = context_system::instance();
+    $context = \context_system::instance();
     self::validate_context($context);
     //Is the user allowes to use this web service?
     require_capability('tool/supporter:get_users', $context);
@@ -86,7 +86,7 @@ class tool_supporter_external extends external_api {
    global $DB;
 
    // now security checks
-    $context = context_system::instance();
+    $context = \context_system::instance();
     self::validate_context($context);
     //Is the user allowes to use this web service?
     require_capability('tool/supporter:get_users', $context);
@@ -148,7 +148,7 @@ class tool_supporter_external extends external_api {
 
  public static function get_course_info($courseID){
    global $DB;
-   console.log("in course_info. CourseID: " + $courseID);
+   echo var_dump($courseID);
    //check parameters
     $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
    // now security checks
