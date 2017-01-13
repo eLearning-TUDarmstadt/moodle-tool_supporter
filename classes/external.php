@@ -26,6 +26,8 @@ namespace tool_supporter;
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
+require_once("$CFG->dirroot/user/lib.php");
+require_once($CFG->libdir.'/adminlib.php');
 
 use external_api;
 use external_function_parameters;
@@ -202,7 +204,7 @@ class external extends external_api {
               $record->displayorder = '10000';
               $lastinsertid = $DB->insert_record('quiz_report', $record, false);
 
-              /** aus Hackfest Beispiel
+              /*** aus Hackfest Beispiel
                 global $PAGE;
                 $renderer = $PAGE->get_renderer('tool_supporter');
                 $page = new \tool_supporter\output\create_new_course();
@@ -226,9 +228,10 @@ class external extends external_api {
            // --------------------------------------------------------------------------------------------------------------------------------------
 
            public static function get_user_information_parameters() {
-             return new external_function_parameters (
-               array (
-                 'userid' => new external_value ( PARAM_INT, 'The id of the user' )
+             return new external_function_parameters(
+               array(
+                 //'userid' => new external_value ( PARAM_INT, 'The id of the user' )
+                 'userid' => new external_value(PARAM_RAW, 'The id of the user')
                ));
            }
 
@@ -236,30 +239,114 @@ class external extends external_api {
             * Wrap the core function get_site_info.
             */
            public static function get_user_information($userid) {
+             global $DB;
 
              //Parameters validation
-             $params = self::validate_parameters ( self::create_new_course_parameters (), $array );
+             $params = self::validate_parameters(self::get_user_information_parameters (), array('userid'=>$userid));
 
-             echo "user id: " . $userid;
-             //var test = core_enrol_get_users_courses($user_id);
-             //print_r(test);
+             //echo "user iddd: " . $userid;
+             $user_courses = enrol_get_users_courses($userid);
 
-             return array (
-               'id' => 1
+             // --------------------------- HIER WIRDS IN EIN ARRAY UMGEWANDELT
+             foreach ($user_courses as $course) {
+               $user_courses_array[] = (array)$course;
+             }
+
+
+
+             //$test = enrol_get_all_users_courses($userid);
+             // core_enrol_
+             //print_r($user_courses);
+
+             $user_information = user_get_users_by_id(array('userid'=>$userid));
+             //print_r($user_information); /// wichtiger output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
+             //echo "test3";
+
+
+
+             $data = array(
+               'user_courses' => $user_courses_array,
+               //'user_information' => $user_information
              );
+
+              echo "-----6------";
+              print_r ($data);
+
+             return $data;
            }
 
            /**
-            * Wrap the core function get_site_info.
+            * Specifies the return thingies
             *
-            * @return external_description
+            * @return returns the user's courses and information
             */
            public static function get_user_information_returns() {
-             return new external_single_structure (
-              array (
-                'id' => new external_value ( PARAM_INT, 'Has to be changed later' )
-             ));
+             return
+             new external_multiple_structure(
+                 //new external_multiple_structure(
+                   new external_single_structure(
+                     array(
+                       'id' => new external_value (PARAM_INT, 'id of course'),
+                       'category' => new external_value (PARAM_INT, 'category id of the course'),
+                       'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
+                       'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
+                       'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
+                       'idnumber' => new external_value (PARAM_INT, 'idnumber of the course'),
+                       'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
+                       'visible' => new external_value (PARAM_BOOL, 'visible of course'),
+                       'defaultgroupingid' => new external_value (PARAM_INT, ' the defaultgroupingid of the course'),
+                       'groupmode' => new external_value (PARAM_INT, 'the groupmode of the course'),
+                       'groupmodeforce' => new external_value (PARAM_INT, 'groupmodeforce of course'),
+                       'ctxid' => new external_value (PARAM_INT, 'the ctxid of the course'),
+                       'ctxpath' => new external_value (PARAM_RAW, 'the ctxpath of the course'),
+                       'ctxdepth' => new external_value (PARAM_INT, 'the ctxdepth of the course'),
+                       'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
+                       'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
+                     )
+                   , 'one of users courses')
+                 //, 'all of users courses')
+                 // , user_information => .....
+             )
+             ;
            }
+
+           /************************************
+           public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
+             return new external_multiple_structure(
+                 new external_single_structure(
+                     array(
+                         'courseDetails'=> new external_multiple_structure(
+                             new external_single_structure(
+                                 array(
+                                     'id' => new external_value(PARAM_INT, 'id of course'),
+                                     'semester' => new external_value(PARAM_RAW, 'parent category'),
+                                     'fb' => new external_value(PARAM_RAW,'course category'),
+                                     'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
+                                     'fullname' => new external_value(PARAM_RAW, 'course name'),
+                                     'visible' => new external_value(PARAM_RAW, 'Is the course visible?'),
+                                     'path' => new external_value(PARAM_RAW, 'path of course'),
+                                     'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
+                                 )
+                                 )
+                             ),
+                         'roles' => new external_multiple_structure(
+                             new external_single_structure(
+                                 array(
+                                     'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
+                                     'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
+                                 )
+                                 )
+                             ),
+                         'users' => new external_multiple_structure(
+                             new external_single_structure(
+                                 array( )
+                                 )
+                             )
+                     )
+                     )
+                 );
+           }
+           */
 
            /*
             * Expose to AJAX

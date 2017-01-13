@@ -44,7 +44,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  //methodname: 'core_enrol_get_users_courses',
                  // Im Dashboard nachschauen, wie die das dort gemacht haben
                  args: {
-                   user_id: user_id
+                   userid: user_id
                  }
              }]);
 
@@ -77,13 +77,15 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                         // And execute any JS that was in the template.
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
-               	 
+
                 }).fail(notification.exception);
             });*/
-             
+
            var promise = ajax.call([{
-            	methodname: 'tool_supporter_get_course_info',           	 
-            	args: {courseID: course_id}              	
+            	methodname: 'tool_supporter_get_course_info',
+            	args: {
+                courseID: course_id
+              }
              }]);
              promise[0].done(function(data){
                  // Render template with data
@@ -93,7 +95,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                      // And execute any JS that was in the template.
                      templates.runTemplateJS(js);
                  }).fail(notification.exception);*/
-            	 
+
              }).fail(notification.exception);
            });
        }
