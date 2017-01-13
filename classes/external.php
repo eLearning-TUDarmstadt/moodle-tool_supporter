@@ -155,7 +155,7 @@ class external extends external_api {
               //var test = core_enrol_get_users_courses(5);
               //print_r(test);
 
-              //$created_course = create_course($data);
+              $created_course = create_course($data);
 
               return array (
                 'id' => $created_course->id
@@ -271,7 +271,7 @@ class external extends external_api {
                return true;
            }
            */
-           
+
            /**
             * Returns description of method parameters
             * @return external_function_parameters
@@ -283,7 +283,7 @@ class external extends external_api {
            			)
            			);
            }
-           
+
            public static function get_users_returns() {
            	return new external_multiple_structure(
            			new external_single_structure(
@@ -297,16 +297,16 @@ class external extends external_api {
            					)
            			);
            }
-           
+
            public static function get_users(){
            	global $DB;
-           
+
            	// now security checks
            	$context = \context_system::instance();
            	self::validate_context($context);
            	//Is the user allowes to use this web service?
            	require_capability('tool/supporter:get_users', $context);
-           
+
            	$rs = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
            	foreach ($rs as $record) {
            		$users[] = (array)$record;
@@ -314,16 +314,16 @@ class external extends external_api {
            	$rs->close();
            	$data['users'] = $users;
            	return $data;
-           
+
            }
-           
+
            public static function get_courses_parameters(){
            	return new external_function_parameters(
            			array( //no parameters required
            			)
            			);
            }
-           
+
            public static function get_courses_returns() {
            	return new external_multiple_structure(
            			new external_single_structure(
@@ -337,16 +337,16 @@ class external extends external_api {
            					)
            			);
            }
-           
+
            public static function get_courses(){
            	global $DB;
-           
+
            	// now security checks
            	$context = \context_system::instance();
            	self::validate_context($context);
            	//Is the user allowes to use this web service?
            	require_capability('tool/supporter:get_users', $context);
-           
+
            	$select = 'SELECT c.id, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
            	$rs = $DB->get_recordset_sql($select);
            	foreach ($rs as $record) {
@@ -356,16 +356,16 @@ class external extends external_api {
            	$data['courses'] = $courses;
            	return $data;
            }
-           
+
            public static function get_course_info_parameters(){
            	return new external_function_parameters(
            			array(
            					'courseID' => new external_value(PARAM_RAW, 'id of course you want to show')
            			)
            			);
-           
+
            }
-           
+
            public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
            	return new external_multiple_structure(
            			new external_single_structure(
@@ -401,11 +401,11 @@ class external extends external_api {
            					)
            			);
            }
-           
+
            public static function get_course_info($courseID){
            	global $DB;
            	//check parameters
-           	
+
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
            	// now security checks
            	$coursecontext = \context_course::instance($params['courseID']);
@@ -414,7 +414,7 @@ class external extends external_api {
            	//Is the user allowes to use this web service?
            	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
            	require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher
-           	
+
            	$select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseID;
            	$courseDetails = $DB->get_record_sql($select);
            	$courseDetails = (array)$courseDetails;
@@ -445,9 +445,9 @@ class external extends external_api {
            		$activities[] = $activity;
            	}
            	$data = array('courseDetails' => $courseDetails, 'roles' => $roles, 'users' => $users, 'activities' => $activities);
-           	
+
            	print_r($data);
-           	
+
            	return $data;
            }
 }

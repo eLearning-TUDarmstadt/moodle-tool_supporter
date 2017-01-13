@@ -57,7 +57,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 promises[0].done(function(data) {
                   console.log("promise is done with return data: ")
                   console.log(data);
-                  alert("Der Kurs mit der ID " + data['id'] + "wurde erstellt!");
+                  alert("Der Kurs mit der ID " + data['id'] + " wurde erstellt!");
                     // We have the data - lets re-render the template with it.
 
                     /*
