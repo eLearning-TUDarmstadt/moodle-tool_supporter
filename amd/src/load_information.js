@@ -35,22 +35,20 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_user: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
-             console.log("Reihe geklickt, User-ID gefunden: " + user_id);
-
-             //core_enrol_get_users_courses
 
              var promises = ajax.call([{
                methodname: 'tool_supporter_get_user_information',
-                 //methodname: 'core_enrol_get_users_courses',
-                 // Im Dashboard nachschauen, wie die das dort gemacht haben
                  args: {
                    userid: user_id
                  }
              }]);
 
              promises[0].done(function(data) {
+               var data = data[0];
                console.log("promise is done with return data: ")
                console.log(data);
+               console.log(data["user_information"]);
+               console.log(data.user_information);
              }).fail(notification.exception);
 
            });

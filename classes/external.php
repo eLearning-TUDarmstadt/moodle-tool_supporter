@@ -138,7 +138,7 @@ class external extends external_api {
               }
 
               //Set Start date to 1.4. or 1.10.
-              if (strpos(shortname, 'WiSe') !== FALSE) {
+              if (strpos($params['shortname'], 'WiSe') !== FALSE) {
                  $array_after_semester = explode('WiSe', shortname);
                  $year = substr($array_after_semester[1], 1, 4);
                  $data->startdate = mktime(24, 0, 0, 10, 1, $year); //hour, minute, second, month, day, year
@@ -154,63 +154,20 @@ class external extends external_api {
 
               //$transaction->allow_commit(); //DB wird commited
 
-              //var test = core_enrol_get_users_courses(5);
-              //print_r(test);
-
               $created_course = create_course($data);
 
-              return array (
-                'id' => $created_course->id
+              $return_data = array(
+                'id' => $created_course->id,
+                'category' => $created_course->category,
+                'fullname' => $created_course->fullname,
+                'shortname' => $created_course->shortname,
+                'startdate' => $created_course->startdate,
+                'visible' => $created_course->visible,
+                'timecreated' => $created_course->timecreated,
+                'timemodified' => $created_course->timemodified
               );
 
-              /*
-              $record = new stdClass();
-              $record -> shortname = $shortname;
-              $record -> shortname = $fullname;
-
-              /*
-
-              // Parameters validation
-              $params = self::validate_parameters ( self::create_new_course_parameters (), array ('shortname' => $shortname, 'fullname' => $fullname) );
-              if ($DB->record_exists('course', array('shortname' => $shortname))) {
-                  console.log("There was an error! The shortname is already taken! Quit and display ");
-                  alert("There was an error! The shortname is already taken! Quit and display ");
-              }
-              console.log("Shortname was not yet taken. Create the course now!");
-
-              /*
-
-              $contextmodule = context_module::instance($cm->id);
-
-              // Context validation
-              $cmid = self::get_cmid_by_instance ( $params ['supporterinstance'] );
-              $context = context_module::instance ( $cmid );
-              self::validate_context ( $context );
-
-
-
-              // Welche Rechte muss man haben, damit man das machen darf? Wie muss der Kontext aussehen, "damit man Admin ist"?
-              /*
-              $context = context_course::instance($course->courseid);
-              self::validate_context($context);
-              require_capability('moodle/course:create', $context);
-              */
-              /*
-
-              $DB->insert_record($table, $dataobject, $returnid=true, $bulk=false)
-
-              $record = new stdClass();
-              $record->name         = 'overview';
-              $record->displayorder = '10000';
-              $lastinsertid = $DB->insert_record('quiz_report', $record, false);
-
-              /*** aus Hackfest Beispiel
-                global $PAGE;
-                $renderer = $PAGE->get_renderer('tool_supporter');
-                $page = new \tool_supporter\output\create_new_course();
-                return $page->export_for_template($renderer);
-                */
-
+              return $return_data;
           }
 
           /**
@@ -221,7 +178,14 @@ class external extends external_api {
            public static function create_new_course_returns() {
              return new external_single_structure (
               array (
-                'id' => new external_value ( PARAM_RAW, 'The id of the newly created course' )
+                'id' => new external_value ( PARAM_INT, 'The id of the newly created course' ),
+                'category' => new external_value ( PARAM_INT, 'The category of the newly created course' ),
+                'fullname' => new external_value ( PARAM_TEXT, 'The fullname of the newly created course' ),
+                'shortname' => new external_value ( PARAM_TEXT, 'The shortname of the newly created course' ),
+                'startdate' => new external_value ( PARAM_INT, 'The startdate of the newly created course' ),
+                'visible' => new external_value ( PARAM_BOOL, 'The visible of the newly created course' ),
+                'timecreated' => new external_value ( PARAM_INT, 'The id of the newly created course' ),
+                'timemodified' => new external_value ( PARAM_INT, 'The id of the newly created course' )
              ));
            }
 
@@ -244,120 +208,74 @@ class external extends external_api {
              //Parameters validation
              $params = self::validate_parameters(self::get_user_information_parameters (), array('userid'=>$userid));
 
-             //echo "user iddd: " . $userid;
-             $user_courses = enrol_get_users_courses($userid);
+             $user_information = user_get_users_by_id(array('userid'=>$userid));
+             // important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
 
-             // --------------------------- HIER WIRDS IN EIN ARRAY UMGEWANDELT
+             // cast as an array
+             foreach ($user_information as $info) {
+               $user_information_array[] = (array)$info;
+             }
+
+             $user_information_array = $user_information_array[0]; //we only retrieved one user
+
+             $user_courses = enrol_get_users_courses($userid); // important Output: id, category, shortname, fullname, startdate, visible
+
+             // cast it as an array
              foreach ($user_courses as $course) {
                $user_courses_array[] = (array)$course;
              }
 
+             $data['users_courses'] = $user_courses_array;
+             $data['user_information'] = $user_information_array;
 
-
-             //$test = enrol_get_all_users_courses($userid);
-             // core_enrol_
-             //print_r($user_courses);
-
-             $user_information = user_get_users_by_id(array('userid'=>$userid));
-             //print_r($user_information); /// wichtiger output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
-             //echo "test3";
-
-
-
-             $data = array(
-               'user_courses' => $user_courses_array,
-               //'user_information' => $user_information
-             );
-
-              echo "-----6------";
-              print_r ($data);
-
-             return $data;
+             return array($data);
            }
 
            /**
-            * Specifies the return thingies
+            * Specifies the return values
             *
             * @return returns the user's courses and information
             */
+
            public static function get_user_information_returns() {
              return
-             new external_multiple_structure(
-                 //new external_multiple_structure(
-                   new external_single_structure(
-                     array(
-                       'id' => new external_value (PARAM_INT, 'id of course'),
-                       'category' => new external_value (PARAM_INT, 'category id of the course'),
-                       'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
-                       'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
-                       'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
-                       'idnumber' => new external_value (PARAM_INT, 'idnumber of the course'),
-                       'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
-                       'visible' => new external_value (PARAM_BOOL, 'visible of course'),
-                       'defaultgroupingid' => new external_value (PARAM_INT, ' the defaultgroupingid of the course'),
-                       'groupmode' => new external_value (PARAM_INT, 'the groupmode of the course'),
-                       'groupmodeforce' => new external_value (PARAM_INT, 'groupmodeforce of course'),
-                       'ctxid' => new external_value (PARAM_INT, 'the ctxid of the course'),
-                       'ctxpath' => new external_value (PARAM_RAW, 'the ctxpath of the course'),
-                       'ctxdepth' => new external_value (PARAM_INT, 'the ctxdepth of the course'),
-                       'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
-                       'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
-                     )
-                   , 'one of users courses')
-                 //, 'all of users courses')
-                 // , user_information => .....
-             )
-             ;
-           }
-
-           /************************************
-           public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
-             return new external_multiple_structure(
-                 new external_single_structure(
-                     array(
-                         'courseDetails'=> new external_multiple_structure(
-                             new external_single_structure(
-                                 array(
-                                     'id' => new external_value(PARAM_INT, 'id of course'),
-                                     'semester' => new external_value(PARAM_RAW, 'parent category'),
-                                     'fb' => new external_value(PARAM_RAW,'course category'),
-                                     'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-                                     'fullname' => new external_value(PARAM_RAW, 'course name'),
-                                     'visible' => new external_value(PARAM_RAW, 'Is the course visible?'),
-                                     'path' => new external_value(PARAM_RAW, 'path of course'),
-                                     'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
-                                 )
-                                 )
-                             ),
-                         'roles' => new external_multiple_structure(
-                             new external_single_structure(
-                                 array(
-                                     'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
-                                     'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
-                                 )
-                                 )
-                             ),
-                         'users' => new external_multiple_structure(
-                             new external_single_structure(
-                                 array( )
-                                 )
-                             )
-                     )
-                     )
-                 );
-           }
-           */
-
-           /*
-            * Expose to AJAX
-            * @return boolean
-            *
-            * By default this is turned off - security issues
-            *
-           public static function get_site_info_is_allowed_from_ajax() {
-               return true;
-           }
-           */
+              new external_multiple_structure (
+                new external_single_structure(
+                array (
+                  'user_information' => new external_single_structure ( array (
+                      'id' => new external_value (PARAM_INT, 'id of the user'),
+                      'username' => new external_value (PARAM_TEXT, 'username of the user'),
+                      'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
+                      'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
+                      'email' => new external_value (PARAM_TEXT, 'email of the user'),
+                      'timecreated' => new external_value (PARAM_INT, 'timecreated of the user'),
+                      'timemodified' => new external_value (PARAM_INT, 'timemodified of the user'),
+                      'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
+                      'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
+                    )),
+                    'users_courses' => new external_multiple_structure (new external_single_structure (array (
+                          'id' => new external_value (PARAM_INT, 'id of course'),
+                          'category' => new external_value (PARAM_INT, 'category id of the course'),
+                          'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
+                          'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
+                          'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
+                          'visible' => new external_value (PARAM_BOOL, 'visible of course'),
+                          //'idnumber' => new external_value (PARAM_RAW, 'idnumber of the course'),
+                          //'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
+                          //new external_value ('id', PARAM_INT, 'category id of the course'), // für external_single_structure
+                          //'defaultgroupingid' => new external_value (PARAM_INT, ' the defaultgroupingid of the course'),
+                          //'groupmode' => new external_value (PARAM_INT, 'the groupmode of the course'),
+                          //'groupmodeforce' => new external_value (PARAM_INT, 'groupmodeforce of course'),
+                          //'ctxid' => new external_value (PARAM_INT, 'the ctxid of the course'),
+                          //'ctxpath' => new external_value (PARAM_RAW, 'the ctxpath of the course'),
+                          //'ctxdepth' => new external_value (PARAM_INT, 'the ctxdepth of the course'),
+                          //'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
+                          //'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
+                    )))
+                  )
+                )
+              );
+             }
 
            /**
             * Returns description of method parameters
