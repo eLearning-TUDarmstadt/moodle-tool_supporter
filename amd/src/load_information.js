@@ -44,11 +44,24 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
              }]);
 
              promises[0].done(function(data) {
-               var data = data[0];
-               console.log("promise is done with return data: ")
+               data = data[0];
+               console.log("promise is done with return data: ");
                console.log(data);
-               console.log(data["user_information"]);
-               console.log(data.user_information);
+               var userDetails = data.user_information;
+               var user_courses = data.users_courses;
+
+               //console.log(data["user_information"]);
+               //console.log(data.user_information);
+
+               /* user courses benutzt folgende Variablen:
+               <td>{{id}}</td>
+               <td>{{fullname}}</td>
+               <td>{{fb}}</td>  -------> ToDo: Change fb to category
+               <td>{{category}}</td> ----> semester
+               <td>{{visible}}</td>
+               */
+
+               // jetzt: User anzeigen lassen ->user_detail neu rendern lassen
              }).fail(notification.exception);
 
            });

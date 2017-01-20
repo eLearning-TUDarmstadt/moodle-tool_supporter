@@ -27,7 +27,8 @@ require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
 require_once("$CFG->dirroot/user/lib.php");
-require_once($CFG->libdir.'/adminlib.php');
+require_once("$CFG->libdir/adminlib.php");
+require_once("$CFG->libdir/coursecatlib.php");
 
 use external_api;
 use external_function_parameters;
@@ -211,22 +212,31 @@ class external extends external_api {
              $user_information = user_get_users_by_id(array('userid'=>$userid));
              // important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
 
-             // cast as an array
              foreach ($user_information as $info) {
+               // cast as an array
                $user_information_array[] = (array)$info;
              }
-
              $user_information_array = $user_information_array[0]; //we only retrieved one user
 
              $user_courses = enrol_get_users_courses($userid); // important Output: id, category, shortname, fullname, startdate, visible
+             $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
-             // cast it as an array
              foreach ($user_courses as $course) {
-               $user_courses_array[] = (array)$course;
+               $course->categoryname = $categories[$course->category];
+
+               $context = \context_course::instance($course->id);
+               $usedRoles = get_roles_used_in_context($context);
+               foreach ($usedRoles as $role) {
+                 $course->roles[] = $role->shortname;
+               }
+
+               $user_courses_array[] = (array)$course; //cast it as an array
              }
 
              $data['users_courses'] = $user_courses_array;
              $data['user_information'] = $user_information_array;
+
+             //print_r($data);
 
              return array($data);
            }
@@ -239,9 +249,7 @@ class external extends external_api {
 
            public static function get_user_information_returns() {
              return
-              new external_multiple_structure (
-                new external_single_structure(
-                array (
+              new external_multiple_structure (new external_single_structure (array (
                   'user_information' => new external_single_structure ( array (
                       'id' => new external_value (PARAM_INT, 'id of the user'),
                       'username' => new external_value (PARAM_TEXT, 'username of the user'),
@@ -260,9 +268,17 @@ class external extends external_api {
                           'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
                           'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
                           'visible' => new external_value (PARAM_BOOL, 'visible of course'),
+                          'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
+                          'roles' => new external_single_structure ( array (
+                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
+                            '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
+                            '3' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
+                            '4' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
+                            '5' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL)
+                            ))
                           //'idnumber' => new external_value (PARAM_RAW, 'idnumber of the course'),
                           //'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
-                          //new external_value ('id', PARAM_INT, 'category id of the course'), // für external_single_structure
+                          // new external_value ('id', PARAM_INT, 'category id of the course'), // für external_single_structure
                           //'defaultgroupingid' => new external_value (PARAM_INT, ' the defaultgroupingid of the course'),
                           //'groupmode' => new external_value (PARAM_INT, 'the groupmode of the course'),
                           //'groupmodeforce' => new external_value (PARAM_INT, 'groupmodeforce of course'),
@@ -272,9 +288,7 @@ class external extends external_api {
                           //'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
                           //'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
                     )))
-                  )
-                )
-              );
+                  )));
              }
 
            /**
