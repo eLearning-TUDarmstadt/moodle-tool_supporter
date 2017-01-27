@@ -209,32 +209,41 @@ class external extends external_api {
              //Parameters validation
              $params = self::validate_parameters(self::get_user_information_parameters (), array('userid'=>$userid));
 
-             $user_information = user_get_users_by_id(array('userid'=>$userid));
+             $userinformation = user_get_users_by_id(array('userid'=>$userid));
              // important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
 
-             foreach ($user_information as $info) {
+             foreach ($userinformation as $info) {
                // cast as an array
-               $user_information_array[] = (array)$info;
+               $userinformationarray[] = (array)$info;
              }
-             $user_information_array = $user_information_array[0]; //we only retrieved one user
+             $userinformationarray = $userinformationarray[0]; //we only retrieved one user
 
-             $user_courses = enrol_get_users_courses($userid); // important Output: id, category, shortname, fullname, startdate, visible
+             $usercourses = enrol_get_users_courses($userid); // important Output: id, category, shortname, fullname, startdate, visible
+
+             //Get an array of categories [id]=>[name]
              $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
-             foreach ($user_courses as $course) {
-               $course->categoryname = $categories[$course->category];
+             foreach ($usercourses as $course) {
+               //Get the semester the course is in (parent of category)
+               $course->categoryname = $categories[$course->category]; //Fachbereich
 
+               $categorypath = $DB->get_record('course_categories', array('id'=>$course->category), 'path');
+               $patharray = explode("/", $categorypath->path);
+               $parentcategory = array_reverse($patharray)[1]; //Semester
+               $course->parentcategory = $categories[$parentcategory];
+
+               //Get the used Roles the user is enrolled as (teacher, student, ...)
                $context = \context_course::instance($course->id);
-               $usedRoles = get_roles_used_in_context($context);
-               foreach ($usedRoles as $role) {
+               $usedroles = get_roles_used_in_context($context);
+               foreach ($usedroles as $role) {
                  $course->roles[] = $role->shortname;
                }
 
-               $user_courses_array[] = (array)$course; //cast it as an array
+               $usercoursesarray[] = (array)$course; //cast it as an array
              }
 
-             $data['users_courses'] = $user_courses_array;
-             $data['user_information'] = $user_information_array;
+             $data['userscourses'] = $usercoursesarray;
+             $data['userinformation'] = $userinformationarray;
 
              //print_r($data);
 
@@ -250,7 +259,7 @@ class external extends external_api {
            public static function get_user_information_returns() {
              return
               new external_multiple_structure (new external_single_structure (array (
-                  'user_information' => new external_single_structure ( array (
+                  'userinformation' => new external_single_structure ( array (
                       'id' => new external_value (PARAM_INT, 'id of the user'),
                       'username' => new external_value (PARAM_TEXT, 'username of the user'),
                       'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
@@ -261,14 +270,16 @@ class external extends external_api {
                       'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
                       'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
                     )),
-                    'users_courses' => new external_multiple_structure (new external_single_structure (array (
+                    'userscourses' => new external_multiple_structure (new external_single_structure (array (
                           'id' => new external_value (PARAM_INT, 'id of course'),
                           'category' => new external_value (PARAM_INT, 'category id of the course'),
                           'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
                           'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
                           'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
                           'visible' => new external_value (PARAM_BOOL, 'visible of course'),
-                          'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
+                          'parentcategory' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
+                          'categoryname' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
+                          //'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
                           'roles' => new external_single_structure ( array (
                             '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
                             '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
