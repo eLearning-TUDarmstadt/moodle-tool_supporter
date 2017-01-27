@@ -47,8 +47,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                data = data[0];
                console.log("promise is done with return data: ");
                console.log(data);
-               var userDetails = data.user_information;
-               var user_courses = data.users_courses;
 
                //console.log(data["user_information"]);
                //console.log(data.user_information);
@@ -61,7 +59,18 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                <td>{{visible}}</td>
                */
 
-               // jetzt: User anzeigen lassen ->user_detail neu rendern lassen
+               // jetzt: User anzeigen lassen ->course_detail neu rendern lassen
+               // We have the data of the course. Now it has to be displayed
+               templates.render('tool_supporter/user_detail', data).done(function(html, js) {
+                 console.log("it did something! I guess");
+                   $('[data-region="user_details"]').replaceWith(html);
+                   // And execute any JS that was in the template.
+
+                   //JS: select course which was created
+                   templates.runTemplateJS(js);
+                   console.log("afterwards");
+                   // reload course table?
+               }).fail(notification.exception);
              }).fail(notification.exception);
 
            });
