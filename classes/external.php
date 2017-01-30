@@ -412,17 +412,18 @@ class external extends external_api {
 						           							'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
            											)
            									),
-           							'roles' => new external_single_structure(
-           									//new external_single_structure(
+           							'roles' => new external_multiple_structure(
+           									new external_single_structure(
            											array(
            												new external_single_structure(array(
            													'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
            													'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
            												))
            											)
+           										)
            									),
-           							'users' => new external_single_structure(
-           								//	new external_single_structure(
+           							'users' => new external_multiple_structure(
+           									new external_single_structure(
            											array(
            												new external_single_structure(array(
 						                                  'id' => new external_value(PARAM_INT, 'id of user'),
@@ -430,10 +431,11 @@ class external extends external_api {
 						                                  'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
 						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user')
            											))
+           										)
            									)
                        				 ),
-			                        'activities' => new external_single_structure(
-			                        //    new external_single_structure(
+			                        'activities' => new external_multiple_structure(
+			                            new external_single_structure(
 			                                array(
 			                                		new external_single_structure(array(
 					                                  'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
@@ -441,7 +443,8 @@ class external extends external_api {
 					                                  'name' => new external_value(PARAM_RAW, 'Name of this activity'),
 					                                  'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
 			                               			 ))
-			                            	)	
+			                            	)
+			                            )
 			                        )
 			           		)
 			          )
@@ -490,7 +493,7 @@ class external extends external_api {
            		$activity = ['section' =>$section, 'activity'=>$mo->mod,'name'=>$mo->name, 'visible'=>$mo->visible];
            		$activities[] = $activity;
            	}
-           	$data = array('courseDetails' => $courseDetails, 'roles' => $roles, 'users' => $users, 'activities' => $activities);
+           	$data = array('courseDetails' => (array)$courseDetails, 'roles' => (array)$roles, 'users' => (array)$users, 'activities' => (array)$activities);
 
            	print_r($data);
 
