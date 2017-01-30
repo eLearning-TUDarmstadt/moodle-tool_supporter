@@ -36,7 +36,7 @@ use stdClass;
  * Class containing data for user_table
  * Gets passed to the renderer
  *
- * @copyright  2016 Klara Saary
+ * @copyright  2016 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class create_new_course implements renderable, templatable {
@@ -48,10 +48,17 @@ class create_new_course implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         global $DB;
-        // $data = $DB->get_records('course_categories', null, null, 'id, name, parent, visible');
-        $data = $DB->get_records('course_categories', null, null, 'id, name');
-        // $data = $DB->get_records_menu('course_categories', null, null, 'id, name'); // Wird als 2er-Array ausgegeben
-        foreach ($data as $row) {
+
+        $categoriespath = $DB->get_records('course_categories', null, null, 'id, path');
+        $categoriesnamearray = $DB->get_records_menu('course_categories', null, null, 'id, name');
+
+        foreach ($categoriespath as $row) {
+          $row->path = substr($row->path, 1); // delete first "/"
+          $path = explode("/", $row->path);
+          $row->name = '';
+          foreach ($path as $entry) { //get name for each /path/-element
+            $row->name = " / ".$row->name . $categoriesnamearray[$entry];
+          }
           $categories[] = (array)$row;
         }
         $data['categories'] = $categories;
