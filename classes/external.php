@@ -389,36 +389,52 @@ class external extends external_api {
            	return new external_multiple_structure(
            			new external_single_structure(
            					array(
-           							'courseDetails'=> new external_multiple_structure(
-           									new external_single_structure(
+           							'courseDetails'=> new external_single_structure(
            											array(
            													'id' => new external_value(PARAM_INT, 'id of course'),
-           													'semester' => new external_value(PARAM_RAW, 'parent category'),
-           													'fb' => new external_value(PARAM_RAW,'course category'),
-           													'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-           													'fullname' => new external_value(PARAM_RAW, 'course name'),
-           													'visible' => new external_value(PARAM_RAW, 'Is the course visible?'),
-           													'path' => new external_value(PARAM_RAW, 'path of course'),
-           													'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
-           											)
+						                                    'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
+						                                    'fullname' => new external_value(PARAM_RAW, 'course name'),
+						                                    'visible' => new external_value(PARAM_RAW, 'Is the course visible?'),
+						           							'fb' => new external_value(PARAM_RAW,'course category'),
+						                                    'semester' => new external_value(PARAM_RAW, 'parent category'),
+						           						//	'path' => new external_value(PARAM_RAW, 'path of course'),
+						           							'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
            											)
            									),
-           							'roles' => new external_multiple_structure(
-           									new external_single_structure(
+           							'roles' => new external_single_structure(
+           									//new external_single_structure(
            											array(
+           												new external_single_structure(array(
            													'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
            													'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
-           											)
+           												))
            											)
            									),
-           							'users' => new external_multiple_structure(
-           									new external_single_structure(
-           											array( )
-           											)
+           							'users' => new external_single_structure(
+           								//	new external_single_structure(
+           											array(
+           												new external_single_structure(array(
+						                                  'id' => new external_value(PARAM_INT, 'id of user'),
+						                                  'username' => new external_value(PARAM_RAW, 'name of user'),
+						                                  'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
+						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user')
+           											))
            									)
-           					)
-           					)
-           			);
+                       				 ),
+			                        'activities' => new external_single_structure(
+			                        //    new external_single_structure(
+			                                array(
+			                                		new external_single_structure(array(
+					                                  'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
+					                                  'activity' => new external_value(PARAM_RAW, 'kind of activity'),
+					                                  'name' => new external_value(PARAM_RAW, 'Name of this activity'),
+					                                  'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
+			                               			 ))
+			                            	)	
+			                        )
+			           		)
+			          )
+           		);
            }
 
            public static function get_course_info($courseID){
