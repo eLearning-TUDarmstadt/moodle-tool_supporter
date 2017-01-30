@@ -1,5 +1,5 @@
 <!--View details after clicking on a user in user table.  -->
-<div class = "container">
+<div class = "container" data-region = "user_details">
   <div class="navbar">
     <div class="navbar-inner">
       <a class="brand" href="#">{{userName}}</a>
@@ -12,7 +12,7 @@
   <div class="table-responsive">
     <table class = "table borderless">
       <tbody>
-        {{#userDetails}}
+        {{#userinformation}}
         <tr>
           <th>ID</th>
           <td>{{id}}</td>
@@ -34,18 +34,14 @@
           <td>{{email}}</td>
         </tr>
         <tr>
-          <th>Erster Zugriff</th>
-          <td>{{firstLog}}</td>
+          <th>timecreated</th>
+          <td>{{timecreated}}</td>
         </tr>
         <tr>
-          <th>Letzter Zugriff</th>
-          <td>{{lastLog}}</td>
+          <th>timemodified</th>
+          <td>{{timemodified}}</td>
         </tr>
-        <tr>
-          <th>Letzter Login</th>
-          <td>{{lastLogin}}</td>
-        </tr>
-        {{/userDetails}}
+        {{/userinformation}}
       </tbody>
     <table>
   </div>
@@ -100,24 +96,22 @@
       </tr>
     </thead>
     <tbody id="{{uniqid}}-userCourseTableBody">
-      {{#user_courses}}
+      {{#usercourses}}
       <tr>
         <td>{{id}}</td>
         <td>{{fullname}}</td>
-        <td>{{fb}}</td>
-        <td>{{category}}</td>
+        <td>{{shortname}}</td>
+        <td>{{categoryname}}</td> <!-- Fachbereich -->
+        <td>{{parentcategory}}</td> <!-- Semester -->
         <td>{{visible}}</td>
       </tr>
-      {{/user_courses}}
+      {{/usercourses}}
     </tbody>
   <table>
   </div>
 
 </div>
-<<<<<<< HEAD
-=======
 
 {{#js}}
 //implement filter functionality of dropdown menues
 {{/js}}
->>>>>>> b774a3b8b227b3aab538fca41a6127ee0527706a
