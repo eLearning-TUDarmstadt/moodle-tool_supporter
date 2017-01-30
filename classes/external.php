@@ -212,6 +212,7 @@ class external extends external_api {
              $userinformation = user_get_users_by_id(array('userid'=>$userid));
              // important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual]
 
+             $userinformationarray = [];
              foreach ($userinformation as $info) {
                // cast as an array
                $userinformationarray[] = (array)$info;
@@ -223,6 +224,7 @@ class external extends external_api {
              //Get an array of categories [id]=>[name]
              $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
+             $usercoursesarray = [];
              foreach ($usercourses as $course) {
                //Get the semester the course is in (parent of category)
                $course->categoryname = $categories[$course->category]; //Fachbereich
