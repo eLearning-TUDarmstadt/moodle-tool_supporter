@@ -398,59 +398,85 @@ class external extends external_api {
 
            }
 
+/*
+           public static function get_user_information_returns() {
+             return
+              new external_multiple_structure (new external_single_structure (array (
+                  'userinformation' => new external_single_structure ( array (
+                      'id' => new external_value (PARAM_INT, 'id of the user'),
+                      'username' => new external_value (PARAM_TEXT, 'username of the user'),
+                    )),
+                    'userscourses' => new external_multiple_structure (new external_single_structure (array (
+                          'id' => new external_value (PARAM_INT, 'id of course'),
+                          'category' => new external_value (PARAM_INT, 'category id of the course'),
+                          'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
+                          //'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
+                          'roles' => new external_single_structure ( array (
+                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
+                            '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
+                            ))
+                    )))
+                  )));
+             }
+*/
+
+
+
            public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
-           	return new external_multiple_structure(
+           	return
+            //new external_multiple_structure(
            			new external_single_structure(
            					array(
            							'courseDetails'=> new external_single_structure(
            											array(
            													'id' => new external_value(PARAM_INT, 'id of course'),
-						                                    'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-						                                    'fullname' => new external_value(PARAM_RAW, 'course name'),
-						                                    'visible' => new external_value(PARAM_RAW, 'Is the course visible?'),
+                                    'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
+                                    'fullname' => new external_value(PARAM_RAW, 'course name'),
+                                    'visible' => new external_value(PARAM_BOOL, 'Is the course visible?'),
 						           							'fb' => new external_value(PARAM_RAW,'course category'),
-						                                    'semester' => new external_value(PARAM_RAW, 'parent category'),
+                                    'semester' => new external_value(PARAM_RAW, 'parent category'),
 						           						//	'path' => new external_value(PARAM_RAW, 'path of course'),
-						           							'enrolledUsers' => new external_value(PARAM_RAW, 'number of users, without teachers')
+						           							'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers')
            											)
            									),
            							'roles' => new external_multiple_structure(
            									new external_single_structure(
            											array(
-           												new external_single_structure(array(
+           												//new external_single_structure(array(
            													'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
            													'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
-           												))
+           												//))
            											)
            										)
            									),
            							'users' => new external_multiple_structure(
            									new external_single_structure(
            											array(
-           												new external_single_structure(array(
+           												//new external_single_structure(array(
 						                                  'id' => new external_value(PARAM_INT, 'id of user'),
 						                                  'username' => new external_value(PARAM_RAW, 'name of user'),
 						                                  'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
 						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user')
-           											))
+           											//))
            										)
            									)
                        				 ),
 			                        'activities' => new external_multiple_structure(
 			                            new external_single_structure(
 			                                array(
-			                                		new external_single_structure(array(
+			                                		//new external_single_structure(array(
 					                                  'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
 					                                  'activity' => new external_value(PARAM_RAW, 'kind of activity'),
 					                                  'name' => new external_value(PARAM_RAW, 'Name of this activity'),
 					                                  'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
-			                               			 ))
+			                               			 //))
 			                            	)
 			                            )
 			                        )
 			           		)
 			          )
-           		);
+           		//)
+              ;
            }
 
            public static function get_course_info($courseID){
@@ -497,7 +523,7 @@ class external extends external_api {
            	}
            	$data = array('courseDetails' => (array)$courseDetails, 'roles' => (array)$roles, 'users' => (array)$users, 'activities' => (array)$activities);
 
-           	print_r($data);
+           	//print_r($data);
 
            	return $data;
            }
