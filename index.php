@@ -50,11 +50,17 @@ $create_new_course = $output->render(new \tool_supporter\output\create_new_cours
 
 echo $output->header();
 echo $index;
-//echo $course_detail_v;
+
+
+echo $create_new_course;
+
+//$user_detail = $output->render(new \tool_supporter\output\user_detail());
+//echo $user_detail;
+
+$user_detail = new \tool_supporter\output\user_detail();
+echo $output->render($user_detail);
 
 ?>
-
-<?php echo $create_new_course; ?>
 
 <div class="container">
     <div class="row-fluid">

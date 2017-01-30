@@ -68,6 +68,11 @@ class renderer extends plugin_renderer_base {
         return parent::render_from_template('tool_supporter/create_new_course', $data);
     }
 
+    public function render_user_detail($user_detail) {
+        $data = $user_detail->export_for_template($this);
+        return parent::render_from_template('tool_supporter/user_detail', $data);
+    }
+
     public function render_get_user_information_courses($get_user_information) {
         $data = $get_user_information->export_for_template($this);
         return parent::render_from_template('tool_supporter/get_user_information', $data);
