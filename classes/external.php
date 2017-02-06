@@ -286,8 +286,9 @@ class external extends external_api {
                           'categoryname' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
                           //'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
                           'roles' => new external_single_structure ( array (
-                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
+                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 6 roles at the same time... not ideal. And ugly.
                             '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
+                            '2' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
                             '3' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
                             '4' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
                             '5' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL)

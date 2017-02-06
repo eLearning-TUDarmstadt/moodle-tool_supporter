@@ -26,3 +26,5 @@ $string['pagetitle'] = 'This is the tool for supporters!';
 $string['pluginname'] = 'Supporter';
 $string['timecreateduser'] = 'User was created on';
 $string['timemodifieduser'] = 'User was last modified on';
+$string['department'] = 'Department';
+$string['semester'] = 'Semester';

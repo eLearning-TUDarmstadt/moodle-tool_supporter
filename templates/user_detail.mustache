@@ -31,12 +31,12 @@
     <div class="navbar-inner">
       <a class="brand" href="#">{{userName}}</a>
       <ul class="nav">
-        <!-- Place for buttons like "Show User", "close detail information"-->
+        <li> Login as User etc comes here</li>
       </ul>
     </div>
   </div>
 <!--Show user details  -->
-    <table class = "table borderless">
+    <table class = "table-condensed table-hover table borderless">
       <tbody>
         {{#userinformation}}
         <tr>
@@ -69,14 +69,14 @@
         </tr>
         {{/userinformation}}
       </tbody>
-    <table>
+    </table>
 
   <div class="navbar">
     <div class="navbar-inner">
       <a class="brand" href="#">Kurse</a>
       <ul class="nav">
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">Semester</a>
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
           <ul class="dropdown-menu">
             {{#userscourses}}
             <li><input type="checkbox" name="semesters" checked> {{parentcategory}}</li> <!--filter course list by selecting wanted grand parent-->
@@ -84,16 +84,14 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">Fachbereich</a>
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
           <ul class="dropdown-menu">
             {{#userscourses}}
             <li><input type="checkbox" name="fachbereiche" checked> {{categoryname}}</li><!--filter course list by selecting wanted parent-->
             {{/userscourses}}
           </ul>
         </li>
-        <form class ="navbar-search">
           <input id="{{uniqid}}-userCourseSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
-        </form>
       </ul>
     </div>
   </div>
@@ -102,11 +100,12 @@
   <table class = "table-condensed table-striped table-hover table-bordered">
     <thead>
       <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>FB (direct course category)</th>
-        <th>Semester</th>
-        <th>visible</th>
+        <th>ID</th>
+        <th>{{#str}}fullnamecourse{{/str}}</th>
+        <th>{{#str}}department{{/str}}</th>
+        <th>{{#str}}roles{{/str}}</th>
+        <th>{{#str}}semester, tool_supporter{{/str}}</th>
+        <th>{{#str}}visible{{/str}}</th>
       </tr>
     </thead>
     <tbody id="{{uniqid}}-userCourseTableBody">
@@ -115,6 +114,7 @@
         <td>{{id}}</td>
         <td>{{fullname}}</td>
         <td>{{categoryname}}</td> <!-- TUD intern: Fachbereiche -->
+        <td>{{roles}}</td> <!-- TUD intern: Fachbereiche -->
         <td>{{parentcategory}}</td> <!-- TUD intern: Semester -->
         <td>{{visible}}</td>
       </tr>
@@ -124,8 +124,7 @@
   </div>
 
 </div>
-</div></div></div></div></div></div></div>
 
 {{#js}}
-//implement filter functionality of dropdown menues
+//ToDo: implement filter functionality of dropdown menues
 {{/js}}

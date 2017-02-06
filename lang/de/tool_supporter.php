@@ -26,3 +26,5 @@ $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen
 $string['pluginname'] = 'Supporter';
 $string['timecreateduser'] = 'Nutzer wurde erstellt am';
 $string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
+$string['department'] = 'Fachbereich';
+$string['semester'] = 'Semester';
