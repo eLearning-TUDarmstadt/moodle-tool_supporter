@@ -27,6 +27,17 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
     return /** @alias module:tool_supporter/create_new_course */ {
 
+      /**
+       * show the form to create a course
+       *
+       * @method show_new_course
+       */
+      show_new_course: function() {
+          $('#btn_show_new_course').on('click', function() {
+              $('[data-region="create_new_course_section"]').toggle();
+          });
+      },
+
         /**
          * Create a course
          *
@@ -55,26 +66,22 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }]);
 
                 promises[0].done(function(data) {
+                  // stdClass with category, fullname, id, shortname, startdate, timecreated, timemodified, visible
                   console.log("promise is done with return data: ")
                   console.log(data);
                   alert("Der Kurs mit der ID " + data['id'] + " wurde erstellt!");
-                    // We have the data - lets re-render the template with it.
-
-                    /*
-                    !!! Hier muss später das Template rein, mit dem man einen ausgewählten Kurs anzeigen lassen kann, z.B. "Show course(id) !!!!"
-
-                    templates.render('tool_supporter/user_table', data).done(function(html, js) {
+                  var courseDetails = data;
+                    // We have the data of the course. Now it has to be displayed
+                    templates.render('tool_supporter/course_detail', courseDetails).done(function(html, js) {
                       console.log("Return id: " + html);
-
-                        $('[data-region="create_new_course"]').replaceWith(html);
+                        $('[data-region="course_details"]').replaceWith(html);
+                        $('[data-region="course_details"]').show();
                         // And execute any JS that was in the template.
 
-                        //JS: select course which was created
+                        //JS: Show course which was created
                         templates.runTemplateJS(js);
-
+                        // reload cours table?
                     }).fail(notification.exception);
-
-                    */
                 }).fail(notification.exception);
             });
         }
