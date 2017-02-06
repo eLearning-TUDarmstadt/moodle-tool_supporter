@@ -215,6 +215,9 @@ class external extends external_api {
              $userinformationarray = [];
              foreach ($userinformation as $info) {
                // cast as an array
+               //print_r($info['timecreated']);
+               $info->timecreated = date(DATE_RFC850, $info->timecreated);
+               $info->timemodified = date(DATE_RFC850, $info->timemodified);
                $userinformationarray[] = (array)$info;
              }
              $userinformationarray = $userinformationarray[0]; //we only retrieved one user
@@ -267,8 +270,8 @@ class external extends external_api {
                       'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
                       'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
                       'email' => new external_value (PARAM_TEXT, 'email of the user'),
-                      'timecreated' => new external_value (PARAM_INT, 'timecreated of the user'),
-                      'timemodified' => new external_value (PARAM_INT, 'timemodified of the user'),
+                      'timecreated' => new external_value (PARAM_TEXT, 'timecreated of the user'),
+                      'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user'),
                       'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
                       'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
                     )),

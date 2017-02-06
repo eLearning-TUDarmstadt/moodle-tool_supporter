@@ -45,31 +45,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
              promises[0].done(function(data) {
                data = data[0];
-               console.log("promise is done with return data: ");
                console.log(data);
-
-               //console.log(data["user_information"]);
-               //console.log(data.user_information);
-
-               /* user courses benutzt folgende Variablen:
-               <td>{{id}}</td>
-               <td>{{fullname}}</td>
-               <td>{{fb}}</td>  -------> ToDo: Change fb to category
-               <td>{{category}}</td> ----> semester
-               <td>{{visible}}</td>
-               */
-
-               // jetzt: User anzeigen lassen ->course_detail neu rendern lassen
-               // We have the data of the user. Now it has to be displayed
                templates.render('tool_supporter/user_detail', data).done(function(html, js) {
-                 console.log("it did something! I guess");
-                   $('[data-region="user_details"]').replaceWith(html);
-                   $('[data-region="user_details"]').show();
-                   // And execute any JS that was in the template.
+                 $('[data-region="user_details"]').replaceWith(html);
+                 $('[data-region="user_details"]').show();
 
-                   templates.runTemplateJS(js);
-                   console.log("afterwards");
-                   // reload course table?
+                 // And execute any JS that was in the template.
+                 templates.runTemplateJS(js);
                }).fail(notification.exception);
              }).fail(notification.exception);
 
