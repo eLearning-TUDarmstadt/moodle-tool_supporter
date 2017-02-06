@@ -1,6 +1,33 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+
+  Documentation gets here!
+  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
+
+    @template tool_supporter/user_table
+
+    Starting point for an awesome template.
+
+}}
+
 <!--View details after clicking on a user in user table.  -->
-<div class = "container" data-region = "user_details">
-  <div class="navbar">
+<div style="display: none" data-region="user_details">
+  <div class="navbar" >
     <div class="navbar-inner">
       <a class="brand" href="#">{{userName}}</a>
       <ul class="nav">
@@ -9,7 +36,6 @@
     </div>
   </div>
 <!--Show user details  -->
-  <div class="table-responsive">
     <table class = "table borderless">
       <tbody>
         {{#userinformation}}
@@ -44,7 +70,6 @@
         {{/userinformation}}
       </tbody>
     <table>
-  </div>
 
   <div class="navbar">
     <div class="navbar-inner">
@@ -100,17 +125,17 @@
       <tr>
         <td>{{id}}</td>
         <td>{{fullname}}</td>
-        <td>{{shortname}}</td>
-        <td>{{categoryname}}</td> <!-- Fachbereich -->
-        <td>{{parentcategory}}</td> <!-- Semester -->
+        <td>{{categoryname}}</td>
+        <td>{{category}}</td>
         <td>{{visible}}</td>
       </tr>
       {{/usercourses}}
     </tbody>
-  <table>
+  </table>
   </div>
 
 </div>
+</div></div></div></div></div></div></div>
 
 {{#js}}
 //implement filter functionality of dropdown menues
