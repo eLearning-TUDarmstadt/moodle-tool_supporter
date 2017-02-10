@@ -80,17 +80,17 @@
       <ul class="nav">
         <li class="dropdown">
           <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="semesterdropdown">
             {{#userscourses}}
-            <li><input type="checkbox" name="semesters" checked> {{parentcategory}}</li> <!--filter course list by selecting wanted grand parent-->
+            <li><input type="radio" value="{{parentcategory}}" name="semesterradios" id="semesterradios"> {{parentcategory}}</li> <!--filter course list by selecting wanted grand parent-->
             {{/userscourses}}
           </ul>
         </li>
         <li class="dropdown">
           <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" id="departmentdropdown">
             {{#userscourses}}
-            <li><input type="checkbox" name="fachbereiche" checked> {{categoryname}}</li><!--filter course list by selecting wanted parent-->
+            <li><input type="radio" value="{{categoryname}}" name="departmentradios"  id="departmentradios"> {{categoryname}}</li><!--filter course list by selecting wanted parent-->
             {{/userscourses}}
           </ul>
         </li>
@@ -132,12 +132,14 @@
 
 {{#js}}
 require(['tool_supporter/table_search'], function(search){
+  //for input field
   search.searchEvent('#usercoursessearch','#userdetailcourses');
+  //for radio buttons in dropdown
+  search.searchEvent('departmentradios','#userdetailcourses', '#departmentdropdown');
+  search.searchEvent('semesterradios','#userdetailcourses', '#semesterdropdown');
 });
 
 require(['tool_supporter/load_information'], function(hide_user){
   hide_user.hide_user();
 });
-
-//ToDo: implement filter functionality of dropdown menues
 {{/js}}
