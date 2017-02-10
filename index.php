@@ -47,7 +47,15 @@ $user_detail = $output->render(new \tool_supporter\output\user_detail());
 echo $create_new_course;
 echo $user_detail;
 
+echo "<table BORDER='3' CELLPADDING='10' CELLSPACING='10'>";
+echo "<tr>";
+echo "<td width='10%'>";
 echo $user_table;
+echo "</td>";
+echo "<td>";
 echo $course_table;
+echo "</td>";
+echo "</tr>";
+echo "</table>";
 
 echo $output->footer();
