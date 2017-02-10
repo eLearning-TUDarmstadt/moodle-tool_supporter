@@ -29,10 +29,11 @@
 <div style="display: none" data-region="user_details">
   <div class="navbar" >
     <div class="navbar-inner">
-      <a class="brand" href="#">{{userName}}</a>
-      <ul class="nav">
-        <li> Login as User etc comes here</li>
-      </ul>
+      <a class="brand" href="#">{{#userinformation}}{{username}}{{/userinformation}}</a>
+      <p class="navbar-btn">
+        <a href="{{loginaslink}}" class="btn btn-default" id="btn_login_as">{{#str}}loginas{{/str}}</a>
+      </p>
+      <!-- something like https://moodle.tu-darmstadt.de/course/loginas.php?id=1&user=12&sesskey=2gsrWI7fVD -->
     </div>
   </div>
 <!--Show user details  -->
