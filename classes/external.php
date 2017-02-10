@@ -248,10 +248,15 @@ class external extends external_api {
              $data['userscourses'] = $usercoursesarray;
              $data['userinformation'] = $userinformationarray;
 
-             // Build the "login as"-Link
              global $CFG, $USER;
              $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
              $data['loginaslink'] = (array)$link;
+
+             $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
+             $data['profilelink'] = (array)$link;
+
+             $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
+             $data['edituserlink'] = (array)$link;
 
              return array($data);
            }
@@ -304,9 +309,10 @@ class external extends external_api {
                           //'ctxdepth' => new external_value (PARAM_INT, 'the ctxdepth of the course'),
                           //'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
                           //'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
-                    )))
-                    ,
-                    'loginaslink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to login as the user')))
+                    ))),
+                    'loginaslink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to login as the user'))),
+                    'profilelink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to the users profile page'))),
+                    'edituserlink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to edit the user')))
                   )));
              }
 

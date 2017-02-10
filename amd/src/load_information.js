@@ -27,6 +27,16 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
    return /** @alias module:tool_supporter/create_new_course */ {
 
+     /**
+      * hide the user-block
+      * @method hide_user
+      */
+     hide_user: function() {
+         $('#hide_user').on('click', function() {
+             $('[data-region="user_details"]').toggle();
+         });
+     },
+
        /**
         * Get Users Details
         *

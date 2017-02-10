@@ -29,13 +29,15 @@
 <div style="display: none" data-region="user_details">
   <div class="navbar" >
     <div class="navbar-inner">
-      <a class="brand" href="#">{{#userinformation}}{{username}}{{/userinformation}}</a>
-      <p class="navbar-btn">
-        <a href="{{loginaslink}}" class="btn btn-default" id="btn_login_as">{{#str}}loginas{{/str}}</a>
-      </p>
-      <!-- something like https://moodle.tu-darmstadt.de/course/loginas.php?id=1&user=12&sesskey=2gsrWI7fVD -->
+      <ul class="nav">
+        <li><p class="brand"><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{username}}{{/userinformation}}</a></p></li>
+        <li><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">{{#str}}loginas{{/str}}</a></p></li>
+        <li><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">{{#str}}edituser{{/str}}</a></p></li>
+        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user">{{#str}}hide{{/str}}</a></p></li>
+      </ul>
     </div>
   </div>
+
 <!--Show user details  -->
     <table class = "table-condensed table-hover table borderless">
       <tbody>
@@ -74,7 +76,7 @@
 
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">Kurse</a>
+      <a class="brand" href="#">{{#str}}courses{{/str}}</a>
       <ul class="nav">
         <li class="dropdown">
           <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
@@ -92,7 +94,9 @@
             {{/userscourses}}
           </ul>
         </li>
-          <input id="{{uniqid}}-userCourseSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+        <form class="navbar-search pull-right">
+          <input type="text" id="usercoursessearch" class="search-query" placeholder="{{#str}}search{{/str}}">
+        </form>
       </ul>
     </div>
   </div>
@@ -109,7 +113,7 @@
         <th>{{#str}}visible{{/str}}</th>
       </tr>
     </thead>
-    <tbody id="{{uniqid}}-userCourseTableBody">
+    <tbody id="userdetailcourses">
       {{#userscourses}}
       <tr>
         <td>{{id}}</td>
@@ -127,5 +131,13 @@
 </div>
 
 {{#js}}
+require(['tool_supporter/table_search'], function(search){
+  search.searchEvent('#usercoursessearch','#userdetailcourses');
+});
+
+require(['tool_supporter/load_information'], function(hide_user){
+  hide_user.hide_user();
+});
+
 //ToDo: implement filter functionality of dropdown menues
 {{/js}}
