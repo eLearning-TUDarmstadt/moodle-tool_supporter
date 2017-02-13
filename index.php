@@ -43,10 +43,11 @@ echo $index;
 
 $create_new_course = $output->render(new \tool_supporter\output\create_new_course());
 $user_detail = $output->render(new \tool_supporter\output\user_detail());
+$course_detail = $output->render(new \tool_supporter\output\course_detail());
 
 echo '
 <div class="row">
- <div class="col-sm-6"> COURSE DETAILS COME HERE </div>
+ <div class="col-sm-6"> '.$course_detail.' </div>
  <div class="col-sm-6">'.$user_detail.'</div>
 </div>
 <div class="row">
