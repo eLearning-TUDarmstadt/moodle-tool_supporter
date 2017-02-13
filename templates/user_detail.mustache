@@ -79,19 +79,19 @@
       <a class="brand" href="#">{{#str}}courses{{/str}}</a>
       <ul class="nav">
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
-          <ul class="dropdown-menu" id="semesterdropdown">
-            {{#userscourses}}
-            <li><input type="radio" value="{{parentcategory}}" name="semesterradios" id="semesterradios"> {{parentcategory}}</li> <!--filter course list by selecting wanted grand parent-->
-            {{/userscourses}}
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
+          <ul class="dropdown-menu" id="departmentdropdown">
+            {{#uniquecategoryname}}
+            <li><input type="radio" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
+            {{/uniquecategoryname}}
           </ul>
         </li>
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
-          <ul class="dropdown-menu" id="departmentdropdown">
-            {{#userscourses}}
-            <li><input type="radio" value="{{categoryname}}" name="departmentradios"  id="departmentradios"> {{categoryname}}</li><!--filter course list by selecting wanted parent-->
-            {{/userscourses}}
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
+          <ul class="dropdown-menu" id="semesterdropdown">
+            {{#uniqueparentcategory}}
+            <li><input type="radio" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
+            {{/uniqueparentcategory}}
           </ul>
         </li>
         <form class="navbar-search pull-right">

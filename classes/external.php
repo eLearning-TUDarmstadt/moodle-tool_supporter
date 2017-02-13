@@ -226,14 +226,23 @@ class external extends external_api {
              $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
              $usercoursesarray = [];
+             $data['uniqueparentcategory'] = [];
+             $data['uniquecategoryname'] = [];
              foreach ($usercourses as $course) {
                //Get the semester the course is in (parent of category)
-               $course->categoryname = $categories[$course->category]; //Fachbereich
+               $course->categoryname = $categories[$course->category]; //Department, Fachbereich
+               if (!in_array($course->categoryname, $data['uniquecategoryname'])) {
+                 array_push ($data['uniquecategoryname'], $course->categoryname);
+               }
 
                $categorypath = $DB->get_record('course_categories', array('id'=>$course->category), 'path');
                $patharray = explode("/", $categorypath->path);
                $parentcategory = array_reverse($patharray)[1]; //Semester
                $course->parentcategory = $categories[$parentcategory];
+
+               if (!in_array($course->parentcategory, $data['uniqueparentcategory'])) {
+                 array_push ($data['uniqueparentcategory'], $course->parentcategory);
+               }
 
                //Get the used Roles the user is enrolled as (teacher, student, ...)
                $context = \context_course::instance($course->id);
@@ -257,6 +266,8 @@ class external extends external_api {
 
              $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
              $data['edituserlink'] = (array)$link;
+
+             //print_r($data);
 
              return array($data);
            }
@@ -312,7 +323,9 @@ class external extends external_api {
                     ))),
                     'loginaslink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to login as the user'))),
                     'profilelink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to the users profile page'))),
-                    'edituserlink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to edit the user')))
+                    'edituserlink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to edit the user'))),
+                    'uniquecategoryname' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with unique category names')),
+                    'uniqueparentcategory' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with unique parent categories'))
                   )));
              }
 
