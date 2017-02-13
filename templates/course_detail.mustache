@@ -1,9 +1,10 @@
 <!--View details after clicking on a course in course table.  -->
-<div class = "container" data-region = "course_details">
+<div data-region = "course_details" style="display: none" class="well well-sm">
   <div class="navbar">
     <div class="navbar-inner">
       <a class="brand" href="#">Kursinformationen</a>
       <ul class="nav">
+        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">{{#str}}hide{{/str}}</a></p></li>
         <!-- Place for buttons like "Show Course", "close detail information", "delete Course"-->
       </ul>
     </div>
@@ -22,7 +23,7 @@
           <td>{{shortname}}</td>
         </tr>
         <tr>
-          <th>Vollständiger Kursname</th>
+          <th>Vollstï¿½ndiger Kursname</th>
           <td>{{fullname}}</td>
         </tr>
         <tr>
@@ -135,5 +136,9 @@ require(['jquery','tool_supporter/table_search'], function($, search) {
     $('#myTab a[href=activeTab]').tab('show');
   });
   search.searchEvent('#{{uniqid}}-courseDetailSearch',tabTableID);
+});
+
+require(['tool_supporter/load_information'], function(hide_course_detail){
+  hide_course_detail.hide_course_detail();
 });
 {{/js}}

@@ -481,15 +481,17 @@ class external extends external_api {
            public static function get_course_info($courseID){
            	global $DB;
            	//check parameters
-
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
            	// now security checks
-           	$coursecontext = \context_course::instance($params['courseID']);
+           	$coursecontext = \context_course::instance($courseID);//($params['courseID']);
+            print_r($coursecontext);
+          //  $coursecontext = \context_system::instance();
            	$courseID = $params['courseID'];
-           	self::validate_context($coursecontext);
+            self::validate_context($coursecontext);
+            echo "before check context";
            	//Is the user allowes to use this web service?
            	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
-           	require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher
+           	\require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher
 
            	$select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseID;
            	$courseDetails = $DB->get_record_sql($select);
@@ -523,7 +525,6 @@ class external extends external_api {
            	$data = array('courseDetails' => (array)$courseDetails, 'roles' => (array)$roles, 'users' => (array)$users, 'activities' => (array)$activities);
 
            	//print_r($data);
-
            	return $data;
            }
 }

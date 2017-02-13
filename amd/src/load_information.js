@@ -37,6 +37,16 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          });
      },
 
+     /**
+      * hide the course detail block
+      * @method hide_course_detail
+      */
+     hide_course_detail: function() {
+         $('#hide_course_details').on('click', function() {
+             $('[data-region="course_details"]').toggle();
+         });
+     },
+
        /**
         * Get Users Details
         *
@@ -88,6 +98,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  console.log(data);
                  templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
+                     $('[data-region="course_details"]').show();
                      // And execute any JS that was in the template.
                      templates.runTemplateJS(js);
                  }).fail(notification.exception);
