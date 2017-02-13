@@ -44,18 +44,14 @@ echo $index;
 $create_new_course = $output->render(new \tool_supporter\output\create_new_course());
 $user_detail = $output->render(new \tool_supporter\output\user_detail());
 
-echo $create_new_course;
-echo $user_detail;
-
-echo "<table BORDER='3' CELLPADDING='10' CELLSPACING='10'>";
-echo "<tr>";
-echo "<td width='10%'>";
-echo $user_table;
-echo "</td>";
-echo "<td>";
-echo $course_table;
-echo "</td>";
-echo "</tr>";
-echo "</table>";
+echo '
+<div class="row">
+ <div class="col-sm-6"> COURSE DETAILS COME HERE </div>
+ <div class="col-sm-6">'.$user_detail.'</div>
+</div>
+<div class="row">
+ <div class="col-sm-6">'.$course_table.'</div>
+ <div class="col-sm-6">'.$user_table.'</div>
+</div>';
 
 echo $output->footer();
