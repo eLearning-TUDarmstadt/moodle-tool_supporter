@@ -431,7 +431,6 @@ class external extends external_api {
 
            public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
            	return
-            //new external_multiple_structure(
            			new external_single_structure(
            					array(
            							'courseDetails'=> new external_single_structure(
@@ -449,40 +448,33 @@ class external extends external_api {
            							'roles' => new external_multiple_structure(
            									new external_single_structure(
            											array(
-           												//new external_single_structure(array(
            													'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
            													'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
-           												//))
            											)
            										)
            									),
            							'users' => new external_multiple_structure(
            									new external_single_structure(
            											array(
-           												//new external_single_structure(array(
 						                                  'id' => new external_value(PARAM_INT, 'id of user'),
 						                                  'username' => new external_value(PARAM_RAW, 'name of user'),
 						                                  'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
 						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user')
-           											//))
            										)
            									)
                        				 ),
 			                        'activities' => new external_multiple_structure(
 			                            new external_single_structure(
 			                                array(
-			                                		//new external_single_structure(array(
 					                                  'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
 					                                  'activity' => new external_value(PARAM_RAW, 'kind of activity'),
 					                                  'name' => new external_value(PARAM_RAW, 'Name of this activity'),
 					                                  'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
-			                               			 //))
 			                            	)
 			                            )
 			                        )
 			           		)
 			          )
-           		//)
               ;
            }
 

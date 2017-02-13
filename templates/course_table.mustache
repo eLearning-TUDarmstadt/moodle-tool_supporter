@@ -33,7 +33,7 @@
   </ul>
 
   <div class="table-responsive">
-  <table class = "table-condensed table-striped table-hover table-bordered">
+  <table id = "myTable" class = "table-condensed table-striped table-hover table-bordered">
     <thead>
       <tr>
         <th>ID</th>
@@ -59,10 +59,18 @@
 </div>
 
 {{#js}}
+require(['jquery'], function($){
+  $(document).ready(function()
+      {
+          $(#myTable).DataTable();
+      }
+  );
+}
  require(['tool_supporter/table_search'], function(search){
    search.searchEvent('#{{uniqid}}-courseSearchInput','#{{uniqid}}-courseTableBody');
  });
  require(['tool_supporter/load_information'], function(click_on_course){
    click_on_course.click_on_course('#{{uniqid}}-courseTableBody');
  });
+
 {{/js}}
