@@ -484,11 +484,9 @@ class external extends external_api {
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
            	// now security checks
            	$coursecontext = \context_course::instance($courseID);//($params['courseID']);
-            print_r($coursecontext);
           //  $coursecontext = \context_system::instance();
            	$courseID = $params['courseID'];
             self::validate_context($coursecontext);
-            echo "before check context";
            	//Is the user allowes to use this web service?
            	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
            	\require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher

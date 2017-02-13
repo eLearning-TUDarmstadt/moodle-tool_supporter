@@ -100,7 +100,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                      $('[data-region="course_details"]').replaceWith(html);
                      $('[data-region="course_details"]').show();
                      // And execute any JS that was in the template.
-                     templates.runTemplateJS(js);
+                    templates.runTemplateJS(js);
                  }).fail(notification.exception);
 
              }).fail(notification.exception);

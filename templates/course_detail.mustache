@@ -1,5 +1,5 @@
 <!--View details after clicking on a course in course table.  -->
-<div data-region = "course_details" style="display: none" class="well well-sm">
+<div style="display: none" data-region = "course_details" class="well well-sm">
   <div class="navbar">
     <div class="navbar-inner">
       <a class="brand" href="#">Kursinformationen</a>
@@ -10,7 +10,7 @@
     </div>
   </div>
 <!--Show course details  -->
-  <div class="table-responsive">
+<div class="table-responsive">
     <table class = "table borderless table-striped">
       <tbody>
         {{#courseDetails}}
@@ -46,24 +46,23 @@
         </tr>
         {{/roles}}
       </tbody>
-    <table>
+    </table>
   </div>
 
 
 
 	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
-	    <li class="nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
+	    <li class="nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
 	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">Aktivitäten</a></li>
 	    <li class ="navbar-search pull-right">
 	      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
 	    </li>
 	 </ul>
- </div>
+
 
  <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane fade" role="tabpanel">
       <!--table of users in this course-->
-      <b>User</b>
       <div>
         <table class = "table table-striped">
           <thead>
@@ -92,7 +91,6 @@
     </div>
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-      <b>Activities</b>
       <div>
         <table class = "table table-striped">
           <thead>
@@ -117,13 +115,13 @@
       </div>
     </div>
   </div>
-
+</div>
 
 {{#js}}
 require(['jquery','tool_supporter/table_search'], function($, search) {
   var tabTableID = "#{{uniqid}}-userInCourse";
-  console.log('js in user detail');
   //selecting the active table by selecting the active tab and toggle tabs
+  $('#CoursePill_1').tab('show');
   $('#myTabs a').click(function(e){
     $(this).tab('show');
     var activeTab = e.target.getAttribute('href');
