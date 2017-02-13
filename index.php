@@ -37,13 +37,12 @@ $output = $PAGE->get_renderer('tool_supporter');
 $index = $output->render(new \tool_supporter\output\index_page());
 $user_table = $output->render(new \tool_supporter\output\user_table());
 $course_table = $output->render(new \tool_supporter\output\course_table());
-
-echo $output->header();
-echo $index;
-
 $create_new_course = $output->render(new \tool_supporter\output\create_new_course());
 $user_detail = $output->render(new \tool_supporter\output\user_detail());
 $course_detail = $output->render(new \tool_supporter\output\course_detail());
+
+echo $output->header();
+echo $index;
 
 echo '
 <div class="row">
