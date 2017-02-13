@@ -195,13 +195,12 @@ class external extends external_api {
            public static function get_user_information_parameters() {
              return new external_function_parameters(
                array(
-                 //'userid' => new external_value ( PARAM_INT, 'The id of the user' )
-                 'userid' => new external_value(PARAM_RAW, 'The id of the user')
+                 'userid' => new external_value ( PARAM_INT, 'The id of the user' )
                ));
            }
 
            /**
-            * Wrap the core function get_site_info.
+            * Wrap the core function get_user_information.
             */
            public static function get_user_information($userid) {
              global $DB;
@@ -215,6 +214,8 @@ class external extends external_api {
              $userinformationarray = [];
              foreach ($userinformation as $info) {
                // cast as an array
+               $info->timecreated = date(DATE_RFC850, $info->timecreated); //Example: Monday, 15-Aug-05 15:52:01 UTC
+               $info->timemodified = date(DATE_RFC850, $info->timemodified);
                $userinformationarray[] = (array)$info;
              }
              $userinformationarray = $userinformationarray[0]; //we only retrieved one user
@@ -247,7 +248,15 @@ class external extends external_api {
              $data['userscourses'] = $usercoursesarray;
              $data['userinformation'] = $userinformationarray;
 
-             //print_r($data);
+             global $CFG, $USER;
+             $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
+             $data['loginaslink'] = (array)$link;
+
+             $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
+             $data['profilelink'] = (array)$link;
+
+             $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
+             $data['edituserlink'] = (array)$link;
 
              return array($data);
            }
@@ -267,10 +276,10 @@ class external extends external_api {
                       'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
                       'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
                       'email' => new external_value (PARAM_TEXT, 'email of the user'),
-                      'timecreated' => new external_value (PARAM_INT, 'timecreated of the user'),
-                      'timemodified' => new external_value (PARAM_INT, 'timemodified of the user'),
+                      'timecreated' => new external_value (PARAM_TEXT, 'timecreated of the user'),
+                      'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user'),
                       'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
-                      'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
+                      'auth' => new external_value (PARAM_TEXT, 'auth of the user')
                     )),
                     'userscourses' => new external_multiple_structure (new external_single_structure (array (
                           'id' => new external_value (PARAM_INT, 'id of course'),
@@ -281,13 +290,13 @@ class external extends external_api {
                           'visible' => new external_value (PARAM_BOOL, 'visible of course'),
                           'parentcategory' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
                           'categoryname' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
-                          //'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
                           'roles' => new external_single_structure ( array (
-                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
-                            '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
-                            '3' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
-                            '4' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
-                            '5' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL)
+                            '0' => new external_value (PARAM_RAW,'First Role'), // ToDo: can have up to 6 roles at the same time... not ideal. And ugly.
+                            '1' => new external_value (PARAM_RAW,'Second Role', VALUE_OPTIONAL),
+                            '2' => new external_value (PARAM_RAW,'Thir Role', VALUE_OPTIONAL),
+                            '3' => new external_value (PARAM_RAW,'Fourth Role', VALUE_OPTIONAL),
+                            '4' => new external_value (PARAM_RAW,'Fifth Role', VALUE_OPTIONAL),
+                            '5' => new external_value (PARAM_RAW,'Sixth Role', VALUE_OPTIONAL)
                             ))
                           //'idnumber' => new external_value (PARAM_RAW, 'idnumber of the course'),
                           //'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
@@ -300,7 +309,10 @@ class external extends external_api {
                           //'ctxdepth' => new external_value (PARAM_INT, 'the ctxdepth of the course'),
                           //'ctxinstance' => new external_value (PARAM_INT, 'the ctxinstance of the course'),
                           //'ctxlevel' => new external_value (PARAM_INT, 'the ctxlevel of the course')
-                    )))
+                    ))),
+                    'loginaslink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to login as the user'))),
+                    'profilelink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to the users profile page'))),
+                    'edituserlink' => new external_single_structure (array(new external_value(PARAM_TEXT, 'The link to edit the user')))
                   )));
              }
 
@@ -310,10 +322,8 @@ class external extends external_api {
             */
            public static function get_users_parameters() {
            	return new external_function_parameters(
-           			array(
-           					'search_input' => new external_value(PARAM_RAW, 'if you just looking for specified users', VALUE_DEFAULT, '%')
-           			)
-           			);
+           			array('search_input' => new external_value(PARAM_RAW, 'if you just looking for specified users', VALUE_DEFAULT, '%')
+         			));
            }
 
            public static function get_users_returns() {
@@ -325,9 +335,7 @@ class external extends external_api {
            							'firstname' => new external_value(PARAM_RAW,'firstname of user'),
            							'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
            							'email' => new external_value(PARAM_RAW, 'email adress of user')
-           					)
-           					)
-           			);
+           					)));
            }
 
            public static function get_users(){
@@ -336,7 +344,7 @@ class external extends external_api {
            	// now security checks
            	$context = \context_system::instance();
            	self::validate_context($context);
-           	//Is the user allowes to use this web service?
+           	//Is the user allowed to use this web service?
            	require_capability('tool/supporter:get_users', $context);
 
            	$rs = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
@@ -352,8 +360,7 @@ class external extends external_api {
            public static function get_courses_parameters(){
            	return new external_function_parameters(
            			array( //no parameters required
-           			)
-           			);
+         			));
            }
 
            public static function get_courses_returns() {

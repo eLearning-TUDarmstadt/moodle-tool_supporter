@@ -34,44 +34,28 @@ $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $output = $PAGE->get_renderer('tool_supporter');
 
-$index_page = new \tool_supporter\output\index_page();
-$index = $output->render($index_page);
-
-$user = new \tool_supporter\output\user_table();
-$user_table = $output->render($user);
-
-$course = new \tool_supporter\output\course_table();
-$course_table = $output->render($course);
-
-//$course_detail = new \tool_supporter\output\course_detail();
-//$course_detail_v = $output->render($course_detail);
-
-$create_new_course = $output->render(new \tool_supporter\output\create_new_course());
+$index = $output->render(new \tool_supporter\output\index_page());
+$user_table = $output->render(new \tool_supporter\output\user_table());
+$course_table = $output->render(new \tool_supporter\output\course_table());
 
 echo $output->header();
 echo $index;
 
+$create_new_course = $output->render(new \tool_supporter\output\create_new_course());
+$user_detail = $output->render(new \tool_supporter\output\user_detail());
 
 echo $create_new_course;
+echo $user_detail;
 
-//$user_detail = $output->render(new \tool_supporter\output\user_detail());
-//echo $user_detail;
+echo "<table BORDER='3' CELLPADDING='10' CELLSPACING='10'>";
+echo "<tr>";
+echo "<td width='10%'>";
+echo $user_table;
+echo "</td>";
+echo "<td>";
+echo $course_table;
+echo "</td>";
+echo "</tr>";
+echo "</table>";
 
-$user_detail = new \tool_supporter\output\user_detail();
-echo $output->render($user_detail);
-
-?>
-
-<div class="container">
-    <div class="row-fluid">
-      <div class="cole-md">
-        <?php echo $user_table; ?>
-      </div>
-      <div class="cole-md">
-        <?php echo $course_table; ?>
-     </div>
-    </div>
-</div>
-
-
-<?php echo $output->footer(); ?>
+echo $output->footer();

@@ -28,8 +28,16 @@
   <div class="navbar-inner">
     <a class="brand" href="#">Supporter</a>
     <ul class="nav">
+      <li><p class="navbar-btn">
+        <a href="#" class="btn btn-default" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</a>
+      </p></li>
       <li><a href="#">Verwaltung</a></li>
       <li><a href="#">Statistik</a></li>
     </ul>
   </div>
 </div>
+{{#js}}
+require(['tool_supporter/create_new_course'], function(show_new_course){
+  show_new_course.show_new_course();
+});
+{{/js}}

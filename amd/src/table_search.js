@@ -31,7 +31,7 @@ define(['jquery'], function($) {
 //Hides all rows, which don't match with the search input. The search-function is case insensitive and also recognizes inner word parts
     var search = function(element, tableID){
       var rows = $(tableID + ' tr');
-      var val = $.trim($(element).val()).replace(/ +/g, ' ').toLowerCase().split(' ');
+      var val = $.trim(element).replace(/ +/g, ' ').toLowerCase().split(' ');
       rows.hide().filter(function() {
         var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
           var matchesSearch = true;
@@ -52,9 +52,14 @@ define(['jquery'], function($) {
            * searchInputID: ID of searchfield
            * tableID: ID of the table or part of the table you want to filter
            */
-          searchEvent: function(searchInputID,tableID) {
+          searchEvent: function(searchInputID, tableID, FormInput) {
+            //for input texts
             $(searchInputID).keyup(function() {
-              search(this,tableID);
+              search($(searchInputID).val(),tableID);
+            });
+            //for radios
+            $(FormInput).change(function() {
+              search($('input[name='+searchInputID+']:checked').val(),tableID);
             });
           }
         };

@@ -1,16 +1,44 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+
+  Documentation gets here!
+  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
+
+    @template tool_supporter/user_table
+
+    Starting point for an awesome template.
+
+}}
+
 <!--View details after clicking on a user in user table.  -->
-<div class = "container" data-region = "user_details">
-  <div class="navbar">
+<div style="display: none" data-region="user_details" class="well well-sm">
+  <div class="navbar" >
     <div class="navbar-inner">
-      <a class="brand" href="#">{{userName}}</a>
       <ul class="nav">
-        <!-- Place for buttons like "Show User", "close detail information"-->
+        <li><p class="brand"><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{username}}{{/userinformation}}</a></p></li>
+        <li><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">{{#str}}loginas{{/str}}</a></p></li>
+        <li><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">{{#str}}edituser{{/str}}</a></p></li>
+        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user">{{#str}}hide{{/str}}</a></p></li>
       </ul>
     </div>
-  </div>
+
 <!--Show user details  -->
-  <div class="table-responsive">
-    <table class = "table borderless">
+    <table class = "table-condensed table-hover table borderless">
       <tbody>
         {{#userinformation}}
         <tr>
@@ -18,100 +46,100 @@
           <td>{{id}}</td>
         </tr>
         <tr>
-          <th>TU-ID</th>
+          <th>{{#str}}username{{/str}}</th>
           <td>{{username}}</td>
         </tr>
         <tr>
-          <th>Vorname</th>
+          <th>{{#str}}firstname{{/str}}</th>
           <td>{{firstname}}</td>
         </tr>
         <tr>
-          <th>Nachname</th>
+          <th>{{#str}}lastname{{/str}}</th>
           <td>{{lastname}}</td>
         </tr>
         <tr>
-          <th>E-Mail Adresse</th>
+          <th>{{#str}}email{{/str}}</th>
           <td>{{email}}</td>
         </tr>
         <tr>
-          <th>timecreated</th>
+          <th>{{#str}}timecreateduser, tool_supporter{{/str}}</th>
           <td>{{timecreated}}</td>
         </tr>
         <tr>
-          <th>timemodified</th>
+          <th>{{#str}}timemodifieduser, tool_supporter{{/str}}</th>
           <td>{{timemodified}}</td>
         </tr>
         {{/userinformation}}
       </tbody>
-    <table>
+    </table>
   </div>
 
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">Kurse</a>
+      <a class="brand" href="#">{{#str}}courses{{/str}}</a>
       <ul class="nav">
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">
-            Semester
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            {{#semesters}}
-            <li>
-              <label class="checkbox">
-                <input type="checkbox" name="semesters"> {{name}}
-              </label>
-            </li>
-            <!--filter course list by selecting wanted grand parent-->
-            {{/semesters}}
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
+          <ul class="dropdown-menu" id="semesterdropdown">
+            {{#userscourses}}
+            <li><input type="radio" value="{{parentcategory}}" name="semesterradios" id="semesterradios"> {{parentcategory}}</li> <!--filter course list by selecting wanted grand parent-->
+            {{/userscourses}}
           </ul>
         </li>
         <li class="dropdown">
-          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">
-            Fachbereich
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            {{#fachbereiche}}
-            <li><a href="#"> {{name}}</a></li> <!--filter course list by selecting wanted parent-->
-            {{/fachbereiche}}
+          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
+          <ul class="dropdown-menu" id="departmentdropdown">
+            {{#userscourses}}
+            <li><input type="radio" value="{{categoryname}}" name="departmentradios"  id="departmentradios"> {{categoryname}}</li><!--filter course list by selecting wanted parent-->
+            {{/userscourses}}
           </ul>
         </li>
-        <form class ="navbar-search">
-          <input id="{{uniqid}}-userCourseSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
+        <form class="navbar-search pull-right">
+          <input type="text" id="usercoursessearch" class="search-query" placeholder="{{#str}}search{{/str}}">
         </form>
       </ul>
     </div>
-  </div>
 
-  <div class="table-responsive">
-  <table class = "table-condensed table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>FB (direct course category)</th>
-        <th>Semester</th>
-        <th>visible</th>
-      </tr>
-    </thead>
-    <tbody id="{{uniqid}}-userCourseTableBody">
-      {{#usercourses}}
-      <tr>
-        <td>{{id}}</td>
-        <td>{{fullname}}</td>
-        <td>{{shortname}}</td>
-        <td>{{categoryname}}</td> <!-- Fachbereich -->
-        <td>{{parentcategory}}</td> <!-- Semester -->
-        <td>{{visible}}</td>
-      </tr>
-      {{/usercourses}}
-    </tbody>
-  <table>
+    <div class="table-responsive">
+    <table class = "table-condensed table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>{{#str}}fullnamecourse{{/str}}</th>
+          <th>{{#str}}department{{/str}}</th>
+          <th>{{#str}}roles{{/str}}</th>
+          <th>{{#str}}semester, tool_supporter{{/str}}</th>
+          <th>{{#str}}visible{{/str}}</th>
+        </tr>
+      </thead>
+      <tbody id="userdetailcourses">
+        {{#userscourses}}
+        <tr>
+          <td>{{id}}</td>
+          <td>{{fullname}}</td>
+          <td>{{categoryname}}</td> <!-- TUD intern: Fachbereiche -->
+          <td>{{roles}}</td> <!-- TUD intern: Fachbereiche -->
+          <td>{{parentcategory}}</td> <!-- TUD intern: Semester -->
+          <td>{{visible}}</td>
+        </tr>
+        {{/userscourses}}
+      </tbody>
+    </table>
+    </div>
   </div>
-
 </div>
 
+
 {{#js}}
-//implement filter functionality of dropdown menues
+require(['tool_supporter/table_search'], function(search){
+  //for input field
+  search.searchEvent('#usercoursessearch','#userdetailcourses');
+  //for radio buttons in dropdown
+  search.searchEvent('departmentradios','#userdetailcourses', '#departmentdropdown');
+  search.searchEvent('semesterradios','#userdetailcourses', '#semesterdropdown');
+});
+
+require(['tool_supporter/load_information'], function(hide_user){
+  hide_user.hide_user();
+});
 {{/js}}

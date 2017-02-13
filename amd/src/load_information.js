@@ -27,6 +27,16 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
    return /** @alias module:tool_supporter/load_information */ {
 
+     /**
+      * hide the user-block
+      * @method hide_user
+      */
+     hide_user: function() {
+         $('#hide_user').on('click', function() {
+             $('[data-region="user_details"]').toggle();
+         });
+     },
+
        /**
         * Get Users Details
         *
@@ -45,31 +55,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
              promises[0].done(function(data) {
                data = data[0];
-               console.log("promise is done with return data: ");
                console.log(data);
-
-               //console.log(data["user_information"]);
-               //console.log(data.user_information);
-
-               /* user courses benutzt folgende Variablen:
-               <td>{{id}}</td>
-               <td>{{fullname}}</td>
-               <td>{{fb}}</td>  -------> ToDo: Change fb to category
-               <td>{{category}}</td> ----> semester
-               <td>{{visible}}</td>
-               */
-
-               // jetzt: User anzeigen lassen ->course_detail neu rendern lassen
-               // We have the data of the course. Now it has to be displayed
                templates.render('tool_supporter/user_detail', data).done(function(html, js) {
-                 console.log("it did something! I guess");
-                   $('[data-region="user_details"]').replaceWith(html);
-                   // And execute any JS that was in the template.
+                 $('[data-region="user_details"]').replaceWith(html);
+                 $('[data-region="user_details"]').show();
 
-                   //JS: select course which was created
-                   templates.runTemplateJS(js);
-                   console.log("afterwards");
-                   // reload course table?
+                 // And execute any JS that was in the template.
+                 templates.runTemplateJS(js);
                }).fail(notification.exception);
              }).fail(notification.exception);
 
