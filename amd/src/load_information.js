@@ -18,14 +18,14 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     tool_supporter/create_new_course
+ * @module     tool_supporter/load_information
  * @package    tool_supporter
  * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-   return /** @alias module:tool_supporter/create_new_course */ {
+   return /** @alias module:tool_supporter/load_information */ {
 
        /**
         * Get Users Details
@@ -85,22 +85,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
            $(table + ' tr').on('click', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
              console.log("Reihe geklickt, Kurs-ID gefunden: " + course_id);
-        /*     $.ajax({
-            	  url: 'classes/externallib.php',
-            	  data: {get_course_info: course_id},
-            	 // type: "GET",
-            	 // context: document.body
-            	}).done(function(data) {
-            		console.log(data);
-            		templates.render('tool_supporter/course_detail', data).done(function(html, js) {
-                        $('[data-region="course_details"]').replaceWith(html);
-                        // And execute any JS that was in the template.
-                        templates.runTemplateJS(js);
-                    }).fail(notification.exception);
-
-                }).fail(notification.exception);
-            });*/
-
            var promise = ajax.call([{
             	methodname: 'tool_supporter_get_course_info',
             	args: {
@@ -110,11 +94,11 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
              promise[0].done(function(data){
                  // Render template with data
                  console.log(data);
-             /*    templates.render('tool_supporter/course_detail', data).done(function(html, js) {
+                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
                      // And execute any JS that was in the template.
                      templates.runTemplateJS(js);
-                 }).fail(notification.exception);*/
+                 }).fail(notification.exception);
 
              }).fail(notification.exception);
            });
