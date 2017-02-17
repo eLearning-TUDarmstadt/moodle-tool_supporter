@@ -301,14 +301,7 @@ class external extends external_api {
                           'visible' => new external_value (PARAM_BOOL, 'visible of course'),
                           'parentcategory' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
                           'categoryname' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
-                          'roles' => new external_single_structure ( array (
-                            '0' => new external_value (PARAM_RAW,'First Role'), // ToDo: can have up to 6 roles at the same time... not ideal. And ugly.
-                            '1' => new external_value (PARAM_RAW,'Second Role', VALUE_OPTIONAL),
-                            '2' => new external_value (PARAM_RAW,'Thir Role', VALUE_OPTIONAL),
-                            '3' => new external_value (PARAM_RAW,'Fourth Role', VALUE_OPTIONAL),
-                            '4' => new external_value (PARAM_RAW,'Fifth Role', VALUE_OPTIONAL),
-                            '5' => new external_value (PARAM_RAW,'Sixth Role', VALUE_OPTIONAL)
-                            ))
+                            'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course'))
                           //'idnumber' => new external_value (PARAM_RAW, 'idnumber of the course'),
                           //'sortorder' => new external_value (PARAM_INT, 'sortorder of the course'),
                           // new external_value ('id', PARAM_INT, 'category id of the course'), // für external_single_structure
