@@ -24,14 +24,14 @@
 namespace tool_supporter\output;
 
 //require_once("$CFG->dirroot/user/externallib.php");
-//require_once("$CFG->dirroot/config.php");
+require_once("$CFG->dirroot/config.php");
 
 use renderable;
 use templatable;
 use renderer_base;
 use stdClass;
 
-class course_table implements renderable, templatable {
+class enrolusersection implements renderable, templatable {
 
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -41,8 +41,19 @@ class course_table implements renderable, templatable {
 
     public function export_for_template(renderer_base $output) {
       // "Flattens" the data
-      $array[] = null;
-      $data = \tool_supporter\external::get_courses();
+
+      $coursesRoles = new \stdClass();
+      // Some testing data
+      $coursesRoles->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
+      $coursesRoles->name = "student";
+
+
+
+      $data['assignableRoles'] = $coursesRoles;
+
+
+      echo "Data:";
+      print_r($data);
       return $data;
     }
 }

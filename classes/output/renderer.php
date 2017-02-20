@@ -77,4 +77,10 @@ class renderer extends plugin_renderer_base {
         $data = $get_user_information->export_for_template($this);
         return parent::render_from_template('tool_supporter/get_user_information', $data);
     }
+
+    public function render_enrolusersection($enrolusersection) {
+        $data = $enrolusersection->export_for_template($this);
+        console.log("Renderer wurde aufgerufen");
+        return parent::render_from_template('tool_supporter/enrolusersection', $data);
+    }
 }

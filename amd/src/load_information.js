@@ -33,6 +33,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       */
      hide_user: function() {
          $('#hide_user').on('click', function() {
+           console.log("hide user");
              $('[data-region="user_details"]').toggle();
          });
      },
@@ -44,6 +45,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
      hide_course_detail: function() {
          $('#hide_course_details').on('click', function() {
              $('[data-region="course_details"]').toggle();
+             $('#enroluserintocoursebutton').hide();
          });
      },
 
@@ -69,7 +71,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                  $('[data-region="user_details"]').replaceWith(html);
                  $('[data-region="user_details"]').show();
-
+                 console.log("data:");
+                 console.log(data);
                  // And execute any JS that was in the template.
                  templates.runTemplateJS(js);
                }).fail(notification.exception);
@@ -99,6 +102,22 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
                      $('[data-region="course_details"]').show();
+                     console.log("Rollen im Kurs:");
+                     console.log(data['assignableRoles']);
+                     console.log(data['assignableRoles'][0].id)
+                     //$('#enroluserintocoursebutton').show();
+
+                     templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
+                       console.log("html:");
+                       console.log(html);
+                       //enroluserregion
+                       $('[data-region="enroluserregion"]').replaceWith(html);
+                       $('[data-region="enroluserregion"]').show();
+                       console.log($('enrolusersection').show());
+                       console.log("Rendern---");
+                       templates.runTemplateJS(js);
+                     }).fail(notification.exception);
+
                      // And execute any JS that was in the template.
                     templates.runTemplateJS(js);
                  }).fail(notification.exception);

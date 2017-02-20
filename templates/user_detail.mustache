@@ -37,13 +37,16 @@
       </ul>
     </div>
 
+<!-- Enrol the user into the course -->
+{{> tool_supporter/enrolusersection}}
+
 <!--Show user details  -->
     <table class = "table-condensed table-hover table borderless">
       <tbody>
         {{#userinformation}}
         <tr>
           <th>ID</th>
-          <td>{{id}}</td>
+          <td id="selecteduserid">{{id}}</td>
         </tr>
         <tr>
           <th>{{#str}}username{{/str}}</th>
@@ -141,5 +144,9 @@ require(['tool_supporter/table_search'], function(search){
 
 require(['tool_supporter/load_information'], function(hide_user){
   hide_user.hide_user();
+});
+
+require(['tool_supporter/enrol'], function(enroluserintocourse){
+  enroluserintocourse.enroluserintocourse();
 });
 {{/js}}

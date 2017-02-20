@@ -41,6 +41,9 @@ $create_new_course = $output->render(new \tool_supporter\output\create_new_cours
 $user_detail = $output->render(new \tool_supporter\output\user_detail());
 $course_detail = $output->render(new \tool_supporter\output\course_detail());
 
+// Erst später rendern
+//$enrolusersection = $output->render(new \tool_supporter\output\enrolusersection());
+
 echo $output->header();
 echo $index;
 

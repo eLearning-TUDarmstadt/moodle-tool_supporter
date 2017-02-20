@@ -478,14 +478,18 @@ class external extends external_api {
 					                                  'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
 			                            	)
 			                            )
-			                        )
+			                        ),
+                              'assignableRoles' => new external_multiple_structure (new external_single_structure (array (
+                                'id' => new external_value(PARAM_INT, 'id of the role'),
+                                'name' => new external_value(PARAM_RAW, 'Name of the role')
+                                )))
 			           		)
 			          )
               ;
            }
 
            public static function get_course_info($courseID){
-           	global $DB;
+           	global $DB, $CFG, $PAGE;
            	//check parameters
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
            	// now security checks
@@ -526,7 +530,25 @@ class external extends external_api {
            		$activity = ['section' =>$section, 'activity'=>$mo->mod,'name'=>$mo->name, 'visible'=>$mo->visible];
            		$activities[] = $activity;
            	}
-           	$data = array('courseDetails' => (array)$courseDetails, 'roles' => (array)$roles, 'users' => (array)$users, 'activities' => (array)$activities);
+
+            // Get assignable roles in the course
+            require_once $CFG->dirroot . '/enrol/locallib.php';
+            $course = get_course($courseID);
+            $manager = new \course_enrolment_manager($PAGE, $course);
+            $usedRoles = $manager->get_assignable_roles();
+
+            foreach ($usedRoles as $roleid => $rolename) {
+              $arrayofRoles[$roleid]['id'] = $roleid;
+              $arrayofRoles[$roleid]['name'] = $rolename;
+            }
+
+           	$data = array(
+              'courseDetails' => (array)$courseDetails,
+              'roles' => (array)$roles,
+              'users' => (array)$users,
+              'activities' => (array)$activities,
+              'assignableRoles' => (array)$arrayofRoles
+            );
 
            	//print_r($data);
            	return $data;
