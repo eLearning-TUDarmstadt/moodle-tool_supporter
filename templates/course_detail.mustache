@@ -118,8 +118,18 @@
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_search'], function(search) {
-  search.searchEvent('#{{uniqid}}-courseDetailSearch','.active');
+require(['jquery','tool_supporter/table_search'], function($,search) {
+  //selecting the active table by selecting the active tab and toggle tabs
+  $('#myTabs a').click(function(e){
+    var activeTab = e.target.getAttribute('href');
+    if(activeTab == "#CoursePill_1"){
+      tabTableID = "#{{uniqid}}-userInCourse";
+    }
+    else if(activeTab == "#CoursePill_2"){
+      tabTableID = "#{{uniqid}}-activityInCourse";
+    };
+    search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID);
+  });
 });
 
 require(['tool_supporter/load_information'], function(hide_course_detail){
