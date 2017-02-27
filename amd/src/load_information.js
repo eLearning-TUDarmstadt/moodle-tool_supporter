@@ -25,6 +25,32 @@
  * @since      2.9
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+
+  var show_enrol_section = function(courseID) {
+    var promise = ajax.call([{
+      methodname: 'tool_supporter_get_assignable_roles',
+      args: {
+         courseID: courseID
+       }
+      }]);
+      promise[0].done(function(data){
+          console.log("return data for assignableRoles: ");
+          console.log(data);
+
+          console.log(data['assignableRoles']);
+
+          // Render template with data
+          templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
+            console.log("html: ");
+            console.log(html);
+            $('[data-region="enroluserregion"]').replaceWith(html);
+            $('[data-region="enroluserregion"]').show();
+            templates.runTemplateJS(js);
+          }).fail(notification.exception);
+      }).fail(notification.exception);
+  };
+
+
    return /** @alias module:tool_supporter/load_information */ {
 
      /**
@@ -45,7 +71,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
      hide_course_detail: function() {
          $('#hide_course_details').on('click', function() {
              $('[data-region="course_details"]').toggle();
-             $('#enroluserintocoursebutton').hide();
+             $('[data-region="enroluserregion"]').hide();
          });
      },
 
@@ -67,12 +93,23 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
              promises[0].done(function(data) {
                data = data[0];
+               console.log("user detail data");
                console.log(data);
                templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                  $('[data-region="user_details"]').replaceWith(html);
                  $('[data-region="user_details"]').show();
-                 console.log("data:");
-                 console.log(data);
+
+                 console.log("length:");
+                 console.log($('#selectedcourseid').length);
+
+                 //Only show the section if a course is selected
+                 if ($('#selectedcourseid').length === 1) {
+                   //course id
+                   console.log("a course is selected");
+                   var courseid = $('#selectedcourseid')[0].textContent
+                   show_enrol_section(courseid);
+                 };
+
                  // And execute any JS that was in the template.
                  templates.runTemplateJS(js);
                }).fail(notification.exception);
@@ -98,21 +135,20 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
              }]);
              promise[0].done(function(data){
                  // Render template with data
+                 console.log("course detail data");
                  console.log(data);
                  templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
                      $('[data-region="course_details"]').show();
-
-                     templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
-                       $('[data-region="enroluserregion"]').replaceWith(html);
-                       $('[data-region="enroluserregion"]').show();
-                       templates.runTemplateJS(js);
-                     }).fail(notification.exception);
-
                      // And execute any JS that was in the template.
                     templates.runTemplateJS(js);
-                 }).fail(notification.exception);
 
+                    //if a user is selected
+                    if ($('#selecteduserid').length === 1) {
+                      show_enrol_section(course_id);
+                    }
+
+                 }).fail(notification.exception);
              }).fail(notification.exception);
            });
        }

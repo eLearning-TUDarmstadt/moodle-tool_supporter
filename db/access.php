@@ -79,6 +79,13 @@ $capabilities = array (
             'archetypes' => array(
               'manager' => CAP_ALLOW,
               'coursecreator' => CAP_ALLOW
-            )
-          )
+          )),
+          'tool/supporter:get_assignable_roles' => array(
+            // 'riskbitmask' => RISK_PERSONAL,
+            'captype' => 'read',
+            'contextlevel' => CONTEXT_SYSTEM,
+            'archetypes' => array(
+              'manager' => CAP_ALLOW,
+              'coursecreator' => CAP_ALLOW
+          ))
 );
