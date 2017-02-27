@@ -46,15 +46,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         create_new_course: function() {
             $('#create_new_course_button').on('click', function() {
 
-                /*
-                var shortnameinput = $('#new_course_full_name_input')[0].value;
-                var fullname = $('#new_course_short_name_input')[0].value;
-                var visible = $("#new_course_is_visible").is(":checked");
-                console.log("Kurzer Name: " + shortnameinput);
-                console.log("Voller Name: " + fullname);
-                console.log("Sichtbar: " + visible);
-                */
-
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_create_new_course',
                     args: {
@@ -67,13 +58,21 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 promises[0].done(function(data) {
                   // stdClass with category, fullname, id, shortname, startdate, timecreated, timemodified, visible
-                  console.log("promise is done with return data: ")
+                  console.log("create new course data: ")
                   console.log(data);
-                  alert("Der Kurs mit der ID " + data['id'] + " wurde erstellt!");
-                  var courseDetails = data;
+
+                  console.log("Display course");
+                  
+                  require(['tool_supporter/load_information'], function(func){
+                    console.log(func);
+                    console.log("inner");
+                    func.show_course_detail(data['id']);
+                    $('[data-region="create_new_course_section"]').toggle();
+                  });
+
+                  /*
                     // We have the data of the course. Now it has to be displayed
-                    templates.render('tool_supporter/course_detail', courseDetails).done(function(html, js) {
-                      console.log("Return id: " + html);
+                    templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                         $('[data-region="course_details"]').replaceWith(html);
                         $('[data-region="course_details"]').show();
                         // And execute any JS that was in the template.
@@ -82,6 +81,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                         templates.runTemplateJS(js);
                         // reload cours table?
                     }).fail(notification.exception);
+
+                    */
+
                 }).fail(notification.exception);
             });
         }

@@ -26,6 +26,8 @@
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
+// ------ Private Stuff ------
+
   var show_enrol_section = function(courseID) {
     var promise = ajax.call([{
       methodname: 'tool_supporter_get_assignable_roles',
@@ -50,8 +52,42 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       }).fail(notification.exception);
   };
 
+  var show_course_detail_private = function(courseID) {
+    public.show_course_detail(courseID);
+  };
 
-   return /** @alias module:tool_supporter/load_information */ {
+// ------ Public Stuff ------
+   var public = {
+
+     /**
+      * show the course details
+      * @method show_course_detail
+      */
+     show_course_detail: function(course_id) {
+       var promise = ajax.call([{
+          methodname: 'tool_supporter_get_course_info',
+          args: {
+            courseID: course_id
+        }
+       }]);
+       promise[0].done(function(data){
+           // Render template with data
+           console.log("course detail data");
+           console.log(data);
+           templates.render('tool_supporter/course_detail', data).done(function(html, js) {
+               $('[data-region="course_details"]').replaceWith(html);
+               $('[data-region="course_details"]').show();
+               // And execute any JS that was in the template.
+              templates.runTemplateJS(js);
+
+              //if a user is selected
+              if ($('#selecteduserid').length === 1) {
+                show_enrol_section(course_id);
+              }
+
+           }).fail(notification.exception);
+       }).fail(notification.exception);
+     },
 
      /**
       * hide the user-block
@@ -59,6 +95,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       */
      hide_user: function() {
          $('#hide_user').on('click', function() {
+           console.log("hide user");
              $('[data-region="user_details"]').toggle();
          });
      },
@@ -108,6 +145,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                    var courseid = $('#selectedcourseid')[0].textContent
                    show_enrol_section(courseid);
                  };
+
                  // And execute any JS that was in the template.
                  templates.runTemplateJS(js);
                }).fail(notification.exception);
@@ -124,28 +162,11 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_course: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
-           var promise = ajax.call([{
-            	methodname: 'tool_supporter_get_course_info',
-            	args: {
-                courseID: course_id
-              }
-             }]);
-             promise[0].done(function(data){
-                 // Render template with data
-                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
-                     $('[data-region="course_details"]').replaceWith(html);
-                     $('[data-region="course_details"]').show();
-                     // And execute any JS that was in the template.
-                    templates.runTemplateJS(js);
+             console.log("Reihe geklickt, Kurs-ID gefunden: " + course_id);
 
-                    //if a user is selected
-                    if ($('#selecteduserid').length === 1) {
-                      show_enrol_section(course_id);
-                    }
-
-                 }).fail(notification.exception);
-             }).fail(notification.exception);
+             show_course_detail_private(course_id);
            });
        }
    };
+   return public;
 });

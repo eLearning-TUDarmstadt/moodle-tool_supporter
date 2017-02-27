@@ -47,6 +47,8 @@ $course_detail = $output->render(new \tool_supporter\output\course_detail());
 echo $output->header();
 echo $index;
 
+echo $create_new_course;
+
 echo '
 <div class="row">
   <div class="col-md-12">
