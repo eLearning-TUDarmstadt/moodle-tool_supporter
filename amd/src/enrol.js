@@ -45,6 +45,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
               console.log("id of role:");
               console.log($('#role-dropdown')[0].value);
 
+              if ($('#role-dropdown')[0].value == "") {
+                alert("Es wurde keine Rolle ausgewählt"); //ToDo: English translation
+              } else {
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
                     args: {
@@ -58,16 +61,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                   console.log("promise is done with return data: ")
                   console.log(data);
 
-                  /*
-                  var courseDetails = data;
-                    templates.render('tool_supporter/course_detail', courseDetails).done(function(html, js) {
-
-                      //Do something
-
-                        templates.runTemplateJS(js);
-                    }).fail(notification.exception);
-                    */
                 }).fail(notification.exception);
+              }
             });
         }
     };

@@ -86,5 +86,14 @@ $functions = array(
 		'type'        => 'write',                  //database rights of the web service function (read, write)
 		'ajax'        => true
 		//'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-	)
+	),
+  'tool_supporter_get_assignable_roles' => array(         //web service function name
+    'classname'   => 'tool_supporter\external',  //class containing the external function
+    'methodname'  => 'get_assignable_roles',        //external function name
+    'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+    'description' => 'Get assignable Roles in the course',    //human readable description of the web service function
+    'type'        => 'read',                  //database rights of the web service function (read, write)
+    'ajax'        => true
+    //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
+  )
 );

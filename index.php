@@ -49,12 +49,27 @@ echo $index;
 
 echo '
 <div class="row">
- <div class="col-sm-6"> '.$course_detail.' </div>
- <div class="col-sm-6">'.$user_detail.'</div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-6 col-md-6">
+        <div class="col-md-12">
+          '.$course_detail.'
+          </div>
+        <div class="col-md-12">
+          '.$course_table.'
+        </div>
+      </div>
+      <div class="col-6 col-md-6">
+        <div class="col-md-12">
+          '.$user_detail.'
+          </div>
+        <div class="col-md-12">
+          '.$user_table.'
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row">
- <div class="col-sm-6">'.$course_table.'</div>
- <div class="col-sm-6">'.$user_table.'</div>
-</div>';
+';
 
 echo $output->footer();
