@@ -27,9 +27,8 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
 	var tableSort = function(column, tableID){
-		//Using W3School-Code
-		  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-		  table = document.getElementById(tableID);
+		//Using W3School-Code , modified
+		  var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		  switching = true;
 		  //Set the sorting direction to ascending:
 		  dir = "asc";
@@ -38,16 +37,16 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 		  while (switching) {
 		    //start by saying: no switching is done:
 		    switching = false;
-		    rows = table.getElementsByTagName("TR");
+		    rows = $(tableID + ' tr');//table.getElementsByTagName('tr');
 		    /*Loop through all table rows (except the
 		    first, which contains table headers):*/
-		    for (i = 1; i < (rows.length - 1); i++) {
+	    for (i = 1; i < (rows.length - 1); i++) {
 		      //start by saying there should be no switching:
 		      shouldSwitch = false;
 		      /*Get the two elements you want to compare,
 		      one from current row and one from the next:*/
-		      x = rows[i].getElementsByTagName("TD")[column];
-		      y = rows[i + 1].getElementsByTagName("TD")[column];
+	      	x = rows[i].getElementsByTagName('td')[column];
+		      y = rows[i + 1].getElementsByTagName('td')[column];
 		      /*check if the two rows should switch place,
 		      based on the direction, asc or desc:*/
 		      if (dir == "asc") {
@@ -89,9 +88,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 			 * @method filter_table
 			 */
 			 sortTable: function(tableID){
-				 console.log("in sort");
-				 var heads = $(tableID + 'th');
-				 heads.on('click', function(){
+				 $(tableID + ' th').on('click', function(){
+					 var index = $(this).parent().children().index($(this));
 					 tableSort(index, tableID);
 				 });
 		/*		 $(heads).each(function(index, value){

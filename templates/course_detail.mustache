@@ -64,7 +64,7 @@
     <div id="CoursePill_1" class="tab-pane fade" role="tabpanel">
       <!--table of users in this course-->
       <div>
-        <table class = "table table-striped">
+        <table class = "table table-striped" id = "{{uniqid}}-userInCourse">
           <thead>
             <tr>
               <th>id</th>
@@ -74,7 +74,7 @@
               <th>Rolle</th>
             </tr>
           </thead>
-          <tbody id = "{{uniqid}}-userInCourse">
+          <tbody>
             {{#users}}
             <tr>
               <td>{{id}}</td>
@@ -92,7 +92,7 @@
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
       <div>
-        <table class = "table table-striped">
+        <table class = "table table-striped" id = "{{uniqid}}-activityInCourse">
           <thead>
             <tr>
               <th>Name des Abschnitts</th>
@@ -101,7 +101,7 @@
               <th>Sichtbar</th>
             </tr>
           </thead>
-          <tbody id = "{{uniqid}}-activityInCourse">
+          <tbody>
             {{#activities}}
             <tr>
               <td>{{section}}</td>
@@ -118,8 +118,8 @@
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_search'], function($,search) {
-  //selecting the active table by selecting the active tab and toggle tabs
+require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort'], function($,search, sort) {
+  //selecting the active table by using click-Event
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
     if(activeTab == "#CoursePill_1"){
@@ -128,11 +128,13 @@ require(['jquery','tool_supporter/table_search'], function($,search) {
     else if(activeTab == "#CoursePill_2"){
       tabTableID = "#{{uniqid}}-activityInCourse";
     };
-    search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID);
+    search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
+    sort.sortTable(tabTableID);
   });
 });
 
 require(['tool_supporter/load_information'], function(hide_course_detail){
   hide_course_detail.hide_course_detail();
 });
+
 {{/js}}

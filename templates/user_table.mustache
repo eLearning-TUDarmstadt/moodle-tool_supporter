@@ -31,7 +31,7 @@
   </form>
 
   <div class="table-responsive">
-  <table class = "table-condensed table-hover table-bordered">
+  <table class = "table-condensed table-hover table-bordered" id = "{{uniqid}}-userTable">
     <thead>
       <tr>
         <th>ID</th>
@@ -41,7 +41,7 @@
         <th>{{#str}}email{{/str}}</th>
       </tr>
     </thead>
-    <tbody id = "{{uniqid}}-userTableBody" data-region="user_table_body">
+    <tbody data-region="user_table_body">
       {{#users}}
       <tr>
         <td>{{id}}</td>
@@ -57,10 +57,10 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/table_search'], function(search){
-   search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTableBody');
+ require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/load_information'], function(search, sort, click_on_user){
+   search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTable' + ' tbody');
+   click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody');
+   sort.sortTable('#{{uniqid}}-userTable');
  });
- require(['tool_supporter/load_information'], function(click_on_user){
-   click_on_user.click_on_user('#{{uniqid}}-userTableBody');
- });
+
 {{/js}}

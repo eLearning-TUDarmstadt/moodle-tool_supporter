@@ -33,7 +33,7 @@
   </ul>
 
   <div class="table-responsive">
-  <table id = "myTable" class = "table-condensed table-striped table-hover table-bordered">
+  <table id = "{{uniqid}}-courseTable" class = "table-condensed table-striped table-hover table-bordered">
     <thead>
       <tr>
         <th>ID</th>
@@ -68,6 +68,6 @@
  });
 
  require(['tool_supporter/table_sort'], function(sort){
-   sort.sortTable('#myTable');
+   sort.sortTable('#{{uniqid}}-courseTable');
  });
 {{/js}}

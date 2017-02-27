@@ -33,7 +33,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       */
      hide_user: function() {
          $('#hide_user').on('click', function() {
-           console.log("hide user");
              $('[data-region="user_details"]').toggle();
          });
      },
@@ -67,12 +66,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
              promises[0].done(function(data) {
                data = data[0];
-               console.log(data);
                templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                  $('[data-region="user_details"]').replaceWith(html);
                  $('[data-region="user_details"]').show();
-                 console.log("data:");
-                 console.log(data);
                  // And execute any JS that was in the template.
                  templates.runTemplateJS(js);
                }).fail(notification.exception);
