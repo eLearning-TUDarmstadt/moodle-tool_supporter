@@ -23,10 +23,6 @@
  */
 namespace tool_supporter\output;
 
-//require_once($CFG->dirroot . "/user/externallib.php");
-require_once($CFG->dirroot . "/admin/tool/supporter/classes/externallib.php");
-
-
 use renderable;
 use templatable;
 use renderer_base;

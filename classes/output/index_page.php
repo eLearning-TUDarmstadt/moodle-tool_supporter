@@ -23,19 +23,22 @@
  */
 namespace tool_supporter\output;
 
+require_once("$CFG->dirroot/webservice/externallib.php");
+require_once("$CFG->dirroot/user/externallib.php");
+
 use renderable;
 use templatable;
 use renderer_base;
 use stdClass;
 
 /**
- * Class containing data for user_table
+ * Class containing data for index page
  * Gets passed to the renderer
  *
- * @copyright  2016 Klara Saary, Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class create_new_course implements renderable, templatable {
+class index_page implements renderable, templatable {
 
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -43,21 +46,8 @@ class create_new_course implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        global $DB;
+        $data = null;
 
-        $categoriespath = $DB->get_records('course_categories', null, null, 'id, path');
-        $categoriesnamearray = $DB->get_records_menu('course_categories', null, null, 'id, name');
-
-        foreach ($categoriespath as $row) {
-          $row->path = substr($row->path, 1); // delete first "/"
-          $path = explode("/", $row->path);
-          $row->name = '';
-          foreach ($path as $entry) { //get name for each /path/-element
-            $row->name = " / ".$row->name . $categoriesnamearray[$entry];
-          }
-          $categories[] = (array)$row;
-        }
-        $data['categories'] = $categories;
         return $data;
     }
 }
