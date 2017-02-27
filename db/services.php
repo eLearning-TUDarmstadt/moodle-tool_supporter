@@ -28,7 +28,6 @@
              'tool_supporter_create_new_course',
              'tool_supporter_get_course_info',
              'tool_supporter_get_users_courses',
-             'tool_supporter_get_site_info'), //web service functions of this service
            'requiredcapability' => '',                //if set, the web service user need this capability to access
                                                                                //any function of this service. For example: 'some/capability:specified'
            'restrictedusers' =>0,                                             //if enabled, the Moodle administrator must link some user to this service
@@ -42,14 +41,6 @@ $functions = array(
 
     // For each functuon: Which class provides the function?
 
-    'tool_supporter_get_site_info' => array(
-        'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_site_info',
-        'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Return some site info.',
-        'type'        => 'read',
-        'capabilities'=> '',
-    ),
     'tool_supporter_create_new_course' => array(         //web service function name
         'classname'   => 'tool_supporter\external',  //class containing the external function
         'methodname'  => 'create_new_course',          //external function name

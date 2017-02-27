@@ -46,48 +46,6 @@ use invalid_parameter_exception;
  */
 class external extends external_api {
 
-    /**
-     * Wrap the core function get_site_info.
-     *
-     * @return external_function_parameters
-     */
-    public static function get_site_info_parameters() {
-        return \core_webservice_external::get_site_info_parameters();
-    }
-
-    /**
-     * Expose to AJAX
-     * @return boolean
-     *
-     * By default this is turned off - security issues
-     */
-    public static function get_site_info_is_allowed_from_ajax() {
-        return true;
-    }
-
-    /**
-     * Wrap the core function get_site_info.
-     */
-    public static function get_site_info($serviceshortnames = array()) {
-        global $PAGE;
-        $renderer = $PAGE->get_renderer('tool_supporter');
-        $page = new \tool_supporter\output\index_page();
-        return $page->export_for_template($renderer);
-    }
-
-    /**
-     * Wrap the core function get_site_info.
-     *
-     * @return external_description
-     */
-    public static function get_site_info_returns() {
-        $result = \core_webservice_external::get_site_info_returns();
-        $result->keys['currenttime'] = new external_value(PARAM_RAW, 'the current time');
-        return $result;
-    }
-
-           // --------------------------------------------------------------------------------------------------------------------------------------
-
           /**
            * Create a coruse.
            *
