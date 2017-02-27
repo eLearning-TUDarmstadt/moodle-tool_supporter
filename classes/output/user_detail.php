@@ -29,7 +29,7 @@ use renderer_base;
 use stdClass;
 
 /**
- * Class containing data for user_table
+ * Class containing data for user_detail
  * Gets passed to the renderer
  *
  * @copyright  2016 Klara Saary, Benedikt Schneider
@@ -44,18 +44,18 @@ class user_detail implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
 
-      $userinformation = new \stdClass();
-      // Some testing data
-      $userinformation->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
-      $userinformation->username = "username";
-      $userinformation->lastname = "lastname";
-      $userinformation->firstname = "firstname";
-      $userinformation->email = "someemailadress";
-      $userinformation->timecreated = 0;
-      $userinformation->timemodified = 0;
+      /*  // Some testing data
+        $userinformation = new \stdClass();
+        $userinformation->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
+        $userinformation->username = "username";
+        $userinformation->lastname = "lastname";
+        $userinformation->firstname = "firstname";
+        $userinformation->email = "someemailadress";
+        $userinformation->timecreated = 0;
+        $userinformation->timemodified = 0;*/
 
-      $data['userinformation'] = $userinformation;
-
+      $array = null;
+      $data['userinformation'] = $array; //$userinformation;
       return $data;
     }
 }

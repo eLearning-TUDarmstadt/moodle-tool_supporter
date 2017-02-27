@@ -32,10 +32,10 @@ use renderer_base;
 use stdClass;
 
 /**
- * Class containing data for index page
+ * Class containing data for course_detail
  * Gets passed to the renderer
  *
- * @copyright  2016 Klara Saary
+ * @copyright  2016 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_detail implements renderable, templatable {
@@ -49,9 +49,7 @@ class course_detail implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
       // "Flattens" the data
       $array = null;
-      $data = \tool_supporter\external::get_course_info('1');
-    //  echo "Data:";
-    //  print_r($data);
+      $data = $array; //\tool_supporter\external::get_course_info('1');
       return $data;
     }
 }
