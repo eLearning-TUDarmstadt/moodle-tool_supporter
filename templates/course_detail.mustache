@@ -52,7 +52,7 @@
 
 
 	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
-	    <li class="nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
+	    <li class="nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
 	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">Aktivitäten</a></li>
 	    <li class ="navbar-search pull-right">
 	      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
@@ -118,22 +118,8 @@
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_search'], function($, search) {
-  var tabTableID = "#{{uniqid}}-userInCourse";
-  //selecting the active table by selecting the active tab and toggle tabs
-  $('#CoursePill_1').tab('show');
-  $('#myTabs a').click(function(e){
-    $(this).tab('show');
-    var activeTab = e.target.getAttribute('href');
-    if(activeTab == "#CoursePill_1"){
-      tabTableID = "#{{uniqid}}-userInCourse";
-    }
-    else if(activeTab == "#CoursePill_2"){
-      tabTableID = "#{{uniqid}}-activityInCourse";
-    }
-    $('#myTab a[href=activeTab]').tab('show');
-  });
-  search.searchEvent('#{{uniqid}}-courseDetailSearch',tabTableID);
+require(['jquery','tool_supporter/table_search'], function(search) {
+  search.searchEvent('#{{uniqid}}-courseDetailSearch','.active');
 });
 
 require(['tool_supporter/load_information'], function(hide_course_detail){
