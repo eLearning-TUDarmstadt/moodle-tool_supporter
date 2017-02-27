@@ -102,19 +102,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                      $('[data-region="course_details"]').replaceWith(html);
                      $('[data-region="course_details"]').show();
-                     console.log("Rollen im Kurs:");
-                     console.log(data['assignableRoles']);
-                     console.log(data['assignableRoles'][0].id)
-                     //$('#enroluserintocoursebutton').show();
 
                      templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
-                       console.log("html:");
-                       console.log(html);
-                       //enroluserregion
                        $('[data-region="enroluserregion"]').replaceWith(html);
                        $('[data-region="enroluserregion"]').show();
-                       console.log($('enrolusersection').show());
-                       console.log("Rendern---");
                        templates.runTemplateJS(js);
                      }).fail(notification.exception);
 

@@ -86,6 +86,8 @@ class external extends external_api {
         return $result;
     }
 
+           // --------------------------------------------------------------------------------------------------------------------------------------
+
           /**
            * Create a coruse.
            *
@@ -189,6 +191,52 @@ class external extends external_api {
                 'timemodified' => new external_value ( PARAM_INT, 'The id of the newly created course' )
              ));
            }
+
+           // --------------------------------------------------------------------------------------------------------------------------------------
+
+           public static function enrol_user_into_course_parameters() {
+             return new external_function_parameters(
+               array(
+                 'userid' => new external_value (PARAM_INT, 'The id of the user to be enrolled'),
+                 'courseid' => new external_value (PARAM_INT, 'The id of the course to be enrolled into'),
+                 'roleid' => new external_value (PARAM_INT, 'The id of the role the user should be enrolled with')
+               ));
+           }
+
+           /**
+            * Wrap the core function enrol_user_into_course.
+            */
+           public static function enrol_user_into_course($userid, $courseid, $roleid) {
+             global $DB;
+             global $CFG;
+
+             require_once("$CFG->dirroot/enrol/manual/externallib.php");
+
+             $params = array(
+                     'userid' => $userid,
+                     'courseid' => $courseid,
+                     'roleid' => $roleid
+                 );
+
+             //Parameters validation
+             $params = self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
+
+             $enrolment = array('courseid' => $courseid, 'userid' => $userid, 'roleid' => $roleid);
+             $enrolments[] = $enrolment;
+             \enrol_manual_external::enrol_users($enrolments);
+
+             return true;
+           }
+
+           /**
+            * Specifies the return values
+            *
+            * @return returns true or false
+            */
+
+           public static function enrol_user_into_course_returns() {
+             return new external_value (PARAM_BOOL, 'true if user was enrolled');
+             }
 
            // --------------------------------------------------------------------------------------------------------------------------------------
 
@@ -322,6 +370,8 @@ class external extends external_api {
                   )));
              }
 
+           // --------------------------------------------------------------------------------------------------------------------------------------
+
            /**
             * Returns description of method parameters
             * @return external_function_parameters
@@ -363,6 +413,8 @@ class external extends external_api {
 
            }
 
+          // --------------------------------------------------------------------------------------------------------------------------------------
+
            public static function get_courses_parameters(){
            	return new external_function_parameters(
            			array( //no parameters required
@@ -401,6 +453,8 @@ class external extends external_api {
            	$data['courses'] = $courses;
            	return $data;
            }
+
+          // --------------------------------------------------------------------------------------------------------------------------------------
 
            public static function get_course_info_parameters(){
            	return new external_function_parameters(

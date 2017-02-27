@@ -42,20 +42,23 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
               console.log("user id: ");
               console.log($('#selecteduserid')[0].textContent);
 
-              /*
+              console.log("id of role:");
+              console.log($('#role-dropdown')[0].value);
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
                     args: {
-                      userid: $('#selectedcourseid')[0].value,
-                      courseid: $('#selecteduserid')[0].value
+                      userid: $('#selecteduserid')[0].textContent,
+                      courseid: $('#selectedcourseid')[0].textContent,
+                      roleid: $('#role-dropdown')[0].value
                     }
                 }]);
 
                 promises[0].done(function(data) {
                   console.log("promise is done with return data: ")
                   console.log(data);
-                  alert("Der Kurs mit der ID " + data['id'] + " wurde erstellt!");
+
+                  /*
                   var courseDetails = data;
                     templates.render('tool_supporter/course_detail', courseDetails).done(function(html, js) {
 
@@ -63,10 +66,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
+                    */
                 }).fail(notification.exception);
-
-                */
-
             });
         }
     };

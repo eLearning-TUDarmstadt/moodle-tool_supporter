@@ -28,8 +28,10 @@
 <div id="enrolusersection" data-region="enroluserregion" style="display: none">
   <form>
       <div class="input-group">
-        <span class="input-group-addon"><button type="button" class="btn btn-default">User in den Kurs einschreiben</button></span>
-        <select class="form-control">
+        <span class="input-group-addon">
+          <button type="button" class="btn btn-default" id ="enroluserintocoursebutton">User in den Kurs einschreiben</button>
+        </span>
+        <select class="form-control" id="role-dropdown">
           {{#assignableRoles}}
           <option value={{id}}>{{name}}</option>
           {{/assignableRoles}}
@@ -37,3 +39,9 @@
       </div>
   </form>
 </div>
+
+{{#js}}
+require(['tool_supporter/enrol'], function(enroluserintocourse){
+  enroluserintocourse.enroluserintocourse();
+});
+{{/js}}

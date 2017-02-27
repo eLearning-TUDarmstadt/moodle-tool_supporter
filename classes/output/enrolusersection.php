@@ -47,13 +47,9 @@ class enrolusersection implements renderable, templatable {
       $coursesRoles->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
       $coursesRoles->name = "student";
 
-
-
       $data['assignableRoles'] = $coursesRoles;
-
-
-      echo "Data:";
-      print_r($data);
+      //echo "Data:";
+      //print_r($data);
       return $data;
     }
 }
