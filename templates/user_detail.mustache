@@ -105,7 +105,7 @@
     </div>
 
     <div class="table-responsive">
-    <table class = "table-condensed table-striped table-hover table-bordered" id="{{uniqid}}-userdetailcourses">
+    <table class = "datatable table-condensed table-striped table-hover table-bordered" id="{{uniqid}}-userdetailcourses">
       <thead>
         <tr>
           <th>ID</th>
@@ -135,14 +135,17 @@
 
 
 {{#js}}
-require(['tool_supporter/table_search', 'tool_supporter/table_sort'], function(search, sort){
+require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+      function(search, sort, dataTable, click_on_course){
   //for input field
   search.searchEvent('#usercoursessearch','#{{uniqid}}-userdetailcourses' + ' tbody');
   //for radio buttons in dropdown
   search.searchEvent('departmentradios','#{{uniqid}}-userdetailcourses' + ' tbody', '#departmentdropdown');
   search.searchEvent('semesterradios','#{{uniqid}}-userdetailcourses' + ' tbody', '#semesterdropdown');
-  //sort Table
-  sort.sortTable('#{{uniqid}}-userdetailcourses');
+  //sort Table - slow sorting algorithm
+  //sort.sortTable('#{{uniqid}}-userdetailcourses');
+//  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses');  //Convert table to DataTable
+  click_on_course.click_on_course('#{{uniqid}}-userdetailcourses' + ' tbody'); //Load information about the clicked course
 });
 
 require(['tool_supporter/load_information'], function(hide_user){

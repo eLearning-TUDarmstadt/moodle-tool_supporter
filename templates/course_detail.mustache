@@ -64,7 +64,7 @@
     <div id="CoursePill_1" class="tab-pane fade" role="tabpanel">
       <!--table of users in this course-->
       <div>
-        <table class = "table table-striped" id = "{{uniqid}}-userInCourse">
+        <table class = "datatable table table-striped" id = "{{uniqid}}-userInCourse">
           <thead>
             <tr>
               <th>id</th>
@@ -92,7 +92,7 @@
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
       <div>
-        <table class = "table table-striped" id = "{{uniqid}}-activityInCourse">
+        <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" >
           <thead>
             <tr>
               <th>Name des Abschnitts</th>
@@ -118,19 +118,23 @@
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort'], function($,search, sort) {
+require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+      function($,search, sort, dataTable, click_on_user) {
   //selecting the active table by using click-Event
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
     if(activeTab == "#CoursePill_1"){
       tabTableID = "#{{uniqid}}-userInCourse";
+      click_on_user.click_on_user('#{{uniqid}}-userInCourse' + ' tbody'); //Load information about the clicked user
     }
     else if(activeTab == "#CoursePill_2"){
       tabTableID = "#{{uniqid}}-activityInCourse";
     };
     search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
-    sort.sortTable(tabTableID);
+  //  sort.sortTable(tabTableID); //Slow version to sort tables by headers
+  //  dataTable.use_dataTable_tab(tabTableID); //Convert table to DataTable
   });
+
 });
 
 require(['tool_supporter/load_information'], function(hide_course_detail){

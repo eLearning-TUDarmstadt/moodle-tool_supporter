@@ -31,7 +31,7 @@
   </form>
 
   <div class="table-responsive">
-  <table class = "table-condensed table-hover table-bordered" id = "{{uniqid}}-userTable">
+  <table class = "datatable table-condensed table-hover table-bordered" id = "{{uniqid}}-userTable">
     <thead>
       <tr>
         <th>ID</th>
@@ -57,10 +57,11 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/load_information'], function(search, sort, click_on_user){
-   search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTable' + ' tbody');
-   click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody');
-   sort.sortTable('#{{uniqid}}-userTable');
+ require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/load_information', 'tool_supporter/datatables'],
+        function(search, sort, click_on_user, dataTable){
+   search.searchEvent('#{{uniqid}}-userSearchInput','#{{uniqid}}-userTable' + ' tbody'); //Add search functionality to the search field
+   click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody'); //Load information about the clicked user
+   // sort.sortTable('#{{uniqid}}-userTable'); //Slow version to sort tables by headers
+   // dataTable.use_dataTable('#{{uniqid}}-userTable');  //Convert table to DataTable
  });
-
 {{/js}}

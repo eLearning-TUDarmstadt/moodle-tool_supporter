@@ -32,6 +32,8 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
+$PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
+//$PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable_tab', array('.datatable-tab', array()));
 $output = $PAGE->get_renderer('tool_supporter');
 
 $index = $output->render(new \tool_supporter\output\index_page());

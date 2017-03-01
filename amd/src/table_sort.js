@@ -80,6 +80,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 		    }
 		  }
 	};
+
 	return /** @alias module:tool_supporter/table_sort */ {
 
 			/**
@@ -90,14 +91,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 			 sortTable: function(tableID){
 				 $(tableID + ' th').on('click', function(){
 					 var index = $(this).parent().children().index($(this));
-					 tableSort(index, tableID);
+					tableSort(index, tableID);
 				 });
-		/*		 $(heads).each(function(index, value){
-					 	this.click(function(){
-					 		tableSort(index, tableID);
-				 	});
-				});*/
 			 }
 		 };
-
 });
