@@ -18,13 +18,40 @@
  * Strings for component 'tool_supporter', language 'de'
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
 $string['pluginname'] = 'Supporter';
-$string['timecreateduser'] = 'Nutzer wurde erstellt am';
-$string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
+$string['loginas'] = 'Einloggen als';
+$string['edituser'] = 'Nutzer*in bearbeiten';
+$string['hide'] = 'Verbergen' ;
+$string['name'] = 'Name' ;
+
+
+//String Courses
+$string['courses'] = 'Kurse';
 $string['department'] = 'Fachbereich';
 $string['semester'] = 'Semester';
+$string['fullnamecourses_header'] = 'Kurs';
+$string['visible'] = 'Sichtbar';
+$string['course_ID'] = 'Kurs_ID';
+$string['shortname_course'] = 'Kurzname';
+$string['longname_course'] = 'Vollstaendiger Kursname';
+$string['path_course'] = 'Pfad zum Kurs';
+$string['enrolledUsers'] = 'Eingeschriebene Nutzer*innen';
+$string['courseInfo'] = 'Kursinformationen';
+
+//Strings User
+$string['username'] = 'TU-ID';
+$string['firstname'] = 'Vorname';
+$string['lastname'] = 'Nachname';
+$string['email'] = 'E-Mail';
+$string['timecreateduser'] = 'Nutzer wurde erstellt am';
+$string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
+$string['roles'] = 'Rollen';
+
+//Strin section
+$string['sectionname'] = 'Name des Abschnitts';
+$string['activity'] = 'Aktivität' ;

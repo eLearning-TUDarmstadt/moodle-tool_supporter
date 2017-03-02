@@ -18,13 +18,39 @@
  * Strings for component 'tool_supporter', language 'en'
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pagetitle'] = 'This is the tool for supporters!';
 $string['pluginname'] = 'Supporter';
-$string['timecreateduser'] = 'User was created on';
-$string['timemodifieduser'] = 'User was last modified on';
+$string['loginas'] = 'Login as';
+$string['edituser'] = 'Edit user';
+$string['hide'] = 'Hide';
+$string['name'] = 'Name';
+
+//Strings Courses
+$string['courses'] = 'Courses';
 $string['department'] = 'Department';
 $string['semester'] = 'Semester';
+$string['fullnamecourses_header'] = 'Course';
+$string['visible'] = 'visible';
+$string['course_ID'] = 'ID of course';
+$string['shortname_course'] = 'Shortname';
+$string['longname_course'] = 'Full name of course';
+$string['path_course'] = 'Course directory';
+$string['enrolledUsers'] = 'Enrolled Users';
+$string['courseInfo'] = 'Information about course';
+
+//Strings User
+$string['username'] = 'TU-ID';
+$string['firstname'] = 'Firstname';
+$string['lastname'] = 'Lastname';
+$string['email'] = 'E-Mail';
+$string['timecreateduser'] = 'User was created on';
+$string['timemodifieduser'] = 'User was last modified on';
+$string['roles'] = 'Roles';
+
+//Strings section
+$string['sectionname'] = 'Name of Section';
+$string['activity'] = 'Activity';
