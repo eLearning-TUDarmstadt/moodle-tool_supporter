@@ -28,10 +28,15 @@
 <div style="display: none" data-region = "course_details" class="well well-sm">
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">{{#str}}courseInfo, tool_supporter{{/str}}</a>
+      {{#courseDetails}}
+        <a class="brand" href="#">{{fullname}}</a>
+      {{/courseDetails}}
       <ul class="nav">
-        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">{{#str}}hide, tool_supporter{{/str}}</a></p></li>
-        <!-- Place for buttons like "Show Course", "close detail information", "delete Course"-->
+        {{#links}}
+          <li><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}deletecourse{{/str}}</a></p></li>
+          <li><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}editsettings{{/str}}</a></p></li>
+        {{/links}}
+        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">{{#str}}hide{{/str}}</a></p></li>
       </ul>
     </div>
   </div>
@@ -41,27 +46,27 @@
       <tbody>
         {{#courseDetails}}
         <tr>
-          <th>{{#str}}course_ID, tool_supporter{{/str}}</th>
+          <th>ID</th>
           <td id="selectedcourseid">{{id}}</td>
         </tr>
         <tr>
-          <th>{{#str}}shortname_course, tool_supporter{{/str}}</th>
+          <th>{{#str}}shortname_course{{/str}}</th>
           <td>{{shortname}}</td>
         </tr>
         <tr>
-          <th>{{#str}}longname_course, tool_supporter{{/str}}</th>
+          <th>{{#str}}longname_course{{/str}}</th>
           <td>{{fullname}}</td>
         </tr>
         <tr>
-          <th>{{#str}}visible, tool_supporter{{/str}}</th>
+          <th>{{#str}}visible{{/str}}</th>
           <td>{{visible}}</td>
         </tr>
         <tr>
-          <th>{{#str}}path_course, tool_supporter{{/str}}</th>
+          <th>{{#str}}path_course{{/str}}</th>
           <td>{{pfad}}</td>
         </tr>
         <tr>
-          <th>{{#str}}enrolledUsers, tool_supporter{{/str}}</th>
+          <th>{{#str}}enrolledUsers{{/str}}</th>
           <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
         </tr>
         {{/courseDetails}}
@@ -94,10 +99,10 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>{{#str}}username, tool_supporter{{/str}}</th>
-              <th>{{#str}}firstname, tool_supporter{{/str}}</th>
-              <th>{{#str}}lastname, tool_supporter{{/str}}</th>
-              <th>{{#str}}roles, tool_supporter{{/str}}</th>
+              <th>{{#str}}username{{/str}}</th>
+              <th>{{#str}}firstname{{/str}}</th>
+              <th>{{#str}}lastname{{/str}}</th>
+              <th>{{#str}}roles{{/str}}</th>
             </tr>
           </thead>
           <tbody>
@@ -121,10 +126,10 @@
         <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" >
           <thead>
             <tr>
-              <th>{{#str}}sectionname, tool_supporter{{/str}}</th>
-              <th>{{#str}}activity, tool_supporter{{/str}}</th>
-              <th>{{#str}}name, tool_supporter{{/str}}</th>
-              <th>{{#str}}visible, tool_supporter{{/str}}</th>
+              <th>{{#str}}sectionname{{/str}}</th>
+              <th>{{#str}}activity{{/str}}</th>
+              <th>{{#str}}name{{/str}}</th>
+              <th>{{#str}}visible{{/str}}</th>
             </tr>
           </thead>
           <tbody>
