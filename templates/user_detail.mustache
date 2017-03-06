@@ -86,7 +86,7 @@
           <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}</a>
           <ul class="dropdown-menu" id="departmentdropdown">
             {{#uniquecategoryname}}
-            <li><input type="radio" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
+            <li><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
             {{/uniquecategoryname}}
           </ul>
         </li>
@@ -94,7 +94,7 @@
           <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
           <ul class="dropdown-menu" id="semesterdropdown">
             {{#uniqueparentcategory}}
-            <li><input type="radio" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
+            <li><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
             {{/uniqueparentcategory}}
           </ul>
         </li>
@@ -140,8 +140,8 @@ require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_suppo
   //for input field
   search.searchEvent('#usercoursessearch','#{{uniqid}}-userdetailcourses' + ' tbody');
   //for radio buttons in dropdown
-  search.searchEvent('departmentradios','#{{uniqid}}-userdetailcourses' + ' tbody', '#departmentdropdown');
-  search.searchEvent('semesterradios','#{{uniqid}}-userdetailcourses' + ' tbody', '#semesterdropdown');
+  search.searchEvent('departmentradios','#{{uniqid}}-userdetailcourses', '#departmentdropdown');
+  search.searchEvent('semesterradios','#{{uniqid}}-userdetailcourses', '#semesterdropdown');
   //sort Table - slow sorting algorithm
   //sort.sortTable('#{{uniqid}}-userdetailcourses');
 //  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses');  //Convert table to DataTable
