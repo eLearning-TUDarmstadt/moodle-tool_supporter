@@ -83,7 +83,7 @@
 
 
 	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
-	    <li class="nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
+	    <li class="nav-item active"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>
 	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">Aktivitäten</a></li>
 	    <li class ="navbar-search pull-right">
 	      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
@@ -92,10 +92,10 @@
 
 
  <div class="tab-content">
-    <div id="CoursePill_1" class="tab-pane fade" role="tabpanel">
+    <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
       <!--table of users in this course-->
       <div>
-        <table class = "datatable table table-striped" id = "{{uniqid}}-userInCourse">
+        <table class = "datatable-tab table table-striped" id = "{{uniqid}}-userInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -123,7 +123,7 @@
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
       <div>
-        <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" >
+        <table class = "datatable-tab table table-striped" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -150,7 +150,22 @@
 
 {{#js}}
 require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-      function($,search, sort, dataTable, click_on_user) {
+      function($, search, sort, datatables, click_on_user) {
+        $(document).ready(function () {
+          $('#{{uniqid}}-userInCourse').DataTable({
+              responsive: true
+          });
+          $('#{{uniqid}}-activityInCourse').DataTable({
+              responsive: true
+          });
+          console.log("here");
+          $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            console.log("here2");
+              $($.fn.dataTable.tables(true)).DataTable()
+                 .columns.adjust()
+                 .responsive.recalc();
+          });
+      });
   //selecting the active table by using click-Event
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
@@ -163,7 +178,7 @@ require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 't
     };
     search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
   //  sort.sortTable(tabTableID); //Slow version to sort tables by headers
-  //  dataTable.use_dataTable_tab(tabTableID); //Convert table to DataTable
+   //datatables.use_dataTable_tab(tabTableID); //Convert table to DataTable
   });
 
 });

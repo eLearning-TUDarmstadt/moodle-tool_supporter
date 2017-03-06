@@ -18,9 +18,9 @@
  * Because every module is returned from a request for any other module, this
  * forces the loading of all modules with a single request.
  *
- * @module     tool_supporter/table_filter
+ * @module     tool_supporter/datatables
  * @package    tool_supporter
- * @copyright  2016 Klara Saary
+ * @copyright  2016 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
@@ -38,19 +38,27 @@ define(['jquery', 'tool_supporter/jquery.dataTables'], function($,datatables) {
       // });
     },
 
-    use_dataTable_tab: function(tabID, tableID){ //Does not work yet
-      //  $(document).ready(function() {
-          $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-              $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-          });
+    /**
+     *
+     * @method use_dataTable_tab
+     */
+    use_dataTable_tab: function(tableID){ //Does not work yet
+      $(document).ready(function() {
+           console.log("in use_dataTable_tab");
+           $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+                 console.log( 'show tab' );
+                 $($.fn.dataTable.tables(true)).DataTable()
+                   .columns.adjust()
+                   .responsive.recalc();
+               });
 
-          $('table.table').DataTable( {
-              ajax:           '../ajax/data/arrays.txt',
-              scrollY:        200,
-              scrollCollapse: true,
-              paging:         false
-          });
-        //});
+         $('table.table').DataTable( {
+           //  ajax:           '../ajax/data/arrays.txt',
+             scrollY:        200,
+             scrollCollapse: true,
+             paging:         false
+         });
+       });
       }
    };
 });

@@ -42,6 +42,15 @@ define(['jquery'], function($) {
         }).show();
     };
 
+    var filter = function(elements, tableID){
+      var or_filter = [];
+      $(elements).each(function(){
+        or_filter.push(escapeRegExp($(this).val()) + '|');
+      });
+      var otable = $(tableID).dataTable();
+      otable.fnFilter(or_filter, null, true);
+    };
+
 
     return /** @alias module:tool_supporter/table_search */ {
           /**
@@ -59,7 +68,11 @@ define(['jquery'], function($) {
             });
             //for radios
             $(FormInput).change(function() {
-              search($('input[name='+searchInputID+']:checked').val(),tableID);
+              console.log("checkboxes_changed");
+              console.log($('input[name='+searchInputID+']:checked'));
+              var elements = $('input[name='+searchInputID+']:checked');
+              filter(elements, tableID);
+              //search($('input[name='+searchInputID+']:checked').val(),tableID);
             });
           }
         };
