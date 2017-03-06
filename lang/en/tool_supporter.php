@@ -18,13 +18,15 @@
  * Strings for component 'tool_supporter', language 'en'
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pagetitle'] = 'This is the tool for supporters!';
-$string['pluginname'] = 'Supporter';
-$string['timecreateduser'] = 'User was created on';
-$string['timemodifieduser'] = 'User was last modified on';
-$string['department'] = 'Department';
-$string['semester'] = 'Semester';
+ $string['pagetitle'] = 'This is the tool for supporters!';
+ $string['pluginname'] = 'Supporter';
+ $string['department'] = 'Department';
+ $string['semester'] = 'Semester';
+
+//These two probably already are somewhere
+ $string['timecreateduser'] = 'User was created on';
+ $string['timemodifieduser'] = 'User was last modified on';

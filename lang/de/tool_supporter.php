@@ -18,13 +18,13 @@
  * Strings for component 'tool_supporter', language 'de'
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2016 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
-$string['pluginname'] = 'Supporter';
-$string['timecreateduser'] = 'Nutzer wurde erstellt am';
-$string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
-$string['department'] = 'Fachbereich';
-$string['semester'] = 'Semester';
+ $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
+ $string['pluginname'] = 'Supporter';
+ $string['timecreateduser'] = 'Nutzer wurde erstellt am';
+ $string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
+ $string['department'] = 'Fachbereich';
+ $string['semester'] = 'Semester';

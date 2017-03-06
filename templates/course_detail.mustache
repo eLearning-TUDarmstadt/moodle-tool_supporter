@@ -1,11 +1,42 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+
+  Documentation gets here!
+  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
+
+    @template tool_supporter/course_detail
+
+    Starting point for an awesome template.
+
+}}
 <!--View details after clicking on a course in course table.  -->
 <div style="display: none" data-region = "course_details" class="well well-sm">
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" href="#">Kursinformationen</a>
+      {{#courseDetails}}
+        <a class="brand" href="#">{{fullname}}</a>
+      {{/courseDetails}}
       <ul class="nav">
+        {{#links}}
+          <li><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}deletecourse{{/str}}</a></p></li>
+          <li><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}editsettings{{/str}}</a></p></li>
+        {{/links}}
         <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">{{#str}}hide{{/str}}</a></p></li>
-        <!-- Place for buttons like "Show Course", "close detail information", "delete Course"-->
       </ul>
     </div>
   </div>
@@ -15,27 +46,27 @@
       <tbody>
         {{#courseDetails}}
         <tr>
-          <th>Kurs-ID</th>
+          <th>ID</th>
           <td id="selectedcourseid">{{id}}</td>
         </tr>
         <tr>
-          <th>Kurzer Kursname</th>
+          <th>{{#str}}shortnamecourse{{/str}}</th>
           <td>{{shortname}}</td>
         </tr>
         <tr>
-          <th>Vollst�ndiger Kursname</th>
+          <th>{{#str}}fullnamecourse{{/str}}</th>
           <td>{{fullname}}</td>
         </tr>
         <tr>
-          <th>Sichtbar</th>
+          <th>{{#str}}visible{{/str}}</th>
           <td>{{visible}}</td>
         </tr>
         <tr>
-          <th>Kurs-Pfad</th>
+          <th>{{#str}}path{{/str}}</th>
           <td>{{pfad}}</td>
         </tr>
         <tr>
-          <th>Teilnehmer_innen</th>
+          <th>{{#str}}users{{/str}}</th>
           <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
         </tr>
         {{/courseDetails}}
@@ -67,11 +98,11 @@
         <table class = "datatable table table-striped" id = "{{uniqid}}-userInCourse">
           <thead>
             <tr>
-              <th>id</th>
-              <th>TU-ID</th>
-              <th>Vorname</th>
-              <th>Nachname</th>
-              <th>Rolle</th>
+              <th>ID</th>
+              <th>{{#str}}username{{/str}}</th>
+              <th>{{#str}}firstname{{/str}}</th>
+              <th>{{#str}}lastname{{/str}}</th>
+              <th>{{#str}}roles{{/str}}</th>
             </tr>
           </thead>
           <tbody>
@@ -95,10 +126,10 @@
         <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" >
           <thead>
             <tr>
-              <th>Name des Abschnitts</th>
-              <th>Aktivität</th>
-              <th>Name</th>
-              <th>Sichtbar</th>
+              <th>{{#str}}sectionname{{/str}}</th>
+              <th>{{#str}}activity{{/str}}</th>
+              <th>{{#str}}name{{/str}}</th>
+              <th>{{#str}}visible{{/str}}</th>
             </tr>
           </thead>
           <tbody>
