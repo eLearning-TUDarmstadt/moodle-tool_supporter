@@ -140,8 +140,8 @@ require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_suppo
   //for input field
   search.searchEvent('#usercoursessearch','#{{uniqid}}-userdetailcourses' + ' tbody');
   //for radio buttons in dropdown
-  search.searchEvent('departmentradios','#{{uniqid}}-userdetailcourses', '#departmentdropdown');
-  search.searchEvent('semesterradios','#{{uniqid}}-userdetailcourses', '#semesterdropdown');
+  search.filterEvent('departmentradios','#{{uniqid}}-userdetailcourses', '#departmentdropdown', 2);
+  search.filterEvent('semesterradios','#{{uniqid}}-userdetailcourses', '#semesterdropdown', 4);
   //sort Table - slow sorting algorithm
   //sort.sortTable('#{{uniqid}}-userdetailcourses');
 //  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses');  //Convert table to DataTable

@@ -42,17 +42,20 @@ define(['jquery'], function($) {
         }).show();
     };
 
-    var filter = function(elements, tableID){
-      var or_filter = [];
-      $(elements).each(function(){
-        or_filter.push(escapeRegExp($(this).val()) + '|');
+    var filterTable = function(elements, otable, column){
+      filter ='';
+      $(elements).each(function(index){
+        console.log("index: " + index + "length: " + elements.length);
+        if(index  == elements.length -1){filter = filter + $(this).val()}
+        else
+          filter = filter + $(this).val() + '|';
       });
-      var otable = $(tableID).dataTable();
-      otable.fnFilter(or_filter, null, true);
+      otable.fnFilter(filter, column, true, false, false, true);
     };
 
 
     return /** @alias module:tool_supporter/table_search */ {
+
           /**
            * Refresh the table!
            *
@@ -66,14 +69,26 @@ define(['jquery'], function($) {
             $(searchInputID).keyup(function() {
               search($(searchInputID).val(),tableID);
             });
-            //for radios
-            $(FormInput).change(function() {
-              console.log("checkboxes_changed");
-              console.log($('input[name='+searchInputID+']:checked'));
-              var elements = $('input[name='+searchInputID+']:checked');
-              filter(elements, tableID);
-              //search($('input[name='+searchInputID+']:checked').val(),tableID);
-            });
-          }
-        };
+          },
+
+        /**
+         * Refresh the table!
+         *
+         * @method FilterEvent
+         * @param searchInputID, tableID
+         * searchInputID: ID of searchfield
+         * tableID: ID of the table or part of the table you want to filter
+         */
+        filterEvent: function(searchInputID, tableID, FormInput, column) {
+          //for radios
+          var otable = $(tableID).dataTable();
+          console.log("filterEvent");
+          $(FormInput).change(function() {
+            console.log("checkboxes_changed");
+            console.log($('input[name='+searchInputID+']:checked'));
+            var elements = $('input[name='+searchInputID+']:checked');
+            filterTable(elements, otable, column);
+          });
+        }
+      };
   });
