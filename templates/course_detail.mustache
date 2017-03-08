@@ -36,6 +36,9 @@
           <li><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}deletecourse{{/str}}</a></p></li>
           <li><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default" id="hide_user">{{#str}}editsettings{{/str}}</a></p></li>
         {{/links}}
+        <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
+        </button>
         <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">{{#str}}hide{{/str}}</a></p></li>
       </ul>
     </div>
@@ -88,14 +91,21 @@
 	    <li class ="navbar-search pull-right">
 	      <input id="{{uniqid}}-courseDetailSearch" type="text" class="search-query" placeholder="Search"> <!--Search field for searching in tables below-->
 	    </li>
+      <li class = 'dropdown'>
+         <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}roles{{/str}}</a>
+         <ul class="dropdown-menu" id="semesterdropdown">
+            {{#rolesincourse}}
+            <li><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse"> {{{.}}}</li> <!--filter user list by selecting wanted role-->
+            {{/rolesincourse}}
+        </ul>
+      </li>
 	 </ul>
 
 
  <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
       <!--table of users in this course-->
-      <div>
-        <table class = "datatable-tab table table-striped" id = "{{uniqid}}-userInCourse" cellspacing="0" width="100%">
+        <table class = "datatable table table-striped" id = "{{uniqid}}-userInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -112,18 +122,16 @@
               <td>{{username}}</td>
               <td>{{firstname}}</td>
               <td>{{lastname}}</td>
-              <td>{{role}}</td>
+              <td>{{roles}}</td>
               <td></td>
             </tr>
             {{/users}}
           </tbody>
         </table>
-      </div>
     </div>
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-      <div>
-        <table class = "datatable-tab table table-striped" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+        <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -143,7 +151,6 @@
             {{/activities}}
           </tbody>
         </table>
-      </div>
     </div>
   </div>
 </div>
@@ -151,21 +158,8 @@
 {{#js}}
 require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function($, search, sort, datatables, click_on_user) {
-        $(document).ready(function () {
-          $('#{{uniqid}}-userInCourse').DataTable({
-              responsive: true
-          });
-          $('#{{uniqid}}-activityInCourse').DataTable({
-              responsive: true
-          });
-          console.log("here");
-          $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            console.log("here2");
-              $($.fn.dataTable.tables(true)).DataTable()
-                 .columns.adjust()
-                 .responsive.recalc();
-          });
-      });
+  //  datatables.use_dataTable_tab('#{{uniqid}}-userInCourse'); //Convert table to DataTable
+  //  datatables.use_dataTable_tab("#{{uniqid}}-activityInCourse"); //Convert table to DataTable
   //selecting the active table by using click-Event
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
@@ -178,7 +172,6 @@ require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 't
     };
     search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
   //  sort.sortTable(tabTableID); //Slow version to sort tables by headers
-   //datatables.use_dataTable_tab(tabTableID); //Convert table to DataTable
   });
 
 });
