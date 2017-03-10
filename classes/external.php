@@ -493,7 +493,8 @@ class external extends external_api {
 			                        ),
                               'links' => new external_single_structure(array(
                                 'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
-                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed after')
+                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed after'),
+                                'courselink' => new external_value(PARAM_RAW, 'link to the course')
                               ))
 
 			           		)
@@ -546,16 +547,14 @@ class external extends external_api {
 
             global $CFG, $USER;
 
-            //https://moodle.tu-darmstadt.de/course/edit.php?id=10595
-
             $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseID;
-
-            //https://moodle.tu-darmstadt.de/course/delete.php?id=10595
             $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseID;
+            $courselink = $CFG->wwwroot."/course/view.php?id=".$courseID;
 
             $links = array(
               'settingslink' => $settingslink,
-              'deletelink' => $deletelink
+              'deletelink' => $deletelink,
+              'courselink' => $courselink
             );
 
            	$data = array(

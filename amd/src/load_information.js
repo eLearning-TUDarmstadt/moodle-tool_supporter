@@ -93,8 +93,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       * hide the user-block
       * @method hide_user
       */
-     hide_user: function() {
-         $('#hide_user').on('click', function() {
+     hide_user_details: function() {
+         $('#hide_user_details').on('click', function() {
            console.log("hide user");
              $('[data-region="user_details"]').toggle();
          });
