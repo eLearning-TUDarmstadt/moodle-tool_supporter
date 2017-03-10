@@ -36,15 +36,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        }
       }]);
       promise[0].done(function(data){
-          console.log("return data for assignableRoles: ");
-          console.log(data);
-
-          console.log(data['assignableRoles']);
-
           // Render template with data
           templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
-            console.log("html: ");
-            console.log(html);
             $('[data-region="enroluserregion"]').replaceWith(html);
             $('[data-region="enroluserregion"]').show();
             templates.runTemplateJS(js);
@@ -95,8 +88,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       */
      hide_user_details: function() {
          $('#hide_user_details').on('click', function() {
-           console.log("hide user");
-             $('[data-region="user_details"]').toggle();
+           $('[data-region="user_details"]').toggle();
          });
      },
 
@@ -135,13 +127,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                  $('[data-region="user_details"]').replaceWith(html);
                  $('[data-region="user_details"]').show();
 
-                 console.log("length:");
-                 console.log($('#selectedcourseid').length);
-
                  //Only show the section if a course is selected
                  if ($('#selectedcourseid').length === 1) {
-                   //course id
-                   console.log("a course is selected");
                    var courseid = $('#selectedcourseid')[0].textContent
                    show_enrol_section(courseid);
                  };
@@ -162,8 +149,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_course: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
-             console.log("Reihe geklickt, Kurs-ID gefunden: " + course_id);
-
              show_course_detail_private(course_id);
            });
        }
