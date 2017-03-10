@@ -32,6 +32,11 @@
         {{#links}}
           <li><p class="brand"><a href="{{courselink}}" target="_blank">{{#courseDetails}}{{fullname}}{{/courseDetails}}</a></p></li>
           <li data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
+            t/delete:
+            {{#pix}} t/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
+          </a></p></li>
+          <li data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
+            i/delete:
             {{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
           </a></p></li>
           <li data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
@@ -39,10 +44,10 @@
           </a></p></li>
         {{/links}}
         <li><p class="navbar-btn"><a href="#" target="_blank" class="btn btn-default">
-          {{#pix}} i/show, core, make visible {{/pix}}
-        </a></p></li>
-        <li><p class="navbar-btn"><a href="#" target="_blank" class="btn btn-default">
-          {{#pix}} i/hide, core, make hidden {{/pix}}
+          {{#courseDetails}}
+            {{#visible}}{{#pix}} i/show, core, make visible {{/pix}}{{/visible}}
+            {{^visible}}{{#pix}} i/hide, core, make visible {{/pix}}{{/visible}}
+          {{/courseDetails}}
         </a></p></li>
       </ul>
       <ul class="nav pull-right">
@@ -52,6 +57,7 @@
       </ul>
     </div>
   </div>
+
 <!--Show course details  -->
 <div class="table-responsive">
     <table class = "table borderless table-striped">
