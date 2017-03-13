@@ -34,16 +34,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          */
         enroluserintocourse: function() {
             $('#enroluserintocoursebutton').on('click', function() {
-              console.log("Button wurde geklickt");
-              console.log("course id: ");
-              console.log($('#selectedcourseid')[0].textContent);
               var course = $('#selectedcourseid')[0].textContent;
               var user = $('#selecteduserid')[0].textContent;
-              console.log("user id: ");
-              console.log($('#selecteduserid')[0].textContent);
-
-              console.log("id of role:");
-              console.log($('#role-dropdown')[0].value);
 
               if ($('#role-dropdown')[0].value == "") {
                 alert("Es wurde keine Rolle ausgewählt"); //ToDo: English translation

@@ -58,14 +58,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 promises[0].done(function(data) {
                   // stdClass with category, fullname, id, shortname, startdate, timecreated, timemodified, visible
-                  console.log("create new course data: ")
+                  console.log("create new course return data: ")
                   console.log(data);
-
-                  console.log("Display course");
-                  
+                  //Display the creted course
                   require(['tool_supporter/load_information'], function(func){
-                    console.log(func);
-                    console.log("inner");
                     func.show_course_detail(data['id']);
                     $('[data-region="create_new_course_section"]').toggle();
                   });

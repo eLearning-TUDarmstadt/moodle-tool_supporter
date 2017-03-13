@@ -31,9 +31,17 @@
     <div class="navbar-inner">
       <ul class="nav">
         <li><p class="brand"><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{username}}{{/userinformation}}</a></p></li>
-        <li><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">{{#str}}loginas{{/str}}</a></p></li>
-        <li><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">{{#str}}edituser{{/str}}</a></p></li>
-        <li><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user">{{#str}}hide{{/str}}</a></p></li>
+        <li data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
+          <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
+        </a></p></li>
+        <li data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
+          <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
+        </a></p></li>
+      </ul>
+      <ul class="nav pull-right">
+        <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
+          <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
+        </a></p></li>
       </ul>
     </div>
 
@@ -148,7 +156,7 @@ require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_suppo
   click_on_course.click_on_course('#{{uniqid}}-userdetailcourses' + ' tbody'); //Load information about the clicked course
 });
 
-require(['tool_supporter/load_information'], function(hide_user){
-  hide_user.hide_user();
+require(['tool_supporter/load_information'], function(hide_user_details){
+  hide_user_details.hide_user_details();
 });
 {{/js}}
