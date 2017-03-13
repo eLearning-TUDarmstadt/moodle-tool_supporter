@@ -31,13 +31,10 @@
       <ul class="nav">
         {{#links}}
           <li><p class="brand"><a href="{{courselink}}" target="_blank">{{#courseDetails}}{{fullname}}{{/courseDetails}}</a></p></li>
+      </ul>
+      <ul class="nav pull-right">
           <li data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
-            t/delete:
             {{#pix}} t/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
-          </a></p></li>
-          <li data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
-            i/delete:
-            {{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
           </a></p></li>
           <li data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
             {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
@@ -49,10 +46,8 @@
             {{^visible}}{{#pix}} i/hide, core, make visible {{/pix}}{{/visible}}
           {{/courseDetails}}
         </a></p></li>
-      </ul>
-      <ul class="nav pull-right">
         <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">
-          <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
+          <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
         </a></p></li>
       </ul>
     </div>
@@ -120,7 +115,7 @@
  <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
       <!--table of users in this course-->
-        <table class = "datatable table table-striped" id = "{{uniqid}}-userInCourse" cellspacing="0" width="100%">
+        <table class = "table table-striped" id = "userInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -146,7 +141,7 @@
     </div>
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-        <table class = "datatable table table-striped" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+        <table class = "table table-striped" id = "activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -173,8 +168,8 @@
 {{#js}}
 require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function($, search, sort, datatables, click_on_user) {
-  //  datatables.use_dataTable_tab('#{{uniqid}}-userInCourse'); //Convert table to DataTable
-  //  datatables.use_dataTable_tab("#{{uniqid}}-activityInCourse"); //Convert table to DataTable
+  datatables.use_dataTable_tab('#userInCourse'); //Convert table to DataTable
+  datatables.use_dataTable_tab("#activityInCourse"); //Convert table to DataTable
   //selecting the active table by using click-Event
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');

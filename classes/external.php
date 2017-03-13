@@ -513,7 +513,7 @@ class external extends external_api {
             self::validate_context($coursecontext);
            	//Is the user allowes to use this web service?
            	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
-           	\require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher
+           	\require_capability('moodle/course:update', $coursecontext); // is the user allowed to change course_settings
 
             //Get information about the course
            	$select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseID;
@@ -528,20 +528,18 @@ class external extends external_api {
             $roles = array();
            	//$roleList = \get_all_roles($coursecontext); // array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
            	$count= \count_role_users([1,2,3,4,5,6,7], $coursecontext);
+            $rolesincourse = [];
            	foreach ($roleList as $r) {
            		if($r->coursealias != NULL)
            			$roleName = $r->coursealias;
            			else
            				$roleName =$r->shortname;
-           				$roleNumber = \count_role_users($r->id,$coursecontext);
+           			$roleNumber = \count_role_users($r->id,$coursecontext);
            				//$roleNumber = count_enrolled_users($coursecontext, $withcapability = $role, $groupid = 0);
-           				if($roleNumber != 0)
+           			if($roleNumber != 0)
            					$roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
+                $rolesincourse[] = $roleName;
            	}
-            $rolesincourse = [];
-            foreach ($roleList as $role) {
-              $rolesincourse[] = $role->shortname;
-            }
             //Get userinformation about users in course
            	$users_raw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0, $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
            	$users = array();
@@ -642,4 +640,25 @@ class external extends external_api {
                       )))
                   ));
            }
+
+          public static function toggle_course_visibility_parameter(){
+            return new external_function_parameters(array(
+                  'courseID' => new external_value(PARAM_RAW, 'id of course')
+                ));
+          }
+          public static function toggle_course_visibility_returns(){
+          }
+
+          public static function toggle_course_visibility($courseID){
+            global $DB, $CFG, $PAGE;
+             //check parameters
+             $params = self::validate_parameters(self::toggle_course_visibility_parameter(), array('courseID'=>$courseID));
+             // now security checks
+             $coursecontext = \context_course::instance($courseID);//($params['courseID']);
+             $courseID = $params['courseID'];
+            self::validate_context($coursecontext);
+             //Is the user allowes to use this web service?
+             \require_capability('moodle/course:visibility', $coursecontext); // are the user allowed to change visibility of course
+             
+          }
 }
