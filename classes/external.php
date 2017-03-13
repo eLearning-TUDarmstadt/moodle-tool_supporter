@@ -252,11 +252,10 @@ class external extends external_api {
 
                //Get the used Roles the user is enrolled as (teacher, student, ...)
                $context = \context_course::instance($course->id);
-               $usedroles = get_roles_used_in_context($context);
+               $usedroles = get_user_roles($context, $userid);
                foreach ($usedroles as $role) {
                  $course->roles[] = $role->shortname;
                }
-
                $usercoursesarray[] = (array)$course; //cast it as an array
              }
 
@@ -463,6 +462,7 @@ class external extends external_api {
 						           							'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers')
            											)
            									),
+                        'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
            							'roles' => new external_multiple_structure(
            									new external_single_structure(
            											array(
@@ -477,7 +477,8 @@ class external extends external_api {
 						                                  'id' => new external_value(PARAM_INT, 'id of user'),
 						                                  'username' => new external_value(PARAM_RAW, 'name of user'),
 						                                  'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
-						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user')
+						                                  'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
+                                              'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
            										)
            									)
                        				 ),
@@ -507,19 +508,24 @@ class external extends external_api {
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
            	// now security checks
            	$coursecontext = \context_course::instance($courseID);//($params['courseID']);
-          //  $coursecontext = \context_system::instance();
            	$courseID = $params['courseID'];
             self::validate_context($coursecontext);
            	//Is the user allowes to use this web service?
            	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
            	\require_capability('tool/supporter:get_course_info', $coursecontext); // is the user coursecreator, manager, teacher, editingteacher
 
+            //Get information about the course
            	$select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseID;
            	$courseDetails = $DB->get_record_sql($select);
            	$courseDetails = (array)$courseDetails;
-           	$courseDetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
-           	$roles = array();
-           	$roleList = \get_all_roles($coursecontext); // array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
+
+            //How many students are enrolled in the course?
+            $courseDetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
+
+            //Which roles are used and how many users have this role?
+            $roleList = get_roles_used_in_context($coursecontext);
+            $roles = array();
+           	//$roleList = \get_all_roles($coursecontext); // array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
            	$count= \count_role_users([1,2,3,4,5,6,7], $coursecontext);
            	foreach ($roleList as $r) {
            		if($r->coursealias != NULL)
@@ -531,11 +537,26 @@ class external extends external_api {
            				if($roleNumber != 0)
            					$roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
            	}
+            $rolesincourse = [];
+            foreach ($roleList as $role) {
+              $rolesincourse[] = $role->shortname;
+            }
+            //Get userinformation about users in course
            	$users_raw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0, $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
            	$users = array();
            	foreach($users_raw as $u){
-           		$users[] = (array)$u;
+              $u = (array)$u;
+              //Find user specific roles
+              $usedroles = get_user_roles($coursecontext, $u['id']);
+              $userRoles = [];
+              foreach ($usedroles as $role) {
+                $userRoles[] = $role->shortname;
+              }
+              $u['roles'] = $userRoles;
+           		$users[] = $u;
            	}
+
+            //Activities in course
            	$activities = array();
            	$modules =  \get_array_of_activities($courseID);
            	foreach($modules as $mo){
@@ -557,9 +578,9 @@ class external extends external_api {
               'settingslink' => $settingslink,
               'deletelink' => $deletelink
             );
-
            	$data = array(
               'courseDetails' => (array)$courseDetails,
+              'rolesincourse' => $rolesincourse,
               'roles' => (array)$roles,
               'users' => (array)$users,
               'activities' => (array)$activities,
