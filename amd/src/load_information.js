@@ -57,6 +57,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       * @method show_course_detail
       */
      show_course_detail: function(course_id) {
+
+       //go to top
+       $("html, body").animate({ scrollTop: 0 }, "slow");
+
        var promise = ajax.call([{
           methodname: 'tool_supporter_get_course_info',
           args: {
@@ -111,6 +115,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        click_on_user: function(table) {
            $(table + ' tr').on('click', function() { //click event on each row
              var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
+
+             //go to top
+             $("html, body").animate({ scrollTop: 0 }, "slow");
 
              var promises = ajax.call([{
                methodname: 'tool_supporter_get_user_information',
