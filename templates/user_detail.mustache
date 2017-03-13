@@ -29,16 +29,16 @@
 <div style="display: none" data-region="user_details" class="well well-sm">
   <div class="navbar" >
     <div class="navbar-inner">
-      <ul class="nav">
+      <ul class = "nav">
         <li><p class="brand"><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{username}}{{/userinformation}}</a></p></li>
+      </ul>
+      <ul class="nav pull-right">
         <li data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
           <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
         </a></p></li>
         <li data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
           <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
         </a></p></li>
-      </ul>
-      <ul class="nav pull-right">
         <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
           <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
         </a></p></li>
