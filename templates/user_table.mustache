@@ -35,11 +35,11 @@
   <table class = "datatable table-condensed table-hover table-bordered" id = "{{uniqid}}-userTable">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>{{#str}}username{{/str}}</th>
-        <th>{{#str}}firstname{{/str}}</th>
-        <th>{{#str}}lastname{{/str}}</th>
-        <th>{{#str}}email{{/str}}</th>
+        <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}username{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}firstname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}lastname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}email{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
       </tr>
     </thead>
     <tbody data-region="user_table_body">

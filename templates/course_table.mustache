@@ -37,11 +37,11 @@
   <table id = "{{uniqid}}-courseTable" class = "datatable table-condensed table-striped table-hover table-bordered">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>{{#str}}fullnamecourse{{/str}}</th>
-        <th>{{#str}}department, tool_supporter{{/str}}</th>
-        <th>{{#str}}semester, tool_supporter{{/str}}</th>
-        <th>{{#str}}visible{{/str}}</th>
+        <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}fullnamecourse{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}department, tool_supporter{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}semester, tool_supporter{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}visible{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
       </tr>
     </thead>
     <tbody data-region="user_table_body">
