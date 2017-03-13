@@ -641,24 +641,36 @@ class external extends external_api {
                   ));
            }
 
-          public static function toggle_course_visibility_parameter(){
+           // --------------------------------------------------------------------------------------------------------------------------------------
+
+          public static function toggle_course_visibility_parameters(){
             return new external_function_parameters(array(
                   'courseID' => new external_value(PARAM_RAW, 'id of course')
                 ));
           }
-          public static function toggle_course_visibility_returns(){
-          }
 
           public static function toggle_course_visibility($courseID){
-            global $DB, $CFG, $PAGE;
+
+            print_r("TEST");
+
              //check parameters
-             $params = self::validate_parameters(self::toggle_course_visibility_parameter(), array('courseID'=>$courseID));
+             self::validate_parameters(self::toggle_course_visibility_parameter(), array('courseID'=>$courseID));
              // now security checks
              $coursecontext = \context_course::instance($courseID);//($params['courseID']);
-             $courseID = $params['courseID'];
-            self::validate_context($coursecontext);
-             //Is the user allowes to use this web service?
+             self::validate_context($coursecontext);
+             //Is the user allowed to change the visibility?
              \require_capability('moodle/course:visibility', $coursecontext); // are the user allowed to change visibility of course
-             
+
+             $course = self::get_course_info($courseID);
+             course_change_visibility($courseID, $course['visible']);
+             $course['visible'] = !$course['visible'];
+
+             print_r($data);
+
+             return $data;
+          }
+
+          public static function toggle_course_visibility_returns(){
+            return self::get_course_info_returns();
           }
 }

@@ -40,7 +40,7 @@
             {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
           </a></p></li>
         {{/links}}
-        <li><p class="navbar-btn"><a href="#" target="_blank" class="btn btn-default">
+        <li><p class="navbar-btn"><a href="#" target="_blank" class="btn btn-default" id="toggle_course_visibility">
           {{#courseDetails}}
             {{#visible}}{{#pix}} i/show, core, make visible {{/pix}}{{/visible}}
             {{^visible}}{{#pix}} i/hide, core, make visible {{/pix}}{{/visible}}
@@ -186,8 +186,9 @@ require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 't
 
 });
 
-require(['tool_supporter/load_information'], function(hide_course_detail){
-  hide_course_detail.hide_course_detail();
+require(['tool_supporter/load_information'], function(load_information){
+  load_information.hide_course_detail();
+  load_information.toggle_course_visibility();
 });
 
 {{/js}}

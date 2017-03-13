@@ -86,6 +86,60 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        }).fail(notification.exception);
      },
 
+
+
+
+
+
+
+
+     /**
+      * toggle course visibility
+      *
+      * @method toggle_course_visibility
+      */
+     toggle_course_visibility: function(course_id) {
+         $('#toggle_course_visibility').on('click', function() { //click event on each row
+           console.log("TOGGO!");
+
+           var promises = ajax.call([{
+             methodname: 'toggle_course_visibility',
+               args: {
+                 courseID: course_id
+               }
+           }]);
+
+           promises[0].done(function(data) {
+
+             console.log("RETURN DATA");
+
+             data = data[0];
+             console.log("toggle visibility return data");
+             console.log(data);
+             templates.render('tool_supporter/user_detail', data).done(function(html, js) {
+               $('[data-region="user_details"]').replaceWith(html);
+
+               //No js has to be executed here
+               //templates.runTemplateJS(js);
+             }).fail(notification.exception);
+           }).fail(notification.exception);
+
+         });
+     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      /**
       * hide the user-block
       * @method hide_user
