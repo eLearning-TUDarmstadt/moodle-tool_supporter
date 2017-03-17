@@ -40,12 +40,18 @@
             {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
           </a></p></li>
         {{/links}}
-        <li><p class="navbar-btn"><a href="#" target="_blank" class="btn btn-default" id="toggle_course_visibility">
-          {{#courseDetails}}
-            {{#visible}}{{#pix}} i/show, core, make visible {{/pix}}{{/visible}}
-            {{^visible}}{{#pix}} i/hide, core, make visible {{/pix}}{{/visible}}
-          {{/courseDetails}}
-        </a></p></li>
+        {{#courseDetails}}
+        {{#visible}}
+          <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
+              {{#pix}} i/show, core, make visible {{/pix}}
+          </a></p></li>
+        {{/visible}}
+        {{^visible}}
+          <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
+              {{#pix}} i/hide, core, make invisible {{/pix}}
+          </a></p></li>
+        {{/visible}}
+        {{/courseDetails}}
         <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">
           <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
         </a></p></li>
@@ -92,8 +98,6 @@
       </tbody>
     </table>
   </div>
-
-
 
 	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
 	    <li class="nav-item active"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">Eingeschriebene Nutzer_innen</a></li>

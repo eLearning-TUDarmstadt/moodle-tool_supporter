@@ -645,29 +645,26 @@ class external extends external_api {
 
           public static function toggle_course_visibility_parameters(){
             return new external_function_parameters(array(
-                  'courseID' => new external_value(PARAM_RAW, 'id of course')
+                  'courseID' => new external_value(PARAM_INT, 'id of course')
                 ));
           }
 
           public static function toggle_course_visibility($courseID){
 
-            print_r("TEST");
-
-             //check parameters
-             self::validate_parameters(self::toggle_course_visibility_parameter(), array('courseID'=>$courseID));
-             // now security checks
-             $coursecontext = \context_course::instance($courseID);//($params['courseID']);
+             // checking parameters
+             self::validate_parameters(self::toggle_course_visibility_parameters(), array('courseID'=>$courseID));
+             // security checks
+             $coursecontext = \context_course::instance($courseID);
              self::validate_context($coursecontext);
              //Is the user allowed to change the visibility?
-             \require_capability('moodle/course:visibility', $coursecontext); // are the user allowed to change visibility of course
+             \require_capability('moodle/course:visibility', $coursecontext);
 
              $course = self::get_course_info($courseID);
-             course_change_visibility($courseID, $course['visible']);
-             $course['visible'] = !$course['visible'];
+             //2nd param is the desired visibility value
+             course_change_visibility($courseID, !($course['courseDetails']['visible']));
+             $course['courseDetails']['visible'] = !$course['courseDetails']['visible'];
 
-             print_r($data);
-
-             return $data;
+             return $course;
           }
 
           public static function toggle_course_visibility_returns(){
