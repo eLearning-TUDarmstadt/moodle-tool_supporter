@@ -16,12 +16,35 @@
 }}
 {{!
 
-  Documentation gets here!
-  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
-
     @template tool_supporter/course_table
 
-    Starting point for an awesome template.
+    Template which outputs a table of courses.
+
+    Classes required for JS:
+    * dataTables
+
+    Context variables required for this template:
+    * headings - array: An array of table headings.
+    * rows - array: An array of content rows for the table.
+
+    Example Input structure:
+    Array ( [courses] =>
+    	Array
+    	(
+    		[12] => Array (
+          [id] => 51
+          [fullname] => FB01 Kurs full name
+          [visible] => 1
+          [fb] => FB01 Rechts- und Wirtschaftswissenschaften
+          [semester] => WiSe 2016/17 )
+    		[13] => Array (
+          [id] => 52
+          [fullname] => FB02 Kurs full name
+          [visible] => 1
+          [fb] => FB02 Gesellschafts- und Geschichtswissenschaften
+          [semester] => WiSe 2016/17 )
+    	)
+    )
 
 }}
 <div data-region="course_table"  class="well well-sm">

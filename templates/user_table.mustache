@@ -15,13 +15,33 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-
-  Documentation gets here!
-  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
-
     @template tool_supporter/user_table
 
-    Starting point for an awesome template.
+    Template which outputs a table of users.
+
+    Classes required for JS:
+    * dataTables
+
+    Context variables required for this template:
+    * headings - array: An array of table headings.
+    * rows - array: An array of content rows for the table.
+
+    Example Input structure:
+    Array ( [users] =>
+    	Array (
+    	[0] => Array (
+    		[id] => 1
+    		[username] => guest
+    		[firstname] => Guest user
+    		[lastname] =>
+    		[email] => root@localhost )
+    	[1] => Array (
+    		[id] => 2 [username] => admin
+    		[firstname] => Admin
+    		[lastname] => User
+    		[email] => dummy@gmx.de )
+    	)
+    )
 
 }}
 <div data-region="user_table"  class="well well-sm">
