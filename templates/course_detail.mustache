@@ -107,7 +107,7 @@
 	    </li>
       <li class = 'dropdown'>
          <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}roles{{/str}}</a>
-         <ul class="dropdown-menu" id="semesterdropdown">
+         <ul class="dropdown-menu" id="roledropdown">
             {{#rolesincourse}}
             <li><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse"> {{{.}}}</li> <!--filter user list by selecting wanted role-->
             {{/rolesincourse}}
@@ -120,7 +120,7 @@
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
         <!--table of users in this course-->
       <div class="table-responsive">
-        <table class = "datatable table-condensed table-striped table-hover" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+        <table class = "datatable table-condensed table-striped table-hover table-bordered" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
@@ -148,7 +148,7 @@
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
       <div class="table-responsive">
-        <table class = "datatable table-condensed table-striped table-hover" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+        <table class = "datatable table-condensed table-striped table-hover table-bordered" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -176,8 +176,8 @@
 {{#js}}
  require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function($, search, sort, datatables, click_on_user) {
-  //search.filterEvent('rolesincourse','#{{uniqid}}-userincourse', '#rolesincourse', 5);
-datatables.use_dataTable('#{{uniqid}}-userincourse'); //Convert table to DataTable
+  search.filterEvent('rolesincourse','#{{uniqid}}-userincourse', '#roledropdown', 4);
+//datatables.use_dataTable('#{{uniqid}}-userincourse'); //Convert table to DataTable
   datatables.use_dataTable("#{{uniqid}}-activityInCourse"); //Convert table to DataTable
   //selecting the active table by using click-Event
   tabTableID = "#{{uniqid}}-userincourse";
