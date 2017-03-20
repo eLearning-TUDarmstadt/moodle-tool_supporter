@@ -34,7 +34,8 @@ define(['jquery', 'tool_supporter/jquery.dataTables'], function($,datatables) {
      */
      use_dataTable: function(tableID){
       // $(document).ready(function() {
-           $(tableID).DataTable();
+
+      $(tableID).DataTable();
       // });
     },
 
@@ -43,15 +44,19 @@ define(['jquery', 'tool_supporter/jquery.dataTables'], function($,datatables) {
      * @method use_dataTable_tab
      */
     use_dataTable_tab: function(tableID){ //Does not work yet
+      console.log("aktuelle tableID:" + tableID + " alle datatables: ");
+      console.log($.fn.dataTable.tables());
       var otable = $(tableID).DataTable({
           scrollY:        200,
           scrollCollapse: true,
           paging:         false
       });
+           console.log("in use_dataTable_tab");
            $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+                 console.log( 'show tab' );
                  otable
-                   .columns.adjust();
-                   //.responsive.recalc();
+                   .columns.adjust()
+                   .responsive.recalc();
                });
       }
    };

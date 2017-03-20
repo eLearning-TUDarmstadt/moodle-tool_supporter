@@ -82,7 +82,6 @@ define(['jquery'], function($) {
         filterEvent: function(searchInputID, tableID, FormInput, column) {
           //for radios
           var otable = $(tableID).dataTable();
-          console.log("filterEvent");
           $(FormInput).change(function() {
             console.log("checkboxes_changed");
             console.log($('input[name='+searchInputID+']:checked'));

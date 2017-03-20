@@ -25,7 +25,7 @@
 
 }}
 <!--View details after clicking on a course in course table.  -->
-<div style="display: none" data-region = "course_details" class="well well-sm">
+<div data-region = "course_details" class="well well-sm">
   <div class="navbar">
     <div class="navbar-inner">
       <ul class="nav">
@@ -116,10 +116,11 @@
 	 </ul>
 
 
- <div class="tab-content">
+  <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
-      <!--table of users in this course-->
-        <table class = "table table-striped" id = "userInCourse" cellspacing="0" width="100%">
+        <!--table of users in this course-->
+      <div class="table-responsive">
+        <table class = "datatable table-condensed table-striped table-hover" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
@@ -137,15 +138,17 @@
               <td>{{firstname}}</td>
               <td>{{lastname}}</td>
               <td>{{roles}}</td>
-              <td></td>
             </tr>
             {{/users}}
           </tbody>
         </table>
+      </div>
     </div>
+
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-        <table class = "table table-striped" id = "activityInCourse" cellspacing="0" width="100%">
+      <div class="table-responsive">
+        <table class = "datatable table-condensed table-striped table-hover" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -165,28 +168,31 @@
             {{/activities}}
           </tbody>
         </table>
+      </div>
     </div>
   </div>
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+ require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function($, search, sort, datatables, click_on_user) {
-  datatables.use_dataTable_tab('#userInCourse'); //Convert table to DataTable
-  datatables.use_dataTable_tab("#activityInCourse"); //Convert table to DataTable
+  //search.filterEvent('rolesincourse','#{{uniqid}}-userincourse', '#rolesincourse', 5);
+datatables.use_dataTable('#{{uniqid}}-userincourse'); //Convert table to DataTable
+  datatables.use_dataTable("#{{uniqid}}-activityInCourse"); //Convert table to DataTable
   //selecting the active table by using click-Event
+  tabTableID = "#{{uniqid}}-userincourse";
   $('#myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
     if(activeTab == "#CoursePill_1"){
-      tabTableID = "#{{uniqid}}-userInCourse";
-      click_on_user.click_on_user('#{{uniqid}}-userInCourse' + ' tbody'); //Load information about the clicked user
+      tabTableID = "#{{uniqid}}-userincourse";
+      click_on_user.click_on_user('#{{uniqid}}-userincourse' + ' tbody'); //Load information about the clicked user
     }
     else if(activeTab == "#CoursePill_2"){
       tabTableID = "#{{uniqid}}-activityInCourse";
     };
-    search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
+  //search.searchEvent('#{{uniqid}}-courseDetailSearch', tabTableID + " tbody");
   //  sort.sortTable(tabTableID); //Slow version to sort tables by headers
-  });
+});
 
 });
 

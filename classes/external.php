@@ -577,7 +577,7 @@ class external extends external_api {
             );
            	$data = array(
               'courseDetails' => (array)$courseDetails,
-              'rolesincourse' => $rolesincourse,
+              'rolesincourse' => (array)$rolesincourse,
               'roles' => (array)$roles,
               'users' => (array)$users,
               'activities' => (array)$activities,
@@ -585,7 +585,7 @@ class external extends external_api {
             );
 
            	//print_r($data);
-           	return $data;
+           	return (array)$data;
            }
 
            // --------------------------------------------------------------------------------------------------------------------------------------
