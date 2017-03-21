@@ -34,8 +34,19 @@ define(['jquery', 'tool_supporter/jquery.dataTables'], function($,datatables) {
      */
      use_dataTable: function(tableID){
       // $(document).ready(function() {
-
-      $(tableID).DataTable();
+      $(tableID).DataTable({
+        "lengthChange": false,
+        "pageLength": 50,
+        "language": {
+          'info': "Showing page _PAGE_ of _PAGES_",
+          'search': ''
+        },
+        "dom": "<'w-100'<'col'f>>" +
+          "<'w-100'<'col't>>" +
+          "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
+        "paging": true,
+        "pagingType": "numbers",
+      });
       // });
     },
 
