@@ -36,6 +36,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        }
       }]);
       promise[0].done(function(data){
+        console.log("assignableRoles Returns: ");
+        console.log(data);
           // Render template with data
           templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
             $('[data-region="enroluserregion"]').replaceWith(html);

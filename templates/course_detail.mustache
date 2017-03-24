@@ -15,13 +15,82 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-
-  Documentation gets here!
-  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
-
     @template tool_supporter/course_detail
 
-    Starting point for an awesome template.
+    Template which outputs a table of courses.
+
+    Classes required for JS:
+    * dataTables
+
+    Context variables required for this template:
+    * courseDetails - array: course details.
+    * rolesincourse - array: roles with id
+    * roles - array: available roles and the amount in the course
+    * users - array of arrays: users enrolled into the course
+    * activities - array of arrays: activities used in the course
+    * links - array: Links to the course, to its settings and for deleting it
+
+    Example Input structure:
+    Array (
+      [courseDetails] => Array
+          ([id] => 50
+           [shortname] => FB03 Kurs short name
+           [fullname] => FB03 Kurs full name
+           [visible] => 0
+           [fb] => FB03 Humanwissenschaften
+           [semester] => WiSe 2016/17
+           [enrolledUsers] => 1)
+
+      [rolesincourse] => Array
+          ([0] => manager
+           [1] => editingteacher
+           [2] => student)
+
+      [roles] => Array
+          ([0] => Array
+              ([roleName] => manager
+               [roleNumber] => 1)
+           [1] => Array
+              ([roleName] => editingteacher
+               [roleNumber] => 1)
+           [2] => Array
+              ([roleName] => student
+               [roleNumber] => 1))
+
+      [users] => Array
+          (
+              [0] => Array
+                  (
+                      [id] => 3
+                      [username] => username1
+                      [firstname] => First Name 1
+                      [lastname] => Surname 1
+                      [roles] => Array
+                          ([0] => manager
+                           [1] => editingteacher
+                           [2] => student)
+                  )
+          )
+
+      [activities] => Array
+          (
+              [0] => Array
+                  (
+                      [section] => General
+                      [activity] => forum
+                      [name] => Announcements
+                      [visible] => 1
+                  )
+          )
+
+      [links] => Array
+          (
+              [settingslink] => http://127.0.0.1/course/edit.php?id=50
+              [deletelink] => http://127.0.0.1/course/delete.php?id=50
+              [courselink] => http://127.0.0.1/course/view.php?id=50
+          )
+    )
+
 
 }}
 <!--View details after clicking on a course in course table.  -->

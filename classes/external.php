@@ -627,7 +627,7 @@ class external extends external_api {
              'assignableRoles' => (array)$arrayofRoles
            );
 
-           //print_r($data);
+           print_r($data);
            return $data;
            }
 

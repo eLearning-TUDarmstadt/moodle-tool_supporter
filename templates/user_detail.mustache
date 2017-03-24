@@ -17,11 +17,139 @@
 {{!
 
   Documentation gets here!
-  --- wird unter der Template-Library gespeichert unter admin/tool/templatelibrary
 
-    @template tool_supporter/user_detail
+      @template tool_supporter/user_detail
+      Template which outputs the details of a user.
 
-    Starting point for an awesome template.
+      Classes required for JS:
+      * dataTables
+
+      Context variables required for this template:
+      * uniqueparentcategory - array: An array of unique parent categories for filtering.
+      * uniquecategoryname - array: An array of unique categiry names for filtering.
+      * userscourses - array of arrays: courses in which the user is enrolled in with further information
+      * userinformation - array: Data of the user
+      * loginaslink - array: Link to login as the user
+      * profilelink - array: Link to the profile of the user
+      * edituserlink - array: Link to editing the user
+
+      Example Input structure:
+
+    Array
+    (
+        [uniqueparentcategory] => Array
+            (
+                [0] => WiSe 2016/17
+                [1] => SS 17
+            )
+
+        [uniquecategoryname] => Array
+            (
+                [0] => FB01 Rechts- und Wirtschaftswissenschaften
+                [1] => FB02 Gesellschafts- und Geschichtswissenschaften
+                [2] => FB03 Humanwissenschaften
+            )
+
+        [userscourses] => Array
+            (
+                [5] => Array
+                    (
+                        [id] => 50
+                        [category] => 9
+                        [sortorder] => 40001
+                        [shortname] => FB03 Kurs short name
+                        [fullname] => FB03 Kurs full name
+                        [idnumber] =>
+                        [startdate] => 1485187200
+                        [visible] => 0
+                        [defaultgroupingid] => 0
+                        [groupmode] => 0
+                        [groupmodeforce] => 0
+                        [ctxid] => 780
+                        [ctxpath] => /1/775/779/780
+                        [ctxdepth] => 4
+                        [ctxlevel] => 50
+                        [ctxinstance] => 50
+                        [categoryname] => FB03 Humanwissenschaften
+                        [parentcategory] => WiSe 2016/17
+                        [roles] => Array
+                            ([0] => manager
+                             [1] => editingteacher
+                             [2] => student)
+                    )
+            )
+
+        [userinformation] => Array
+            (
+                [id] => 3
+                [auth] => manual
+                [confirmed] => 1
+                [policyagreed] => 0
+                [deleted] => 0
+                [suspended] => 0
+                [mnethostid] => 1
+                [username] => username1
+                [password] => $2y$10$e1yTx2LyNxw1msfRaWZ5IOM/y7mTNR65CM.0OY4M7wjAZGE5L7EG.
+                [idnumber] =>
+                [firstname] => First Name 1
+                [lastname] => Surname 1
+                [email] => dummy@gmx.se
+                [emailstop] => 0
+                [icq] =>
+                [skype] =>
+                [yahoo] =>
+                [aim] =>
+                [msn] =>
+                [phone1] =>
+                [phone2] =>
+                [institution] =>
+                [department] =>
+                [address] =>
+                [city] =>
+                [country] =>
+                [lang] => en
+                [calendartype] => gregorian
+                [theme] =>
+                [timezone] => 99
+                [firstaccess] => 0
+                [lastaccess] => 0
+                [lastlogin] => 0
+                [currentlogin] => 0
+                [lastip] =>
+                [secret] =>
+                [picture] => 0
+                [url] =>
+                [description] =>
+                [descriptionformat] => 1
+                [mailformat] => 1
+                [maildigest] => 0
+                [maildisplay] => 2
+                [autosubscribe] => 1
+                [trackforums] => 0
+                [timecreated] => Monday, 01-Aug-16 16:18:17 WST
+                [timemodified] => Monday, 01-Aug-16 16:18:17 WST
+                [trustbitmask] => 0
+                [imagealt] =>
+                [lastnamephonetic] =>
+                [firstnamephonetic] =>
+                [middlename] =>
+                [alternatename] =>
+            )
+        [loginaslink] => Array
+            (
+                [0] => http://127.0.0.1/course/loginas.php?id=1&user=3&sesskey=8vj0eTuAj7
+            )
+
+        [profilelink] => Array
+            (
+                [0] => http://127.0.0.1/user/profile.php?id=3
+            )
+
+        [edituserlink] => Array
+            (
+                [0] => http://127.0.0.1/user/editadvanced.php?id=3
+            )
+
 
 }}
 

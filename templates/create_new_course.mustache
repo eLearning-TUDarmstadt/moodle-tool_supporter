@@ -16,33 +16,31 @@
 }}
 {{!
     @template tool_supporter/user_table
-
     Template which outputs a form to create a new course in a selected course category.
 
     Classes required for JS:
-    * dataTables
+    * none
 
     Context variables required for this template:
-    * headings - array: An array of table headings.
-    * rows - array: An array of content rows for the table.
+    * categories - array of arrays: path, id and name of categories.
 
     Example Input structure:
     Array (
-	[categories] => Array (
-		[0] => Array (
-			[id] => 5
-			[path] => 5
-			[name] => / WiSe 2016/17 )
-		[1] => Array (
-			[id] => 6
-			[path] => 5/6
-			[name] => / / WiSe 2016/17FB01 Rechts- und Wirtschaftswissenschaften )
-		[2] => Array (
-			[id] => 8
-			[path] => 5/8
-			[name] => / / WiSe 2016/17FB02 Gesellschafts- und Geschichtswissenschaften )
-	)
-)
+    	[categories] => Array (
+    		[0] => Array (
+    			[id] => 5
+    			[path] => 5
+    			[name] => / WiSe 2016/17 )
+    		[1] => Array (
+    			[id] => 6
+    			[path] => 5/6
+    			[name] => / / WiSe 2016/17FB01 Rechts- und Wirtschaftswissenschaften )
+    		[2] => Array (
+    			[id] => 8
+    			[path] => 5/8
+    			[name] => / / WiSe 2016/17FB02 Gesellschafts- und Geschichtswissenschaften )
+    	)
+    )
 
 }}
 
