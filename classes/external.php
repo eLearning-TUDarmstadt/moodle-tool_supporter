@@ -176,7 +176,7 @@ class external extends external_api {
              $context = \context_course::instance($courseid);
              self::validate_context($context);
              // Check that the user has the permission to manual enrol.
-             \require_capability('moodle/enrol/manual:enrol', $context);
+             \require_capability('enrol/manual:enrol', $context);
 
              $params = array(
                      'userid' => $userid,
@@ -410,7 +410,7 @@ class external extends external_api {
            	$context = \context_system::instance();
            	self::validate_context($context);
            	//Is the closest to the needed capability. Is used in /course/management.php
-           	\require_capability('tool/category:manage', $context);
+           	\require_capability('moodle/category:manage', $context);
 
            	$select = 'SELECT c.id, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
            	$rs = $DB->get_recordset_sql($select);
@@ -481,7 +481,7 @@ class external extends external_api {
 			                        ),
                               'links' => new external_single_structure(array(
                                 'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
-                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed afterwards', optional),
+                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed afterwards', 'optional'),
                                 'courselink' => new external_value(PARAM_RAW, 'link to the course')
                               ))
 
@@ -591,10 +591,12 @@ class external extends external_api {
            public static function get_assignable_roles($courseID){
             global $CFG, $PAGE;
 
+
             $coursecontext = \context_course::instance($courseID);
             self::validate_context($coursecontext);
             // is the user allowed to enrol a student into this course
-            \require_capability('moodle/enrol/manual:enrol', $coursecontext);
+            \require_capability('enrol/manual:enrol', $coursecontext);
+
 
             //Parameter validation
             $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));

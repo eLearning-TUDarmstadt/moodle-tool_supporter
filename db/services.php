@@ -78,7 +78,7 @@ $functions = array(
   		'description' => 'Get course information',    //human readable description of the web service function
   		'type'        => 'write',                  //database rights of the web service function (read, write)
   		'ajax'        => true,
-      'capabilities' => 'moodle/enrol/manual:enrol'
+      'capabilities' => 'enrol/manual:enrol'
   	),
     'tool_supporter_get_assignable_roles' => array(         //web service function name
       'classname'   => 'tool_supporter\external',  //class containing the external function
@@ -87,7 +87,7 @@ $functions = array(
       'description' => 'Get assignable Roles in the course',    //human readable description of the web service function
       'type'        => 'read',                  //database rights of the web service function (read, write)
       'ajax'        => true,
-      'capabilities' => 'moodle/enrol/manual:enrol'
+      'capabilities' => 'enrol/manual:enrol'
     ),
     'tool_supporter_toggle_course_visibility' => array(         //web service function name
       'classname'   => 'tool_supporter\external',  //class containing the external function
