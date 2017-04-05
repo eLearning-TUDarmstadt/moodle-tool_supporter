@@ -110,16 +110,16 @@
           </a></p></li>
         {{/links}}
         {{#courseDetails}}
-        {{#visible}}
-          <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
-              {{#pix}} i/show, core, make visible {{/pix}}
-          </a></p></li>
-        {{/visible}}
-        {{^visible}}
-          <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
-              {{#pix}} i/hide, core, make invisible {{/pix}}
-          </a></p></li>
-        {{/visible}}
+          {{#visible}}
+            <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
+                {{#pix}} i/show, core, make visible {{/pix}}
+            </a></p></li>
+          {{/visible}}
+          {{^visible}}
+            <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
+                {{#pix}} i/hide, core, make invisible {{/pix}}
+            </a></p></li>
+          {{/visible}}
         {{/courseDetails}}
         <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">
           <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>

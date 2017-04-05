@@ -22,6 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
  $services = array(
        'supporterservice' => array(                                                //the name of the web service
            'functions' => array (
@@ -37,6 +38,7 @@
            'ajax' => true
            )
    );
+   */
 
 $functions = array(
 
@@ -48,8 +50,8 @@ $functions = array(
         'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
         'description' => 'Create a course',    //human readable description of the web service function
         'type'        => 'write',                  //database rights of the web service function (read, write)
-        'ajax'        => true
-        //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
+        'ajax'        => true,
+        'capabilities' => 'moodle/course:create'
     ),
     'tool_supporter_get_user_information' => array(         //web service function name
         'classname'   => 'tool_supporter\external',  //class containing the external function
@@ -57,44 +59,61 @@ $functions = array(
         'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
         'description' => 'Get user information',    //human readable description of the web service function
         'type'        => 'read',                  //database rights of the web service function (read, write)
-        'ajax'        => true
-        //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
+        'ajax'        => true,
+        'capabilities' => 'moodle/user:viewdetails, moodle/user:loginas'
     ),
-
-	'tool_supporter_get_course_info' => array(         //web service function name
-		'classname'   => 'tool_supporter\external',  //class containing the external function
-		'methodname'  => 'get_course_info',        //external function name
-		'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
-		'description' => 'Get course information',    //human readable description of the web service function
-		'type'        => 'read',                  //database rights of the web service function (read, write)
-		'ajax'        => true
-		//'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-	),
-  'tool_supporter_enrol_user_into_course' => array(         //web service function name
-		'classname'   => 'tool_supporter\external',  //class containing the external function
-		'methodname'  => 'enrol_user_into_course',        //external function name
-		'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
-		'description' => 'Get course information',    //human readable description of the web service function
-		'type'        => 'write',                  //database rights of the web service function (read, write)
-		'ajax'        => true
-		//'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-	),
-  'tool_supporter_get_assignable_roles' => array(         //web service function name
-    'classname'   => 'tool_supporter\external',  //class containing the external function
-    'methodname'  => 'get_assignable_roles',        //external function name
-    'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
-    'description' => 'Get assignable Roles in the course',    //human readable description of the web service function
-    'type'        => 'read',                  //database rights of the web service function (read, write)
-    'ajax'        => true
-    //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-  ),
-  'tool_supporter_toggle_course_visibility' => array(         //web service function name
-    'classname'   => 'tool_supporter\external',  //class containing the external function
-    'methodname'  => 'toggle_course_visibility',        //external function name
-    'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
-    'description' => 'hide/show the course',    //human readable description of the web service function
-    'type'        => 'write',                  //database rights of the web service function (read, write)
-    'ajax'        => true
-    //'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE)    // Optional, only available for Moodle 3.1 onwards. List of built-in services (by shortname) where the function will be included.  Services created manually via the Moodle interface are not supported.
-  )
+  	'tool_supporter_get_course_info' => array(         //web service function name
+  		'classname'   => 'tool_supporter\external',  //class containing the external function
+  		'methodname'  => 'get_course_info',        //external function name
+  		'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+  		'description' => 'Get course information',    //human readable description of the web service function
+  		'type'        => 'read',                  //database rights of the web service function (read, write)
+  		'ajax'        => true,
+      'capabilities' => 'moodle/course:update'
+  	),
+    'tool_supporter_enrol_user_into_course' => array(         //web service function name
+  		'classname'   => 'tool_supporter\external',  //class containing the external function
+  		'methodname'  => 'enrol_user_into_course',        //external function name
+  		'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+  		'description' => 'Get course information',    //human readable description of the web service function
+  		'type'        => 'write',                  //database rights of the web service function (read, write)
+  		'ajax'        => true,
+      'capabilities' => 'moodle/enrol/manual:enrol'
+  	),
+    'tool_supporter_get_assignable_roles' => array(         //web service function name
+      'classname'   => 'tool_supporter\external',  //class containing the external function
+      'methodname'  => 'get_assignable_roles',        //external function name
+      'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+      'description' => 'Get assignable Roles in the course',    //human readable description of the web service function
+      'type'        => 'read',                  //database rights of the web service function (read, write)
+      'ajax'        => true,
+      'capabilities' => 'moodle/enrol/manual:enrol'
+    ),
+    'tool_supporter_toggle_course_visibility' => array(         //web service function name
+      'classname'   => 'tool_supporter\external',  //class containing the external function
+      'methodname'  => 'toggle_course_visibility',        //external function name
+      'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+      'description' => 'hide/show the course',    //human readable description of the web service function
+      'type'        => 'write',                  //database rights of the web service function (read, write)
+      'ajax'        => true,
+      'capabilities' => 'moodle/course:update'
+    ),
+    'tool_supporter_get_users' => array(         //web service function name
+      'classname'   => 'tool_supporter\external',  //class containing the external function
+      'methodname'  => 'get_users',        //external function name
+      'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+      'description' => 'get all users',    //human readable description of the web service function
+      'type'        => 'read',                  //database rights of the web service function (read, write)
+      'ajax'        => true,
+      'capabilities' => 'moodle/site:viewparticipants'
+    ),
+    'tool_supporter_get_courses' => array(         //web service function name
+      'classname'   => 'tool_supporter\external',  //class containing the external function
+      'methodname'  => 'get_courses',        //external function name
+      'classpath'   => 'tool/supporter/classes/external.php',  //file containing the class/external function
+      'description' => 'get all courses',    //human readable description of the web service function
+      'type'        => 'read',                  //database rights of the web service function (read, write)
+      'ajax'        => true,
+      'capabilities' => 'moodle/category:manage'
+    )
 );

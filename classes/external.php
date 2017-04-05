@@ -69,6 +69,10 @@ class external extends external_api {
 
               global $DB, $CFG;
 
+              $catcontext = \context_coursecat::instance($categoryid);
+              self::validate_context($catcontext);
+              \require_capability('moodle/course:create', $catcontext);
+
               $array = array (
               				'shortname' => $shortname,
               				'fullname' => $fullname,
@@ -167,8 +171,12 @@ class external extends external_api {
            public static function enrol_user_into_course($userid, $courseid, $roleid) {
              global $DB;
              global $CFG;
-
              require_once("$CFG->dirroot/enrol/manual/externallib.php");
+
+             $context = \context_course::instance($courseid);
+             self::validate_context($context);
+             // Check that the user has the permission to manual enrol.
+             \require_capability('moodle/enrol/manual:enrol', $context);
 
              $params = array(
                      'userid' => $userid,
@@ -210,6 +218,10 @@ class external extends external_api {
             */
            public static function get_user_information($userid) {
              global $DB;
+
+             $context = \context_system::instance();
+             self::validate_context($context);
+             \require_capability('moodle/user:viewdetails', $context);
 
              //Parameters validation
              $params = self::validate_parameters(self::get_user_information_parameters (), array('userid'=>$userid));
@@ -263,8 +275,10 @@ class external extends external_api {
              $data['userinformation'] = $userinformationarray;
 
              global $CFG, $USER;
-             $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
-             $data['loginaslink'] = (array)$link;
+             if (\has_capability('moodle/user:loginas', $context) ) {
+               $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
+               $data['loginaslink'] = (array)$link;
+             }
 
              $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
              $data['profilelink'] = (array)$link;
@@ -354,17 +368,15 @@ class external extends external_api {
            public static function get_users(){
            	global $DB;
 
-           	// now security checks
-           	$context = \context_system::instance();
-           	self::validate_context($context);
-           	//Is the user allowed to use this web service?
-           	require_capability('tool/supporter:get_users', $context);
+            $systemcontext = \context_system::instance();
+            self::validate_context($systemcontext);
+            \require_capability('moodle/site:viewparticipants', $systemcontext);
 
-           	$rs = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
-           	foreach ($rs as $record) {
+           	$recordset = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
+           	foreach ($recordset as $record) {
            		$users[] = (array)$record;
            	}
-           	$rs->close();
+           	$recordset->close();
            	$data['users'] = $users;
            	return $data;
 
@@ -395,11 +407,10 @@ class external extends external_api {
            public static function get_courses(){
            	global $DB;
 
-           	// now security checks
            	$context = \context_system::instance();
            	self::validate_context($context);
-           	//Is the user allowes to use this web service?
-           	require_capability('tool/supporter:get_users', $context);
+           	//Is the closest to the needed capability. Is used in /course/management.php
+           	\require_capability('tool/category:manage', $context);
 
            	$select = 'SELECT c.id, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
            	$rs = $DB->get_recordset_sql($select);
@@ -421,30 +432,6 @@ class external extends external_api {
            			);
 
            }
-
-/*
-           public static function get_user_information_returns() {
-             return
-              new external_multiple_structure (new external_single_structure (array (
-                  'userinformation' => new external_single_structure ( array (
-                      'id' => new external_value (PARAM_INT, 'id of the user'),
-                      'username' => new external_value (PARAM_TEXT, 'username of the user'),
-                    )),
-                    'userscourses' => new external_multiple_structure (new external_single_structure (array (
-                          'id' => new external_value (PARAM_INT, 'id of course'),
-                          'category' => new external_value (PARAM_INT, 'category id of the course'),
-                          'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
-                          //'categoryname' => new external_value (PARAM_TEXT, 'name of the category the course is in'),
-                          'roles' => new external_single_structure ( array (
-                            '0' => new external_value (PARAM_RAW,'just testing'), // ToDo: can have up to 5 roles at the same time... not ideal. And ugly.
-                            '1' => new external_value (PARAM_RAW,'just testing', VALUE_OPTIONAL),
-                            ))
-                    )))
-                  )));
-             }
-*/
-
-
 
            public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
            	return
@@ -494,7 +481,7 @@ class external extends external_api {
 			                        ),
                               'links' => new external_single_structure(array(
                                 'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
-                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed after'),
+                                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed afterwards', optional),
                                 'courselink' => new external_value(PARAM_RAW, 'link to the course')
                               ))
 
@@ -507,13 +494,12 @@ class external extends external_api {
            	global $DB, $CFG, $PAGE;
            	//check parameters
            	$params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
-           	// now security checks
-           	$coursecontext = \context_course::instance($courseID);//($params['courseID']);
-           	$courseID = $params['courseID'];
+            $courseID = $params['courseID'];
+
+           	$coursecontext = \context_course::instance($courseID);
             self::validate_context($coursecontext);
-           	//Is the user allowes to use this web service?
-           	//require_capability('moodle/site:viewparticipants', $context); // is the user normaly allowed to see all participants of the course
-           	\require_capability('moodle/course:update', $coursecontext); // is the user allowed to change course_settings
+            // is the user allowed to change course_settings
+           	\require_capability('moodle/course:update', $coursecontext);
 
             //Get information about the course
            	$select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseID;
@@ -567,7 +553,9 @@ class external extends external_api {
             global $CFG, $USER;
 
             $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseID;
-            $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseID;
+            if (\has_capability('moodle/course:delete', $coursecontext) ) {
+                $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseID;
+            }
             $courselink = $CFG->wwwroot."/course/view.php?id=".$courseID;
 
             $links = array(
@@ -603,7 +591,10 @@ class external extends external_api {
            public static function get_assignable_roles($courseID){
             global $CFG, $PAGE;
 
-            // ToDo: capability checks
+            $coursecontext = \context_course::instance($courseID);
+            self::validate_context($coursecontext);
+            // is the user allowed to enrol a student into this course
+            \require_capability('moodle/enrol/manual:enrol', $coursecontext);
 
             //Parameter validation
             $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID'=>$courseID));
@@ -650,6 +641,11 @@ class external extends external_api {
           }
 
           public static function toggle_course_visibility($courseID){
+
+            $coursecontext = \context_course::instance($courseID);
+            self::validate_context($coursecontext);
+            // is the user allowed to change course_settings
+            \require_capability('moodle/course:update', $coursecontext);
 
              // checking parameters
              self::validate_parameters(self::toggle_course_visibility_parameters(), array('courseID'=>$courseID));
