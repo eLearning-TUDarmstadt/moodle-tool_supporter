@@ -191,17 +191,40 @@ class external extends external_api {
              $enrolments[] = $enrolment;
              \enrol_manual_external::enrol_users($enrolments);
 
-             return true;
+             $course = self::get_course_info($courseid);
+
+             return $course;
            }
+
+/*
+
+$course = self::get_course_info($courseID);
+//2nd param is the desired visibility value
+course_change_visibility($courseID, !($course['courseDetails']['visible']));
+$course['courseDetails']['visible'] = !$course['courseDetails']['visible'];
+
+return $course;
+}
+
+public static function toggle_course_visibility_returns(){
+return self::get_course_info_returns();
+}
+
+*/
+
+
+
+
+
 
            /**
             * Specifies the return values
             *
-            * @return returns true or false
+            * @return returns a course
             */
 
            public static function enrol_user_into_course_returns() {
-             return new external_value (PARAM_BOOL, 'true if user was enrolled');
+             return self::get_course_info_returns();
              }
 
            // --------------------------------------------------------------------------------------------------------------------------------------

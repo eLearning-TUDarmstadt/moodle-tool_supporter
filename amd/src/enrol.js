@@ -38,9 +38,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
               var course = $('#selectedcourseid')[0].textContent;
               var user = $('#selecteduserid')[0].textContent;
 
-              if ($('#role-dropdown')[0].value == "") {
-                alert("Es wurde keine Rolle ausgewählt"); //ToDo: English translation
-              } else {
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
                     args: {
@@ -50,12 +47,18 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                     }
                 }]);
 
-                promises[0].done(function(data) {
+                promises[0].done(function(course) {
                   console.log("promise is done with return data: ")
-                  console.log(data);
+                  console.log(course);
+
+                  //Re-render the template to show the changes
+                  templates.render('tool_supporter/course_detail', course).done(function(html, js) {
+                    $('[data-region="course_details"]').replaceWith(html);
+                    $('[data-region="course_details"]').show();
+                    templates.runTemplateJS(js);
+                  }).fail(notification.exception);
 
                 }).fail(notification.exception);
-              }
             });
         }
     };
