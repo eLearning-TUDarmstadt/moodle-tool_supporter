@@ -24,7 +24,6 @@
 
  $string['pagetitle'] = 'This is the tool for supporters!';
  $string['pluginname'] = 'Supporter';
- $string['department'] = 'Department';
  $string['semester'] = 'Semester';
 
 //These two probably already are somewhere
