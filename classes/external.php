@@ -591,7 +591,6 @@ class external extends external_api {
            public static function get_assignable_roles($courseID){
             global $CFG, $PAGE;
 
-
             $coursecontext = \context_course::instance($courseID);
             self::validate_context($coursecontext);
             // is the user allowed to enrol a student into this course
@@ -620,7 +619,7 @@ class external extends external_api {
              'assignableRoles' => (array)$arrayofRoles
            );
 
-           print_r($data);
+           //print_r($data);
            return $data;
            }
 
