@@ -18,7 +18,7 @@
  * This is the external API for this plugin.
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider, Klara Saary
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter;
@@ -41,7 +41,7 @@ use invalid_parameter_exception;
 /**
  * This is the external API for this plugin.
  *
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2017 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class external extends external_api {

@@ -16,19 +16,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * This modules provides functionality to search the html tables
+ * with a specific Input Term
+ *
+ * It is modular in respect to the given table (body)
  *
  * @module     tool_supporter/table_search
  * @package    tool_supporter
- * @copyright  2016 Klara Saary <damyon@moodle.com>
+ * @copyright  2017 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
+ * @since      3.1.1
  */
 define(['jquery'], function($) {
 
-//Hides all rows, which don't match with the search input. The search-function is case insensitive and also recognizes inner word parts
+//Hides all rows which don't match the search input. The search-function is case insensitive and also recognizes inner word parts
     var search = function(element, tableID){
       var rows = $(tableID + ' tr');
       var val = $.trim(element).replace(/ +/g, ' ').toLowerCase().split(' ');
@@ -61,8 +62,9 @@ define(['jquery'], function($) {
            *
            * @method userSearchEvent
            * @param searchInputID, tableID
-           * searchInputID: ID of searchfield
-           * tableID: ID of the table or part of the table you want to filter
+           * @param searchInputID: ID of searchfield
+           * @param tableID: ID of the table or part of the table you want to filter
+           * @param FormInput: The selected Filtering Term
            */
           searchEvent: function(searchInputID, tableID, FormInput) {
             //for input texts
@@ -72,12 +74,13 @@ define(['jquery'], function($) {
           },
 
         /**
-         * Refresh the table!
+         * Filtering the table with the appropiate form!
          *
          * @method FilterEvent
          * @param searchInputID, tableID
-         * searchInputID: ID of searchfield
-         * tableID: ID of the table or part of the table you want to filter
+         * @param tableID: ID of the table or part of the table you want to filter
+         * @param FormInput: The selected Filtering Term
+         * @param column: which column should be filtered
          */
         filterEvent: function(searchInputID, tableID, FormInput, column) {
           //for radios

@@ -18,7 +18,7 @@
  * Renderer class for tool supporter.
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider, Klara Saary
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
@@ -31,7 +31,7 @@ use plugin_renderer_base;
  * Renderer class for tool supporter.
  *
  * @package    tool_supporter
- * @copyright  2016 Klara Saary, Benedikt Schneider
+ * @copyright  2017 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends plugin_renderer_base {

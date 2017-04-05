@@ -14,18 +14,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * This modules provides functionality to sort the tables
  *
  * @module     tool_supporter/table_filter
  * @package    tool_supporter
- * @copyright  2016 Klara Saary
+ * @copyright  2017 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
+ * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
+	// Sorting the clicked column in a specific table
 	var tableSort = function(column, tableID){
 		//Using W3School-Code , modified
 		  var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -81,12 +80,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 		  }
 	};
 
-	return /** @alias module:tool_supporter/table_sort */ {
-
+	return /** @alias module:tool_supporter/sortTable */ {
 			/**
-			 * filter a given table
+			 * jquery helper function for sorting the table
 			 *
-			 * @method filter_table
+			 * @method sortTable
+			 * @param tableID: ID of the table on which was clicked
 			 */
 			 sortTable: function(tableID){
 				 $(tableID + ' th').on('click', function(){

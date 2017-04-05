@@ -18,7 +18,7 @@
  * Class containing data for index page
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider, Klara Saary
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
@@ -32,7 +32,7 @@ use stdClass;
  * Class containing data for user_detail
  * Gets passed to the renderer
  *
- * @copyright  2016 Klara Saary, Benedikt Schneider
+ * @copyright  2017 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class user_detail implements renderable, templatable {

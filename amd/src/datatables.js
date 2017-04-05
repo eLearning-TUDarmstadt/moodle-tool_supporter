@@ -14,17 +14,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * This module provides setttings and implements
+ * the dataTabes Plugin
  *
  * @module     tool_supporter/datatables
  * @package    tool_supporter
- * @copyright  2016 Klara Saary, Benedikt Schneider
+ * @copyright  2017 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
+ * @since      3.1.1
  */
-define(['jquery', 'tool_supporter/jquery.dataTables'], function($,datatables) {
+define(['jquery', 'tool_supporter/jquery.dataTables'], function($, datatables) {
 
   return /** @alias module:tool_supporter/table_sort */ {
 

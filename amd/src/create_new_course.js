@@ -14,9 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * This modules creates helper functions for creating a course
  *
  * @module     tool_supporter/create_new_course
  * @package    tool_supporter
@@ -57,10 +55,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 }]);
 
                 promises[0].done(function(data) {
-                  // stdClass with category, fullname, id, shortname, startdate, timecreated, timemodified, visible
                   console.log("create new course return data: ")
                   console.log(data);
-                  //Display the creted course
+
+                  //Display the created course
                   require(['tool_supporter/load_information'], function(load_information){
                     load_information.show_course_detail(data['id']);
                     $('[data-region="create_new_course_section"]').toggle();
