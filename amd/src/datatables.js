@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'tool_supporter/jquery.dataTables'], function($, datatables) {
+define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, datatables, str) {
 
   return /** @alias module:tool_supporter/table_sort */ {
 
@@ -32,21 +32,22 @@ define(['jquery', 'tool_supporter/jquery.dataTables'], function($, datatables) {
      * @method use_dataTable
      */
      use_dataTable: function(tableID){
-      // $(document).ready(function() {
-      $(tableID).DataTable({
-        "lengthChange": false,
-        "pageLength": 50,
-        "language": {
-          'info': "Showing page _PAGE_ of _PAGES_",
-          'search': ''
-        },
-        "dom": "<'w-100'<'col'f>>" +
-          "<'w-100'<'col't>>" +
-          "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
-        "paging": true,
-        "pagingType": "numbers",
+      str.get_string('search', 'moodle').done(function(searchString) {
+        $(tableID).DataTable({
+          "lengthChange": false,
+          "pageLength": 30,
+          "language": {
+            //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
+            'info': "",
+            'search': searchString+": "
+          },
+          "dom": "<'w-100'<'col'f>>" +
+            "<'w-100'<'col't>>" +
+            "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
+          "paging": true,
+          "pagingType": "numbers",
+        });
       });
-      // });
     },
 
     /**
