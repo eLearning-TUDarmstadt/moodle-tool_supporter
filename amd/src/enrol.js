@@ -14,32 +14,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
- *
- * @module     tool_supporter/create_new_course
- * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
- */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-    return /** @alias module:tool_supporter/create_new_course */ {
+* This Module provides a function to enrol a user into a course
+*
+* @module     tool_supporter/create_new_course
+* @package    tool_supporter
+* @copyright  2017 Benedikt Schneider
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+* @since      3.1.1
+*/
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'], function($, ajax, templates, notification, str) {
+   return /** @alias module:tool_supporter/create_new_course */ {
 
-        /**
-         * Create a course
-         *
-         * @method create_new_course
-         */
+       /**
+        * Enrol a user into a course
+        *
+        * The user and the course are selected and their ids are stored in the fields with the ids
+        * @param selectedcourseid, selecteduserid
+        *
+        * @method enroluserintocours
+        */
         enroluserintocourse: function() {
             $('#enroluserintocoursebutton').on('click', function() {
               var course = $('#selectedcourseid')[0].textContent;
               var user = $('#selecteduserid')[0].textContent;
 
-              if ($('#role-dropdown')[0].value == "") {
-                alert("Es wurde keine Rolle ausgewählt"); //ToDo: English translation
-              } else {
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
                     args: {
@@ -49,12 +47,18 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     }
                 }]);
 
-                promises[0].done(function(data) {
+                promises[0].done(function(course) {
                   console.log("promise is done with return data: ")
-                  console.log(data);
+                  console.log(course);
+
+                  //Re-render the template to show the changes
+                  templates.render('tool_supporter/course_detail', course).done(function(html, js) {
+                    $('[data-region="course_details"]').replaceWith(html);
+                    $('[data-region="course_details"]').show();
+                    templates.runTemplateJS(js);
+                  }).fail(notification.exception);
 
                 }).fail(notification.exception);
-              }
             });
         }
     };

@@ -18,13 +18,12 @@
  * Strings for component 'tool_supporter', language 'en'
  *
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider, Klara Saary
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
  $string['pagetitle'] = 'This is the tool for supporters!';
  $string['pluginname'] = 'Supporter';
- $string['department'] = 'Department';
  $string['semester'] = 'Semester';
  $string['search'] = 'Search...';
  $string['infoDatatable'] = "Showing page _PAGE_ of _PAGES_";

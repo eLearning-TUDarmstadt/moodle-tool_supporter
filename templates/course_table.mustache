@@ -17,15 +17,13 @@
 {{!
 
     @template tool_supporter/course_table
-
     Template which outputs a table of courses.
 
     Classes required for JS:
     * dataTables
 
     Context variables required for this template:
-    * headings - array: An array of table headings.
-    * rows - array: An array of content rows for the table.
+    * courses - array of arrays: course details to be displayed in a table.
 
     Example Input structure:
     Array ( [courses] =>
@@ -62,7 +60,7 @@
       <tr>
         <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
         <th>{{#str}}fullnamecourse{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-        <th>{{#str}}department, tool_supporter{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>{{#str}}department{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
         <th>{{#str}}semester, tool_supporter{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
         <th>{{#str}}visible{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
       </tr>

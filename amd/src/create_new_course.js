@@ -14,17 +14,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * This modules creates helper functions for creating a course
  *
  * @module     tool_supporter/create_new_course
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2017 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
+ * @since      3.1.1
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'], function($, ajax, templates, notification, str) {
     return /** @alias module:tool_supporter/create_new_course */ {
 
       /**
@@ -57,30 +55,24 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }]);
 
                 promises[0].done(function(data) {
-                  // stdClass with category, fullname, id, shortname, startdate, timecreated, timemodified, visible
                   console.log("create new course return data: ")
                   console.log(data);
-                  //Display the creted course
-                  require(['tool_supporter/load_information'], function(func){
-                    func.show_course_detail(data['id']);
+
+                  //Display the created course
+                  require(['tool_supporter/load_information'], function(load_information){
+                    load_information.show_course_detail(data['id']);
                     $('[data-region="create_new_course_section"]').toggle();
                   });
 
-                  /*
-                    // We have the data of the course. Now it has to be displayed
-                    templates.render('tool_supporter/course_detail', data).done(function(html, js) {
-                        $('[data-region="course_details"]').replaceWith(html);
-                        $('[data-region="course_details"]').show();
-                        // And execute any JS that was in the template.
-
-                        //JS: Show course which was created
-                        templates.runTemplateJS(js);
-                        // reload cours table?
-                    }).fail(notification.exception);
-
-                    */
-
-                }).fail(notification.exception);
+                }).fail(
+                  str.get_string('error', 'error').done(function(error) {
+                    str.get_string('duplicateroleshortname', 'error').done(function(duplicateroleshortname) {
+                        str.get_string('continue', 'error').done(function(next) {
+                            notification.alert(error, duplicateroleshortname, next)
+                        })
+                    })
+                  })
+              );
             });
         }
     };

@@ -14,15 +14,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is an empty module, that is required before all other modules.
- * Because every module is returned from a request for any other module, this
- * forces the loading of all modules with a single request.
+ * Module witch provides mostly jquery user interactions and ajax calls
  *
  * @module     tool_supporter/load_information
  * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
+ * @copyright  2017 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      2.9
+ * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
@@ -36,6 +34,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        }
       }]);
       promise[0].done(function(data){
+        console.log("assignableRoles Returns: ");
+        console.log(data);
           // Render template with data
           templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
             $('[data-region="enroluserregion"]').replaceWith(html);
@@ -45,12 +45,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
       }).fail(notification.exception);
   };
 
+  // Private function which can be referenced from the click_on_course function
   var show_course_detail_private = function(courseID) {
     public.show_course_detail(courseID);
   };
 
+  // Toggling course visibility on and off
   var toggle_course_visibility_private = function() {
-
     var promises = ajax.call([{
       methodname: 'tool_supporter_toggle_course_visibility',
         args: {
@@ -59,9 +60,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     }]);
 
     promises[0].done(function(course) {
-
       console.log("toggle visibility return data");
       console.log(course['courseDetails']['visible']);
+
+      //Re-render the template to show the changes
       templates.render('tool_supporter/course_detail', course).done(function(html, js) {
         $('[data-region="course_details"]').replaceWith(html);
         $('[data-region="course_details"]').show();
@@ -89,6 +91,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             courseID: course_id
         }
        }]);
+
        promise[0].done(function(data){
            // Render template with data
            console.log("course detail data");
@@ -109,25 +112,24 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
      },
 
      /**
-      * toggle course visibility
+      * toggle course visibility on and off
       *
       * @method toggle_course_visibility
       */
      toggle_course_visibility: function() {
        //Both are needed because of different ids
          $('#hide_course_visibility').on('click', function() {
-           console.log("hide course");
            toggle_course_visibility_private();
          });
          $('#show_course_visibility').on('click', function() {
-           console.log("show course");
            toggle_course_visibility_private();
          });
      },
 
      /**
-      * hide the user-block
-      * @method hide_user
+      * hide the user block
+      *
+      * @method hide_user_details
       */
      hide_user_details: function() {
          $('#hide_user_details').on('click', function() {
@@ -137,6 +139,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
      /**
       * hide the course detail block
+      *
       * @method hide_course_detail
       */
      hide_course_detail: function() {
@@ -147,7 +150,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
      },
 
        /**
-        * Get Users Details
+        * Get the details of the user and displays them
         *
         * @method click_on_user
         */
@@ -179,7 +182,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                    show_enrol_section(courseid);
                  };
 
-                 // And execute any JS that was in the template.
                  templates.runTemplateJS(js);
                }).fail(notification.exception);
              }).fail(notification.exception);
@@ -188,7 +190,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
        },
 
        /**
-        * Get course details
+        * Helper function for jquery event
         *
         * @method click_on_user
         */
