@@ -71,23 +71,23 @@ define(['jquery'], function($) {
             });
           },
 
-        /**
-         * Refresh the table!
-         *
-         * @method FilterEvent
-         * @param searchInputID, tableID
-         * searchInputID: ID of searchfield
-         * tableID: ID of the table or part of the table you want to filter
-         */
-        filterEvent: function(searchInputID, tableID, FormInput, column) {
-          //for radios
-          var otable = $(tableID).dataTable();
-          $(FormInput).change(function() {
-            console.log("checkboxes_changed");
-            console.log($('input[name='+searchInputID+']:checked'));
-            var elements = $('input[name='+searchInputID+']:checked');
-            filterTable(elements, otable, column);
-          });
+          /**
+           * Refresh the table!
+           *
+           * @method FilterEvent
+           * @param searchInputID, tableID
+           * searchInputID: ID of searchfield
+           * tableID: ID of the table or part of the table you want to filter
+           */
+          filterEvent: function(searchInputID, tableID, FormInput, column) {
+            //for radios
+            var otable = $(tableID).dataTable();
+            $(FormInput).change(function() {
+              console.log("checkboxes_changed");
+              console.log($('input[name='+searchInputID+']:checked'));
+              var elements = $('input[name='+searchInputID+']:checked');
+              filterTable(elements, otable, column);
+            });
         }
       };
   });

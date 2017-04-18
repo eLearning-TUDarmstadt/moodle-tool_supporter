@@ -28,3 +28,5 @@
  $string['timemodifieduser'] = 'Nutzer wurde das letzte Mal verändert am';
  $string['department'] = 'Fachbereich';
  $string['semester'] = 'Semester';
+ $string['search'] = 'Suche...';
+ $string['infoDatatable'] = "Zeige Seite _PAGE_ von _PAGES_";
