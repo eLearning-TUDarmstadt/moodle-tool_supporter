@@ -27,48 +27,28 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
 
   return /** @alias module:tool_supporter/table_sort */ {
 
-    /**
-     *
-     * @method use_dataTable
-     */
-     use_dataTable: function(tableID){
-      str.get_string('search', 'moodle').done(function(searchString) {
-        $(tableID).DataTable({
-          "lengthChange": false,
-          "pageLength": 30,
-          "language": {
-            //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
-            'info': "",
-            'search': searchString+": "
-          },
-          "dom": "<'w-100'<'col'f>>" +
-            "<'w-100'<'col't>>" +
-            "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
-          "paging": true,
-          "pagingType": "numbers",
+      /**
+       *
+       * @method use_dataTable
+       */
+       use_dataTable: function(tableID){
+        str.get_string('search', 'moodle').done(function(searchString) {
+          $(tableID).DataTable({
+            "retrieve": true, //So teh table can be accessed after initialization 
+            "lengthChange": false,
+            "pageLength": 30,
+            "language": {
+              //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
+              'info': "",
+              'search': searchString+": "
+            },
+            "dom": "<'w-100'<'col'f>>" +
+              "<'w-100'<'col't>>" +
+              "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
+            "paging": true,
+            "pagingType": "numbers",
+          });
         });
-      });
     },
-
-    /**
-     *
-     * @method use_dataTable_tab
-     */
-    use_dataTable_tab: function(tableID){ //Does not work yet
-      console.log("aktuelle tableID:" + tableID + " alle datatables: ");
-      console.log($.fn.dataTable.tables());
-      var otable = $(tableID).DataTable({
-          scrollY:        200,
-          scrollCollapse: true,
-          paging:         false
-      });
-           console.log("in use_dataTable_tab");
-           $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-                 console.log( 'show tab' );
-                 otable
-                   .columns.adjust()
-                   .responsive.recalc();
-               });
-      }
-   };
+  };
 });

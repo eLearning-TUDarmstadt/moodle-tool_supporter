@@ -29,49 +29,19 @@
  */
 define(['jquery'], function($) {
 
-//Hides all rows which don't match the search input. The search-function is case insensitive and also recognizes inner word parts
-    var search = function(element, tableID){
-      var rows = $(tableID + ' tr');
-      var val = $.trim(element).replace(/ +/g, ' ').toLowerCase().split(' ');
-      rows.hide().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-          var matchesSearch = true;
-          $(val).each(function(index, value) {
-            matchesSearch = (!matchesSearch) ? false : ~text.indexOf(value);
-          });
-          return matchesSearch;
-        }).show();
-    };
 
     var filterTable = function(elements, otable, column){
       filter ='';
       $(elements).each(function(index){
-        console.log("index: " + index + "length: " + elements.length);
         if(index  == elements.length -1){filter = filter + $(this).val()}
         else
-          filter = filter + $(this).val() + '|';
+          filter = filter + $(this).val() + '|'; // Add value of elements[index] and add "|" as an OR
       });
       otable.fnFilter(filter, column, true, false, false, true);
     };
 
 
     return /** @alias module:tool_supporter/table_search */ {
-
-          /**
-           * Refresh the table!
-           *
-           * @method userSearchEvent
-           * @param searchInputID, tableID
-           * @param searchInputID: ID of searchfield
-           * @param tableID: ID of the table or part of the table you want to filter
-           * @param FormInput: The selected Filtering Term
-           */
-          searchEvent: function(searchInputID, tableID, FormInput) {
-            //for input texts
-            $(searchInputID).keyup(function() {
-              search($(searchInputID).val(),tableID);
-            });
-          },
 
         /**
          * Filtering the table with the appropiate form!
@@ -85,9 +55,8 @@ define(['jquery'], function($) {
         filterEvent: function(searchInputID, tableID, FormInput, column) {
           //for radios
           var otable = $(tableID).dataTable();
+          console.log("im filter Event" + otable);
           $(FormInput).change(function() {
-            console.log("checkboxes_changed");
-            console.log($('input[name='+searchInputID+']:checked'));
             var elements = $('input[name='+searchInputID+']:checked');
             filterTable(elements, otable, column);
           });

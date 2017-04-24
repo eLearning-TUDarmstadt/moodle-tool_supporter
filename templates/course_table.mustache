@@ -83,9 +83,6 @@
 {{#js}}
  require(['tool_supporter/table_search', 'tool_supporter/load_information', 'tool_supporter/datatables', 'tool_supporter/table_sort'],
         function(search, click_on_course, dataTable, sort){
-   search.searchEvent('#{{uniqid}}-courseSearchInput','#{{uniqid}}-courseTable' + ' tbody'); //Add search functionality to the search field
    click_on_course.click_on_course('#{{uniqid}}-courseTable' + ' tbody'); //Load information about the clicked course
-  // dataTable.use_dataTable('#{{uniqid}}-courseTable'); //Convert table to DataTable
-  // sort.sortTable('#{{uniqid}}-courseTable'); //Slow version to sort tables by headers
  });
 {{/js}}
