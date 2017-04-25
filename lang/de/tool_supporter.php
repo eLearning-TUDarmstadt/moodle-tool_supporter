@@ -29,4 +29,4 @@
  $string['department'] = 'Fachbereich';
  $string['semester'] = 'Semester';
  $string['search'] = 'Suche...';
- $string['infoDatatable'] = "Zeige Seite _PAGE_ von _PAGES_";
+ $string['enrolledusers'] = "Eingeschriebene Nutzer_innen";
