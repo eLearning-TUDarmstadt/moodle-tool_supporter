@@ -29,4 +29,3 @@
  $string['department'] = 'Fachbereich';
  $string['semester'] = 'Semester';
  $string['search'] = 'Suche...';
- $string['enrolledusers'] = "Eingeschriebene Nutzer_innen";
