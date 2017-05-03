@@ -64,15 +64,17 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                     $('[data-region="create_new_course_section"]').toggle();
                   });
 
-                }).fail(
+                })
+
+                promises[0].fail(function(data) {
                   str.get_string('error', 'error').done(function(error) {
                     str.get_string('duplicateroleshortname', 'error').done(function(duplicateroleshortname) {
-                        str.get_string('continue', 'error').done(function(next) {
+                        str.get_string('continue', 'hub').done(function(next) {
                             notification.alert(error, duplicateroleshortname, next)
                         })
                     })
                   })
-              );
+                });
             });
         }
     };
