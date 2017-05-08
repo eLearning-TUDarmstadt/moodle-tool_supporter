@@ -34,7 +34,8 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
        use_dataTable: function(tableID){
         str.get_string('search', 'moodle').done(function(searchString) {
           $(tableID).DataTable({
-            "retrieve": true, //So the table can be accessed after initialization 
+            "retrieve": true, //So the table can be accessed after initialization
+            responsive: true,
             "lengthChange": false,
             "pageLength": 30,
             "language": {
