@@ -35,7 +35,7 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
         str.get_string('search', 'moodle').done(function(searchString) {
           $(tableID).DataTable({
             "retrieve": true, //So the table can be accessed after initialization
-            responsive: true,
+            "responsive": true,
             "lengthChange": false,
             "pageLength": 30,
             "language": {
@@ -48,6 +48,7 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
               "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
             "paging": true,
             "pagingType": "numbers",
+            "scrollX": true
           });
         });
     },

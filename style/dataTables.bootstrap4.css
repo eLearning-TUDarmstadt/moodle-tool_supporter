@@ -48,8 +48,8 @@ div.dataTables_wrapper div.dataTables_info {
 div.dataTables_wrapper div.dataTables_paginate {
   margin: 0;
   white-space: nowrap;
-  text-align: right;
-  display: inline-block;
+  text-align: center;
+  /*display: inline-block;*/
   padding: 0.5em 1em;
 }
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
