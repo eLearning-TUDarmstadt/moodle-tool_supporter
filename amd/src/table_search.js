@@ -54,7 +54,8 @@ define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
          */
         filterEvent: function(searchInputID, tableID, FormInput, column) {
           //for radios
-          var otable = dataTablesjs.use_dataTable(tableID);
+          var otable = $(tableID).dataTable();
+          //var otable = dataTablesjs.use_dataTable(tableID);
           $(FormInput).change(function() {
             var elements = $('input[name='+searchInputID+']:checked');
             filterTable(elements, otable, column);
