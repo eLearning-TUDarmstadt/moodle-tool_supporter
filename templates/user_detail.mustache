@@ -228,10 +228,10 @@
 
 
   <div>
-    <ul class="nav nav-tabs nav-justified" id = "myTabs2" >
+    <ul class="nav nav-tabs nav-justified">
       <li class = "nav-item"><a><b>{{#str}}courses{{/str}}</b></a></li>
       <li class="dropdown">
-        <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}department{{/str}}</a>
+        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department{{/str}}</a>
         <ul class="dropdown-menu" id="departmentdropdown">
           {{#uniquecategoryname}}
           <li><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
@@ -239,7 +239,7 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
+        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
         <ul class="dropdown-menu" id="semesterdropdown">
           {{#uniqueparentcategory}}
           <li><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
@@ -250,15 +250,15 @@
  </div>
 
     <div class="table-responsive">
-    <table class = "table-condensed table-hover table-striped" id="{{uniqid}}-userdetailcourses">
+    <table class = "stripe hover row-border compact" id="{{uniqid}}-userdetailcourses" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>ID</th>
-          <th>{{#str}}fullnamecourse{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-          <th>{{#str}}department{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-          <th>{{#str}}roles{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-          <th>{{#str}}semester, tool_supporter{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-          <th>{{#str}}visible{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+          <th>{{#str}}fullnamecourse{{/str}}  </th>
+          <th>{{#str}}department{{/str}}  </th>
+          <th>{{#str}}roles{{/str}}  </th>
+          <th>{{#str}}semester, tool_supporter{{/str}}  </th>
+          <th>{{#str}}visible{{/str}}  </th>
         </tr>
       </thead>
       <tbody>

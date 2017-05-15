@@ -196,14 +196,15 @@
   </div>
 
   <div>
-	  <ul class="nav nav-tabs nav-justified" id = "myTabs" role="tablist">
+	  <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
 	    <li class="nav-item active"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
 	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
-      <li class = 'dropdown'>
-         <a class = "dropdown-toggle" href="#" data-toggle="dropdown">{{#str}}roles{{/str}}</a>
+      <li class = "dropdown">
+         <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
          <ul class="dropdown-menu" id="roledropdown">
+           <!--filter user list by selecting wanted role-->
             {{#rolesincourse}}
-            <li><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse"> {{{.}}}</li> <!--filter user list by selecting wanted role-->
+            <li><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
             {{/rolesincourse}}
         </ul>
       </li>
@@ -215,14 +216,14 @@
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
         <!--table of users in this course-->
       <div class="table-responsive">
-        <table class = "table-condensed table-hover table-striped" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+        <table class = "table table-striped table-hover" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-              <th>{{#str}}username{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-              <th>{{#str}}firstname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-              <th>{{#str}}lastname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-              <th>{{#str}}roles{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+              <th>ID</th>
+              <th>{{#str}}username{{/str}}  </th>
+              <th>{{#str}}firstname{{/str}}  </th>
+              <th>{{#str}}lastname{{/str}}  </th>
+              <th>{{#str}}roles{{/str}}  </th>
             </tr>
           </thead>
           <tbody>
@@ -243,7 +244,7 @@
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
       <div class="table-responsive">
-        <table class = "table-condensed table-hover table-striped" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+        <table class = "stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -282,7 +283,7 @@
 
   //selecting the active table by using click-Event
   tabTableID = "#{{uniqid}}-userincourse";
-  $('#myTabs a').click(function(e){
+  $('#{{uniqid}}-myTabs a').click(function(e){
     var activeTab = e.target.getAttribute('href');
     if(activeTab == "#CoursePill_1"){
       tabTableID = "#{{uniqid}}-userincourse";
