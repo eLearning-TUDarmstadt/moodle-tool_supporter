@@ -2,3 +2,25 @@
   max-width: none;
   table-layout: fixed;
 }
+
+
+@charset 'UTF-8';
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    src: url([[font:theme|glyphicons-halflings-regular.eot]]);
+    src: url([[font:theme|glyphicons-halflings-regular.eot]]) format('embedded-opentype'),
+         url([[font:theme|glyphicons-halflings-regular.woff]]) format('woff'),
+         url([[font:theme|glyphicons-halflings-regular.ttf]]) format('truetype'),
+         url([[font:theme|glyphicons-halflings-regular.svg]]) format('svg');
+}
+/* bootstrap hack: fix content width inside hidden tabs
+.tab-content > .tab-pane:not(.active),
+.pill-content > .pill-pane:not(.active) {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
+ bootstrap hack end */

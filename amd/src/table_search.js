@@ -27,7 +27,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery'], function($) {
+define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
 
 
     var filterTable = function(elements, otable, column){
@@ -54,8 +54,7 @@ define(['jquery'], function($) {
          */
         filterEvent: function(searchInputID, tableID, FormInput, column) {
           //for radios
-          var otable = $(tableID).dataTable();
-          console.log("im filter Event" + otable);
+          var otable = dataTablesjs.use_dataTable(tableID);
           $(FormInput).change(function() {
             var elements = $('input[name='+searchInputID+']:checked');
             filterTable(elements, otable, column);

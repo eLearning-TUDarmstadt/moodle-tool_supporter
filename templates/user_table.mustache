@@ -50,14 +50,14 @@
 -->
 
   <div class="table-responsive">
-  <table class = "datatable table-condensed table-hover table-striped" id = "{{uniqid}}-userTable">
+  <table class = "datatable stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
     <thead>
       <tr>
-        <th>ID {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-        <th>{{#str}}username{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-        <th>{{#str}}firstname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-        <th>{{#str}}lastname{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
-        <th>{{#str}}email{{/str}} {{#pix}} t/sort, core, {{#str}}sort{{/str}} {{/pix}}</th>
+        <th>ID  </th>
+        <th>{{#str}}username{{/str}}  </th>
+        <th>{{#str}}firstname{{/str}}  </th>
+        <th>{{#str}}lastname{{/str}}  </th>
+        <th>{{#str}}email{{/str}}  </th>
       </tr>
     </thead>
     <tbody data-region="user_table_body">
@@ -79,5 +79,6 @@
  require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/load_information', 'tool_supporter/datatables'],
         function(search, sort, click_on_user, dataTable){
    click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody'); //Load information about the clicked user
+
  });
 {{/js}}
