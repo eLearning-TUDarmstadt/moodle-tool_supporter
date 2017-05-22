@@ -76,8 +76,8 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/load_information', 'tool_supporter/datatables'],
-        function(search, sort, click_on_user, dataTable){
+ require(['tool_supporter/load_information'],
+        function(click_on_user){
    click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody'); //Load information about the clicked user
 
  });

@@ -216,7 +216,7 @@
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
         <!--table of users in this course-->
       <div class="table-responsive">
-        <table class = "table table-striped table-hover" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+        <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -270,13 +270,11 @@
 </div>
 
 {{#js}}
- require(['jquery','tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+ require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function($, search, sort, dataTable, click_on_user) {
 
-  dataTable.use_dataTable('#{{uniqid}}-userincourse');  //Convert table to DataTable
-  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  //Convert table to DataTable
-
-  search.filterEvent('rolesincourse','#{{uniqid}}-userincourse', '#roledropdown', 4);
+  dataTable.use_dataTable('#{{uniqid}}-userincourse',['rolesincourse', '#roledropdown', 4]);  //Convert table to DataTable and add filter functionality to dropdown-menue
+  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  //Convert table to DataTable //Convert table to DataTable
 
   //Load information about the clicked user
   click_on_user.click_on_user('#{{uniqid}}-userincourse' + ' tbody');

@@ -21,7 +21,7 @@
  *
  * It is modular in respect to the given table (body)
  *
- * @module     tool_supporter/table_search
+ * @module     tool_supporter/table_filter
  * @package    tool_supporter
  * @copyright  2017 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -41,7 +41,7 @@ define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
     };
 
 
-    return /** @alias module:tool_supporter/table_search */ {
+    return /** @alias module:tool_supporter/table_filter */ {
 
         /**
          * Filtering the table with the appropiate form!
@@ -52,10 +52,9 @@ define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
          * @param FormInput: The selected Filtering Term
          * @param column: which column should be filtered
          */
-        filterEvent: function(searchInputID, tableID, FormInput, column) {
+        filterEvent: function(searchInputID, FormInput, column, tableID) {
           //for radios
           var otable = $(tableID).dataTable();
-          //var otable = dataTablesjs.use_dataTable(tableID);
           $(FormInput).change(function() {
             var elements = $('input[name='+searchInputID+']:checked');
             filterTable(elements, otable, column);

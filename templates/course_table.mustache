@@ -81,8 +81,8 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/table_search', 'tool_supporter/load_information', 'tool_supporter/datatables', 'tool_supporter/table_sort'],
-        function(search, click_on_course, dataTable, sort){
+ require(['tool_supporter/load_information'],
+        function(click_on_course){
    click_on_course.click_on_course('#{{uniqid}}-courseTable' + ' tbody'); //Load information about the clicked course
  });
 {{/js}}

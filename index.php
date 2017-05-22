@@ -27,27 +27,21 @@ $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
 // Set up the page.
 $url = new moodle_url("/admin/tool/supporter/index.php");
-//echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">';
-//echo '<link rel="stylesheet" type="text/css" href="/admin/tool/supporter/style/datatables.css">';
-//echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.js"></script>';
-//echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.responsive.js"></script>';
+/*echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">';
+echo '<link rel="stylesheet" type="text/css" href="/admin/tool/supporter/style/datatables.css">';
+echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.js"></script>';
+echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.responsive.js"></script>';*/
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
 
-// $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/responsive.bootstrap.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/responsive.datatables.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/responsive.jqueryui.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/responsive.foundation.css');
-// $PAGE->requires->css('/admin/tool/supporter/style/dataTables.jqueryui.css');
-//$PAGE->requires->css('/admin/tool/supporter/style/dataTables.foundation.css');
-//$PAGE->requires->css('/admin/tool/supporter/style/dataTables.semanticui.css');
-//$PAGE->requires->css('/admin/tool/supporter/style/select.bootstrap.css');
-//$PAGE->requires->css('/admin/tool/supporter/style/bootstrap-themes.css');
+//$PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap.css');
+$PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
+$PAGE->requires->css('/admin/tool/supporter/style/responsive.bootstrap4.css');
+$PAGE->requires->css('/admin/tool/supporter/style/select.bootstrap4.css');
+$PAGE->requires->css('/admin/tool/supporter/style/buttons.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/jquery.datatables.css');
 
 $output = $PAGE->get_renderer('tool_supporter');

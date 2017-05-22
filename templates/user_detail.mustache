@@ -279,14 +279,11 @@
 
 
 {{#js}}
-require(['tool_supporter/table_search', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
       function(search, sort, dataTable, click_on_course){
 
-  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses');  //Convert table to DataTable
-
-  //for radio buttons in dropdown
-  search.filterEvent('departmentradios','#{{uniqid}}-userdetailcourses', '#departmentdropdown', 2);
-  search.filterEvent('semesterradios','#{{uniqid}}-userdetailcourses', '#semesterdropdown', 4);
+  //Convert table to DataTable and add filter functionality to dropdown-menue
+  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', ['departmentradios', '#departmentdropdown', 2], ['semesterradios', '#semesterdropdown', 4]);
 
   //Load information about the clicked course
   click_on_course.click_on_course('#{{uniqid}}-userdetailcourses' + ' tbody');

@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, datatables, str) {
+define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter'], function($, datatables, str, filter) {
 
   return /** @alias module:tool_supporter/table_sort */ {
 
@@ -31,7 +31,8 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
        *
        * @method use_dataTable
        */
-       use_dataTable: function(tableID){
+       use_dataTable: function(tableID, filterSelector){ //There can be several filterSelectors, for example one for each dropdown-menue
+        var args = arguments;
         str.get_string('search', 'moodle').done(function(searchString) {
           $(tableID).DataTable({
             "retrieve": true, //So the table can be accessed after initialization
@@ -41,7 +42,7 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
             "language": {
               //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
               'info': "",
-              'search': searchString+": "
+              //'search': searchString+": "
             },
             "dom": "<'w-100'<'col'f>>" +
               "<'w-100'<'col't>>" +
@@ -50,6 +51,11 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str'], function($, d
             "pagingType": "numbers",
             "scrollX": true
           });
+          for(i=1; i < args.length; i++){
+            if(args[i]){
+            filter.filterEvent(args[i][0], args[i][1], args[i][2], tableID);
+            }
+          };
         });
     },
   };
