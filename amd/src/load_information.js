@@ -155,7 +155,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         * @method click_on_user
         */
        click_on_user: function(table) {
-           $(table + ' tr').on('click', function() { //click event on each row
+           $(table).on('click', 'tr', function() { //click event on each row
+        	   console.log("Es wurde etwas geklickt!")
              var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
 
              //go to top
@@ -195,7 +196,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         * @method click_on_user
         */
        click_on_course: function(table) {
-           $(table + ' tr').on('click', function() { //click event on each row
+    	   $(table).on('click', 'tr', function() { //click event on each row
              var course_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
              show_course_detail_private(course_id);
            });
