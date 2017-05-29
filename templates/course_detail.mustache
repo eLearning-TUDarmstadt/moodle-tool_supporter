@@ -94,39 +94,6 @@
 
 }}
 <!--View details after clicking on a course in course table.  -->
-<!-- <div style="display: none" data-region = "course_details" class="well well-sm">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <ul class="nav">
-        {{#links}}
-          <li><p class="brand"><a href="{{courselink}}" target="_blank">{{#courseDetails}}{{fullname}}{{/courseDetails}}</a></p></li>
-      </ul>
-      <ul class="nav pull-right">
-          <li data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
-            {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
-          </a></p></li>
-          <li data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
-            {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-          </a></p></li>
-        {{/links}}
-        {{#courseDetails}}
-          {{#visible}}
-            <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
-                {{#pix}} i/show, core, make visible {{/pix}}
-            </a></p></li>
-          {{/visible}}
-          {{^visible}}
-            <li><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
-                {{#pix}} i/hide, core, make invisible {{/pix}}
-            </a></p></li>
-          {{/visible}}
-        {{/courseDetails}}
-        <li data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">
-          <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
-        </a></p></li>
-      </ul>
-    </div>
-  </div> -->
   <div style="display: none" data-region = "course_details" class="well well-sm">
     <ul class="nav nav-pills">
         {{#links}}
@@ -200,7 +167,7 @@
 	    <li class="nav-item active"><a class = "nav-link" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
 	    <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
       <li class = "dropdown">
-         <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
+         <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
          <ul class="dropdown-menu" id="roledropdown">
            <!--filter user list by selecting wanted role-->
             {{#rolesincourse}}

@@ -231,7 +231,7 @@
     <ul class="nav nav-tabs nav-justified">
       <li class = "nav-item"><a><b>{{#str}}courses{{/str}}</b></a></li>
       <li class="dropdown">
-        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department{{/str}}</a>
+        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department{{/str}}<span class="caret"></span></a>
         <ul class="dropdown-menu" id="departmentdropdown">
           {{#uniquecategoryname}}
           <li><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
@@ -239,7 +239,7 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}</a>
+        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
         <ul class="dropdown-menu" id="semesterdropdown">
           {{#uniqueparentcategory}}
           <li><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
