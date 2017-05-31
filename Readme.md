@@ -1,4 +1,5 @@
 Copyright: 2017 Benedikt Schneider (@Nullmann), Klara Saary (@KlaraSaary)
+
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
 # tool_supporter
