@@ -29,15 +29,16 @@
  */
 define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
 
+//bsp exact search: https://stackoverflow.com/questions/33122994/how-to-search-for-an-exact-string-in-a-jquery-datatable
 
     var filterTable = function(elements, otable, column){
-      filter ='';
+      filterElements ='';
       $(elements).each(function(index){
-        if(index  == elements.length -1){filter = filter + $(this).val()}
+        if(index  == elements.length -1){filterElements = filterElements +  '\\b' + $(this).val()}
         else
-          filter = filter + $(this).val() + '|'; // Add value of elements[index] and add "|" as an OR
+          filterElements = filterElements  + '\\b' +$(this).val() + '|'; // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string
       });
-      otable.fnFilter(filter, column, true, false, false, true);
+      otable.fnFilter(filterElements, column, true, false, false, true);
     };
 
 
