@@ -479,33 +479,43 @@ class external extends external_api {
     // How many students are enrolled in the course?
     $courseDetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
+    // Get assignable roles in the course
+    require_once $CFG->dirroot.'/enrol/locallib.php';
+    $course = get_course($courseID);
+    $manager = new \course_enrolment_manager($PAGE, $course);
+    $usedRolesInCourse = $manager->get_assignable_roles();
+
     // Which roles are used and how many users have this role?
-    $roleList = get_roles_used_in_context($coursecontext);
+    //$roleList = get_roles_used_in_context($coursecontext);
     $roles = array();
-   	// $roleList = \get_all_roles($coursecontext); // array('moodle/legacy:student', 'moodle/legacy:teacher', 'moodle/legacy:editingteacher', 'moodle/legacy:coursecreator');
-   	$count= \count_role_users([1,2,3,4,5,6,7], $coursecontext);
     $rolesincourse = [];
-   	foreach ($roleList as $r) {
+/*  	foreach ($roleList as $r) {
    		if($r->coursealias != NULL)
    			$roleName = $r->coursealias;
    			else
    				$roleName =$r->shortname;
    			$roleNumber = \count_role_users($r->id,$coursecontext);
-   				// $roleNumber = count_enrolled_users($coursecontext, $withcapability = $role, $groupid = 0);
    			if($roleNumber != 0)
-   					$roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
+   					$roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber, 'roleID' => $r->id, 'role' => (array)$r];
         $rolesincourse[] = $roleName;
-   	}
+   	}*/
+  foreach ($usedRolesInCourse as $rid => $rname) {
+      $roleName =$rname;
+        $roleNumber = \count_role_users($rid,$coursecontext);
+        if($roleNumber != 0)
+            $roles[] = ['roleName' => $roleName, 'roleNumber' => $roleNumber];
+        $rolesincourse[] = $roleName;
+    }
     // Get userinformation about users in course
    	$users_raw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0, $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
    	$users = array();
    	foreach($users_raw as $u){
       $u = (array)$u;
       // Find user specific roles
-      $usedroles = get_user_roles($coursecontext, $u['id']);
+      $User_UsedRoles = get_user_roles($coursecontext, $u['id']);
       $userRoles = [];
-      foreach ($usedroles as $role) {
-        $userRoles[] = $role->shortname;
+      foreach ($User_UsedRoles as $role) {
+        $userRoles[] = $usedRolesInCourse[$role->roleid];//$role->shortname
       }
       $u['roles'] = $userRoles;
    		$users[] = $u;
@@ -550,7 +560,7 @@ class external extends external_api {
     *
     * @return a course with addition information
     */
-   public static function get_course_info_returns(){ //data_returns.txt anschauen und parameter anpassen
+   public static function get_course_info_returns(){
      return
          new external_single_structure(
              array(
@@ -571,7 +581,7 @@ class external extends external_api {
                      new external_single_structure(
                          array(
                              'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
-                             'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roName')
+                             'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roleName')
                          )
                        )
                      ),
@@ -582,7 +592,7 @@ class external extends external_api {
                                      'username' => new external_value(PARAM_RAW, 'name of user'),
                                      'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
                                      'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
-                                      'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
+                                     'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
                        )
                      )
                         ),
@@ -600,7 +610,7 @@ class external extends external_api {
                         'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
                         'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, additional affirmation needed afterwards', 'optional'),
                         'courselink' => new external_value(PARAM_RAW, 'link to the course')
-                      ))
+                      )),
      ));}
 
 
