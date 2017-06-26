@@ -42,7 +42,7 @@
     )
 
 }}
-<div data-region="user_table"  class="well well-sm">
+<div style="display: none" data-region="user_table"  class="well well-sm">
   <!--
   <form class = "navbar-search pull-left">
     <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
@@ -60,7 +60,7 @@
         <th>{{#str}}email{{/str}}  </th>
       </tr>
     </thead>
-    <tbody data-region="user_table_body">
+    <tbody>
       {{#users}}
       <tr>
         <td>{{id}}</td>

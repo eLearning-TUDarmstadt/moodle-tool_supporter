@@ -45,7 +45,7 @@
     )
 
 }}
-<div data-region="course_table"  class="well well-sm">
+<div style="display: none" data-region="course_table"  class="well well-sm">
   <!--
   <ul class="nav nav-pills">
     <li class = "navbar-search pull-left">
@@ -65,7 +65,7 @@
         <th>{{#str}}visible{{/str}}  </th>
       </tr>
     </thead>
-    <tbody data-region="user_table_body">
+    <tbody>
       {{#courses}}
       <tr>
         <td>{{id}}</td>
@@ -81,8 +81,7 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/load_information'],
-        function(click_on_course){
+ require(['tool_supporter/load_information'], function(click_on_course){
    click_on_course.click_on_course('#{{uniqid}}-courseTable' + ' tbody'); //Load information about the clicked course
  });
 {{/js}}
