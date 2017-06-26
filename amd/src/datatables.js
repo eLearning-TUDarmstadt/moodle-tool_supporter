@@ -56,6 +56,8 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
             filter.filterEvent(args[i][0], args[i][1], args[i][2], tableID);
             }
           };
+          $('[data-region="course_table"]').show();
+          $('[data-region="user_table"]').show();
         });
     },
   };
