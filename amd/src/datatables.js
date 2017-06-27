@@ -25,7 +25,7 @@
  */
 define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter'], function($, datatables, str, filter) {
 
-  return /** @alias module:tool_supporter/table_sort */ {
+  return /** @alias module:tool_supporter/datatables */ {
 
       /**
        *
