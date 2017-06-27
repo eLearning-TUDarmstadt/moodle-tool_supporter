@@ -29,8 +29,6 @@
  */
 define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
 
-//bsp exact search: https://stackoverflow.com/questions/33122994/how-to-search-for-an-exact-string-in-a-jquery-datatable
-
     var filterTable = function(elements, otable, column){
       filterElements ='';
       string_value = '';
