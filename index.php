@@ -42,7 +42,7 @@ $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/responsive.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/select.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/buttons.bootstrap4.css');
-$PAGE->requires->css('/admin/tool/supporter/style/jquery.datatables.css');
+$PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
 
 $output = $PAGE->get_renderer('tool_supporter');
 
