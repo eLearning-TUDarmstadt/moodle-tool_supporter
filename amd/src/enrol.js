@@ -22,7 +22,7 @@
 * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 * @since      3.1.1
 */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'], function($, ajax, templates, notification, str) {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
    return /** @alias module:tool_supporter/create_new_course */ {
 
        /**
@@ -35,8 +35,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
         */
         enroluserintocourse: function() {
             $('#enroluserintocoursebutton').on('click', function() {
-              var course = $('#selectedcourseid')[0].textContent;
-              var user = $('#selecteduserid')[0].textContent;
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
@@ -48,7 +46,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 }]);
 
                 promises[0].done(function(course) {
-                  console.log("promise is done with return data: ")
+                  console.log("promise is done with return data: ");
                   console.log(course);
 
                   //Re-render the template to show the changes

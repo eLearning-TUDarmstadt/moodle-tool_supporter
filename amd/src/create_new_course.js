@@ -55,25 +55,25 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 }]);
 
                 promises[0].done(function(data) {
-                  console.log("create new course return data: ")
+                  console.log("create new course return data: ");
                   console.log(data);
 
                   //Display the created course
                   require(['tool_supporter/load_information'], function(load_information){
-                    load_information.show_course_detail(data['id']);
+                    load_information.show_course_detail(data.id);
                     $('[data-region="create_new_course_section"]').toggle();
                   });
 
-                })
+                });
 
-                promises[0].fail(function(data) {
+                promises[0].fail(function() {
                   str.get_string('error', 'error').done(function(error) {
                     str.get_string('duplicateroleshortname', 'error').done(function(duplicateroleshortname) {
                         str.get_string('continue', 'hub').done(function(next) {
-                            notification.alert(error, duplicateroleshortname, next)
-                        })
-                    })
-                  })
+                            notification.alert(error, duplicateroleshortname, next);
+                        });
+                    });
+                  });
                 });
             });
         }

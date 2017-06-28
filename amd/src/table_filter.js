@@ -27,16 +27,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'tool_supporter/datatables'], function($, dataTablesjs) {
+define(['jquery'], function($) {
 
     var filterTable = function(elements, otable, column){
-      filterElements ='';
-      string_value = '';
+      var filterElements ='';
+      var string_value = '';
       $(elements).each(function(index){
-        if($(this).val() == ""){string_value = '^(?![\\s\\S])'} else string_value = '\\b' + $(this).val();
-        if (index  == elements.length -1){filterElements = filterElements +  string_value}
-        else
-          filterElements = filterElements  + string_value + '|'; // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string
+        if($(this).val() === ""){string_value = '^(?![\\s\\S])';}
+        else {string_value = '\\b' + $(this).val();}
+        if (index  == elements.length -1){filterElements = filterElements +  string_value;}
+        // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string
+        else {filterElements = filterElements  + string_value + '|';}
       });
       otable.fnFilter(filterElements, column, true, false, false, true);
     };

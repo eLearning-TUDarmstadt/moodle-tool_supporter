@@ -61,7 +61,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
     promises[0].done(function(course) {
       console.log("toggle visibility return data");
-      console.log(course['courseDetails']['visible']);
+      console.log(course.courseDetails.visible);
 
       //Re-render the template to show the changes
       templates.render('tool_supporter/course_detail', course).done(function(html, js) {
@@ -156,7 +156,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         */
        click_on_user: function(table) {
            $(table).on('click', 'tr', function() { //click event on each row
-        	   console.log("Es wurde etwas geklickt!")
              var user_id = $(this).find('td:first-child').text(); //get id (first column) of clicked row
 
              //go to top
@@ -179,9 +178,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                  //Only show the section if a course is selected
                  if ($('#selectedcourseid').length === 1) {
-                   var courseid = $('#selectedcourseid')[0].textContent
+                   var courseid = $('#selectedcourseid')[0].textContent;
                    show_enrol_section(courseid);
-                 };
+                 }
 
                  templates.runTemplateJS(js);
                }).fail(notification.exception);

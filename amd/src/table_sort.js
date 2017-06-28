@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
+define(['jquery'], function($) {
 
 	// Sorting the clicked column in a specific table
 	var tableSort = function(column, tableID){
@@ -72,7 +72,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 		    } else {
 		      /*If no switching has been done AND the direction is "asc",
 		      set the direction to "desc" and run the while loop again.*/
-		      if (switchcount == 0 && dir == "asc") {
+		      if (switchcount === 0 && dir == "asc") {
 		        dir = "desc";
 		        switching = true;
 		      }

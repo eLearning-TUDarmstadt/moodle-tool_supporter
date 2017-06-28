@@ -31,7 +31,9 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
        *
        * @method use_dataTable
        */
-       use_dataTable: function(tableID, filterSelector){ //There can be several filterSelectors, for example one for each dropdown-menue
+
+       //There can be several filterSelectors, for example one for each dropdown-menue
+       use_dataTable: function(tableID, filterSelector){
         var args = arguments;
         str.get_string('search', 'moodle').done(function(searchString) {
           $(tableID).DataTable({
@@ -51,9 +53,11 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
             "pagingType": "numbers",
             "scrollX": true
           });
+
+          var i;
           for(i=1; i < args.length; i++){
             if(args[i]){
-            filter.filterEvent(args[i][0], args[i][1], args[i][2], tableID);
+            filter.filterEvent(args[i][0], args[i][1], args[i][2], tableID)
             }
           };
           $('[data-region="course_table"]').show();
