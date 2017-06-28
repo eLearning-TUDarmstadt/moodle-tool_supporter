@@ -202,6 +202,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
            });
        }
    };
-   return /** @alias module:tool_supporter/load_information */ 
-    public;
+
+   return /** @alias module:tool_supporter/load_information **/ public;
 });
