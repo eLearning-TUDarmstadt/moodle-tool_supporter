@@ -46,7 +46,8 @@ class index_page implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        $data = null;
+      global $CFG;
+        $data['wwwroot'] = $CFG->wwwroot;
 
         return $data;
     }
