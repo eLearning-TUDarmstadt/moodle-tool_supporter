@@ -43,19 +43,8 @@ class user_detail implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-
-      /*  // Some testing data
-        $userinformation = new \stdClass();
-        $userinformation->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
-        $userinformation->username = "username";
-        $userinformation->lastname = "lastname";
-        $userinformation->firstname = "firstname";
-        $userinformation->email = "someemailadress";
-        $userinformation->timecreated = 0;
-        $userinformation->timemodified = 0;*/
-
-      $array = null;
-      $data['userinformation'] = $array; //$userinformation;
-      return $data;
+        $array = null;
+        $data['userinformation'] = $array;
+        return $data;
     }
 }

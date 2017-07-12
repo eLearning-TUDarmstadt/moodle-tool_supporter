@@ -23,7 +23,6 @@
  */
 namespace tool_supporter\output;
 
-//require_once("$CFG->dirroot/user/externallib.php");
 require_once("$CFG->dirroot/config.php");
 
 use renderable;
@@ -47,9 +46,9 @@ class course_detail implements renderable, templatable {
      */
 
     public function export_for_template(renderer_base $output) {
-      // "Flattens" the data
-      $array = null;
-      $data = $array; //\tool_supporter\external::get_course_info('1');
-      return $data;
+
+        $array = null;
+        $data = $array;
+        return $data;
     }
 }

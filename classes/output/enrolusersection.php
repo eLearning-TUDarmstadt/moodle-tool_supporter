@@ -23,7 +23,6 @@
  */
 namespace tool_supporter\output;
 
-//require_once("$CFG->dirroot/user/externallib.php");
 require_once("$CFG->dirroot/config.php");
 
 use renderable;
@@ -40,16 +39,14 @@ class enrolusersection implements renderable, templatable {
      */
 
     public function export_for_template(renderer_base $output) {
-      // "Flattens" the data
 
-      $coursesRoles = new \stdClass();
-      // Some testing data
-      $coursesRoles->id = 1; //id, username, lastname, firstname, email, timecreated, timemodified
-      $coursesRoles->name = "student";
+        $coursesroles = new \stdClass();
+        // Some testing data.
+        $coursesroles->id = 1;
+        $coursesroles->name = "student";
 
-      $data['assignableRoles'] = $coursesRoles;
-      //echo "Data:";
-      //print_r($data);
-      return $data;
+        $data['assignableRoles'] = $coursesroles;
+
+        return $data;
     }
 }

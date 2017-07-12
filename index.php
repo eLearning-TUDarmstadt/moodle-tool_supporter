@@ -27,17 +27,13 @@ $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
 // Set up the page.
 $url = new moodle_url("/admin/tool/supporter/index.php");
-/*echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">';
-echo '<link rel="stylesheet" type="text/css" href="/admin/tool/supporter/style/datatables.css">';
-echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.js"></script>';
-echo '<script type="text/javascript" charset="utf8" src="/admin/tool/supporter/amd/src/datatables.responsive.js"></script>';*/
+
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
 
-//$PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap.css');
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/responsive.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/select.bootstrap4.css');
@@ -47,16 +43,16 @@ $PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
 $output = $PAGE->get_renderer('tool_supporter');
 
 $index = $output->render(new \tool_supporter\output\index_page());
-$user_table = $output->render(new \tool_supporter\output\user_table());
-$course_table = $output->render(new \tool_supporter\output\course_table());
-$create_new_course = $output->render(new \tool_supporter\output\create_new_course());
-$user_detail = $output->render(new \tool_supporter\output\user_detail());
-$course_detail = $output->render(new \tool_supporter\output\course_detail());
+$usertable = $output->render(new \tool_supporter\output\user_table());
+$coursetable = $output->render(new \tool_supporter\output\course_table());
+$createnewcourse = $output->render(new \tool_supporter\output\create_new_course());
+$userdetail = $output->render(new \tool_supporter\output\user_detail());
+$coursedetail = $output->render(new \tool_supporter\output\course_detail());
 
 echo $output->header();
 echo $index;
 
-echo $create_new_course;
+echo $createnewcourse;
 
 echo '
 
@@ -72,18 +68,18 @@ echo '
     <div class="row-fluid">
       <div class="span6 col-md-6">
         <div class="col-md-12">
-          '.$course_detail.'
+          '.$coursedetail.'
           </div>
         <div class="col-md-12">
-          '.$course_table.'
+          '.$coursetable.'
         </div>
       </div>
       <div class="span6 col-md-6">
         <div class="col-md-12">
-          '.$user_detail.'
+          '.$userdetail.'
           </div>
         <div class="col-md-12">
-          '.$user_table.'
+          '.$usertable.'
         </div>
       </div>
     </div>

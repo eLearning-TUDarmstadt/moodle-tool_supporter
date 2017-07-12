@@ -1,5 +1,3 @@
-/*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
-/*global define */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -30,18 +28,17 @@
 define(['jquery'], function($) {
 
     var filterTable = function(elements, otable, column){
-      var filterElements ='';
-      var string_value = '';
-      $(elements).each(function(index){
-        if($(this).val() === ""){string_value = '^(?![\\s\\S])';}
-        else {string_value = '\\b' + $(this).val();}
-        if (index  == elements.length -1){filterElements = filterElements +  string_value;}
-        // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string
-        else {filterElements = filterElements  + string_value + '|';}
-      });
-      otable.fnFilter(filterElements, column, true, false, false, true);
+        var filterElements = '';
+        var string_value = '';
+        $(elements).each(function(index){
+            if($(this).val() === ""){string_value = '^(?![\\s\\S])';}
+            else {string_value = '\\b' + $(this).val();}
+            if (index == elements.length - 1){filterElements = filterElements + string_value;}
+            // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string.
+            else {filterElements = filterElements + string_value + '|';}
+        });
+        otable.fnFilter(filterElements, column, true, false, false, true);
     };
-
 
     return /** @alias module:tool_supporter/table_filter */ {
 
@@ -55,12 +52,12 @@ define(['jquery'], function($) {
          * @param column: which column should be filtered
          */
         filterEvent: function(searchInputID, FormInput, column, tableID) {
-          //for radios
-          var otable = $(tableID).dataTable();
-          $(FormInput).change(function() {
-            var elements = $('input[name='+searchInputID+']:checked');
-            filterTable(elements, otable, column);
-          });
+            // For Radio Buttons.
+            var otable = $(tableID).dataTable();
+            $(FormInput).change(function() {
+                var elements = $('input[name=' + searchInputID + ']:checked');
+                filterTable(elements, otable, column);
+            });
         }
-      };
-  });
+    };
+});

@@ -14,47 +14,47 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* This Module provides a function to enrol a user into a course
-*
-* @module     tool_supporter/create_new_course
-* @package    tool_supporter
-* @copyright  2017 Benedikt Schneider
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-* @since      3.1.1
-*/
+ * This Module provides a function to enrol a user into a course
+ *
+ * @module     tool_supporter/create_new_course
+ * @package    tool_supporter
+ * @copyright  2017 Benedikt Schneider
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @since      3.1.1
+ */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
-   return /** @alias module:tool_supporter/create_new_course */ {
+    return /** @alias module:tool_supporter/create_new_course */ {
 
-       /**
-        * Enrol a user into a course
-        *
-        * The user and the course are selected and their ids are stored in the fields with the ids
-        * @param selectedcourseid, selecteduserid
-        *
-        * @method enroluserintocours
-        */
+        /**
+         * Enrol a user into a course
+         *
+         * The user and the course are selected and their ids are stored in the fields with the ids
+         * @param selectedcourseid, selecteduserid
+         *
+         * @method enroluserintocours
+         */
         enroluserintocourse: function() {
             $('#enroluserintocoursebutton').on('click', function() {
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_enrol_user_into_course',
                     args: {
-                      userid: $('#selecteduserid')[0].textContent,
-                      courseid: $('#selectedcourseid')[0].textContent,
-                      roleid: $('#role-dropdown')[0].value
+                        userid: $('#selecteduserid')[0].textContent,
+                        courseid: $('#selectedcourseid')[0].textContent,
+                        roleid: $('#role-dropdown')[0].value
                     }
                 }]);
 
                 promises[0].done(function(course) {
-                  console.log("promise is done with return data: ");
-                  console.log(course);
+                    console.log("promise is done with return data: ");
+                    console.log(course);
 
-                  //Re-render the template to show the changes
-                  templates.render('tool_supporter/course_detail', course).done(function(html, js) {
-                    $('[data-region="course_details"]').replaceWith(html);
-                    $('[data-region="course_details"]').show();
-                    templates.runTemplateJS(js);
-                  }).fail(notification.exception);
+                    // Re-render the template to show the changes.
+                    templates.render('tool_supporter/course_detail', course).done(function(html, js) {
+                        $('[data-region="course_details"]').replaceWith(html);
+                        $('[data-region="course_details"]').show();
+                        templates.runTemplateJS(js);
+                    }).fail(notification.exception);
 
                 }).fail(notification.exception);
             });

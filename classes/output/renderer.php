@@ -43,38 +43,38 @@ class renderer extends plugin_renderer_base {
      *
      * @return string html for the page
      */
-    public function render_index_page($page) { //index_page: type of renderable; "render" muss immer davor
+    public function render_index_page($page) {
         $data = $page->export_for_template($this);
         return parent::render_from_template('tool_supporter/index_page', $data);
     }
 
-    public function render_user_table($user) { //user_table: type of renderable; "render" muss immer davor
+    public function render_user_table($user) {
         $data = $user->export_for_template($this);
         return parent::render_from_template('tool_supporter/user_table', $data);
     }
 
-    public function render_course_table($course) { //course_table: type of renderable; "render" muss immer davor
+    public function render_course_table($course) {
         $data = $course->export_for_template($this);
         return parent::render_from_template('tool_supporter/course_table', $data);
     }
 
-    public function render_course_detail($course_detail) { //course_table: type of renderable; "render" muss immer davor
-        $data = $course_detail->export_for_template($this);
+    public function render_course_detail($coursedetail) {
+        $data = $coursedetail->export_for_template($this);
         return parent::render_from_template('tool_supporter/course_detail', $data);
     }
 
-    public function render_create_new_course($create_new_course) { //create_new_course: type of renderable; "render" muss immer davor
-        $data = $create_new_course->export_for_template($this);
+    public function render_create_new_course($createnewcourse) {
+        $data = $createnewcourse->export_for_template($this);
         return parent::render_from_template('tool_supporter/create_new_course', $data);
     }
 
-    public function render_user_detail($user_detail) {
-        $data = $user_detail->export_for_template($this);
+    public function render_user_detail($userdetail) {
+        $data = $userdetail->export_for_template($this);
         return parent::render_from_template('tool_supporter/user_detail', $data);
     }
 
-    public function render_get_user_information_courses($get_user_information) {
-        $data = $get_user_information->export_for_template($this);
+    public function render_get_user_information_courses($getuserinformation) {
+        $data = $getuserinformation->export_for_template($this);
         return parent::render_from_template('tool_supporter/get_user_information', $data);
     }
 

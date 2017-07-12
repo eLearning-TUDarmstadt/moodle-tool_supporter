@@ -49,13 +49,13 @@ class create_new_course implements renderable, templatable {
         $categoriesnamearray = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
         foreach ($categoriespath as $row) {
-          $row->path = substr($row->path, 1); // delete first "/"
-          $path = explode("/", $row->path);
-          $row->name = '';
-          foreach ($path as $entry) { //get name for each /path/-element
-            $row->name = " / ".$row->name . $categoriesnamearray[$entry];
-          }
-          $categories[] = (array)$row;
+            $row->path = substr($row->path, 1); // Delete first Slash.
+            $path = explode("/", $row->path);
+            $row->name = '';
+            foreach ($path as $entry) { // Get name for each /path/-element.
+                $row->name = " / ".$row->name . $categoriesnamearray[$entry];
+            }
+            $categories[] = (array)$row;
         }
         $data['categories'] = $categories;
         return $data;

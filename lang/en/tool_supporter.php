@@ -26,7 +26,7 @@
  $string['pluginname'] = 'Supporter';
  $string['semester'] = 'Semester';
  $string['search'] = 'Search...';
- 
-//These two probably already are somewhere
+
+// These two probably already are somewhere.
  $string['timecreateduser'] = 'User was created on';
  $string['timemodifieduser'] = 'User was last modified on';

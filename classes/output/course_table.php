@@ -37,9 +37,9 @@ class course_table implements renderable, templatable {
      */
 
     public function export_for_template(renderer_base $output) {
-      // "Flattens" the data
-      $array[] = null;
-      $data = \tool_supporter\external::get_courses();
-      return $data;
+
+        $array[] = null;
+        $data = \tool_supporter\external::get_courses();
+        return $data;
     }
 }

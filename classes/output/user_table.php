@@ -43,11 +43,9 @@ class user_table implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        // "Flattens" the data
+
         $array[] = null;
-        //echo "in export_for_template user_table";
         $data = \tool_supporter\external::get_users();
-      //  echo "<pre>" . print_r($data, true) . "</pre>";
         return $data;
     }
 }
