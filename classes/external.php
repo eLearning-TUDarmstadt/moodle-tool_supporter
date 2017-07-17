@@ -248,6 +248,10 @@ class external extends external_api {
         $userinformationarray = $userinformationarray[0]; // We only retrieved one user.
 
         $usercourses = enrol_get_users_courses($userid); // Important Output: id, category, shortname, fullname, startdate, visible.
+        
+        //Get assignable roles with correct role name
+        $coursecontext = \context_course::instance(1);    
+        $assignableroles = \get_assignable_roles($coursecontext);
 
         // Get an array of categories [id]=>[name].
         $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
@@ -273,9 +277,9 @@ class external extends external_api {
 
             // Get the used Roles the user is enrolled as (teacher, student, ...).
             $context = \context_course::instance($course->id);
-            $usedroles = get_user_roles($context, $userid);
+            $usedroles = get_user_roles($context, $userid);           
             foreach ($usedroles as $role) {
-                $course->roles[] = $role->shortname;
+                $course->roles[] = $assignableroles[$role->roleid];
             }
             $usercoursesarray[] = (array)$course; // Cast it as an array.
         }
@@ -468,10 +472,7 @@ class external extends external_api {
         $coursedetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
         // Get assignable roles in the course.
-        require_once($CFG->dirroot.'/enrol/locallib.php');
-        $course = get_course($courseid);
-        $manager = new \course_enrolment_manager($PAGE, $course);
-        $usedrolesincourse = $manager->get_assignable_roles();
+        $usedrolesincourse = get_assignable_roles($coursecontext);
 
         // Which roles are used and how many users have this role?
         $roles = array();
