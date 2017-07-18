@@ -247,7 +247,7 @@ class external extends external_api {
         }
         $userinformationarray = $userinformationarray[0]; // We only retrieved one user.
 
-        $usercourses = enrol_get_users_courses($userid); // Important Output: id, category, shortname, fullname, startdate, visible.
+        $usercourses = enrol_get_users_courses($userid, false, $fields = 'id, category, shortname, fullname, startdate, visible'); // Important Output: id, category, shortname, fullname, startdate, visible.
         
         //Get assignable roles with correct role name
         $coursecontext = \context_course::instance(1);    
@@ -462,12 +462,22 @@ class external extends external_api {
         \require_capability('moodle/course:update', $coursecontext);
 
         // Get information about the course.
-        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, (
+        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, cat.path AS path, (
             SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester
             FROM {course} c, {course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
 
+        //Get whole course-path
+        $parentCategoriesIDs = explode('/', $coursedetails['path']);
+        $parentCategoriesNames = [];
+        foreach($parentCategoriesIDs as $p){
+            $temp= $DB->get_field('course_categories', 'name', array('id' => $p), $strictness=IGNORE_MISSING);
+            $parentCategoriesNames[] = $temp;
+        }
+        $pathCategories = implode('/', $parentCategoriesNames);
+        $coursedetails['path'] = $pathCategories;
+        
         // How many students are enrolled in the course?
         $coursedetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
@@ -547,6 +557,7 @@ class external extends external_api {
                 'fullname' => new external_value(PARAM_RAW, 'course name'),
                 'visible' => new external_value(PARAM_BOOL, 'Is the course visible?'),
                 'fb' => new external_value(PARAM_RAW, 'course category'),
+                'path' => new external_value(PARAM_RAW, 'path to course'),
                 'semester' => new external_value(PARAM_RAW, 'parent category'),
                 'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers')
             )),
