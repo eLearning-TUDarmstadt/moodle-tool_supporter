@@ -46,6 +46,27 @@ use invalid_parameter_exception;
  */
 class external extends external_api {
 
+     public static function get_sesskey() {
+     global $USER, $CFG;
+     $data['basisurl'] = $CFG->wwwroot;
+     $data['sesskey'] = $USER->sesskey;
+     return $data;
+     }
+     
+     public static function get_sesskey_returns() {
+       return new external_single_structure(
+                array(
+                    'sesskey' => new external_value(PARAM_RAW, 'sesskey'),
+                    'basisurl' => new external_value(PARAM_RAW, 'basisurl')
+            ));
+    }
+    
+     public static function get_sesskey_parameters() {
+        return new external_function_parameters (
+        array (
+        ));
+    }
+    
     /**
      * @return description of input parameters
      */

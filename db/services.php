@@ -94,5 +94,14 @@ $functions = array(
         'type'        => 'read',
         'ajax'        => true,
         'capabilities' => 'moodle/category:manage'
-    )
+    ),
+    'tool_supporter_get_sesskey' => array(         // Web service function name.
+        'classname'   => 'tool_supporter\external',  // Class containing the external function.
+        'methodname'  => 'get_sesskey',          // External function name.
+        'classpath'   => 'tool/supporter/classes/external.php',  // File containing the class/external function.
+        'description' => 'Get sesskey',    // Human readable description of the web service function.
+        'type'        => 'read',                  // Database rights of the web service function (read, write).
+        'ajax'        => true,
+        'capabilities' => 'moodle/user:loginas'
+    ),
 );
