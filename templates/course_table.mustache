@@ -54,7 +54,7 @@
   </ul>
 -->
 
-  <div class="table-responsive">
+<!--  <div class="table-responsive">
   <table id = "{{uniqid}}-courseTable" class = "datatable stripe hover row-border compact" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -78,10 +78,42 @@
     </tbody>
   </table>
   </div>
+</div> -->
+
+ <div class="table-responsive">
+  <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>ID  </th>
+        <th>{{#str}}fullnamecourse{{/str}}  </th>
+        <th>{{#str}}department{{/str}}  </th>
+        <th>{{#str}}semester, tool_supporter{{/str}}  </th>
+        <th>{{#str}}visible{{/str}}  </th>
+      </tr>
+    </thead>
+  </table>
+  </div>
 </div>
 
 {{#js}}
- require(['tool_supporter/load_information'], function(click_on_course){
+ require(['tool_supporter/load_information', 'jquery','core/ajax', 'core/notification'], function(click_on_course, $, ajax, notification){
    click_on_course.click_on_course('#{{uniqid}}-courseTable' + ' tbody'); //Load information about the clicked course
- });
+   var promises = ajax.call([
+        { methodname: 'tool_supporter_get_sesskey', args: {} },
+    ]);
+   promises[0].done(function(response) {
+        console.log(response);
+      $('#{{uniqid}}-courseTable').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": response['basisurl'] + "/lib/ajax/service.php?sesskey=" + response['sesskey'] + "&info=tool_supporter_get_courses",
+            "type": "POST"
+            }
+    } );
+   }).fail(notification.exception);
+
+   //var sesskey = "<?php echo $USER->sesskey; ?>";
+   
+  });
 {{/js}}
