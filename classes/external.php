@@ -48,6 +48,8 @@ class external extends external_api {
 
      public static function get_sesskey() {
      global $USER, $CFG;
+     $systemcontext = \context_system::instance();
+     self::validate_context($systemcontext);
      $data['basisurl'] = $CFG->wwwroot;
      $data['sesskey'] = $USER->sesskey;
      return $data;
@@ -66,6 +68,7 @@ class external extends external_api {
         array (
         ));
     }
+    
     
     /**
      * @return description of input parameters
@@ -368,6 +371,14 @@ class external extends external_api {
 
     // ------------------------------------------------------------------------------------------------------------------------
 
+            /**
+     * @return description of input parameters
+     */
+    public static function get_users_parameters() {
+        return new external_function_parameters(
+            array());
+    }
+    
     /**
      * Wrapper for core function get_users
      * Gets every moodle user
@@ -379,6 +390,7 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
 
+        $users = array();
         $recordset = $DB->get_recordset('user', null, null, 'id, username, firstname, lastname, email' );
         foreach ($recordset as $record) {
             $users[] = (array)$record;
@@ -394,19 +406,29 @@ class external extends external_api {
      * @return an array of users
      **/
     public static function get_users_returns() {
-        return new external_multiple_structure(
-            new external_single_structure(
+     return new external_single_structure(
                 array(
-                    'id' => new external_value(PARAM_INT, 'id of user'),
-                    'username' => new external_value(PARAM_RAW, 'username of user'),
-                    'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
-                    'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
-                    'email' => new external_value(PARAM_RAW, 'email adress of user')
-            )));
+                'users' => new external_multiple_structure(
+                    new external_single_structure(
+                        array(
+                        'id' => new external_value(PARAM_INT, 'id of user'),
+                        'username' => new external_value(PARAM_RAW, 'username of user'),
+                        'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
+                        'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
+                        'email' => new external_value(PARAM_RAW, 'email adress of user')
+                        )))
+            ));
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
 
+        /**
+     * @return description of input parameters
+     */
+    public static function get_courses_parameters() {
+        return new external_function_parameters(
+            array());
+    }
     /**
      * Wrapper for core function get_courses
      *
@@ -415,13 +437,14 @@ class external extends external_api {
     public static function get_courses() {
         global $DB;
 
+        self::validate_parameters(self::get_courses_parameters(), array());
         $context = \context_system::instance();
         self::validate_context($context);
         // Is the closest to the needed capability. Is used in /course/management.php.
-        \require_capability('moodle/category:manage', $context);
-
-        $select = 'SELECT c.id, c.fullname, c.visible, cat.name AS fb, (
-            SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester
+        \require_capability('moodle/course:viewhiddencourses', $context);
+        
+        $courses = array();
+        $select = 'SELECT c.id, c.fullname,(SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester, cat.name AS fb, c.visible
             FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
         $rs = $DB->get_recordset_sql($select);
         foreach ($rs as $record) {
@@ -438,18 +461,20 @@ class external extends external_api {
      * @return an array of courses
      */
     public static function get_courses_returns() {
-        return new external_multiple_structure(
-            new external_single_structure(
+      return new external_single_structure(
                 array(
-                    'id' => new external_value(PARAM_INT, 'id of course'),
-                    'semester' => new external_value(PARAM_RAW, 'parent category'),
-                    'FB' => new external_value(PARAM_RAW, 'course category'),
-                    'fullname' => new external_value(PARAM_RAW, 'course name'),
-                    'visible' => new external_value(PARAM_RAW, 'Is the course visible?')
-                )
-            )
-        );
+                'courses' => new external_multiple_structure(
+                    new external_single_structure(
+                        array(
+                        'id' => new external_value(PARAM_INT, 'id of course'),
+                        'fullname' => new external_value(PARAM_RAW, 'course name'),
+                        'semester' => new external_value(PARAM_RAW,  'parent category'),
+                        'fb' => new external_value(PARAM_RAW, 'course category'),
+                        'visible' => new external_value(PARAM_INT, 'Is the course visible')
+                        )))
+              ));
     }
+    
 
     // ------------------------------------------------------------------------------------------------------------------------
 
@@ -666,7 +691,7 @@ class external extends external_api {
      * @return the assignable Roles
      */
     public static function get_assignable_roles_returns() {
-        new external_single_structure( array(
+       return new external_single_structure( array(
             'assignableRoles' => new external_multiple_structure(
                 new external_single_structure( array(
                     'id' => new external_value(PARAM_INT, 'id of the role'),
