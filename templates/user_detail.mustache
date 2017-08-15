@@ -172,18 +172,20 @@
         </a></p></li>
       </ul>
     </div> -->
-<div style="display: none" data-region="user_details" class="well well-sm">
+<div style="display: none" id = "user_details" data-region="user_details" class="well well-sm">
   <ul class="nav nav-pills">
-            <li class="active"><a href="{{edituserlink}}" target="_blank"><b>{{#userinformation}}{{username}}{{/userinformation}}</b></a></li>
-            <li class = "pull-right" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
-              <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
-            </a></p></li>
-            <li class = "pull-right" data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
-              <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
-            </a></p></li>
-            <li class = "pull-right" data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
-              <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
-            </a></p></li>
+            <li class="navbar-brand nav-item active"><a href={{edituserlink}}" target="_blank"><b>{{#userinformation}}{{username}}{{/userinformation}}</b></a></li>
+            <div class="btn-group pull-right" role="group">
+                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
+                  <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
+                </a></p></li>
+                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
+                  <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
+                </a></p></li>
+                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
+                  <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
+                </a></p></li>
+            </div>
     </ul>
 
 <br>
@@ -229,20 +231,20 @@
 
   <div>
     <ul class="nav nav-tabs nav-justified">
-      <li class = "nav-item"><a><b>{{#str}}courses{{/str}}</b></a></li>
-      <li class="dropdown">
-        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department{{/str}}<span class="caret"></span></a>
+      <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
+      <li class="nav-item dropdown">
+        <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department{{/str}}<span class="caret"></span></a>
         <ul class="dropdown-menu" id="departmentdropdown">
           {{#uniquecategoryname}}
-          <li><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
+          <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li><!--filter course list by selecting wanted parent-->
           {{/uniquecategoryname}}
         </ul>
       </li>
-      <li class="dropdown">
-        <a class = "dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
+      <li class="nav-item dropdown">
+        <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
         <ul class="dropdown-menu" id="semesterdropdown">
           {{#uniqueparentcategory}}
-          <li><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
+          <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li> <!--filter course list by selecting wanted grand parent-->
           {{/uniqueparentcategory}}
         </ul>
       </li>
