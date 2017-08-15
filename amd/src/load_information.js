@@ -83,7 +83,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         show_course_detail: function(course_id) {
 
             // Go to top.
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            var position = $("#course_details").offset().top;
+            $("html, body").animate({ scrollTop: position - 50 }, "slow");
+            //$("html, body").animate({ scrollTop: 0 }, "slow");
 
             var promise = ajax.call([{
                 methodname: 'tool_supporter_get_course_info',
@@ -159,7 +161,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var user_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
 
                 // Go to top.
-                $("html, body").animate({ scrollTop: 0 }, "slow");
+                var position = $("#user_details").offset().top;
+                $("html, body").animate({ scrollTop: position - 50}, "slow");
+                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_get_user_information',
@@ -199,7 +203,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 show_course_detail_private(course_id);
             });
-        }
+        } 
     };
 
     // Alias module:tool_supporter/load_information.
