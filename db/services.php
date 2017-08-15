@@ -93,7 +93,17 @@ $functions = array(
         'description' => 'get all courses',
         'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => 'moodle/category:manage'
+        'capabilities' => 'moodle/course:viewhiddencourses'
+    ),
+    
+        'tool_supporter_get_courses_test' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'get_courses_test',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'get all courses',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capabilities' => 'moodle/course:viewhiddencourses'
     ),
     'tool_supporter_get_sesskey' => array(         // Web service function name.
         'classname'   => 'tool_supporter\external',  // Class containing the external function.

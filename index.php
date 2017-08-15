@@ -50,9 +50,6 @@ $userdetail = $output->render(new \tool_supporter\output\user_detail());
 $coursedetail = $output->render(new \tool_supporter\output\course_detail());
 
 echo $output->header();
-echo $index;
-
-echo $createnewcourse;
 
 echo '
 
@@ -63,28 +60,30 @@ echo '
 </style>
 
 <div class="container-fluid">
-<div class="row-fluid">
   <div class="col-md-12">
-    <div class="row-fluid">
-      <div class="span6 col-md-6">
+    <div class="col-md-12">
+        '.$index.'
+    </div>
+    <div class="span6 col-md-6">
+        <div class="col-md-12">
+          '.$createnewcourse.'
+        </div>
         <div class="col-md-12">
           '.$coursedetail.'
-          </div>
+        </div>
         <div class="col-md-12">
           '.$coursetable.'
         </div>
-      </div>
-      <div class="span6 col-md-6">
+    </div>
+    <div class="span6 col-md-6">
         <div class="col-md-12">
           '.$userdetail.'
-          </div>
+        </div>
         <div class="col-md-12">
           '.$usertable.'
         </div>
-      </div>
     </div>
   </div>
-</div>
 </div>
 ';
 

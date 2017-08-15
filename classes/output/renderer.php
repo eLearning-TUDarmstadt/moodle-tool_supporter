@@ -80,7 +80,6 @@ class renderer extends plugin_renderer_base {
 
     public function render_enrolusersection($enrolusersection) {
         $data = $enrolusersection->export_for_template($this);
-        console.log("Renderer wurde aufgerufen");
         return parent::render_from_template('tool_supporter/enrolusersection', $data);
     }
 }

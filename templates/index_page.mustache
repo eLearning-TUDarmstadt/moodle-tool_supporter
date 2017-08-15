@@ -20,17 +20,34 @@
     Template which displays the Header / Navbar of the supporter
 
 }}
-<div class="navbar">
+<!-- <div class="navbar">
   <div class="navbar-inner">
     <a class="brand" href={{wwwroot}}>{{#pix}} f/moodle, core, {{/pix}}</a>
     <a class="brand" href="#">Supporter</a>
     <ul class="nav">
-      <li><p class="navbar-btn">
+      <li class = "pull-right"><p class="navbar-btn">
         <a href="#" class="btn btn-default" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</a>
       </p></li>
     </ul>
   </div>
-</div>
+</div> -->
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class = "navbar-header">
+        <a class="navbar-brand" href={{wwwroot}}>{{#pix}} f/moodle, core, {{/pix}}  </a>
+        <a class="navbar-brand" href="#">Supporter</a>
+      </div>
+    <ul class="nav navbar-nav">
+      <li class = "pull-right">
+        <p class="navbar-btn">
+          <button href="#" class="btn btn-default" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
+        </p>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 {{#js}}
 require(['tool_supporter/create_new_course'], function(show_new_course){
   show_new_course.show_new_course();

@@ -42,14 +42,14 @@
     )
 
 }}
-<div style="display: none" data-region="user_table"  class="well well-sm">
+<div data-region="user_table"  class="well well-sm">
   <!--
   <form class = "navbar-search pull-left">
     <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
   </form>
 -->
 
-  <div class="table-responsive">
+ <!-- <div class="table-responsive">
   <table class = "datatable stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -72,13 +72,78 @@
       {{/users}}
     </tbody>
   </table>
-  </div>
+  </div> -->
+ 
+ <div class="table-responsive">
+  <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>ID  </th>
+        <th>{{#str}}username{{/str}}  </th>
+        <th>{{#str}}firstname{{/str}}  </th>
+        <th>{{#str}}lastname{{/str}}  </th>
+        <th>{{#str}}email{{/str}}  </th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
 </div>
 
 {{#js}}
- require(['tool_supporter/load_information'],
-        function(click_on_user){
-   click_on_user.click_on_user('#{{uniqid}}-userTable' + ' tbody'); //Load information about the clicked user
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'], 
+function(load_information, $, ajax, notification, templates, datatables){
+ 
+
+var columns1 = [
+                 { data: 'id' },
+                 { data: 'username' },
+                 { data: 'firstname' },
+                 { data: 'lastname' },
+                 { data: 'email' }
+             ];
+//dataTable_ajax: function(tableID, methodname, args, datainfo, columns)
+ datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users',{}, 'users', columns1);
+   
+
+ /*var promise = ajax.call([{
+                "methodname": 'tool_supporter_get_users',
+                args: {}
+    }]);        
+   
+    var otable;
+    promise[0].done(function(data) {
+         console.log(data.users);
+
+         otable = $('#{{uniqid}}-userTable').DataTable( {
+             "data": data.users,
+             "columns":[
+                 { data: 'id' },
+                 { data: 'username' },
+                 { data: 'firstname' },
+                 { data: 'lastname' },
+                 { data: 'email' }
+             ],
+             "retrieve": true, //So the table can be accessed after initialization
+             "responsive": true,
+             "lengthChange": false,
+             "pageLength": 30,
+             "language": {
+                 //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
+                  'info': ""
+                  //'search': searchString+": "
+                 },
+              "dom": "<'w-100'<'col'f>>" +
+                   "<'w-100'<'col't>>" +
+                   "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
+             "paging": true,
+             "pagingType": "numbers",
+             "scrollX": true
+         });
+  }).fail(notification.exception);*/
+        
+   load_information.click_on_user('#{{uniqid}}-userTable tbody'); //Load information about the clicked user
 
  });
 {{/js}}

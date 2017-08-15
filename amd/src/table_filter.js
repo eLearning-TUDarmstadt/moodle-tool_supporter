@@ -46,16 +46,16 @@ define(['jquery'], function($) {
          * Filtering the table with the appropiate form!
          *
          * @method FilterEvent
-         * @param searchInputID, tableID
-         * @param tableID: ID of the table or part of the table you want to filter
-         * @param FormInput: The selected Filtering Term
-         * @param column: which column should be filtered
+         * @param searchInputName : Name of the input fields you want to use as filter parameters. All fields have to have the same name. Here: The dropdown menu entries
+         * @param tableID : ID of the table or part of the table you want to filter
+         * @param FormInput : The ID of the dropdownmenu or something similiary you want to use to filter the table
+         * @param column : which column should be filtered
          */
-        filterEvent: function(searchInputID, FormInput, column, tableID) {
+        filterEvent: function(searchInputName, FormInput, column, tableID) {
             // For Radio Buttons.
             var otable = $(tableID).dataTable();
             $(FormInput).change(function() {
-                var elements = $('input[name=' + searchInputID + ']:checked');
+                var elements = $('input[name=' + searchInputName + ']:checked');
                 filterTable(elements, otable, column);
             });
         }

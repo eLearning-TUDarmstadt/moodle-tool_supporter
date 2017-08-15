@@ -45,7 +45,7 @@
     )
 
 }}
-<div style="display: none" data-region="course_table"  class="well well-sm">
+<div data-region="course_table"  class="well well-sm">
   <!--
   <ul class="nav nav-pills">
     <li class = "navbar-search pull-left">
@@ -54,7 +54,7 @@
   </ul>
 -->
 
-<!--  <div class="table-responsive">
+ <!--<div class="table-responsive">
   <table id = "{{uniqid}}-courseTable" class = "datatable stripe hover row-border compact" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -80,7 +80,7 @@
   </div>
 </div> -->
 
- <div class="table-responsive">
+<div>
   <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -91,29 +91,66 @@
         <th>{{#str}}visible{{/str}}  </th>
       </tr>
     </thead>
+    <tbody>     
+    </tbody>
   </table>
   </div>
 </div>
 
 {{#js}}
- require(['tool_supporter/load_information', 'jquery','core/ajax', 'core/notification'], function(click_on_course, $, ajax, notification){
-   click_on_course.click_on_course('#{{uniqid}}-courseTable' + ' tbody'); //Load information about the clicked course
-   var promises = ajax.call([
-        { methodname: 'tool_supporter_get_sesskey', args: {} },
-    ]);
-   promises[0].done(function(response) {
-        console.log(response);
-      $('#{{uniqid}}-courseTable').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": response['basisurl'] + "/lib/ajax/service.php?sesskey=" + response['sesskey'] + "&info=tool_supporter_get_courses",
-            "type": "POST"
-            }
-    } );
-   }).fail(notification.exception);
-
-   //var sesskey = "<?php echo $USER->sesskey; ?>";
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'], 
+    function(load_information, $, ajax, notification, templates, datatables){
+ 
+//console.log(datatables);
+//load_information.get_courses_2('#{{uniqid}}-courseTable');
+var columns1 = [
+                { data: 'id' },
+                { data: 'fullname' },
+                { data: 'fb' },
+                { data: 'semester' },
+                { data: 'visible' }
+            ];
+//dataTable_ajax: function(tableID, methodname, args, datainfo, columns)
+ datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
+ 
+ 
+ /*var promise = ajax.call([{
+                "methodname": 'tool_supporter_get_courses',
+                args: {}
+            }]);
    
+
+   promise[0].done(function(data) {
+     console.log(data.courses);   
+    $('#{{uniqid}}-courseTable').DataTable( {
+            "data": data.courses,
+            "columns":[
+                { data: 'id' },
+                { data: 'fullname' },
+                { data: 'fb' },
+                { data: 'semester' },
+                { data: 'visible' }
+            ],
+            "retrieve": true, //So the table can be accessed after initialization
+            "responsive": true,
+            "lengthChange": false,
+            "pageLength": 30,
+            "language": {
+                //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
+                 'info': ""
+                 //'search': searchString+": "
+                },
+             "dom": "<'w-100'<'col'f>>" +
+                  "<'w-100'<'col't>>" +
+                  "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
+            "paging": true,
+            "pagingType": "numbers",
+            "scrollX": true
+        });
+ }).fail(notification.exception);*/
+
+            
+  load_information.click_on_course('#{{uniqid}}-courseTable tbody'); //Load information about the clicked course
+     
   });
 {{/js}}
