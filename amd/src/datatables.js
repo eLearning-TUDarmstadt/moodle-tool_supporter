@@ -50,10 +50,10 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
               'search': searchString+": ",
               'lengthMenu': "_MENU_"
             },
-            /*"dom": "<'w-100'<'col'f>>" +
+            "dom": "<'w-100'<'col'f>>" +
               "<'w-100'<'col't>>" +
-              "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",*/
-            "dom": '<lf>t<ip>',
+              "<'w-100'<'col-sm-3'i><'col-sm-6'p><'col-sm-3'l>>",
+            /*"dom": '<f>t<ipl>',*/
             "paging": true,
             "pagingType": "numbers",
             "scrollX": "true"
@@ -98,10 +98,10 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
                       'search': searchString+": ",
                       'lengthMenu': "_MENU_"
                      },
-                  /*"dom": "<'w-100'<'col'f>>" +
-                       "<'w-100'<'col't>>" +
-                       "<'w-100'<'col-sm-5'i><'col-sm-6'p><'col-sm-1'l>>",*/
-                "dom": '<lf>t<ip>',
+                  "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12't>>" +
+                        "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
+                /*"dom": '<f>t<ipl>',*/
                  "paging": true,
                  "pagingType": "numbers",
                  "lengthMenu": [ 10, 25, 50, 75, 100 ],
