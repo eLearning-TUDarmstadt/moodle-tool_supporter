@@ -21,6 +21,7 @@
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+ $string['toolsupporter'] = 'toolsupporter';   
 
  $string['pagetitle'] = 'This is the tool for supporters!';
  $string['pluginname'] = 'Supporter';
