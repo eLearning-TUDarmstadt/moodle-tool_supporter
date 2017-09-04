@@ -25,8 +25,10 @@ div.dataTables_wrapper div.dataTables_length label {
   white-space: nowrap;
 }
 div.dataTables_wrapper div.dataTables_length select {
-  width: 75px;
+  width: 50px;
   display: inline-block;
+  margin: 0.5em;
+  white-space: nowrap;
 }
 div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
@@ -38,8 +40,11 @@ div.dataTables_wrapper div.dataTables_filter label {
 }
 div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
   display: inline-block;
   width: auto;
+  border-radius: 0.3em;
 }
 div.dataTables_wrapper div.dataTables_info {
   padding-top: 0.85em;

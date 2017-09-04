@@ -281,6 +281,9 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_length {
   float: left;
+  text-align: center; /*new*/
+  box-sizing: border-box; /*new*/
+  display: inline-block; /*new*/
 }
 .dataTables_wrapper .dataTables_filter {
   float: right;
@@ -295,7 +298,7 @@ table.dataTable td {
   padding-top: 0.755em;
 }
 .dataTables_wrapper .dataTables_paginate {
-  float: inherit; /*right;*/
+  float: initial; /*right;*/
   text-align: center;
   padding-top: 0.25em;
 }
