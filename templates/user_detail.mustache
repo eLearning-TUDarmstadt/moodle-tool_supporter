@@ -172,26 +172,27 @@
         </a></p></li>
       </ul>
     </div> -->
-<div style="display: none" id = "user_details" data-region="user_details" class="well well-sm">
-  <ul class="nav nav-pills">
-            <li class="navbar-brand nav-item active"><a href={{edituserlink}}" target="_blank"><b>{{#userinformation}}{{username}}{{/userinformation}}</b></a></li>
-            <div class="btn-group pull-right" role="group">
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
-                  <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
-                </a></p></li>
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
-                  <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
-                </a></p></li>
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
-                  <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
-                </a></p></li>
-            </div>
-    </ul>
+<div style="display: none" id = "user_details" data-region="user_details" class="card">
+    <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+                  <li class="navbar-brand nav-item active"><a href={{edituserlink}}" target="_blank"><b>{{#userinformation}}{{username}}{{/userinformation}}</b></a></li>
+                  <div class="btn-group pull-right" role="group">
+                      <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_user_details">
+                        <span>{{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}</span>
+                      </a></p></li>
+                      <li class = "nav-item" data-toggle="tooltip" title="{{#str}}edituser{{/str}}"><p class="navbar-btn"><a href="{{edituserlink}}" target="_blank" class="btn btn-default">
+                        <span>{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}</span>
+                      </a></p></li>
+                      <li class = "nav-item" data-toggle="tooltip" title="{{#str}}loginas{{/str}}"><p class="navbar-btn"><a href="{{loginaslink}}" target="_blank" class="btn btn-default">
+                        <span>{{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}</span>
+                      </a></p></li>
+                  </div>
+          </ul>
+    </div>
 
-<br>
 <!-- Enrol the user into the course -->
 {{> tool_supporter/enrolusersection}}
-
+ <div class="card-block">
 <!--Show user details  -->
     <table class = "table table borderless">
       <tbody>
@@ -277,6 +278,7 @@
       </tbody>
     </table>
     </div>
+ </div>
 </div>
 
 

@@ -26,13 +26,12 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
     'tool/supporter:view' => array(
         'captype' => 'read',
-	'contextlevel' => CONTEXT_SYSTEM,
-	'archetypes' => array(
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
             'manager' => CAP_ALLOW,
             'coursecreator'  => CAP_ALLOW
-	),
-		
-	'clonepermissionsfrom' => 'moodle/site:config',
+        ),
+        'clonepermissionsfrom' => 'moodle/site:config',
         'clonepermissionsfrom' => 'coursereport/log:view',
     ),
     'tool/supporter:viewtoday' => array(

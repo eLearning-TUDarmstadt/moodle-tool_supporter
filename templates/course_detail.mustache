@@ -184,8 +184,8 @@
   <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
         <!--table of users in this course-->
-      <div>
-        <table class = "table table-responsive stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+      <div class = "table table-responsive">
+        <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -210,10 +210,10 @@
       </div>
     </div>
 
-    <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
+    <div id="CoursePill_2" class="tab-pane" role="tabpanel">
       <!--table of activites in this course-->
-      <div>
-        <table class = "table table-responsive stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+      <div class = "table table-responsive">
+        <table class = "stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>

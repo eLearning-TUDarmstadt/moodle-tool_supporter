@@ -21,7 +21,7 @@
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- $string['toolsupporter'] = 'toolsupporter';   
+ $string['toolsupporter'] = 'toolsupporter';
 
  $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
  $string['pluginname'] = 'Supporter';

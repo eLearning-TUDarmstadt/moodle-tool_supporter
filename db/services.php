@@ -21,6 +21,9 @@
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die;
+
 $functions = array(
 
     'tool_supporter_create_new_course' => array(         // Web service function name.
@@ -93,10 +96,9 @@ $functions = array(
         'description' => 'get all courses',
         'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => 'moodle/course:viewhiddencourses'
+           'capabilities' => 'moodle/course:viewhiddencourses'
     ),
-    
-        'tool_supporter_get_courses_test' => array(
+    'tool_supporter_get_courses_test' => array(
         'classname'   => 'tool_supporter\external',
         'methodname'  => 'get_courses_test',
         'classpath'   => 'tool/supporter/classes/external.php',

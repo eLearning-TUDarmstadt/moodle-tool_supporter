@@ -23,6 +23,8 @@
  */
 namespace tool_supporter\output;
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/user/externallib.php");
 

@@ -23,6 +23,8 @@
  */
 namespace tool_supporter;
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
@@ -46,13 +48,13 @@ use invalid_parameter_exception;
  */
 class external extends external_api {
 
-    public static function egt_sesskey() {
-    global $USER, $CFG;
-    $systemcontext = \context_system::instance();
-    self::validate_context($systemcontext);
-    $data['basisurl'] = $CFG->wwwroot;
-    $data['sesskey'] = $USER->sesskey;
-    return $data;
+    public static function get_sesskey() {
+        global $USER, $CFG;
+        $systemcontext = \context_system::instance();
+        self::validate_context($systemcontext);
+        $data['basisurl'] = $CFG->wwwroot;
+        $data['sesskey'] = $USER->sesskey;
+        return $data;
     }
 
     public static function get_sesskey_returns() {
@@ -62,13 +64,13 @@ class external extends external_api {
                 'basisurl' => new external_value(PARAM_RAW, 'basisurl')
             ));
     }
-    
+
     public static function get_sesskey_parameters() {
         return new external_function_parameters (
             array (
         ));
     }
-    
+
     /**
      * @return description of input parameters
      */
@@ -409,7 +411,9 @@ class external extends external_api {
                         'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
                         'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
                         'email' => new external_value(PARAM_RAW, 'email adress of user')
-                )))
+                        )
+                    )
+                )
             ));
     }
 
@@ -464,7 +468,9 @@ class external extends external_api {
                         'semester' => new external_value(PARAM_RAW,  'parent category'),
                         'fb' => new external_value(PARAM_RAW, 'course category'),
                         'visible' => new external_value(PARAM_INT, 'Is the course visible')
-                )))
+                        )
+                    )
+                )
         ));
     }
 
@@ -505,16 +511,16 @@ class external extends external_api {
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
-	
-	// Get whole course-path.
-	// Extract IDs from path and remove empty values by using array_filter.
+
+        // Get whole course-path.
+        // Extract IDs from path and remove empty values by using array_filter.
         $parentcategoriesids = array_filter(explode('/', $coursedetails['path']));
 
         // Select the name of all parent categories.
         $parentcategoriesnames = $DB->get_records_list('course_categories', 'id', $parentcategoriesids, null, 'id,name');
         $pathcategories = array_column(array_values($parentcategoriesnames), 'name');
         $coursedetails['path'] = implode('/', $pathcategories);
-	
+
         // How many students are enrolled in the course?
         $coursedetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
@@ -687,7 +693,8 @@ class external extends external_api {
                 new external_single_structure( array(
                     'id' => new external_value(PARAM_INT, 'id of the role'),
                     'name' => new external_value(PARAM_RAW, 'Name of the role')
-            )))
+                ))
+            )
         ));
     }
 

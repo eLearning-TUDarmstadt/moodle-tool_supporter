@@ -23,7 +23,7 @@
  */
 namespace tool_supporter\output;
 
-require_once("$CFG->dirroot/config.php");
+defined('MOODLE_INTERNAL') || die;
 
 use renderable;
 use templatable;

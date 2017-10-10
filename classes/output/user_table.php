@@ -23,6 +23,8 @@
  */
 namespace tool_supporter\output;
 
+defined('MOODLE_INTERNAL') || die;
+
 use renderable;
 use templatable;
 use renderer_base;
@@ -45,7 +47,7 @@ class user_table implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $array[] = null;
-        $data = $array; // \tool_supporter\external::get_users();
+        $data = $array; // Uncoment to render direct: \tool_supporter\external::get_users();
         return $data;
     }
 }

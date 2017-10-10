@@ -23,12 +23,15 @@
  */
 namespace tool_supporter\output;
 
+defined('MOODLE_INTERNAL') || die;
+
 use renderable;
 use templatable;
 use renderer_base;
 use stdClass;
 
 class course_table implements renderable, templatable {
+
 
     /**
      * Export this data so it can be used as the context for a mustache template.
@@ -39,7 +42,7 @@ class course_table implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $array = null;
-        $data = $array; //uncomment to not render course_tables with php \tool_supporter\external::get_courses(); //\tool_supporter\external::get_courses(); //$array; //uncomment to not render course_tables with php \tool_supporter\external::get_courses(); //  //
+        $data = $array; // Uncomment to render course_tables with php \tool_supporter\external::get_courses();
         return $data;
     }
 }
