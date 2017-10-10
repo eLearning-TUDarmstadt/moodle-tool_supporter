@@ -46,9 +46,9 @@
 
 }}
 <div data-region="course_table"  class="card">
-    <div class="card-block">   
+    <div class="card-block">
         <h2 class="card-title">{{#str}}courses{{/str}}</h2>
-        <div class = "table table-responsive">
+        <div class = "table table-responsive well">
           <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
             <thead>
               <tr>
@@ -59,7 +59,7 @@
                 <th>{{#str}}visible{{/str}}  </th>
               </tr>
             </thead>
-            <tbody>     
+            <tbody>
             </tbody>
           </table>
         </div>
@@ -67,9 +67,9 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'], 
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
     function(load_information, $, ajax, notification, templates, datatables){
- 
+
 //console.log(datatables);
 //load_information.get_courses_2('#{{uniqid}}-courseTable');
 var columns1 = [
@@ -81,16 +81,16 @@ var columns1 = [
             ];
 //dataTable_ajax: function(tableID, methodname, args, datainfo, columns)
  datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
- 
- 
+
+
  /*var promise = ajax.call([{
                 "methodname": 'tool_supporter_get_courses',
                 args: {}
             }]);
-   
+
 
    promise[0].done(function(data) {
-     console.log(data.courses);   
+     console.log(data.courses);
     $('#{{uniqid}}-courseTable').DataTable( {
             "data": data.courses,
             "columns":[
@@ -118,8 +118,8 @@ var columns1 = [
         });
  }).fail(notification.exception);*/
 
-            
+
   load_information.click_on_course('#{{uniqid}}-courseTable tbody'); //Load information about the clicked course
-     
+
   });
 {{/js}}

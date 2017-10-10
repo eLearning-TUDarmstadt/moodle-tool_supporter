@@ -24,6 +24,10 @@ The Supporter is developed with amd and thus only retrieves the information from
 
 It has built-in the standard Moodle Capability-Checks so there are no extra capabilites needed and multiple levels of Support can be accomplished.
 
+## Prerequisites
+* This version is tested on Moodle 3.2
+* A php version of 5.5 and greater is needed
+
 ## Installation
 * Copy/Clone to https://YOURSITE/admin/tool/ directory
 * Enable database upgrade under https://YOURSITE/admin/

@@ -87,6 +87,11 @@ echo '
             </div>
             <div class="span6 col-sm-6">
                 <div class="row-fluid">
+                    <div class="span12 col-md-12">
+                      './*It's there so the wells are in one line.*/'
+                    </div>
+                </div>
+                <div class="row-fluid">
                     <div class="span12 col-sm-12">
                          '.$userdetail.'
                     </div>
@@ -102,7 +107,4 @@ echo '
    </div>
 </div>
 ';
-
-
-
 echo $output->footer();
