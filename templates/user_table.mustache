@@ -42,53 +42,25 @@
     )
 
 }}
-<div data-region="user_table"  class="well well-sm">
-  <!--
-  <form class = "navbar-search pull-left">
-    <input id="{{uniqid}}-userSearchInput" type="text" name = "searchfield" class="search-query" placeholder = "Suchen">
-  </form>
--->
-
- <!-- <div class="table-responsive">
-  <table class = "datatable stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th>ID  </th>
-        <th>{{#str}}username{{/str}}  </th>
-        <th>{{#str}}firstname{{/str}}  </th>
-        <th>{{#str}}lastname{{/str}}  </th>
-        <th>{{#str}}email{{/str}}  </th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#users}}
-      <tr>
-        <td>{{id}}</td>
-        <td>{{username}}</td>
-        <td>{{firstname}}</td>
-        <td>{{lastname}}</td>
-        <td>{{email}}</td>
-      </tr>
-      {{/users}}
-    </tbody>
-  </table>
-  </div> -->
- 
- <div class="table-responsive">
-  <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th>ID  </th>
-        <th>{{#str}}username{{/str}}  </th>
-        <th>{{#str}}firstname{{/str}}  </th>
-        <th>{{#str}}lastname{{/str}}  </th>
-        <th>{{#str}}email{{/str}}  </th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
+<div data-region="user_table"  class="card">
+    <div class="card-block">   
+        <h2 class="card-title">{{#str}}users{{/str}}</h2>
+        <div class = "table table-responsive">
+         <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
+           <thead>
+             <tr>
+               <th>ID  </th>
+               <th>{{#str}}username{{/str}}  </th>
+               <th>{{#str}}firstname{{/str}}  </th>
+               <th>{{#str}}lastname{{/str}}  </th>
+               <th>{{#str}}email{{/str}}  </th>
+             </tr>
+           </thead>
+           <tbody>
+           </tbody>
+         </table>
+       </div>
+    </div>
 </div>
 
 {{#js}}

@@ -94,75 +94,75 @@
 
 }}
 <!--View details after clicking on a course in course table.  -->
-  <div style="display: none" id ="course_details" data-region = "course_details" class="well well-sm">
-    <ul class="nav nav-pills">
-        {{#links}}
-            <li class="navbar-brand nav-item active"><a href="{{courselink}}" target="_blank"><b>{{#courseDetails}}{{fullname}}{{/courseDetails}}</b></a></li>
-            <div class="btn-group pull-right" role="group">
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_course_details">
-                  <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
-                </a></p></li>
-                {{#courseDetails}}
-                  {{#visible}}
-                  <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
-                      {{#pix}} i/show, core, make visible {{/pix}}
+  <div style="display: none" id ="tool_supporter_course_details" data-region = "tool_supporter_course_details" class="card">
+    <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          {{#links}}
+              <li class="navbar-brand nav-item active"><a href="{{courselink}}" target="_blank"><b>{{#courseDetails}}{{fullname}}{{/courseDetails}}</b></a></li>
+              <div class="btn-group pull-right float-right" role="group">
+                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
+                    <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
                   </a></p></li>
-                {{/visible}}
-                {{^visible}}
-                  <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
-                      {{#pix}} i/hide, core, make invisible {{/pix}}
+                  {{#courseDetails}}
+                    {{#visible}}
+                    <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
+                        {{#pix}} i/show, core, make visible {{/pix}}
+                    </a></p></li>
+                  {{/visible}}
+                  {{^visible}}
+                    <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
+                        {{#pix}} i/hide, core, make invisible {{/pix}}
+                    </a></p></li>
+                  {{/visible}}
+                {{/courseDetails}}
+                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
+                    {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
                   </a></p></li>
-                {{/visible}}
-              {{/courseDetails}}
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
-                  {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-                </a></p></li>
-                <li class = "nav-item" data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
-                  {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
-                </a></p></li>
-            </div>
-              {{/links}}
-      </ul>
-
-<!--Show course details  -->
-<div class="table-responsive">
-    <table class = "table table borderless">
-      <tbody>
-        {{#courseDetails}}
-        <tr>
-          <th>ID</th>
-          <td id="selectedcourseid">{{id}}</td>
-        </tr>
-        <tr>
-          <th>{{#str}}shortnamecourse{{/str}}</th>
-          <td>{{shortname}}</td>
-        </tr>
-        <tr>
-          <th>{{#str}}fullnamecourse{{/str}}</th>
-          <td>{{fullname}}</td>
-        </tr>
-        <tr>
-          <th>{{#str}}visible{{/str}}</th>
-          <td>{{visible}}</td>
-        </tr>
-        <tr>
-          <th>{{#str}}path{{/str}}</th>
-          <td>{{path}}</td>
-        </tr>
-        <tr>
-          <th>{{#str}}users{{/str}}</th>
-          <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
-        </tr>
-        {{/courseDetails}}
-        {{#roles}}
-        <tr>
-          <th>{{roleName}}</th>
-          <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
-        </tr>
-        {{/roles}}
-      </tbody>
-    </table>
-  </div>
+                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
+                    {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
+                  </a></p></li>
+              </div>
+                {{/links}}
+        </ul>
+    </div>
+    <div class="card-block">
+        <!--Show course details  -->
+        <table class = "table table-responsive borderless">
+          <tbody>
+            {{#courseDetails}}
+            <tr>
+              <th>ID</th>
+              <td id="selectedcourseid">{{id}}</td>
+            </tr>
+            <tr>
+              <th>{{#str}}shortnamecourse{{/str}}</th>
+              <td>{{shortname}}</td>
+            </tr>
+            <tr>
+              <th>{{#str}}fullnamecourse{{/str}}</th>
+              <td>{{fullname}}</td>
+            </tr>
+            <tr>
+              <th>{{#str}}visible{{/str}}</th>
+              <td>{{visible}}</td>
+            </tr>
+            <tr>
+              <th>{{#str}}path{{/str}}</th>
+              <td>{{path}}</td>
+            </tr>
+            <tr>
+              <th>{{#str}}users{{/str}}</th>
+              <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
+            </tr>
+            {{/courseDetails}}
+            {{#roles}}
+            <tr>
+              <th>{{roleName}}</th>
+              <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
+            </tr>
+            {{/roles}}
+          </tbody>
+        </table>
 
   <div>
     <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
@@ -184,8 +184,8 @@
   <div class="tab-content">
     <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
         <!--table of users in this course-->
-      <div class="table-responsive">
-        <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+      <div>
+        <table class = "table table-responsive stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>ID</th>
@@ -212,8 +212,8 @@
 
     <div id="CoursePill_2" class="tab-pane fade" role="tabpanel">
       <!--table of activites in this course-->
-      <div class="table-responsive">
-        <table class = "stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+      <div>
+        <table class = "table table-responsive stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>{{#str}}sectionname{{/str}}</th>
@@ -237,6 +237,7 @@
     </div>
   </div>
 </div>
+  </div>
 
 {{#js}}
  require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
