@@ -32,6 +32,8 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
+require_login();
+
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
 
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
@@ -54,37 +56,55 @@ echo $output->header();
 echo '
 
 <style>
-.well {
+.card-header {
     background-color: 	rgb(252,253,253);
+    }
+.row-fluid [class*="span"] { /*for bs2 compability*/
+min-height: 0px;
 }
+
 </style>
 
-<div class="container-fluid">
-  <div class="col-md-12">
-    <div class="col-md-12">
+<div class="container-fluid"> 
+    <div class="row-fluid">
+        <div class="span12 col-sm-12">
         '.$index.'
-    </div>
-    <div class="span6 col-md-6">
-        <div class="col-md-12">
-          '.$createnewcourse.'
+        <div class="row-fluid">
+            <div class="span6 col-sm-6">
+                <div class="row-fluid">
+                    <div class="span12 col-md-12">
+                      '.$createnewcourse.'
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12 col-sm-12">
+                      '.$coursedetail.'
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12 col-sm-12">
+                      '.$coursetable.'
+                    </div>
+                </div>
+            </div>
+            <div class="span6 col-sm-6">
+                <div class="row-fluid">
+                    <div class="span12 col-sm-12">
+                         '.$userdetail.'
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12 col-sm-12">
+                        '.$usertable.'
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-12">
-          '.$coursedetail.'
-        </div>
-        <div class="col-md-12">
-          '.$coursetable.'
-        </div>
-    </div>
-    <div class="span6 col-md-6">
-        <div class="col-md-12">
-          '.$userdetail.'
-        </div>
-        <div class="col-md-12">
-          '.$usertable.'
-        </div>
-    </div>
-  </div>
+     </div> 
+   </div>
 </div>
 ';
+
+
 
 echo $output->footer();
