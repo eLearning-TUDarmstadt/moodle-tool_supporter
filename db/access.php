@@ -24,6 +24,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
+    /*
     'tool/supporter:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
@@ -45,4 +46,5 @@ $capabilities = array(
         ),
         'clonepermissionsfrom' => 'coursereport/log:viewtoday',
     )
+    */
 );

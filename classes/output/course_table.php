@@ -42,7 +42,7 @@ class course_table implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $array = null;
-        $data = $array; // Uncomment to render course_tables with php \tool_supporter\external::get_courses();
+        $data = $array; // Uncomment to render course_tables with php \tool_supporter\external::get_courses().
         return $data;
     }
 }

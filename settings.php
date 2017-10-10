@@ -21,7 +21,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
+/*
 $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
         $CFG->wwwroot.'/'.$CFG->admin.'/tool/supporter/index.php', 'tool/supporter:view'));
+        */
 // No report settings.
 $settings = null;

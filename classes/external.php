@@ -272,7 +272,8 @@ class external extends external_api {
         }
         $userinformationarray = $userinformationarray[0]; // We only retrieved one user.
 
-        $usercourses = enrol_get_users_courses($userid, false, $fields = 'id, category, shortname, fullname, startdate, visible'); // Important Output: id, category, shortname, fullname, startdate, visible.
+        // Important Output: id, category, shortname, fullname, startdate, visible.
+        $usercourses = enrol_get_users_courses($userid, false, $fields = 'id, category, shortname, fullname, startdate, visible');
 
         // Get assignable roles with correct role name.
         $coursecontext = \context_course::instance(1);
