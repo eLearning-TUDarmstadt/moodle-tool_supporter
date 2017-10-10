@@ -65,8 +65,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
             // Re-render the template to show the changes.
             templates.render('tool_supporter/course_detail', course).done(function(html, js) {
-                $('[data-region="course_details"]').replaceWith(html);
-                $('[data-region="course_details"]').show();
+                $('[data-region="tool_supporter_course_details"]').replaceWith(html);
+                $('[data-region="tool_supporter_course_details"]').show();
                 templates.runTemplateJS(js);
             }).fail(notification.exception);
         }).fail(notification.exception);
@@ -83,9 +83,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         show_course_detail: function(course_id) {
 
             // Go to top.
-            var position = $("#course_details").offset().top;
+            var position = $("#tool_supporter_course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
-            //$("html, body").animate({ scrollTop: 0 }, "slow");
 
             var promise = ajax.call([{
                 methodname: 'tool_supporter_get_course_info',
@@ -99,8 +98,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 console.log("course detail data");
                 console.log(data);
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
-                    $('[data-region="course_details"]').replaceWith(html);
-                    $('[data-region="course_details"]').show();
+                    $('[data-region="tool_supporter_course_details"]').replaceWith(html);
+                    $('[data-region="tool_supporter_course_details"]').show();
                     // And execute any JS that was in the template.
                     templates.runTemplateJS(js);
 
@@ -145,8 +144,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method hide_course_detail
          */
         hide_course_detail: function() {
-            $('#hide_course_details').on('click', function() {
-                $('[data-region="course_details"]').toggle();
+            $('#hide_tool_supporter_course_details').on('click', function() {
+                $('[data-region="tool_supporter_course_details"]').toggle();
                 $('[data-region="enroluserregion"]').hide();
             });
         },
@@ -163,7 +162,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 // Go to top.
                 var position = $("#user_details").offset().top;
                 $("html, body").animate({ scrollTop: position - 50}, "slow");
-                //$("html, body").animate({ scrollTop: 0 }, "slow");
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_get_user_information',
@@ -203,7 +201,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 show_course_detail_private(course_id);
             });
-        } 
+        }
     };
 
     // Alias module:tool_supporter/load_information.

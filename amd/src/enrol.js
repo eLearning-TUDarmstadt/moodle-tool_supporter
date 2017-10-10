@@ -51,8 +51,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                     // Re-render the template to show the changes.
                     templates.render('tool_supporter/course_detail', course).done(function(html, js) {
-                        $('[data-region="course_details"]').replaceWith(html);
-                        $('[data-region="course_details"]').show();
+                        $('[data-region="tool_supporter_course_details"]').replaceWith(html);
+                        $('[data-region="tool_supporter_course_details"]').show();
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
 
