@@ -96,31 +96,31 @@
 <!--View details after clicking on a course in course table.  -->
   <div style="display: none" id ="tool_supporter_course_details" data-region = "tool_supporter_course_details" class="card">
     <div class="card-header">
-        <ul class="nav nav-pills card-header-pills">
+        <ul>
           {{#links}}
-              <li class="navbar-brand nav-item active"><a href="{{courselink}}" target="_blank"><b>{{#courseDetails}}{{fullname}}{{/courseDetails}}</b></a></li>
+              <a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a>
               <div class="btn-group pull-right float-right" role="group">
-                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}hide{{/str}}"><p class="navbar-btn"><a href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
+                  <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
                     <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
-                  </a></p></li>
+                  </a>
                   {{#courseDetails}}
                     {{#visible}}
-                    <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="show_course_visibility">
+                    <a href="#"class="btn btn-default" id="show_course_visibility">
                         {{#pix}} i/show, core, make visible {{/pix}}
-                    </a></p></li>
+                    </a>
                   {{/visible}}
                   {{^visible}}
-                    <li class = "nav-item"><p class="navbar-btn"><a href="#"class="btn btn-default" id="hide_course_visibility">
+                   <a href="#"class="btn btn-default" id="hide_course_visibility">
                         {{#pix}} i/hide, core, make invisible {{/pix}}
-                    </a></p></li>
+                    </a>
                   {{/visible}}
                 {{/courseDetails}}
-                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}editsettings{{/str}}"><p class="navbar-btn"><a href="{{settingslink}}" target="_blank" class="btn btn-default">
+                  <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
                     {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-                  </a></p></li>
-                  <li class = "nav-item" data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}"><p class="navbar-btn"><a href="{{deletelink}}" target="_blank" class="btn btn-default">
+                  </a>
+                  <a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
                     {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
-                  </a></p></li>
+                  </a>
               </div>
                 {{/links}}
         </ul>
