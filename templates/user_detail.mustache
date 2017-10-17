@@ -174,24 +174,22 @@
     </div> -->
 <div style="display: none" id = "user_details" data-region="user_details" class="card">
     <div class="card-header">
-        <ul class="nav nav-pills card-header-pills">
-            <li class="navbar-brand nav-item active">
-                <a href={{edituserlink}} target="_blank"><b>{{#userinformation}}{{username}}{{/userinformation}}</b></a>
-            </li>
-            <div class="pull-right">
-                <a href="#" class="btn" role="button" id="hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+        <ul>
+            <a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{username}}{{/userinformation}}</h3></a>
+            <div class="btn-group pull-right float-right" role="group">
+                <a href="#" class="btn btn-default" role="button" id="hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
                     {{#pix}} t/dropdown, core, {{#str}}hide{{/str}} {{/pix}}
                 </a>
-                <a href="{{edituserlink}}" target="_blank" class="btn" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+                <a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
                     {{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
                 </a>
-                <a href="{{loginaslink}}" target="_blank" class="btn" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+                <a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
                     {{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}
                 </a>
             </div>
         </ul>
     </div>
-<div class="card-block well">
+<div class="card-block">
     
 <!-- Enrol the user into the course -->
 {{> tool_supporter/enrolusersection}}
