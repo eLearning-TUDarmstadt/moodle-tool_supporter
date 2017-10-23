@@ -94,35 +94,37 @@
 
 }}
 <!--View details after clicking on a course in course table.  -->
-  <div style="display: none" id ="tool_supporter_course_details" data-region = "tool_supporter_course_details" class="card">
+<div style="display: none" id ="tool_supporter_course_details" data-region = "tool_supporter_course_details" class="card">
     <div class="card-header">
-        <ul>
-          {{#links}}
-          <div class = "navbar-brand"> <a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a></div>
-          <div class="btn-group pull-right float-right" role="group">
-                  <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
-                    <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
-                  </a>
-                  {{#courseDetails}}
-                    {{#visible}}
-                    <a href="#" class="btn btn-default" id="show_course_visibility">
-                        {{#pix}} i/show, core, make visible {{/pix}}
+        <ul class="nav nav-pills">
+            {{#links}}
+            <li class = "navbar-brand"> <a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a></li>
+            <li class =" nav-item pull-right float-right">
+                <div class="btn-group" role="group">
+                    <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
+                      <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
                     </a>
-                  {{/visible}}
-                  {{^visible}}
-                   <a href="#" class="btn btn-default" id="hide_course_visibility">
-                        {{#pix}} i/hide, core, make invisible {{/pix}}
+                    {{#courseDetails}}
+                      {{#visible}}
+                      <a href="#" class="btn btn-default" id="show_course_visibility">
+                          {{#pix}} i/show, core, make visible {{/pix}}
+                      </a>
+                    {{/visible}}
+                    {{^visible}}
+                     <a href="#" class="btn btn-default" id="hide_course_visibility">
+                          {{#pix}} i/hide, core, make invisible {{/pix}}
+                      </a>
+                    {{/visible}}
+                  {{/courseDetails}}
+                    <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
+                      {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
                     </a>
-                  {{/visible}}
-                {{/courseDetails}}
-                  <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
-                    {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-                  </a>
-                  <a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
-                    {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
-                  </a>
-              </div>
-                {{/links}}
+                    <a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
+                      {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
+                    </a>
+                </div>
+            </li>
+            {{/links}}
         </ul>
     </div>
     <div class="card-block">
