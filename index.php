@@ -64,40 +64,35 @@ min-height: 0px;
 
 echo'
 <div class="container-fluid">
-    <div class="row-fluid">
+    <div class="row-fluid" style = "min-height: 0px;">
         <div class="span12 col-sm-12">
         '.$index.'
-        <div class="row-fluid">
+        <div class="row-fluid" style = "min-height: 0px;">
             <div class="span6 col-sm-6">
-                <div class="row-fluid">
-                    <div class="span12 col-md-12">
+                <div class="row-fluid" style = "min-height: 0px;">
+                    <div class="span12 col-md-12" style = "min-height: 0px;">
                       '.$createnewcourse.'
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12 col-sm-12">
+                <div class="row-fluid" style = "min-height: 0px;">
+                    <div class="span12 col-sm-12" style = "min-height: 0px;">
                       '.$coursedetail.'
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12 col-sm-12">
+                <div class="row-fluid" style = "min-height: 0px;">
+                    <div class="span12 col-sm-12" style = "min-height: 0px;">
                       '.$coursetable.'
                     </div>
                 </div>
             </div>
             <div class="span6 col-sm-6">
-                <div class="row-fluid">
-                    <div class="span12 col-md-12">
-                      './*It's there so the wells are in one line.*/'
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12 col-sm-12">
+                <div class="row-fluid" style = "min-height: 0px;">
+                    <div class="span12 col-sm-12" style = "min-height: 0px;">
                          '.$userdetail.'
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12 col-sm-12">
+                <div class="row-fluid" style = "min-height: 0px;">
+                    <div class="span12 col-sm-12" style = "min-height: 0px;">
                         '.$usertable.'
                     </div>
                 </div>
