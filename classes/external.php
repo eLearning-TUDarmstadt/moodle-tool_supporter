@@ -41,38 +41,17 @@ use external_multiple_structure;
 use invalid_parameter_exception;
 
 /**
- * This is the external API for this plugin.
- *
- * @copyright  2017 Benedikt Schneider
+ * Class external defines several functions to prepare data for further use
+ * 
+ * @package tool_supporter
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class external extends external_api {
 
-    public static function get_sesskey() {
-        global $USER, $CFG;
-        $systemcontext = \context_system::instance();
-        self::validate_context($systemcontext);
-        $data['basisurl'] = $CFG->wwwroot;
-        $data['sesskey'] = $USER->sesskey;
-        return $data;
-    }
-
-    public static function get_sesskey_returns() {
-        return new external_single_structure(
-            array(
-                'sesskey' => new external_value(PARAM_RAW, 'sesskey'),
-                'basisurl' => new external_value(PARAM_RAW, 'basisurl')
-            ));
-    }
-
-    public static function get_sesskey_parameters() {
-        return new external_function_parameters (
-            array (
-        ));
-    }
-
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function create_new_course_parameters() {
         return new external_function_parameters (
@@ -86,10 +65,13 @@ class external extends external_api {
 
     /**
      * Wrap the core function create_new_course.
-     * @param shortname: desired shortname. Has to be unique or error is returned
-     * @param fullname: desiref fullname
-     * @param visible: visibility
-     * @param categryid: id of the category
+     * 
+     * @param string $shortname Desired shortname. Has to be unique or error is returned
+     * @param string $fullname Desired fullname
+     * @param int $visible Visibility
+     * @param int $categoryid Id of the category
+     * 
+     * @return Course characteristics
      */
     public static function create_new_course($shortname, $fullname, $visible, $categoryid) {
 
@@ -176,7 +158,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function enrol_user_into_course_parameters() {
         return new external_function_parameters(
@@ -190,9 +173,12 @@ class external extends external_api {
     /**
      * Wrap the core function enrol_user_into_course.
      * Enrols a user into a course
-     * @param userid: id of the user to enrol
-     * @param courseid: id of course to enrol into
-     * @param roleid: id of the role with which the user should be enrolled
+     * 
+     * @param int $userid Id of the user to enrol
+     * @param int $courseid Id of course to enrol into
+     * @param int $roleid Id of the role with which the user should be enrolled
+     * 
+     * @return Course info user was enrolled to
      */
     public static function enrol_user_into_course($userid, $courseid, $roleid) {
         global $DB;
@@ -234,7 +220,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function get_user_information_parameters() {
         return new external_function_parameters(
@@ -246,8 +233,8 @@ class external extends external_api {
     /**
      * Wrap the core function get_user_information.
      *
-     * gets and transforms the information of the given user
-     * @param userid: the id of the user
+     * Gets and transforms the information of the given user
+     * @param int $userid The id of the user
      */
     public static function get_user_information($userid) {
         global $DB, $CFG, $USER;
@@ -374,7 +361,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function get_users_parameters() {
         return new external_function_parameters(
@@ -421,7 +409,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function get_courses_parameters() {
         return new external_function_parameters(
@@ -478,7 +467,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function get_course_info_parameters() {
         return new external_function_parameters(
@@ -492,7 +482,7 @@ class external extends external_api {
      *
      * Accumulates and transforms course data to be displayed
      *
-     * @param courseID: ID of the course which needs to be displayed
+     * @param int $courseid Id of the course which needs to be displayed
      */
     public static function get_course_info($courseid) {
         global $DB, $CFG, $PAGE, $USER;
@@ -590,7 +580,7 @@ class external extends external_api {
     }
 
     /**
-     *
+     * Specifies return values
      * @return a course with addition information
      */
     public static function get_course_info_returns() {
@@ -628,8 +618,8 @@ class external extends external_api {
                 ))),
                 'links' => new external_single_structure( array(
                     'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
-                    'deletelink' => new external_value(PARAM_RAW, 'link to delete the course,
-                        additional affirmation needed afterwards', 'optional'),
+                    'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, '
+                            . 'additional affirmation needed afterwards', 'optional'),
                     'courselink' => new external_value(PARAM_RAW, 'link to the course')
                 )),
         ));
@@ -639,7 +629,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function get_assignable_roles_parameters() {
         return new external_function_parameters( array(
@@ -650,7 +641,7 @@ class external extends external_api {
     /**
      * Wrapper for core function get_assignable_roles
      *
-     * @param courseID: ID of the course the roles are present
+     * @param int $courseid Id of the course the roles are present
      */
     public static function get_assignable_roles($courseid) {
         global $CFG, $PAGE;
@@ -686,6 +677,7 @@ class external extends external_api {
     }
 
     /**
+     * Specifies return parameters
      * @return the assignable Roles
      */
     public static function get_assignable_roles_returns() {
@@ -702,7 +694,8 @@ class external extends external_api {
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * @return description of input parameters
+     * Returns description of input parameters
+     * @return external_function_parameters
      */
     public static function toggle_course_visibility_parameters() {
         return new external_function_parameters(array(
@@ -713,7 +706,7 @@ class external extends external_api {
     /**
      * Wrapper for core function toggle_course_visibility
      *
-     * @param courseID: ID of the course which is to be toggled
+     * @param int $courseid Id of the course which is to be toggled
      */
     public static function toggle_course_visibility($courseid) {
 
@@ -739,6 +732,7 @@ class external extends external_api {
     }
 
     /**
+     * Specifies return parameters
      * @return a course with toggled visibility
      */
     public static function toggle_course_visibility_returns() {

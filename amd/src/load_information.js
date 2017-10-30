@@ -18,7 +18,7 @@
  *
  * @module     tool_supporter/load_information
  * @package    tool_supporter
- * @copyright  2017 Benedikt Schneider
+ * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */

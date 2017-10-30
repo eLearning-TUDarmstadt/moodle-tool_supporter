@@ -25,9 +25,9 @@
  */
 define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter', 'core/ajax', 'core/notification', 'core/templates'],
 function($, datatables, str, filter, ajax, notification, templates) {
-    
+
     return /** @alias module:tool_supporter/datatables */ {
-        
+
         /**
          * @method use_dataTable
          * @param tableID : ID of table you want to convert into datatable
@@ -60,13 +60,17 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     }
                 };
             });
-        }, 
-        
+        },
+
         /**
          * @method dataTable_ajax
          * @param tableID : ID of table you want to convert into datatable
+         * @param methodname : Method to get the table data from
+         * @param args : arguments for ajax-call
+         * @param datainfo : specification, wher to find table data in return value of method
+         * @param columns : Name of table columns
          */
-        dataTable_ajax: function(tableID, methodname, args, datainfo, columns){       
+        dataTable_ajax: function(tableID, methodname, args, datainfo, columns){
             var promise = ajax.call([{
                 "methodname": methodname,
                 "args": args

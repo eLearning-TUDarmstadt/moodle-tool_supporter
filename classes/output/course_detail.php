@@ -32,8 +32,10 @@ use stdClass;
 
 /**
  * Class containing data for course_detail
+ * 
  * Gets passed to the renderer
  *
+ * @package tool_supporter
  * @copyright  2017 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -44,7 +46,6 @@ class course_detail implements renderable, templatable {
      *
      * @return stdClass
      */
-
     public function export_for_template(renderer_base $output) {
 
         $array = null;

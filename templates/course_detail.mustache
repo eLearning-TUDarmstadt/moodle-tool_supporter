@@ -166,80 +166,81 @@
           </tbody>
         </table>
 
-  <div>
-    <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
-	<li class="nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
-	<li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
-        <li class = "nav-item dropdown">
-            <a class = "nav-link dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
-            <ul class="dropdown-menu" id="roledropdown">
-                <!--filter user list by selecting wanted role-->
-                 {{#rolesincourse}}
-                 <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
-                 {{/rolesincourse}}
-            </ul>
-        </li>
-    </ul>
- </div>
+        <!-- Navigation for user- and activity-table of selected course -->
+        <div>
+          <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
+              <li class="nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
+              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
+              <li class = "nav-item dropdown">
+                  <a class = "nav-link dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
+                  <ul class="dropdown-menu" id="roledropdown">
+                      <!--filter user list by selecting wanted role-->
+                       {{#rolesincourse}}
+                       <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
+                       {{/rolesincourse}}
+                  </ul>
+              </li>
+          </ul>
+        </div>
 
 
-  <div class="tab-content">
-    <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
-        <!--table of users in this course-->
-      <div class = "table table-responsive">
-        <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>{{#str}}username{{/str}}  </th>
-              <th>{{#str}}firstname{{/str}}  </th>
-              <th>{{#str}}lastname{{/str}}  </th>
-              <th>{{#str}}roles{{/str}}  </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#users}}
-            <tr>
-              <td>{{id}}</td>
-              <td>{{username}}</td>
-              <td>{{firstname}}</td>
-              <td>{{lastname}}</td>
-              <td>{{roles}}</td>
-            </tr>
-            {{/users}}
-          </tbody>
-        </table>
-      </div>
+        <div class="tab-content">
+            <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
+              <!--table of users in this course-->
+                <div class = "table table-responsive">
+                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{#str}}username{{/str}}  </th>
+                                <th>{{#str}}firstname{{/str}}  </th>
+                                <th>{{#str}}lastname{{/str}}  </th>
+                                <th>{{#str}}roles{{/str}}  </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#users}}
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{username}}</td>
+                                <td>{{firstname}}</td>
+                                <td>{{lastname}}</td>
+                                <td>{{roles}}</td>
+                            </tr>
+                            {{/users}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
+                <!--table of activites in this course-->
+                <div class = "table table-responsive">
+                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>{{#str}}sectionname{{/str}}</th>
+                                <th>{{#str}}activity{{/str}}</th>
+                                <th>{{#str}}name{{/str}}</th>
+                                <th>{{#str}}visible{{/str}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#activities}}
+                            <tr>
+                                <td>{{section}}</td>
+                                <td>{{activity}}</td>
+                                <td>{{name}}</td>
+                                <td>{{visible}}</td>
+                            </tr>
+                        {{/activities}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="CoursePill_2" class="tab-pane" role="tabpanel">
-      <!--table of activites in this course-->
-      <div class = "table table-responsive">
-        <table class = "stripe hover row-border compact" id = "{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>{{#str}}sectionname{{/str}}</th>
-              <th>{{#str}}activity{{/str}}</th>
-              <th>{{#str}}name{{/str}}</th>
-              <th>{{#str}}visible{{/str}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#activities}}
-            <tr>
-              <td>{{section}}</td>
-              <td>{{activity}}</td>
-              <td>{{name}}</td>
-              <td>{{visible}}</td>
-            </tr>
-            {{/activities}}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 </div>
-  </div>
 
 {{#js}}
  require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],

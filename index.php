@@ -62,7 +62,7 @@ min-height: 0px;
 }
 </style>*/
 
-echo '
+echo'
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12 col-sm-12">

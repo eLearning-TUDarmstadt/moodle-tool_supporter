@@ -68,54 +68,16 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
 function(load_information, $, ajax, notification, templates, datatables){
 
 
-var columns1 = [
+var columns = [
                  { data: 'id' },
                  { data: 'username' },
                  { data: 'firstname' },
                  { data: 'lastname' },
                  { data: 'email' }
              ];
-//dataTable_ajax: function(tableID, methodname, args, datainfo, columns)
- datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users',{}, 'users', columns1);
+datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users',{}, 'users', columns);
 
-
- /*var promise = ajax.call([{
-                "methodname": 'tool_supporter_get_users',
-                args: {}
-    }]);
-
-    var otable;
-    promise[0].done(function(data) {
-         console.log(data.users);
-
-         otable = $('#{{uniqid}}-userTable').DataTable( {
-             "data": data.users,
-             "columns":[
-                 { data: 'id' },
-                 { data: 'username' },
-                 { data: 'firstname' },
-                 { data: 'lastname' },
-                 { data: 'email' }
-             ],
-             "retrieve": true, //So the table can be accessed after initialization
-             "responsive": true,
-             "lengthChange": false,
-             "pageLength": 30,
-             "language": {
-                 //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
-                  'info': ""
-                  //'search': searchString+": "
-                 },
-              "dom": "<'w-100'<'col'f>>" +
-                   "<'w-100'<'col't>>" +
-                   "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
-             "paging": true,
-             "pagingType": "numbers",
-             "scrollX": true
-         });
-  }).fail(notification.exception);*/
-
-   load_information.click_on_user('#{{uniqid}}-userTable tbody'); //Load information about the clicked user
+load_information.click_on_user('#{{uniqid}}-userTable tbody'); //Load information about the clicked user
 
  });
 {{/js}}
