@@ -28,15 +28,16 @@
 define(['jquery'], function($) {
 
     var filterTable = function(elements, otable, column){
-        var filterElements = '';
+        var filterElements = [];
         var string_value = '';
         $(elements).each(function(index){
-            if($(this).val() === ""){string_value = '^(?![\\s\\S])';}
-            else {string_value = '\\b' + $(this).val();}
-            if (index == elements.length - 1){filterElements = filterElements + string_value;}
-            // Add value of elements[index] and add "|" as an OR and add "\b" to only accept matches which starts with the string.
-            else {filterElements = filterElements + string_value + '|';}
+            var val = $(this).val();
+            if(val === ""){string_value = '^(?![\\s\\S])';}
+            //String value is added several times with different beginings and endings so filter for i.e. "Teacher" does not match "non-editing teacher"
+            else {string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';} 
+            filterElements.push(string_value);
         });
+        filterElements.join("|");
         otable.fnFilter(filterElements, column, true, false, false, true);
     };
 
