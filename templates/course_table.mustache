@@ -70,8 +70,6 @@
 require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
     function(load_information, $, ajax, notification, templates, datatables){
 
-//console.log(datatables);
-//load_information.get_courses_2('#{{uniqid}}-courseTable');
 var columns1 = [
                 { data: 'id' },
                 { data: 'fullname' },
@@ -79,47 +77,10 @@ var columns1 = [
                 { data: 'semester' },
                 { data: 'visible' }
             ];
-//dataTable_ajax: function(tableID, methodname, args, datainfo, columns)
- datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
+            
+datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
 
-
- /*var promise = ajax.call([{
-                "methodname": 'tool_supporter_get_courses',
-                args: {}
-            }]);
-
-
-   promise[0].done(function(data) {
-     console.log(data.courses);
-    $('#{{uniqid}}-courseTable').DataTable( {
-            "data": data.courses,
-            "columns":[
-                { data: 'id' },
-                { data: 'fullname' },
-                { data: 'fb' },
-                { data: 'semester' },
-                { data: 'visible' }
-            ],
-            "retrieve": true, //So the table can be accessed after initialization
-            "responsive": true,
-            "lengthChange": false,
-            "pageLength": 30,
-            "language": {
-                //Empty info. Legacy: Showing page _PAGE_ of _PAGES_
-                 'info': ""
-                 //'search': searchString+": "
-                },
-             "dom": "<'w-100'<'col'f>>" +
-                  "<'w-100'<'col't>>" +
-                  "<'w-100'<'col-sm-6'i><'col-sm-6'p>>",
-            "paging": true,
-            "pagingType": "numbers",
-            "scrollX": true
-        });
- }).fail(notification.exception);*/
-
-
-  load_information.click_on_course('#{{uniqid}}-courseTable tbody'); //Load information about the clicked course
+load_information.click_on_course('#{{uniqid}}-courseTable'); //Load information about the clicked course
 
   });
 {{/js}}

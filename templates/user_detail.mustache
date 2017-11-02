@@ -279,7 +279,7 @@ require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_suppo
   dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', ['departmentradios', '#departmentdropdown', 2], ['semesterradios', '#semesterdropdown', 4]);
 
   //Load information about the clicked course
-  click_on_course.click_on_course('#{{uniqid}}-userdetailcourses' + ' tbody');
+  click_on_course.click_on_course('#{{uniqid}}-userdetailcourses');
 });
 
 require(['tool_supporter/load_information'], function(hide_user_details){

@@ -247,10 +247,10 @@
       function($, search, sort, dataTable, click_on_user) {
 
   dataTable.use_dataTable('#{{uniqid}}-userincourse',['rolesincourse', '#roledropdown', 4]);  //Convert table to DataTable and add filter functionality to dropdown-menue
-  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  //Convert table to DataTable //Convert table to DataTable
+  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  //Convert table to DataTable
 
   //Load information about the clicked user
-  click_on_user.click_on_user('#{{uniqid}}-userincourse' + ' tbody');
+  click_on_user.click_on_user('#{{uniqid}}-userincourse');
 
   //selecting the active table by using click-Event
  /* tabTableID = "#{{uniqid}}-userincourse";
