@@ -37,8 +37,8 @@ define(['jquery'], function($) {
             else {string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';} 
             filterElements.push(string_value);
         });
-        filterElements.join("|");
-        otable.fnFilter(filterElements, column, true, false, false, true);
+        var filter = filterElements.join("|");
+        otable.fnFilter(filter, column, true, false, false, true);
     };
 
     return /** @alias module:tool_supporter/table_filter */ {
