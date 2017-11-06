@@ -509,9 +509,12 @@ class external extends external_api {
 
         // Select the name of all parent categories.
         $parentcategoriesnames = $DB->get_records_list('course_categories', 'id', $parentcategoriesids, null, 'id,name');
-        $pathcategories = array_column(array_values($parentcategoriesnames), 'name');
+        $pathcategories = [];
+        foreach ($parentcategoriesnames as $val){
+            $pathcategories[] = $val->name;
+        }
         $coursedetails['path'] = implode('/', $pathcategories);
-
+        
         // How many students are enrolled in the course?
         $coursedetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
@@ -575,7 +578,7 @@ class external extends external_api {
             'activities' => (array)$activities,
             'links' => $links
         );
-
+        error_log(print_r(array_values($parentcategoriesnames),true));
         return (array)$data;
     }
 
