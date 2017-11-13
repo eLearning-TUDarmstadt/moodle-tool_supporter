@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'], function($, ajax, templates, notification, str) {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'], function($, ajax, templates, notification, str, load_information) {
     return /** @alias module:tool_supporter/create_new_course */ {
 
         /**
@@ -47,8 +47,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_create_new_course',
                     args: {
-                        shortname: $('#new_course_full_name_input')[0].value,
-                        fullname: $('#new_course_short_name_input')[0].value,
+                        shortname: $('#new_course_short_name_input')[0].value,
+                        fullname: $('#new_course_full_name_input')[0].value,
                         visible: $("#new_course_is_visible").is(":checked"),
                         categoryid: $('#new_course_category_input')[0].value
                     }
@@ -57,11 +57,33 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 promises[0].done(function(data) {
                     console.log("create new course return data: ");
                     console.log(data);
-
+                    var promise1;
                     // Display the created course.
-                    require(['tool_supporter/load_information'], function(load_information){
-                        load_information.show_course_detail(data.id);
+                    //require(['tool_supporter/load_information'], function(load_information){
+                        promise1 = load_information.show_course_detail(data.id,true);
                         $('[data-region="create_new_course_section"]').toggle();
+                   // });
+                    
+                    var otables = $.fn.dataTable.tables();
+                    var coursetableid;
+                    $.each(otables, function(i, val) {  
+                        if (val.id.indexOf("courseTable") >= 0) {
+                            coursetableid = val.id;
+                            return false;
+                        }
+                    });
+                    promise1[0].done(function(data){
+                        var visible;
+                        if(data.courseDetails.visible) visible = 1;
+                        else visible = 0;
+
+                        $('#' + coursetableid).DataTable().row.add({
+                            "id": data.courseDetails.id,
+                            "fullname": data.courseDetails.fullname,
+                            "fb": data.courseDetails.fb,
+                            "semester": data.courseDetails.semester,
+                            "visible": visible
+                        }).draw( false );
                     });
                 });
 

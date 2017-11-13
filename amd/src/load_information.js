@@ -80,8 +80,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * show the course details
          * @method show_course_detail
          */
-        show_course_detail: function(course_id) {
-
+        show_course_detail: function(course_id, boolreturn) {
+            if(boolreturn === 'undefined') boolreturn = 0;
             // Go to top.
             var position = $("#tool_supporter_course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
@@ -92,11 +92,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     courseID: course_id
                 }
             }]);
-
+            //var temp;
             promise[0].done(function(data){
                 // Render template with data.
-                console.log("course detail data");
-                console.log(data);
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                     $('[data-region="tool_supporter_course_details"]').replaceWith(html);
                     $('[data-region="tool_supporter_course_details"]').show();
@@ -110,6 +108,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 }).fail(notification.exception);
             }).fail(notification.exception);
+            if(boolreturn){
+                return promise;
+            }
         },
 
         /**
@@ -154,9 +155,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * Get the details of the user and displays them
          *
          * @method click_on_user
+         * @param table Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
          */
         click_on_user: function(table) {
-            $(table).on('click', 'tr', function() { // Click event on each row.
+            $(table + ' tbody').on('click', 'tr', function() { // Click event on each row.
                 var user_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
 
                 // Go to top.
@@ -172,8 +174,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 promises[0].done(function(data) {
                     data = data[0];
-                    console.log("user detail data");
-                    console.log(data);
                     templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                         $('[data-region="user_details"]').replaceWith(html);
                         $('[data-region="user_details"]').show();
@@ -197,13 +197,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method click_on_user
          */
         click_on_course: function(table) {
-            $(table).on('click', 'tr', function() { // Click event on each row.
+            $(table + ' tbody').on('click', 'tr', function() { // Click event on each row.
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 show_course_detail_private(course_id);
             });
         }
     };
-
+    
     // Alias module:tool_supporter/load_information.
     return  public;
 });
