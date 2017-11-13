@@ -431,7 +431,7 @@ class external extends external_api {
         \require_capability('moodle/course:viewhiddencourses', $context);
 
         $courses = array();
-        $select = 'SELECT c.id, c.fullname, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester, '.
+        $select = 'SELECT c.id, c.shortname, c.fullname, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester, '.
                   'cat.name AS fb, c.visible FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
         $rs = $DB->get_recordset_sql($select);
         foreach ($rs as $record) {
@@ -454,6 +454,7 @@ class external extends external_api {
                     new external_single_structure(
                         array(
                         'id' => new external_value(PARAM_INT, 'id of course'),
+                        'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
                         'fullname' => new external_value(PARAM_RAW, 'course name'),
                         'semester' => new external_value(PARAM_RAW,  'parent category'),
                         'fb' => new external_value(PARAM_RAW, 'course category'),

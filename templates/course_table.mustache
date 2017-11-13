@@ -53,6 +53,7 @@
             <thead>
               <tr>
                 <th>ID  </th>
+                <th>{{#str}}shortnamecourse{{/str}}  </th>
                 <th>{{#str}}fullnamecourse{{/str}}  </th>
                 <th>{{#str}}department{{/str}}  </th>
                 <th>{{#str}}semester, tool_supporter{{/str}}  </th>
@@ -72,6 +73,7 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
 
 var columns1 = [
                 { data: 'id' },
+                { data: 'shortname', "visible": false, "searchable": true},
                 { data: 'fullname' },
                 { data: 'fb' },
                 { data: 'semester' },

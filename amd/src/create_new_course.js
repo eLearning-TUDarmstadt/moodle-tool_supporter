@@ -79,6 +79,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
                         $('#' + coursetableid).DataTable().row.add({
                             "id": data.courseDetails.id,
+                            "shortname": data.courseDetails.shortname,
                             "fullname": data.courseDetails.fullname,
                             "fb": data.courseDetails.fb,
                             "semester": data.courseDetails.semester,
