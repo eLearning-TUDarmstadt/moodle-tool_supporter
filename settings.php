@@ -22,9 +22,16 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) {
 $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
-        new moodle_url('/admin/tool/supporter/index.php')));
+         new moodle_url('/admin/tool/supporter/index.php')));
+
+ 
+//if ($ADMIN->fulltree) {
+if ($hassiteconfig) {
+  $settings = new admin_settingpage('supporter/configuration' , get_string('supporter_settings', 'tool_supporter'));
+  $settings->add(new admin_setting_heading('level_labeling', '', get_string('levels', 'tool_supporter'))); 
+  $settings->add(new admin_setting_configtext('supporter_level', get_string('levels', 'tool_supporter'),
+                          get_string('levels_description', 'tool_supporter'), get_string('levels_default', 'tool_supporter'), PARAM_RAW));    
+  
+  $ADMIN->add('reports', $settings);
 }
-// No report settings.
-$settings = null;
