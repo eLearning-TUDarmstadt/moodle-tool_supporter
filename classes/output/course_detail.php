@@ -49,6 +49,8 @@ class course_detail implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $array = null;
+        $val = get_config('supporter', 'configuration');
+        print_r($val);
         $data = $array;
         return $data;
     }

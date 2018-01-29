@@ -85,7 +85,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "responsive": true,
                         "lengthChange": true,
                         "pageLength": 30,
-                        "deferRender": true, 
+                        "deferRender": true, // For perfomance reasons
                         "language": {
                             // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                             'info': " ",
