@@ -38,8 +38,7 @@
  $string['levels'] = 'Labeling of course categorie levels';
  $string['supporter_settings'] = 'Supporter configuration';
  $string['levels_textbox'] = 'Course levels';
- $string['levels_default'] = 'Department; Semester';
+ $string['levels_default'] = 'Department;Semester';
  $string['levels_description'] = 'Here, you can specify the individual name of the course area levels. ' 
                                 .'These are used in the supporter both as column captions and within the path. The names must be given ' 
-                                .'in descending order (uppermost level first) separated by semicolons. '
-                                .'Default:"Department; Semester"';
+                                .'in descending order (uppermost level first) separated by semicolons. ';
