@@ -35,7 +35,6 @@ require_once("$CFG->libdir/coursecatlib.php");
 use external_api;
 use external_function_parameters;
 use external_value;
-use external_format_value;
 use external_single_structure;
 use external_multiple_structure;
 use invalid_parameter_exception;
