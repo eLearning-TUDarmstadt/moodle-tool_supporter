@@ -71,7 +71,7 @@ class external extends external_api {
      * @param int $visible Visibility
      * @param int $categoryid Id of the category
      * 
-     * @return Course characteristics
+     * @return array Course characteristics
      */
     public static function create_new_course($shortname, $fullname, $visible, $categoryid) {
 
@@ -138,8 +138,7 @@ class external extends external_api {
 
     /**
      * Specifies the return value
-     *
-     * @return the created course
+     * @return external_single_structure the created course
      */
     public static function create_new_course_returns() {
         return new external_single_structure (
@@ -178,7 +177,7 @@ class external extends external_api {
      * @param int $courseid Id of course to enrol into
      * @param int $roleid Id of the role with which the user should be enrolled
      * 
-     * @return Course info user was enrolled to
+     * @return array Course info user was enrolled to
      */
     public static function enrol_user_into_course($userid, $courseid, $roleid) {
         global $DB;
@@ -211,7 +210,7 @@ class external extends external_api {
     /**
      * Specifies the return values
      *
-     * @return returns a course
+     * @return external_single_structure returns a course
      */
     public static function enrol_user_into_course_returns() {
         return self::get_course_info_returns();
@@ -317,7 +316,7 @@ class external extends external_api {
     /**
      * Specifies the return values
      *
-     * @return returns the user's courses and information
+     * @return external_multiple_structure the user's courses and information
      */
     public static function get_user_information_returns() {
         return new external_multiple_structure (new external_single_structure (array (
@@ -387,7 +386,7 @@ class external extends external_api {
     /**
      * Specifies return value
      *
-     * @return an array of users
+     * @return array of users
      **/
     public static function get_users_returns() {
         return new external_single_structure(
@@ -445,7 +444,7 @@ class external extends external_api {
     /**
      * Specifies return values
      *
-     * @return an array of courses
+     * @return array of courses
      */
     public static function get_courses_returns() {
         return new external_single_structure(
@@ -585,7 +584,7 @@ class external extends external_api {
 
     /**
      * Specifies return values
-     * @return a course with addition information
+     * @return external_single_structure a course with addition information
      */
     public static function get_course_info_returns() {
         return new external_single_structure( array(
@@ -682,7 +681,7 @@ class external extends external_api {
 
     /**
      * Specifies return parameters
-     * @return the assignable Roles
+     * @return external_single_structure the assignable Roles
      */
     public static function get_assignable_roles_returns() {
         return new external_single_structure( array(
@@ -737,7 +736,7 @@ class external extends external_api {
 
     /**
      * Specifies return parameters
-     * @return a course with toggled visibility
+     * @return external_single_structure a course with toggled visibility
      */
     public static function toggle_course_visibility_returns() {
         return self::get_course_info_returns();
