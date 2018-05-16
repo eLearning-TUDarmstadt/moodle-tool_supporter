@@ -32,7 +32,7 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
-$PAGE->force_settings_menu();
+$PAGE->blocks->show_only_fake_blocks(); // Disable blocks for layouts which do include pre-post blocks.
 require_login();
 
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
