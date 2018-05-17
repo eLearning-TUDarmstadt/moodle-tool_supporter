@@ -146,7 +146,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          */
         hide_course_detail: function() {
             $('#hide_tool_supporter_course_details').on('click', function() {
-                $('[data-region="tool_supporter_course_details"]').toggle();
+                $('[data-region="tool_supporter_course_details"]').hide();
                 $('[data-region="enroluserregion"]').hide();
             });
         },
@@ -177,9 +177,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                         $('[data-region="user_details"]').replaceWith(html);
                         $('[data-region="user_details"]').show();
-
+                    	
                         // Only show the section if a course is selected.
-                        if ($('#selectedcourseid').length === 1) {
+                        if ($('[data-region="tool_supporter_course_details"]').is(':visible')) {
                             var courseid = $('#selectedcourseid')[0].textContent;
                             show_enrol_section(courseid);
                         }
