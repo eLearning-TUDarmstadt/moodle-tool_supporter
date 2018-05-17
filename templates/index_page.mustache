@@ -22,12 +22,17 @@
 }}
 <nav class="navbar navbar-default">
     <div class = "navbar-inner">
-        <a class="brand navbar-brand" href={{wwwroot}}>{{#pix}} f/moodle, core, {{/pix}}  </a>
+        <a class="brand navbar-brand" href={{wwwroot}} data-toggle="tooltip" title="{{#str}}backto, core, Moodle{{/str}}">{{#pix}} f/moodle, core, {{/pix}}</a>
         <a class="brand navbar-brand" href="#">Supporter</a>
             
         <ul class="nav navbar-nav float-right pull-right">
             <li class = "nav-item">
                 <button href="#" class="btn btn-primary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
+            </li>
+            <li class = "nav-item">
+	            <a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}settings{{/str}}">
+	                {{#pix}} i/settings, core, {{#str}}settings{{/str}} {{/pix}}
+	            </a>
             </li>
         </ul>
     </div>

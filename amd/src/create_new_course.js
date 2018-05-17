@@ -57,12 +57,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 promises[0].done(function(data) {
                     console.log("create new course return data: ");
                     console.log(data);
-                    var promise1;
+
                     // Display the created course.
-                    //require(['tool_supporter/load_information'], function(load_information){
-                        promise1 = load_information.show_course_detail(data.id,true);
-                        $('[data-region="create_new_course_section"]').toggle();
-                   // });
+                    var promise1 = load_information.show_course_detail(data.id, true);
+                    $('[data-region="create_new_course_section"]').toggle();
                     
                     var otables = $.fn.dataTable.tables();
                     var coursetableid;
@@ -73,10 +71,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         }
                     });
                     promise1[0].done(function(data){
-                        var visible;
+                        var visible = 0;
                         if(data.courseDetails.visible) visible = 1;
-                        else visible = 0;
 
+                        // Add the newly created course to the DataTable without reloading the whole thing
                         $('#' + coursetableid).DataTable().row.add({
                             "id": data.courseDetails.id,
                             "shortname": data.courseDetails.shortname,
