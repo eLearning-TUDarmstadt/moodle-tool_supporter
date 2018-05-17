@@ -45,7 +45,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         }).fail(notification.exception);
     };
 
-    // Private function which can be referenced from the click_on_course function.
+    // Private function which can be referenced from the public click_on_course function.
     var show_course_detail_private = function(courseID) {
         public.show_course_detail(courseID);
     };
@@ -201,7 +201,43 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 show_course_detail_private(course_id);
             });
-        }
+        },
+        
+    	click_on_refresh: function(tableID, methodname, args, datainfo, columns) {
+    		
+    		// For users table
+            $('#btn_refresh_users').on('click', function() {
+                var promises = ajax.call([{
+                    "methodname": methodname,
+                    "args": args
+                }]);  
+                promises[0].done(function(data) {
+                	console.log("return data for refreshing a user");
+                	console.log(data);
+                    templates.render('tool_supporter/user_table', data).done(function(html, js) {
+                        $('[data-region="user_table"]').replaceWith(html);
+                        templates.runTemplateJS(js);
+                    }).fail(notification.exception);
+                }).fail(notification.exception);
+            });
+            
+            // For courses table
+            $('#btn_refresh_courses').on('click', function() {
+                var promises = ajax.call([{
+                    "methodname": methodname,
+                    "args": args
+                }]);  
+                promises[0].done(function(data) {
+                	console.log("return data for refreshing a course");
+                	console.log(data);
+                    templates.render('tool_supporter/course_table', data).done(function(html, js) {
+                        $('[data-region="course_table"]').replaceWith(html);
+                        templates.runTemplateJS(js);
+                    }).fail(notification.exception);
+                }).fail(notification.exception);
+            });
+		}
+    
     };
     
     // Alias module:tool_supporter/load_information.

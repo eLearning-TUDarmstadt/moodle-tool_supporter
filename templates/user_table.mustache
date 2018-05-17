@@ -44,7 +44,10 @@
 }}
 <div data-region="user_table"  class="card">
     <div class="card-block">
-        <h2 class="card-title">{{#str}}users{{/str}}</h2>
+        <div class = "row">
+	        <div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
+	        <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+        </div>
         <div class = "table table-responsive">
          <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
            <thead>
@@ -67,7 +70,6 @@
 require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
 function(load_information, $, ajax, notification, templates, datatables){
 
-
 var columns = [
                  { data: 'id' },
                  { data: 'username' },
@@ -75,9 +77,13 @@ var columns = [
                  { data: 'lastname' },
                  { data: 'email' }
              ];
-datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users',{}, 'users', columns);
+datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
-load_information.click_on_user('#{{uniqid}}-userTable'); //Load information about the clicked user
+// Refresh this table
+load_information.click_on_refresh('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns);
+
+//Load detailed information about the clicked user
+load_information.click_on_user('#{{uniqid}}-userTable'); 
 
  });
 {{/js}}

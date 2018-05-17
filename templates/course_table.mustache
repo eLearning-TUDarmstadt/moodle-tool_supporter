@@ -47,7 +47,10 @@
 }}
 <div data-region="course_table"  class="card">
     <div class="card-block">
-        <h2 class="card-title">{{#str}}courses{{/str}}</h2>
+    	<div class = "row">
+	        <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
+	        <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+        </div>
         <div class = "table table-responsive">
           <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
             <thead>
@@ -82,6 +85,10 @@ var columns1 = [
             
 datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
 
+// Refresh this table
+load_information.click_on_refresh('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns);
+
+//Load detailed information about the clicked course
 load_information.click_on_course('#{{uniqid}}-courseTable'); //Load information about the clicked course
 
   });
