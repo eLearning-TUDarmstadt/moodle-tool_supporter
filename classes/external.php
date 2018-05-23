@@ -280,6 +280,7 @@ class external extends external_api {
             $categorypath = $DB->get_record('course_categories', array('id' => $course->category), 'path');
             $patharray = explode("/", $categorypath->path);
             $parentcategory = array_reverse($patharray)[1]; // Semester.
+            // TODO: The following line throws error "Undefined Index" when the course is on root-level
             $course->parentcategory = $categories[$parentcategory];
 
             if (!in_array($course->parentcategory, $data['uniqueparentcategory'])) {
@@ -577,7 +578,7 @@ class external extends external_api {
             'activities' => (array)$activities,
             'links' => $links
         );
-        error_log(print_r(array_values($parentcategoriesnames),true));
+
         return (array)$data;
     }
 
@@ -661,16 +662,22 @@ class external extends external_api {
         $course = get_course($courseid);
         $manager = new \course_enrolment_manager($PAGE, $course);
         $usedroles = $manager->get_assignable_roles();
-
+        
         $count = 0;
         foreach ($usedroles as $roleid => $rolename) {
             $arrayofroles[$count]['id'] = $roleid;
             $arrayofroles[$count]['name'] = $rolename;
             $count++;
         }
-        // To (sometimes) make the least privileged role the default (first).
-        $arrayofroles = array_reverse($arrayofroles);
-
+        
+        // Put the student role in first place
+        $studentrole = array_values(get_archetype_roles('student'))[0];
+        if (array_key_exists($studentrole->id, $arrayofroles)) {            
+            unset($arrayofroles[$studentrole->id]);
+            $studentrole->name = get_string('student', 'grades');
+            array_unshift($arrayofroles, $studentrole);
+        }
+        
         $data = array(
         'assignableRoles' => (array)$arrayofroles
         );
