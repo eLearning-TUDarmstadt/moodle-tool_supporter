@@ -280,6 +280,7 @@ class external extends external_api {
             $categorypath = $DB->get_record('course_categories', array('id' => $course->category), 'path');
             $patharray = explode("/", $categorypath->path);
             $parentcategory = array_reverse($patharray)[1]; // Semester.
+            
             // TODO: The following line throws error "Undefined Index" when the course is on root-level
             $course->parentcategory = $categories[$parentcategory];
 
@@ -430,15 +431,27 @@ class external extends external_api {
         \require_capability('moodle/course:viewhiddencourses', $context);
 
         $courses = array();
+        $allparentcategories = [];
+        $allcategorynames = [];
         $select = 'SELECT c.id, c.shortname, c.fullname, (SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester, '.
                   'cat.name AS fb, c.visible FROM {course} c, {course_categories} cat WHERE c.category = cat.id';
         $rs = $DB->get_recordset_sql($select);
         foreach ($rs as $record) {
             $courses[] = (array)$record;
+            array_push($allparentcategories, $record->semester);
+            array_push($allcategorynames, $record->fb);
         }
         $rs->close();
         $data['courses'] = $courses;
-        return $data;
+        
+        // Get unique categories for filtering
+        $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
+        $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
+
+        //error_log(print_r('data -------------', TRUE));
+        //error_log(str_replace("\n", "", print_r($data, TRUE)));
+        
+        return $data; 
     }
 
     /**
@@ -447,21 +460,51 @@ class external extends external_api {
      * @return array of courses
      */
     public static function get_courses_returns() {
-        return new external_single_structure(
-            array(
+        return new external_single_structure (
+            array (
                 'courses' => new external_multiple_structure(
                     new external_single_structure(
                         array(
-                        'id' => new external_value(PARAM_INT, 'id of course'),
-                        'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-                        'fullname' => new external_value(PARAM_RAW, 'course name'),
-                        'semester' => new external_value(PARAM_RAW,  'parent category'),
-                        'fb' => new external_value(PARAM_RAW, 'course category'),
-                        'visible' => new external_value(PARAM_INT, 'Is the course visible')
+                            'id' => new external_value(PARAM_INT, 'id of course'),
+                            'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
+                            'fullname' => new external_value(PARAM_RAW, 'course name'),
+                            'semester' => new external_value(PARAM_RAW,  'parent category'),
+                            'fb' => new external_value(PARAM_RAW, 'course category'),
+                            'visible' => new external_value(PARAM_INT, 'Is the course visible')
                         )
                     )
-                )
-        ));
+                ),
+                'uniquecategoryname' => new external_multiple_structure (
+                    new external_value(PARAM_TEXT, 'array with unique category names')),
+                'uniqueparentcategory' => new external_multiple_structure (
+                    new external_value(PARAM_TEXT, 'array with unique parent categories'))
+            )
+        );
+        
+        
+        /*
+        return new external_multiple_structure (new external_single_structure (array (
+            'userinformation' => new external_single_structure ( array (
+                'id' => new external_value (PARAM_INT, 'id of the user'),
+                'username' => new external_value (PARAM_TEXT, 'username of the user'),
+                'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
+                'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
+            )),
+            'uniquecategoryname' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique category names')),
+            'uniqueparentcategory' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique parent categories'))
+        )));
+        */
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -485,7 +528,7 @@ class external extends external_api {
      * @param int $courseid Id of the course which needs to be displayed
      */
     public static function get_course_info($courseid) {
-        global $DB, $CFG, $PAGE, $USER;
+        global $DB, $CFG, $COURSE;
 
         // Check parameters.
         $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
@@ -497,6 +540,14 @@ class external extends external_api {
         \require_capability('moodle/course:update', $coursecontext);
 
         // Get information about the course.
+        // TODO: Also get time created and make this dynamic
+        /*
+        $course = get_course($courseid);
+        
+        $coursecat = $DB->get_records('course_categories', array('id'=>$courseid));
+        
+        */
+        
         $select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, cat.path AS path, ".
                   "(SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, ".
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;

@@ -25,7 +25,19 @@
  */
 define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter', 'core/ajax', 'core/notification', 'core/templates'],
 function($, datatables, str, filter, ajax, notification, templates) {
-
+	
+	var use_filters = function(tableID, filterSelector){
+    	
+    	// Only execute if there are filters.
+        if (typeof filterSelector != "undefined") {
+            // Set filters for every dropdown-menu.
+            for(i = 0; i < filterSelector.length; i++){
+            	// Params: checkbox, FormInput, column, tableID
+                filter.filterEvent(filterSelector[i][0], filterSelector[i][1], filterSelector[i][2], tableID);
+            };
+        }
+    };
+	
     return /** @alias module:tool_supporter/datatables */ {
 
         /**
@@ -35,7 +47,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
          * There can be several filterSelectors, for example one for each dropdown-menue
          */
         use_dataTable: function(tableID, filterSelector){
-            var args = arguments;
+        	
             str.get_string('search', 'moodle').done(function(searchString) {
                 $(tableID).DataTable({
                     "retrieve": true,   // So the table can be accessed after initialization.
@@ -53,12 +65,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     "pagingType": "numbers",
                     "scrollX": "true"
                 });
-                var i;
-                for(i = 1; i < args.length; i++){
-                    if(args[i]){
-                        filter.filterEvent(args[i][0], args[i][1], args[i][2], tableID);
-                    }
-                };
+                
+                // Apply Dropdown-Filters to DataTable.
+                use_filters(tableID, filterSelector);
+                
             });
         },
 
@@ -71,12 +81,15 @@ function($, datatables, str, filter, ajax, notification, templates) {
          * @param columns : Name of table columns
          */
         dataTable_ajax: function(tableID, methodname, args, datainfo, columns){
+        	
             var promise = ajax.call([{
                 "methodname": methodname,
                 "args": args
-            }]);  
+            }]);
+            
             var otable;
             promise[0].done(function(data) {
+            	
                 str.get_string('search', 'moodle').done(function(searchString) {
                     otable = $(tableID).DataTable( {
                         "data": data[datainfo],
@@ -84,7 +97,6 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "retrieve": true,   // So the table can be accessed after initialization.
                         "responsive": true,
                         "lengthChange": true,
-                        "pageLength": 30,
                         "deferRender": true, // For perfomance reasons
                         "language": {
                             // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
@@ -96,9 +108,27 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "paging": true,
                         "pagingType": "numbers",
                         "lengthMenu": [ 10, 25, 50, 75, 100 ],
-                        "scrollX": true
+                        "scrollX": true,
+                        //"pageLength": 30 // Activate later when the according setting is in place
                     });
                 });
+                
+                // TODO This could impact performance when whole data is passed to render function.
+                
+                // Add the course filtering for the courses table 
+                templates.render('tool_supporter/course_table', data).done(function(html, js) {
+                	console.log("course filtering data:");
+                	console.log(data);
+
+                	// Only render the filtering dropdown of the tables.
+                	var anchor = $('[data-region="course_filtering"]', $(html));
+                    $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
+                    
+                    // Counting begins at 0, but the column shortname is invisible
+                    use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
+
+                }).fail(notification.exception);                
+                
             }).fail(notification.exception);
         }
     };

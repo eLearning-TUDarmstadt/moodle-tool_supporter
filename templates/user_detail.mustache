@@ -176,10 +176,10 @@
 
     <div class="card-block">
     
-<!-- Enrol the user into the course -->
+		<!-- Enrol the user into the course -->
         {{> tool_supporter/enrolusersection}}
 
-<!--Show user details  -->
+		<!--Show user details  -->
         <table class = "table table borderless">
           <tbody>
             {{#userinformation}}
@@ -222,18 +222,18 @@
             <li class="nav-item dropdown">
               <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}<span class="caret"></span></a>
               <!--filter course list by selecting wanted parent-->
-              <ul class="dropdown-menu" id="departmentdropdown">
+              <ul class="dropdown-menu" id="user_detail_departmentdropdown">
                 {{#uniquecategoryname}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="departmentradios"  id="departmentradios"> {{{.}}}</li>
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_departmentcheckbox"  id="user_detail_departmentcheckbox"> {{{.}}}</li>
                 {{/uniquecategoryname}}
               </ul>
             </li>
            <!--filter course list by selecting wanted grand parent-->
             <li class="nav-item dropdown">
               <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
-              <ul class="dropdown-menu" id="semesterdropdown">
+              <ul class="dropdown-menu" id="user_detail_semesterdropdown">
                 {{#uniqueparentcategory}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="semesterradios" id="semesterradios"> {{{.}}}</li>
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_semestercheckbox" id="user_detail_semestercheckbox"> {{{.}}}</li>
                 {{/uniqueparentcategory}}
               </ul>
             </li>
@@ -273,16 +273,16 @@
 
 {{#js}}
 require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-      function(search, sort, dataTable, click_on_course){
+	function(search, sort, dataTable, click_on_course){
 
-  //Convert table to DataTable and add filter functionality to dropdown-menue
-  dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', ['departmentradios', '#departmentdropdown', 2], ['semesterradios', '#semesterdropdown', 4]);
-
-  //Load information about the clicked course
-  click_on_course.click_on_course('#{{uniqid}}-userdetailcourses');
-});
+		//Convert table to DataTable and add filter functionality to dropdown-menue
+		dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', [['user_detail_departmentcheckbox', '#user_detail_departmentdropdown', 2], ['user_detail_semestercheckbox', '#user_detail_semesterdropdown', 4]]);
+		
+		//Load information about the clicked course
+		click_on_course.click_on_course('#{{uniqid}}-userdetailcourses');
+	});
 
 require(['tool_supporter/load_information'], function(hide_user_details){
-  hide_user_details.hide_user_details();
+	hide_user_details.hide_user_details();
 });
 {{/js}}

@@ -30,17 +30,17 @@
     	Array
     	(
     		[12] => Array (
-          [id] => 51
-          [fullname] => FB01 Kurs full name
-          [visible] => 1
-          [fb] => FB01 Rechts- und Wirtschaftswissenschaften
-          [semester] => WiSe 2016/17 )
+	            [id] => 51
+	            [fullname] => FB01 Kurs full name
+	            [visible] => 1
+	            [fb] => FB01 Rechts- und Wirtschaftswissenschaften
+	            [semester] => WiSe 2016/17 )
     		[13] => Array (
-          [id] => 52
-          [fullname] => FB02 Kurs full name
-          [visible] => 1
-          [fb] => FB02 Gesellschafts- und Geschichtswissenschaften
-          [semester] => WiSe 2016/17 )
+	            [id] => 52
+	            [fullname] => FB02 Kurs full name
+	            [visible] => 1
+	            [fb] => FB02 Gesellschafts- und Geschichtswissenschaften
+	            [semester] => WiSe 2016/17 )
     	)
     )
 
@@ -51,6 +51,32 @@
 	        <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
 	        <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
         </div>
+        
+        <!-- Filtering for course table -->
+        <div id ="course_filtering" data-region = "course_filtering">
+          <ul class="nav nav-tabs nav-justified">
+          	<!-- Filter course list by selecting wanted parent/category -->
+            <li class="nav-item dropdown">
+              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}<span class="caret"></span></a>
+              <!--filter course list by selecting wanted parent-->
+              <ul class="dropdown-menu" id="courses_departmentdropdown">
+                {{#uniquecategoryname}}
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</li>
+                {{/uniquecategoryname}}
+              </ul>
+            </li>
+           <!-- Filter course list by selecting wanted grand parent-->
+            <li class="nav-item dropdown">
+              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
+              <ul class="dropdown-menu" id="courses_semesterdropdown">
+                {{#uniqueparentcategory}}
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</li>
+                {{/uniqueparentcategory}}
+              </ul>
+            </li>
+         </ul>
+       </div>
+       
         <div class = "table table-responsive">
           <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
             <thead>
@@ -72,24 +98,24 @@
 
 {{#js}}
 require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
-    function(load_information, $, ajax, notification, templates, datatables){
+    function(load_information, $, ajax, notification, templates, datatables) {
 
-var columns1 = [
-                { data: 'id' },
-                { data: 'shortname', "visible": false, "searchable": true},
-                { data: 'fullname' },
-                { data: 'fb' },
-                { data: 'semester' },
-                { data: 'visible' }
-            ];
-            
-datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
-
-// Refresh this table
-load_information.click_on_refresh('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns1);
-
-//Load detailed information about the clicked course
-load_information.click_on_course('#{{uniqid}}-courseTable'); //Load information about the clicked course
-
+		var columns1 = [
+		                { data: 'id' },
+		                { data: 'shortname', "visible": false, "searchable": true},
+		                { data: 'fullname' },
+		                { data: 'fb' },
+		                { data: 'semester' },
+		                { data: 'visible' }
+		            ];
+		
+		// Convert the table to dataTable and apply Filtering      
+		datatables.dataTable_ajax('#{{uniqid}}-courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
+		
+		// Refresh this table
+		load_information.click_on_refresh('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns1);
+		
+		// Load detailed information about the clicked course
+		load_information.click_on_course('#{{uniqid}}-courseTable'); //Load information about the clicked course
   });
 {{/js}}

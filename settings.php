@@ -32,6 +32,6 @@ if ($hassiteconfig) {
 	$ADMIN->add('tools', $settings);
   
     $settings->add(new admin_setting_heading('level_labeling', '', get_string('levels', 'tool_supporter')));
-    $settings->add(new admin_setting_configtext('supporter_level', get_string('levels', 'tool_supporter'),
+    $settings->add(new admin_setting_configtext('tool_supporter_levels', get_string('levels', 'tool_supporter'),
                             get_string('levels_description', 'tool_supporter'), get_string('levels_default', 'tool_supporter'), PARAM_RAW));
 }

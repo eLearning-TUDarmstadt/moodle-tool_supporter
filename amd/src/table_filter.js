@@ -27,17 +27,20 @@
  */
 define(['jquery'], function($) {
 
-    var filterTable = function(elements, otable, column){
+    var filterTable = function(checked_elements, otable, column){
+    	
         var filterElements = [];
         var string_value = '';
-        $(elements).each(function(index){
+        $(checked_elements).each(function(index){
             var val = $(this).val();
             if(val === ""){string_value = '^(?![\\s\\S])';}
-            //String value is added several times with different beginings and endings so filter for i.e. "Teacher" does not match "non-editing teacher"
+            //String value is added several times with different starts and endings so filter for i.e. "Teacher" does not match "non-editing teacher"
             else {string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';} 
             filterElements.push(string_value);
         });
         var filter = filterElements.join("|");
+        
+        // Params: String to filter; Column to limit filtering to; Treat as regex; Smart Filtering; Show input global filter; Case insensitive.
         otable.fnFilter(filter, column, true, false, false, true);
     };
 
@@ -52,13 +55,13 @@ define(['jquery'], function($) {
          * @param FormInput : The ID of the dropdownmenu or something similiary you want to use to filter the table
          * @param column : which column should be filtered
          */
-        filterEvent: function(searchInputName, FormInput, column, tableID) {
-            // For Radio Buttons.
-            var otable = $(tableID).dataTable();
-            $(FormInput).change(function() {
-                var elements = $('input[name=' + searchInputName + ']:checked');
-                filterTable(elements, otable, column);
+        filterEvent: function(checkboxes, FormInput, column, tableID) {
+        	$(FormInput).change(function() {
+                var checked_elements = $('input[name=' + checkboxes + ']:checked');
+                var otable = $(tableID).dataTable();
+                filterTable(checked_elements, otable, column);
             });
+            
         }
     };
 });

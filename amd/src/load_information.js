@@ -94,6 +94,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             }]);
             //var temp;
             promise[0].done(function(data){
+                console.log("Show course detail Returns: ");
+                console.log(data);
                 // Render template with data.
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                     $('[data-region="tool_supporter_course_details"]').replaceWith(html);
@@ -173,6 +175,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }]);
 
                 promises[0].done(function(data) {
+                    console.log("click on user Returns: ");
+                    console.log(data);
                     data = data[0];
                     templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                         $('[data-region="user_details"]').replaceWith(html);
