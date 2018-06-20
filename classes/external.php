@@ -600,7 +600,7 @@ class external extends external_api {
             $users[] = $u;
         }
 
-        // Activities in course.
+        // Get Activities in course.
         $activities = array();
         $modules = \get_array_of_activities($courseid);
         foreach ($modules as $mo) {
@@ -609,8 +609,26 @@ class external extends external_api {
             $activities[] = $activity;
         }
 
+        // Get Enrolment Methods in course.
+        $enrolmentmethods = array();
+        $instances = enrol_get_instances($courseid, false);
+        $plugins   = enrol_get_plugins(false);
+        // iterate through enrol plugins and add to the display table
+        foreach ($instances as $instance) {
+            $plugin = $plugins[$instance->enrol];
+            
+            $enrolmentmethod['methodname'] = $plugin->get_instance_name($instance);
+            $enrolmentmethod['enabled'] = false;
+            if (!enrol_is_enabled($instance->enrol) or $instance->status != ENROL_INSTANCE_ENABLED) {
+                $enrolmentmethod['enabled'] = true;
+            }
+            
+            $enrolmentmethod['users'] = $DB->count_records('user_enrolments', array('enrolid'=>$instance->id));
+            $enrolmentmethods[] = $enrolmentmethod;
+        }
+          
+        // Get links for navigation.
         $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseid;
-
         if (\has_capability('moodle/course:delete', $coursecontext) ) {
             $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseid;
         }
@@ -627,9 +645,13 @@ class external extends external_api {
             'roles' => (array)$roles,
             'users' => (array)$users,
             'activities' => (array)$activities,
-            'links' => $links
+            'links' => $links,
+            'enrolmentMethods' => (array)$enrolmentmethods
         );
 
+        //error_log(print_r('data -------------', TRUE));
+        //error_log(str_replace("\n", "", print_r($data['enrolmentMethods'], TRUE)));
+        
         return (array)$data;
     }
 
@@ -663,19 +685,25 @@ class external extends external_api {
                     'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
                     'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
                 ))),
-                'activities' => new external_multiple_structure(
+            'activities' => new external_multiple_structure(
                 new external_single_structure( array(
                     'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
                     'activity' => new external_value(PARAM_RAW, 'kind of activity'),
                     'name' => new external_value(PARAM_RAW, 'Name of this activity'),
                     'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
-                ))),
-                'links' => new external_single_structure( array(
+            ))),
+            'links' => new external_single_structure( array(
                     'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
                     'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, '
                             . 'additional affirmation needed afterwards', 'optional'),
                     'courselink' => new external_value(PARAM_RAW, 'link to the course')
-                )),
+            )),
+            'enrolmentMethods' => new external_multiple_structure(
+                new external_single_structure( array(
+                    'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
+                    'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
+                    'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')     
+            )))
         ));
     }
 

@@ -169,8 +169,9 @@
         <!-- Navigation for user- and activity-table of selected course -->
         <div>
           <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
-              <li class="nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
+              <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
               <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
+              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
               <li class = "nav-item dropdown">
                   <a class = "nav-link dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
                   <ul class="dropdown-menu" id="roledropdown">
@@ -233,11 +234,33 @@
                                 <td>{{name}}</td>
                                 <td>{{visible}}</td>
                             </tr>
-                        {{/activities}}
+                            {{/activities}}
                         </tbody>
                     </table>
                 </div>
             </div>
+            
+            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
+                <!--table of enrolment methods in this course-->
+                <div class = "table table-responsive">
+                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>{{#str}}enrolmentinstances, enrol{{/str}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#enrolmentMethods}}
+                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
+                                <td>{{methodname}}</td>
+                                <td>{{users}}</td>
+                            </tr>
+                            {{/enrolmentMethods}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
