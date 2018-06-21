@@ -13,14 +13,25 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * Plugin version info
- *
- * @package    tool_supporter
- * @copyright  2016 Benedikt Schneider
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   tool_supporter
+ * @copyright 2018 Benedikt Schneider
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 defined('MOODLE_INTERNAL') || die();
-$plugin->version   = 2018062101; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2015050500; // Requires this Moodle version.
-$plugin->component = 'tool_supporter'; // Full name of the plugin (used for diagnostics).
+
+ /**
+ * Get icon mapping for font-awesome.
+ *
+ * @return  array
+ */
+function tool_supporter_get_fontawesome_icon_map() {
+    return [
+        'tool_supporter:i/signin' => 'fa-sign-in',
+        'tool_supporter:i/hide' => 'fa-eye-slash',
+        'tool_supporter:i/minus' => 'fa-minus',
+        'tool_supporter:i/plus' => 'fa-plus',
+    ];
+}

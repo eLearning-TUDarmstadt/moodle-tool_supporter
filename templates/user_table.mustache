@@ -43,27 +43,26 @@
 
 }}
 <div data-region="user_table"  class="card">
-    <div class="card-block">
-        <div class = "row">
-	        <div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
-	        <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
-        </div>
-        <div class = "table table-responsive">
-         <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
-           <thead>
-             <tr>
-               <th>ID  </th>
-               <th>{{#str}}username{{/str}}  </th>
-               <th>{{#str}}firstname{{/str}}  </th>
-               <th>{{#str}}lastname{{/str}}  </th>
-               <th>{{#str}}email{{/str}}  </th>
-             </tr>
-           </thead>
-           <tbody>
-           </tbody>
-         </table>
-       </div>
+    <div class = "card-header">
+    	<div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
+    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
     </div>
+ 
+ <div class = "table table-responsive">
+     <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
+         <thead>
+			<tr>
+		        <th>ID</th>
+		        <th>{{#str}}username{{/str}}</th>
+		        <th>{{#str}}firstname{{/str}}</th>
+		        <th>{{#str}}lastname{{/str}}</th>
+		        <th>{{#str}}email{{/str}}</th>
+			</tr>
+		  </thead>
+		  <tbody>
+	      </tbody>
+	</table>
+</div>
 </div>
 
 {{#js}}

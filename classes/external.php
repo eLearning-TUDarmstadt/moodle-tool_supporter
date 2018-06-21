@@ -268,14 +268,12 @@ class external extends external_api {
         $categories = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
         $usercoursesarray = [];
-        $data['uniqueparentcategory'] = [];
-        $data['uniquecategoryname'] = [];
+        $allcategorynames = [];
+        $allparentcategories = [];
         foreach ($usercourses as $course) {
             // Get the semester the course is in (parent of category).
             $course->categoryname = $categories[$course->category]; // Department, Fachbereich.
-            if (!in_array($course->categoryname, $data['uniquecategoryname'])) {
-                array_push ($data['uniquecategoryname'], $course->categoryname);
-            }
+            array_push ($allcategorynames, $course->categoryname);
 
             $categorypath = $DB->get_record('course_categories', array('id' => $course->category), 'path');
             $patharray = explode("/", $categorypath->path);
@@ -283,10 +281,7 @@ class external extends external_api {
             
             // TODO: The following line throws error "Undefined Index" when the course is on root-level
             $course->parentcategory = $categories[$parentcategory];
-
-            if (!in_array($course->parentcategory, $data['uniqueparentcategory'])) {
-                array_push ($data['uniqueparentcategory'], $course->parentcategory);
-            }
+            array_push ($allparentcategories, $course->parentcategory);
 
             // Get the used Roles the user is enrolled as (teacher, student, ...).
             $context = \context_course::instance($course->id);
@@ -296,6 +291,10 @@ class external extends external_api {
             }
             $usercoursesarray[] = (array)$course; // Cast it as an array.
         }
+        
+        // Get unique categories for filtering
+        $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
+        $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
 
         $data['userscourses'] = $usercoursesarray;
         $data['userinformation'] = $userinformationarray;

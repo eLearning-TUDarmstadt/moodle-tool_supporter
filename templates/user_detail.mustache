@@ -157,28 +157,31 @@
 <div style="display: none" id = "user_details" data-region="user_details" class="card">
     <div class="card-header">
         <ul class="nav nav-pills">
-            <li class="navbar-brand"> <a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{username}}{{/userinformation}}</h3></a></li>
+            <li class="navbar-brand"> <a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a></li>
             <li class =" nav-item pull-right float-right">
                 <div class="btn-group pull-right float-right" role="group">
                     <a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
                         {{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
                     </a>
                     <a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
-                        {{#pix}} i/permissionlock, core, {{#str}}loginas{{/str}} {{/pix}}
+                        {{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
                     </a>
-                    <a href="#" class="btn btn-default" role="button" id="hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
-                        {{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}
+                    <a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+                        {{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
+                    </a>
+                    <a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_expand_user_details" style="display: none">
+                      {{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
                     </a>
                 </div>
             </li>
         </ul>
     </div>
 
-    <div class="card-block">
-    
+    <div class="card-block" id="user_details_body">
 		<!-- Enrol the user into the course -->
         {{> tool_supporter/enrolusersection}}
-
+		<br> 
+		
 		<!--Show user details  -->
         <table class = "table table borderless">
           <tbody>
@@ -214,9 +217,9 @@
             {{/userinformation}}
           </tbody>
         </table>
+        <hr>
 
         <!-- Navigation for users course table -->
-        <div>
           <ul class="nav nav-tabs nav-justified">
             <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
             <li class="nav-item dropdown">
@@ -238,7 +241,6 @@
               </ul>
             </li>
          </ul>
-       </div>
 
        <!--Table showing users courses-->
         <div> 
@@ -266,23 +268,23 @@
                 {{/userscourses}}
               </tbody>
             </table>
-        </div>
+		</div>
+		
     </div>
 </div>
 
 
 {{#js}}
 require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-	function(search, sort, dataTable, click_on_course){
+	function(search, sort, dataTable, load_information){
 
 		//Convert table to DataTable and add filter functionality to dropdown-menue
 		dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', [['user_detail_departmentcheckbox', '#user_detail_departmentdropdown', 2], ['user_detail_semestercheckbox', '#user_detail_semesterdropdown', 4]]);
 		
 		//Load information about the clicked course
-		click_on_course.click_on_course('#{{uniqid}}-userdetailcourses');
+		load_information.click_on_course('#{{uniqid}}-userdetailcourses');
+		
+		load_information.hide_user_details();
+		load_information.expand_user_details();
 	});
-
-require(['tool_supporter/load_information'], function(hide_user_details){
-	hide_user_details.hide_user_details();
-});
 {{/js}}

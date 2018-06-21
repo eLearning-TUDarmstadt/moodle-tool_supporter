@@ -65,8 +65,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
             // Re-render the template to show the changes.
             templates.render('tool_supporter/course_detail', course).done(function(html, js) {
-                $('[data-region="tool_supporter_course_details"]').replaceWith(html);
-                $('[data-region="tool_supporter_course_details"]').show();
+                $('[data-region="course_details"]').replaceWith(html);
+                $('[data-region="course_details"]').show();
                 templates.runTemplateJS(js);
             }).fail(notification.exception);
         }).fail(notification.exception);
@@ -83,7 +83,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         show_course_detail: function(course_id, boolreturn) {
             if(boolreturn === 'undefined') boolreturn = 0;
             // Go to top.
-            var position = $("#tool_supporter_course_details").offset().top;
+            var position = $("#course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
 
             var promise = ajax.call([{
@@ -98,8 +98,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 console.log(data);
                 // Render template with data.
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
-                    $('[data-region="tool_supporter_course_details"]').replaceWith(html);
-                    $('[data-region="tool_supporter_course_details"]').show();
+                    $('[data-region="course_details"]').replaceWith(html);
+                    $('[data-region="course_details"]').show();
                     // And execute any JS that was in the template.
                     templates.runTemplateJS(js);
 
@@ -136,8 +136,23 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method hide_user_details
          */
         hide_user_details: function() {
-            $('#hide_user_details').on('click', function() {
-                $('[data-region="user_details"]').toggle();
+            $('#btn_hide_user_details').on('click', function() {
+                $('#user_details_body').hide();
+                $('#btn_hide_user_details').hide();
+                $('#btn_expand_user_details').show();
+            });
+        },
+        
+        /**
+         * expand the user block after it was hidden
+         *
+         * @method expand_user_details
+         */
+        expand_user_details: function() {
+            $('#btn_expand_user_details').on('click', function() {
+                $('#user_details_body').show();
+                $('#btn_hide_user_details').show();
+                $('#btn_expand_user_details').hide();
             });
         },
 
@@ -147,9 +162,26 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method hide_course_detail
          */
         hide_course_detail: function() {
-            $('#hide_tool_supporter_course_details').on('click', function() {
-                $('[data-region="tool_supporter_course_details"]').hide();
-                $('[data-region="enroluserregion"]').hide();
+            $('#btn_hide_course_details').on('click', function() {
+            	console.log("SABDISA");
+            	$('#course_details_body').hide();
+            	$('#btn_hide_course_details').hide();
+            	$('#btn_expand_course_details').show();
+                //$('[data-region="enroluserregion"]').hide();
+            });
+        },
+        
+        /**
+         * expands the course detail block again after it was hidden
+         *
+         * @method expand_course_detail
+         */
+        expand_course_detail: function() {
+            $('#btn_expand_course_details').on('click', function() {
+            	$('#course_details_body').show();
+            	$('#btn_hide_course_details').show();
+            	$('#btn_expand_course_details').hide();
+                //$('[data-region="enroluserregion"]').hide();
             });
         },
 
@@ -183,7 +215,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                         $('[data-region="user_details"]').show();
                     	
                         // Only show the section if a course is selected.
-                        if ($('[data-region="tool_supporter_course_details"]').is(':visible')) {
+                        if ($('[data-region="course_details"]').is(':visible')) {
                             var courseid = $('#selectedcourseid')[0].textContent;
                             show_enrol_section(courseid);
                         }

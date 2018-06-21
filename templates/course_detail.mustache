@@ -94,7 +94,7 @@
 
 }}
 <!--View details after clicking on a course in course table.  -->
-<div style="display: none" id ="tool_supporter_course_details" data-region = "tool_supporter_course_details" class="card">
+<div style="display: none" id ="course_details" data-region = "course_details" class="card">
     <div class="card-header">
         <ul class="nav nav-pills">
             {{#links}}
@@ -117,17 +117,20 @@
                       {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
                     </a>
                     <a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
-                      {{#pix}} i/completion-auto-fail, core, {{#str}}deletecourse{{/str}} {{/pix}}
+                      {{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
                     </a>
-                    <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="hide_tool_supporter_course_details">
-                      <span>{{#pix}} t/expanded, core, {{#str}}hide{{/str}} {{/pix}}</span>
+                    <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="btn_hide_course_details">
+                      {{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
+                    </a>
+                    <a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_expand_course_details" style="display: none">
+                      {{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
                     </a>
                 </div>
             </li>
             {{/links}}
         </ul>
     </div>
-    <div class="card-block">
+    <div class="card-block" id="course_details_body">
         <!--Show course details  -->
         <table class = "table table-responsive borderless">
           <tbody>
@@ -165,6 +168,7 @@
             {{/roles}}
           </tbody>
         </table>
+		<hr>
 
         <!-- Navigation for user- and activity-table of selected course -->
         <div>
@@ -172,22 +176,24 @@
               <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
               <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
               <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
-              <li class = "nav-item dropdown">
-                  <a class = "nav-link dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
-                  <ul class="dropdown-menu" id="roledropdown">
-                      <!--filter user list by selecting wanted role-->
-                       {{#rolesincourse}}
-                       <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
-                       {{/rolesincourse}}
-                  </ul>
-              </li>
           </ul>
         </div>
-
 
         <div class="tab-content">
             <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
               <!--table of users in this course-->
+
+	              <div class = "nav-item dropdown">
+	              <b>&nbsp{{#str}}filter{{/str}}:&nbsp&nbsp</b>
+	                  <a class = "nav-link dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}<span class="caret"></span></a>
+	                  <ul class="dropdown-menu" id="roledropdown">
+	                      <!--filter user list by selecting wanted role-->
+	                       {{#rolesincourse}}
+	                       <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
+	                       {{/rolesincourse}}
+	                  </ul>
+	              </div>
+              
                 <div class = "table table-responsive">
                     <table class = "stripe hover row-border compact" id = "{{uniqid}}-userincourse" cellspacing="0" width="100%">
                         <thead>
@@ -267,30 +273,22 @@
 
 {{#js}}
  require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-      function($, search, sort, dataTable, click_on_user) {
+      function($, search, sort, dataTable, load_information) {
+  
+  // Convert table to DataTable and add filter functionality to dropdown-menue
+  dataTable.use_dataTable('#{{uniqid}}-userincourse', [['rolesincourse', '#roledropdown', 4]]);
 
-  dataTable.use_dataTable('#{{uniqid}}-userincourse',['rolesincourse', '#roledropdown', 4]);  //Convert table to DataTable and add filter functionality to dropdown-menue
-  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  //Convert table to DataTable
+  // Convert activity-table to DataTable
+  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");  
 
-  //Load information about the clicked user
-  click_on_user.click_on_user('#{{uniqid}}-userincourse');
-
-  //selecting the active table by using click-Event
- /* tabTableID = "#{{uniqid}}-userincourse";
-  $('#{{uniqid}}-myTabs a').click(function(e){
-    var activeTab = e.target.getAttribute('href');
-    if(activeTab == "#CoursePill_1"){
-      tabTableID = "#{{uniqid}}-userincourse";
-    }
-    else if(activeTab == "#CoursePill_2"){
-      tabTableID = "#{{uniqid}}-activityInCourse";
-    };
-  });*/
-});
-
-require(['tool_supporter/load_information'], function(load_information){
+  // Load information about the clicked user
+  load_information.click_on_user('#{{uniqid}}-userincourse');
+  
+  // Buttons on top
   load_information.hide_course_detail();
+  load_information.expand_course_detail();
   load_information.toggle_course_visibility();
+
 });
 
 {{/js}}

@@ -45,55 +45,53 @@
     )
 
 }}
-<div data-region="course_table"  class="card">
-    <div class="card-block">
-    	<div class = "row">
-	        <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
-	        <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
-        </div>
-        
-        <!-- Filtering for course table -->
-        <div id ="course_filtering" data-region = "course_filtering">
-          <ul class="nav nav-tabs nav-justified">
-          	<!-- Filter course list by selecting wanted parent/category -->
-            <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}<span class="caret"></span></a>
-              <!--filter course list by selecting wanted parent-->
-              <ul class="dropdown-menu" id="courses_departmentdropdown">
-                {{#uniquecategoryname}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</li>
-                {{/uniquecategoryname}}
-              </ul>
-            </li>
-           <!-- Filter course list by selecting wanted grand parent-->
-            <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
-              <ul class="dropdown-menu" id="courses_semesterdropdown">
-                {{#uniqueparentcategory}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</li>
-                {{/uniqueparentcategory}}
-              </ul>
-            </li>
-         </ul>
-       </div>
-       
-        <div class = "table table-responsive">
-          <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th>ID  </th>
-                <th>{{#str}}shortnamecourse{{/str}}  </th>
-                <th>{{#str}}fullnamecourse{{/str}}  </th>
-                <th>{{#str}}department, tool_supporter{{/str}}  </th>
-                <th>{{#str}}semester, tool_supporter{{/str}}  </th>
-                <th>{{#str}}visible{{/str}}  </th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-    </div>
+<div data-region="course_table" class="card">
+	<div class = "card-header">
+	    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
+	    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+	</div>
+	   
+	<!-- Filtering for course table -->
+	<div id ="course_filtering" data-region = "course_filtering">
+	   <ul class="nav nav-tabs nav-justified">
+	   	<!-- Filter course list by selecting wanted parent/category -->
+	     <li class="nav-item dropdown">
+	       <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}<span class="caret"></span></a>
+	       <!--filter course list by selecting wanted parent-->
+	       <ul class="dropdown-menu" id="courses_departmentdropdown">
+	         {{#uniquecategoryname}}
+	         <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</li>
+	         {{/uniquecategoryname}}
+	       </ul>
+	     </li>
+	    <!-- Filter course list by selecting wanted grand parent-->
+	     <li class="nav-item dropdown">
+	       <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
+	       <ul class="dropdown-menu" id="courses_semesterdropdown">
+	         {{#uniqueparentcategory}}
+	         <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</li>
+	         {{/uniqueparentcategory}}
+	       </ul>
+	     </li>
+	  </ul>
+	</div>
+	
+	<div class = "table table-responsive">
+	  <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
+	    <thead>
+	      <tr>
+	        <th>ID  </th>
+	        <th>{{#str}}shortnamecourse{{/str}}</th>
+	        <th>{{#str}}fullnamecourse{{/str}}</th>
+	        <th>{{#str}}department, tool_supporter{{/str}}</th>
+	        <th>{{#str}}semester, tool_supporter{{/str}}</th>
+	        <th>{{#str}}visible{{/str}}</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    </tbody>
+	  </table>
+	</div>
 </div>
 
 {{#js}}

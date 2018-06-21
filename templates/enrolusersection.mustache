@@ -41,18 +41,20 @@
 }}
 
 <div id="enrolusersection" data-region="enroluserregion" style="display: none" >
-  <form>
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-primary" id ="enroluserintocoursebutton">{{#str}}enrolusers, enrol{{/str}}</button>
-        </span>
-        <select class="form-control" id="role-dropdown">
+  
+  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+	  <div class="btn-group" role="group">
+	    <button type="button" class="btn btn-primary" id ="enroluserintocoursebutton">{{#str}}enrolusers, enrol{{/str}}</button>
+	  </div>
+	  <div class="btn-group" role="group" aria-label="Third group">
+	    <select class="form-control" id="role-dropdown">
           {{#assignableRoles}}
             <option value={{id}}>{{name}}</option>
           {{/assignableRoles}}
         </select>
-      </div>
-  </form>
+	  </div>
+	</div>
+  
 </div>
 
 {{#js}}

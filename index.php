@@ -54,21 +54,13 @@ $coursedetail = $output->render(new \tool_supporter\output\course_detail());
 
 echo $output->header();
 
-/*<!-- <style>
-.card-header {
-    background-color: 	rgb(252,253,253);
-    }
-.row-fluid [class*="span"] { /*for bs2 compability
-min-height: 0px;
-}
-</style>*/
-
 echo'
 <div class="container-fluid">
     <div class="row-fluid" style = "min-height: 0px;">
         <div class="span12 col-sm-12">
         '.$index.'
         <div class="row-fluid" style = "min-height: 0px;">
+
             <div class="span6 col-sm-6">
                 <div class="row-fluid" style = "min-height: 0px;">
                     <div class="span12 col-md-12" style = "min-height: 0px;">
@@ -86,6 +78,7 @@ echo'
                     </div>
                 </div>
             </div>
+
             <div class="span6 col-sm-6">
                 <div class="row-fluid" style = "min-height: 0px;">
                     <div class="span12 col-sm-12" style = "min-height: 0px;">
@@ -98,6 +91,7 @@ echo'
                     </div>
                 </div>
             </div>
+
         </div>
      </div>
    </div>
