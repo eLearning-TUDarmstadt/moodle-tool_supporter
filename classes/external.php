@@ -356,7 +356,7 @@ class external extends external_api {
                     new external_value(PARAM_TEXT, 'array with unique category names')),
             'uniqueparentcategory' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique parent categories')),
-            'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?", VALUE_OPTIONAL)
+            'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?")
         )));
     }
 
@@ -636,7 +636,7 @@ class external extends external_api {
             $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseid;
         } else {$deletelink = false;}
         
-        if (\has_capability('moodle/course:update', $coursecontext) ) {$isallowedtoupdatecourse = true;} 
+        if (\has_capability('moodle/course:update', \context_system::instance()) ) {$isallowedtoupdatecourse = true;} 
         else {$isallowedtoupdatecourse = false;}
         
         $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
@@ -653,7 +653,8 @@ class external extends external_api {
             'users' => (array)$users,
             'activities' => (array)$activities,
             'links' => $links,
-            'enrolmentMethods' => (array)$enrolmentmethods
+            'enrolmentMethods' => (array)$enrolmentmethods,
+            'isallowedtoupdatecourse' => $isallowedtoupdatecourse
         );
 
         //error_log(print_r('data -------------', TRUE));
@@ -711,7 +712,7 @@ class external extends external_api {
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
                     'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')     
             ))),
-            'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?", VALUE_OPTIONAL)
+            'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
         ));
     }
 
