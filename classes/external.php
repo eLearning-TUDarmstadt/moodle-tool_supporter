@@ -299,16 +299,21 @@ class external extends external_api {
         $data['userscourses'] = $usercoursesarray;
         $data['userinformation'] = $userinformationarray;
 
+        $context = \context_system::instance();
         if (\has_capability('moodle/user:loginas', $context) ) {
             $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
-            $data['loginaslink'] = (array)$link;
-        }
+            $data['loginaslink'] = $link;
+        } else { $data['loginaslink'] = false; }
 
         $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
-        $data['profilelink'] = (array)$link;
+        $data['profilelink'] = $link;
 
         $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
-        $data['edituserlink'] = (array)$link;
+        $data['edituserlink'] = $link;
+        
+        if (\has_capability('moodle/user:update', $context) ) {
+            $data['isallowedtoupdateusers'] = true;
+        }  else { $data['isallowedtoupdateusers'] = false; }
 
         return array($data);
     }
@@ -344,16 +349,14 @@ class external extends external_api {
                 // Additional information which could be added: idnumber, sortorder, defaultgroupingid, groupmode, groupmodeforce,
                 // And: ctxid, ctxpath, ctsdepth, ctxinstance, ctxlevel.
             ))),
-            'loginaslink' => new external_single_structure (array(
-                    new external_value(PARAM_TEXT, 'The link to login as the user'))),
-            'profilelink' => new external_single_structure (array(
-                    new external_value(PARAM_TEXT, 'The link to the users profile page'))),
-            'edituserlink' => new external_single_structure (array(
-                    new external_value(PARAM_TEXT, 'The link to edit the user'))),
+            'loginaslink' => new external_value(PARAM_TEXT, 'The link to login as the user', VALUE_OPTIONAL),
+            'profilelink' => new external_value(PARAM_TEXT, 'The link to the users profile page'),
+            'edituserlink' => new external_value(PARAM_TEXT, 'The link to edit the user'),
             'uniquecategoryname' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique category names')),
             'uniqueparentcategory' => new external_multiple_structure (
-                    new external_value(PARAM_TEXT, 'array with unique parent categories'))
+                    new external_value(PARAM_TEXT, 'array with unique parent categories')),
+            'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?", VALUE_OPTIONAL)
         )));
     }
 
@@ -536,7 +539,7 @@ class external extends external_api {
         $coursecontext = \context_course::instance($courseid);
         self::validate_context($coursecontext);
         // Is the user allowed to change course_settings?
-        \require_capability('moodle/course:update', $coursecontext);
+        \require_capability('moodle/course:view', $coursecontext);
 
         // Get information about the course.
         // TODO: Also get time created and make this dynamic
@@ -583,6 +586,7 @@ class external extends external_api {
                 $rolesincourse[] = $rolename;
             }
         }
+        
         // Get userinformation about users in course.
         $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
         $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
@@ -630,7 +634,11 @@ class external extends external_api {
         $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseid;
         if (\has_capability('moodle/course:delete', $coursecontext) ) {
             $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseid;
-        }
+        } else {$deletelink = false;}
+        
+        if (\has_capability('moodle/course:update', $coursecontext) ) {$isallowedtoupdatecourse = true;} 
+        else {$isallowedtoupdatecourse = false;}
+        
         $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
 
         $links = array(
@@ -694,7 +702,7 @@ class external extends external_api {
             'links' => new external_single_structure( array(
                     'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
                     'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, '
-                            . 'additional affirmation needed afterwards', 'optional'),
+                        . 'additional affirmation needed afterwards', VALUE_OPTIONAL),
                     'courselink' => new external_value(PARAM_RAW, 'link to the course')
             )),
             'enrolmentMethods' => new external_multiple_structure(
@@ -702,7 +710,8 @@ class external extends external_api {
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
                     'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')     
-            )))
+            ))),
+            'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?", VALUE_OPTIONAL)
         ));
     }
 
@@ -742,6 +751,7 @@ class external extends external_api {
         $usedroles = $manager->get_assignable_roles();
         
         $count = 0;
+        $arrayofroles = [];
         foreach ($usedroles as $roleid => $rolename) {
             $arrayofroles[$count]['id'] = $roleid;
             $arrayofroles[$count]['name'] = $rolename;

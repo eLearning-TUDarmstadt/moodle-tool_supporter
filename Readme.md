@@ -35,6 +35,24 @@ It has built-in the standard Moodle Capability-Checks so there are no extra capa
 * Enable database upgrade
 * Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->Plugins->Admin Tools -> Supporter`
 
+## Capabilites
+With this Plugin, we strove to implement all nesseccary moodle-capabilities. As such, there is no need to give users additional caps. 
+If there is a need to divide different levels of support, these caps need to be set on a system-context:
+
+Level 1 Support (read-only): 
+- moodle/site:viewparticipants
+- moodle/user:viewdetails (requires site:viewparticipants)
+- moodle/course:viewhiddencourses
+- moodle/course:view (requires course:viewhiddencourses)
+		
+level 2 Support (also write):
+- Read-Capabilites from above
+- moodle/user:loginas		
+- moodle/course:create	
+- moodle/course:update
+- enrol/manual:enrol
+  * This requires the defined role to be able to "Allow role assignments" in its settings
+
 ## Configuration
 * When visiting the site, the navdrawer should be closed for maximum space. Afterwards, a reloading of the site for better alignment in the tables
   * Blocks are disabled by default

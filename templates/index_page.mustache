@@ -28,10 +28,11 @@
          -->
             
         <ul class="nav navbar-nav float-right pull-right">
-            <li class = "nav-item">
-                <button href="#" class="btn btn-secondary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
-            </li>
-
+        	{{#isallowedtocreatecourses}}
+	            <li class = "nav-item">
+	                <button href="#" class="btn btn-secondary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
+	            </li>
+			{{/isallowedtocreatecourses}}
             <li class = "nav-item">
 	            <a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}settings{{/str}}">
 	                {{#pix}} i/settings, core, {{#str}}settings{{/str}} {{/pix}}

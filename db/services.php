@@ -26,50 +26,61 @@ defined('MOODLE_INTERNAL') || die;
 
 $functions = array(
 
-    'tool_supporter_create_new_course' => array(         // Web service function name.
-        'classname'   => 'tool_supporter\external',  // Class containing the external function.
-        'methodname'  => 'create_new_course',          // External function name.
-        'classpath'   => 'tool/supporter/classes/external.php',  // File containing the class/external function.
-        'description' => 'Create a course',    // Human readable description of the web service function.
-        'type'        => 'write',                  // Database rights of the web service function (read, write).
+    /* -------- Read-only --------- */
+    'tool_supporter_get_users' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'get_users',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'Get overview of all users',
+        'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => 'moodle/course:create'
+        'requiredcapability' => 'moodle/site:viewparticipants'
     ),
     'tool_supporter_get_user_information' => array(
         'classname'   => 'tool_supporter\external',
         'methodname'  => 'get_user_information',
         'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Get user information',
+        'description' => 'Get detailed user information (clicking on a user)',
         'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => 'moodle/user:viewdetails, moodle/user:loginas'
+        'requiredcapability' => 'moodle/user:viewdetails'
+    ),
+    'tool_supporter_get_courses' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'get_courses',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'Get overview of all courses',
+        'type'        => 'read',
+        'ajax'        => true,
+        'requiredcapability' => 'moodle/course:viewhiddencourses'
     ),
     'tool_supporter_get_course_info' => array(
         'classname'   => 'tool_supporter\external',
         'methodname'  => 'get_course_info',
         'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Get course information',
+        'description' => 'Get detailed course information (clicking on a course)',
         'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => 'moodle/course:update'
+        'requiredcapability' => 'moodle/course:view'
     ),
-    'tool_supporter_enrol_user_into_course' => array(
+    /* -------- Write-capabilites --------- */
+    'tool_supporter_get_sesskey' => array(
         'classname'   => 'tool_supporter\external',
-        'methodname'  => 'enrol_user_into_course',
+        'methodname'  => 'get_sesskey',
         'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Get course information',
+        'description' => 'Get sesskey',
+        'type'        => 'read, write',
+        'ajax'        => true,
+        'requiredcapability' => 'moodle/user:loginas'
+    ),
+    'tool_supporter_create_new_course' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'create_new_course',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'Create a course',
         'type'        => 'write',
         'ajax'        => true,
-        'capabilities' => 'enrol/manual:enrol'
-    ),
-    'tool_supporter_get_assignable_roles' => array(
-        'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_assignable_roles',
-        'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Get assignable Roles in the course',
-        'type'        => 'read',
-        'ajax'        => true,
-        'capabilities' => 'enrol/manual:enrol'
+        'requiredcapability' => 'moodle/course:create'
     ),
     'tool_supporter_toggle_course_visibility' => array(
         'classname'   => 'tool_supporter\external',
@@ -78,42 +89,24 @@ $functions = array(
         'description' => 'hide/show the course',
         'type'        => 'write',
         'ajax'        => true,
-        'capabilities' => 'moodle/course:update'
+        'requiredcapability' => 'moodle/course:update'
     ),
-    'tool_supporter_get_users' => array(
+    'tool_supporter_enrol_user_into_course' => array(
         'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_users',
+        'methodname'  => 'enrol_user_into_course',
         'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'get all users',
-        'type'        => 'read',
+        'description' => 'Get course information',
+        'type'        => 'write',
         'ajax'        => true,
-        'capabilities' => 'moodle/site:viewparticipants'
+        'requiredcapability' => 'enrol/manual:enrol'
     ),
-    'tool_supporter_get_courses' => array(
+    'tool_supporter_get_assignable_roles' => array(
         'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_courses',
+        'methodname'  => 'get_assignable_roles',
         'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'get all courses',
-        'type'        => 'read',
+        'description' => 'Get assignable Roles in the course, e.g. used for enrolling',
+        'type'        => 'read, write',
         'ajax'        => true,
-           'capabilities' => 'moodle/course:viewhiddencourses'
-    ),
-    'tool_supporter_get_courses_test' => array(
-        'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_courses_test',
-        'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'get all courses',
-        'type'        => 'read',
-        'ajax'        => true,
-        'capabilities' => 'moodle/course:viewhiddencourses'
-    ),
-    'tool_supporter_get_sesskey' => array(         // Web service function name.
-        'classname'   => 'tool_supporter\external',  // Class containing the external function.
-        'methodname'  => 'get_sesskey',          // External function name.
-        'classpath'   => 'tool/supporter/classes/external.php',  // File containing the class/external function.
-        'description' => 'Get sesskey',    // Human readable description of the web service function.
-        'type'        => 'read',                  // Database rights of the web service function (read, write).
-        'ajax'        => true,
-        'capabilities' => 'moodle/user:loginas'
+        'requiredcapability' => 'enrol/manual:enrol'
     ),
 );

@@ -101,24 +101,28 @@
             <li class = "navbar-brand"> <a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a></li>
             <li class =" nav-item pull-right float-right">
                 <div class="btn-group" role="group">
-                    {{#courseDetails}}
-                      {{#visible}}
-                      <a href="#" class="btn btn-default" id="show_course_visibility">
-                          {{#pix}} i/show, core, make visible {{/pix}}
-                      </a>
-                    {{/visible}}
-                    {{^visible}}
-                     <a href="#" class="btn btn-default" id="hide_course_visibility">
-                          {{#pix}} i/hide, core, make invisible {{/pix}}
-                      </a>
-                    {{/visible}}
-                  {{/courseDetails}}
-                    <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
-                      {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-                    </a>
+                    {{#isallowedtoupdatecourse}}
+	                    {{#courseDetails}}
+							{{#visible}}
+								<a href="#" class="btn btn-default" id="show_course_visibility">
+								    {{#pix}} i/show, core, make visible {{/pix}}
+								</a>
+							{{/visible}}
+							{{^visible}}
+								<a href="#" class="btn btn-default" id="hide_course_visibility">
+									{{#pix}} i/hide, core, make invisible {{/pix}}
+								</a>
+							{{/visible}}
+						{{/courseDetails}}
+	                    <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
+	                      {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
+	                    </a>
+                    {{/isallowedtoupdatecourse}}
+                    {{#deletelink}}
                     <a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
                       {{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
                     </a>
+                    {{/deletelink}}
                     <a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="btn_hide_course_details">
                       {{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
                     </a>

@@ -160,17 +160,21 @@
             <li class="navbar-brand"> <a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a></li>
             <li class =" nav-item pull-right float-right">
                 <div class="btn-group pull-right float-right" role="group">
-                    <a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
-                        {{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
-                    </a>
-                    <a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
-                        {{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
-                    </a>
+                    {{#isallowedtoupdateusers}}
+	                    <a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+	                        {{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
+	                    </a>
+                    {{/isallowedtoupdateusers}}
+                    {{#loginaslink}}
+	                    <a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+	                        {{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
+	                    </a>
+                    {{/loginaslink}}
                     <a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
                         {{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
                     </a>
                     <a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_expand_user_details" style="display: none">
-                      {{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
+						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
                     </a>
                 </div>
             </li>
