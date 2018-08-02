@@ -23,6 +23,9 @@
  */
 require_once(__DIR__ . '/../../../config.php');
 
+// Force collapsed flat navigation
+set_user_preference('drawer-open-nav', false);
+
 $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
 // Set up the page.
