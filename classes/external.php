@@ -286,6 +286,8 @@ class external extends external_api {
             // Get the used Roles the user is enrolled as (teacher, student, ...).
             $context = \context_course::instance($course->id);
             $usedroles = get_user_roles($context, $userid);
+            
+            $course->roles = [];
             foreach ($usedroles as $role) {
                 $course->roles[] = $assignableroles[$role->roleid];
             }

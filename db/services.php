@@ -64,15 +64,6 @@ $functions = array(
         'requiredcapability' => 'moodle/course:view'
     ),
     /* -------- Write-capabilites --------- */
-    'tool_supporter_get_sesskey' => array(
-        'classname'   => 'tool_supporter\external',
-        'methodname'  => 'get_sesskey',
-        'classpath'   => 'tool/supporter/classes/external.php',
-        'description' => 'Get sesskey',
-        'type'        => 'read, write',
-        'ajax'        => true,
-        'requiredcapability' => 'moodle/user:loginas'
-    ),
     'tool_supporter_create_new_course' => array(
         'classname'   => 'tool_supporter\external',
         'methodname'  => 'create_new_course',
