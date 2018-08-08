@@ -119,6 +119,8 @@ class external extends external_api {
             $data->startdate = time();
         }
 
+        $data->enddate = strtotime("+6 month", $data->startdate);
+
         $createdcourse = create_course($data);
 
         $returndata = array(

@@ -22,7 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
  */
-define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'], function($, ajax, templates, notification, str, load_information) {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'],
+        function($, ajax, templates, notification, str, load_information) {
     return /** @alias module:tool_supporter/create_new_course */ {
 
         /**
@@ -61,10 +62,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                     // Display the created course.
                     var promise1 = load_information.show_course_detail(data.id, true);
                     $('[data-region="create_new_course_section"]').toggle();
-                    
+
                     var otables = $.fn.dataTable.tables();
                     var coursetableid;
-                    $.each(otables, function(i, val) {  
+                    $.each(otables, function(i, val) {
                         if (val.id.indexOf("courseTable") >= 0) {
                             coursetableid = val.id;
                             return false;
@@ -72,7 +73,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                     });
                     promise1[0].done(function(data){
                         var visible = 0;
-                        if(data.courseDetails.visible) visible = 1;
+                        if(data.courseDetails.visible) {visible = 1;}
 
                         // Add the newly created course to the DataTable without reloading the whole thing
                         $('#' + coursetableid).DataTable().row.add({
@@ -88,13 +89,15 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
                 promises[0].fail(function() {
                     str.get_string('error', 'error').done(function(error) {
-                        str.get_string('duplicateroleshortname', 'error').done(function(duplicateroleshortname) {
-                            str.get_string('continue', 'hub').done(function(next) {
-                                notification.alert(error, duplicateroleshortname, next);
+                        str.get_string('shortnametaken', 'error', $('#new_course_short_name_input')[0].value)
+                                .done(function(duplicateroleshortname) {
+                            str.get_string('ok', 'moodle').done(function(accept) {
+                                notification.alert(error, duplicateroleshortname, accept);
                             });
                         });
                     });
                 });
+
             });
         }
     };
