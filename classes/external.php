@@ -311,6 +311,9 @@ class external extends external_api {
 
         $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
         $data['profilelink'] = $link;
+        
+        $link = $CFG->wwwroot."/admin/user.php?delete=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
+        $data['deleteuserlink'] = $link;
 
         $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
         $data['edituserlink'] = $link;
@@ -356,6 +359,7 @@ class external extends external_api {
             'loginaslink' => new external_value(PARAM_TEXT, 'The link to login as the user', VALUE_OPTIONAL),
             'profilelink' => new external_value(PARAM_TEXT, 'The link to the users profile page'),
             'edituserlink' => new external_value(PARAM_TEXT, 'The link to edit the user'),
+            'deleteuserlink' => new external_value(PARAM_TEXT, 'The link to delete the user, confirmation required'),
             'uniquecategoryname' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique category names')),
             'uniqueparentcategory' => new external_multiple_structure (
@@ -386,10 +390,12 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        $data['users'] = $DB->get_records('user', null, null, 'id, username, firstname, lastname, email');
-        return $data;
+        $data['users'] = $DB->get_records('user', array(deleted=>'0', suspended=>'0'), null, 'id, username, firstname, lastname, email');
+        //$data['users'] = get_users_listing(); // Moodle Core function, but also returns suspended and deleted users
 
+        return $data;
     }
+
     /**
      * Specifies return value
      *
