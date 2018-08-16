@@ -23,10 +23,10 @@
 defined('MOODLE_INTERNAL') || die();
 
  /**
- * Get icon mapping for font-awesome.
- *
- * @return  array
- */
+  * Get icon mapping for font-awesome.
+  *
+  * @return  array
+  */
 function tool_supporter_get_fontawesome_icon_map() {
     return [
         'tool_supporter:i/signin' => 'fa-sign-in',

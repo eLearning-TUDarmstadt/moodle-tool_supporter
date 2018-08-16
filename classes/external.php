@@ -41,7 +41,6 @@ use invalid_parameter_exception;
 
 /**
  * Class external defines several functions to prepare data for further use
- * 
  * @package tool_supporter
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -64,12 +63,10 @@ class external extends external_api {
 
     /**
      * Wrap the core function create_new_course.
-     * 
      * @param string $shortname Desired shortname. Has to be unique or error is returned
      * @param string $fullname Desired fullname
      * @param int $visible Visibility
      * @param int $categoryid Id of the category
-     * 
      * @return array Course characteristics
      */
     public static function create_new_course($shortname, $fullname, $visible, $categoryid) {
@@ -173,11 +170,11 @@ class external extends external_api {
     /**
      * Wrap the core function enrol_user_into_course.
      * Enrols a user into a course
-     * 
+     *
      * @param int $userid Id of the user to enrol
      * @param int $courseid Id of course to enrol into
      * @param int $roleid Id of the role with which the user should be enrolled
-     * 
+     *
      * @return array Course info user was enrolled to
      */
     public static function enrol_user_into_course($userid, $courseid, $roleid) {
@@ -280,23 +277,23 @@ class external extends external_api {
             $categorypath = $DB->get_record('course_categories', array('id' => $course->category), 'path');
             $patharray = explode("/", $categorypath->path);
             $parentcategory = array_reverse($patharray)[1]; // Semester.
-            
-            // TODO: The following line throws error "Undefined Index" when the course is on root-level
+
+            // TODO: The following line throws error "Undefined Index" when the course is on root-level.
             $course->parentcategory = $categories[$parentcategory];
             array_push ($allparentcategories, $course->parentcategory);
 
             // Get the used Roles the user is enrolled as (teacher, student, ...).
             $context = \context_course::instance($course->id);
             $usedroles = get_user_roles($context, $userid);
-            
+
             $course->roles = [];
             foreach ($usedroles as $role) {
                 $course->roles[] = $assignableroles[$role->roleid];
             }
             $usercoursesarray[] = (array)$course; // Cast it as an array.
         }
-        
-        // Get unique categories for filtering
+
+        // Get unique categories for filtering.
         $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
         $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
 
@@ -307,20 +304,24 @@ class external extends external_api {
         if (\has_capability('moodle/user:loginas', $context) ) {
             $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
             $data['loginaslink'] = $link;
-        } else { $data['loginaslink'] = false; }
+        } else {
+            $data['loginaslink'] = false;
+        }
 
         $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
         $data['profilelink'] = $link;
-        
+
         $link = $CFG->wwwroot."/admin/user.php?delete=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
         $data['deleteuserlink'] = $link;
 
         $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
         $data['edituserlink'] = $link;
-        
+
         if (\has_capability('moodle/user:update', $context) ) {
             $data['isallowedtoupdateusers'] = true;
-        }  else { $data['isallowedtoupdateusers'] = false; }
+        } else {
+            $data['isallowedtoupdateusers'] = false;
+        }
 
         return array($data);
     }
@@ -390,8 +391,8 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        $data['users'] = $DB->get_records('user', array(deleted=>'0', suspended=>'0'), null, 'id, username, firstname, lastname, email');
-        //$data['users'] = get_users_listing(); // Moodle Core function, but also returns suspended and deleted users
+        $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => '0'), null, 'id, username, firstname, lastname, email');
+        //$data['users'] = get_users_listing(); // Moodle Core function, but also returns suspended and deleted users.
 
         return $data;
     }
@@ -455,15 +456,15 @@ class external extends external_api {
         }
         $rs->close();
         $data['courses'] = $courses;
-        
-        // Get unique categories for filtering
+
+        // Get unique categories for filtering.
         $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
         $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
 
         //error_log(print_r('data -------------', TRUE));
         //error_log(str_replace("\n", "", print_r($data, TRUE)));
-        
-        return $data; 
+
+        return $data;
     }
 
     /**
@@ -492,31 +493,6 @@ class external extends external_api {
                     new external_value(PARAM_TEXT, 'array with unique parent categories'))
             )
         );
-        
-        
-        /*
-        return new external_multiple_structure (new external_single_structure (array (
-            'userinformation' => new external_single_structure ( array (
-                'id' => new external_value (PARAM_INT, 'id of the user'),
-                'username' => new external_value (PARAM_TEXT, 'username of the user'),
-                'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
-                'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
-            )),
-            'uniquecategoryname' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique category names')),
-            'uniqueparentcategory' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique parent categories'))
-        )));
-        */
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -555,11 +531,9 @@ class external extends external_api {
         // TODO: Also get time created and make this dynamic
         /*
         $course = get_course($courseid);
-        
         $coursecat = $DB->get_records('course_categories', array('id'=>$courseid));
-        
         */
-        
+
         $select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, cat.path AS path, ".
                   "(SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, ".
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
@@ -573,11 +547,11 @@ class external extends external_api {
         // Select the name of all parent categories.
         $parentcategoriesnames = $DB->get_records_list('course_categories', 'id', $parentcategoriesids, null, 'id,name');
         $pathcategories = [];
-        foreach ($parentcategoriesnames as $val){
+        foreach ($parentcategoriesnames as $val) {
             $pathcategories[] = $val->name;
         }
         $coursedetails['path'] = implode('/', $pathcategories);
-        
+
         // How many students are enrolled in the course?
         $coursedetails['enrolledUsers'] = \count_enrolled_users($coursecontext, $withcapability = '', $groupid = '0');
 
@@ -596,7 +570,7 @@ class external extends external_api {
                 $rolesincourse[] = $rolename;
             }
         }
-        
+
         // Get userinformation about users in course.
         $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
         $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
@@ -626,29 +600,34 @@ class external extends external_api {
         $enrolmentmethods = array();
         $instances = enrol_get_instances($courseid, false);
         $plugins   = enrol_get_plugins(false);
-        // iterate through enrol plugins and add to the display table
+        // Iterate through enrol plugins and add to the display table.
         foreach ($instances as $instance) {
             $plugin = $plugins[$instance->enrol];
-            
+
             $enrolmentmethod['methodname'] = $plugin->get_instance_name($instance);
             $enrolmentmethod['enabled'] = false;
             if (!enrol_is_enabled($instance->enrol) or $instance->status != ENROL_INSTANCE_ENABLED) {
                 $enrolmentmethod['enabled'] = true;
             }
-            
-            $enrolmentmethod['users'] = $DB->count_records('user_enrolments', array('enrolid'=>$instance->id));
+
+            $enrolmentmethod['users'] = $DB->count_records('user_enrolments', array('enrolid' => $instance->id));
             $enrolmentmethods[] = $enrolmentmethod;
         }
-          
+
         // Get links for navigation.
         $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseid;
         if (\has_capability('moodle/course:delete', $coursecontext) ) {
             $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseid;
-        } else {$deletelink = false;}
-        
-        if (\has_capability('moodle/course:update', \context_system::instance()) ) {$isallowedtoupdatecourse = true;} 
-        else {$isallowedtoupdatecourse = false;}
-        
+        } else {
+            $deletelink = false;
+        }
+
+        if (\has_capability('moodle/course:update', \context_system::instance()) ) {
+            $isallowedtoupdatecourse = true;
+        } else {
+            $isallowedtoupdatecourse = false;
+        }
+
         $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
 
         $links = array(
@@ -669,7 +648,7 @@ class external extends external_api {
 
         //error_log(print_r('data -------------', TRUE));
         //error_log(str_replace("\n", "", print_r($data['enrolmentMethods'], TRUE)));
-        
+
         return (array)$data;
     }
 
@@ -703,26 +682,26 @@ class external extends external_api {
                     'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
                     'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
                 ))),
-            'activities' => new external_multiple_structure(
+                'activities' => new external_multiple_structure(
                 new external_single_structure( array(
                     'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
                     'activity' => new external_value(PARAM_RAW, 'kind of activity'),
                     'name' => new external_value(PARAM_RAW, 'Name of this activity'),
                     'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
-            ))),
-            'links' => new external_single_structure( array(
+                ))),
+                'links' => new external_single_structure( array(
                     'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
                     'deletelink' => new external_value(PARAM_RAW, 'link to delete the course, '
                         . 'additional affirmation needed afterwards', VALUE_OPTIONAL),
                     'courselink' => new external_value(PARAM_RAW, 'link to the course')
-            )),
+                )),
             'enrolmentMethods' => new external_multiple_structure(
                 new external_single_structure( array(
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
-                    'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')     
-            ))),
-            'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
+                    'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')
+                ))),
+                'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
         ));
     }
 
@@ -760,7 +739,7 @@ class external extends external_api {
         $course = get_course($courseid);
         $manager = new \course_enrolment_manager($PAGE, $course);
         $usedroles = $manager->get_assignable_roles();
-        
+
         $count = 0;
         $arrayofroles = [];
         foreach ($usedroles as $roleid => $rolename) {
@@ -768,15 +747,15 @@ class external extends external_api {
             $arrayofroles[$count]['name'] = $rolename;
             $count++;
         }
-        
-        // Put the student role in first place
+
+        // Put the student role in first place.
         $studentrole = array_values(get_archetype_roles('student'))[0];
-        if (array_key_exists($studentrole->id, $arrayofroles)) {            
+        if (array_key_exists($studentrole->id, $arrayofroles)) {
             unset($arrayofroles[$studentrole->id]);
             $studentrole->name = get_string('student', 'grades');
             array_unshift($arrayofroles, $studentrole);
         }
-        
+
         $data = array(
         'assignableRoles' => (array)$arrayofroles
         );

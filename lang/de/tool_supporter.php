@@ -30,8 +30,8 @@
  $string['department'] = 'Fachbereich';
  $string['semester'] = 'Semester';
  $string['search'] = 'Suche...';
- 
- //Strings for setting page - setting.php
+
+ // Strings for setting page.
  $string['levels'] = 'Bezeichnung Kursbereichsebenen';
  $string['supporter_settings'] = 'Supporter Konfiguration';
  $string['levels_textbox'] = 'Kursbereichsebenen';
@@ -39,4 +39,3 @@
  $string['levels_description'] = 'Hier ist die individuelle Bezeichnung der Kursbereichsebenen möglich. Diese '
          . 'werden im Supporter sowohl als Spaltenbezeichnungen als auch innerhalb des Pfades verwendet. '
          .'Die Namen müssen in absteigender Reihenfolge durch Semikolon getrennt angegeben werden.';
- 

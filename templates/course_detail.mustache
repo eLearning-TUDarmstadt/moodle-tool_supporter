@@ -256,7 +256,9 @@
                     <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>{{#str}}enrolmentinstances, enrol{{/str}}</th>
+                                <th><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+                          			{{#str}}enrolmentinstances, enrol{{/str}}
+                          		</a></th>
                             </tr>
                         </thead>
                         <tbody>

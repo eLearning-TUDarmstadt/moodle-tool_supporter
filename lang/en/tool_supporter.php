@@ -32,13 +32,12 @@
 // These two probably already are somewhere.
  $string['timecreateduser'] = 'User was created on';
  $string['timemodifieduser'] = 'User was last modified on';
- 
- 
- //Strings for setting page - setting.php
+
+ // Strings for setting page - setting.php.
  $string['levels'] = 'Labeling of course categorie levels';
  $string['supporter_settings'] = 'Supporter configuration';
  $string['levels_textbox'] = 'Course levels';
  $string['levels_default'] = 'Department;Semester';
- $string['levels_description'] = 'Here, you can specify the individual name of the course area levels. ' 
-                                .'These are used in the supporter both as column captions and within the path. The names must be given ' 
+ $string['levels_description'] = 'Here, you can specify the individual name of the course area levels. '
+                                .'These are used in the supporter both as column captions and within the path. The names must be given '
                                 .'in descending order (uppermost level first) separated by semicolons. ';

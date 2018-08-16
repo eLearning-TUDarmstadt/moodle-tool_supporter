@@ -24,81 +24,81 @@
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'],
         function($, ajax, templates, notification, str, load_information) {
-    return /** @alias module:tool_supporter/create_new_course */ {
+            return /** @alias module:tool_supporter/create_new_course */ {
 
-        /**
-         * show the form to create a course
-         *
-         * @method show_new_course
-         */
-        show_new_course: function() {
-            $('#btn_show_new_course').on('click', function() {
-                $('[data-region="create_new_course_section"]').toggle();
-            });
-        },
-
-        /**
-         * Create a course
-         *
-         * @method create_new_course
-         */
-        create_new_course: function() {
-            $('#create_new_course_button').on('click', function() {
-
-                var promises = ajax.call([{
-                    methodname: 'tool_supporter_create_new_course',
-                    args: {
-                        shortname: $('#new_course_short_name_input')[0].value,
-                        fullname: $('#new_course_full_name_input')[0].value,
-                        visible: $("#new_course_is_visible").is(":checked"),
-                        categoryid: $('#new_course_category_input')[0].value
-                    }
-                }]);
-
-                promises[0].done(function(data) {
-                    console.log("create new course return data: ");
-                    console.log(data);
-
-                    // Display the created course.
-                    var promise1 = load_information.show_course_detail(data.id, true);
-                    $('[data-region="create_new_course_section"]').toggle();
-
-                    var otables = $.fn.dataTable.tables();
-                    var coursetableid;
-                    $.each(otables, function(i, val) {
-                        if (val.id.indexOf("courseTable") >= 0) {
-                            coursetableid = val.id;
-                            return false;
-                        }
+                /**
+                 * show the form to create a course
+                 *
+                 * @method show_new_course
+                 */
+                show_new_course: function() {
+                    $('#btn_show_new_course').on('click', function() {
+                        $('[data-region="create_new_course_section"]').toggle();
                     });
-                    promise1[0].done(function(data){
-                        var visible = 0;
-                        if(data.courseDetails.visible) {visible = 1;}
+                },
 
-                        // Add the newly created course to the DataTable without reloading the whole thing
-                        $('#' + coursetableid).DataTable().row.add({
-                            "id": data.courseDetails.id,
-                            "shortname": data.courseDetails.shortname,
-                            "fullname": data.courseDetails.fullname,
-                            "fb": data.courseDetails.fb,
-                            "semester": data.courseDetails.semester,
-                            "visible": visible
-                        }).draw( false );
-                    });
-                });
+                /**
+                 * Create a course
+                 *
+                 * @method create_new_course
+                 */
+                create_new_course: function() {
+                    $('#create_new_course_button').on('click', function() {
 
-                promises[0].fail(function() {
-                    str.get_string('error', 'error').done(function(error) {
-                        str.get_string('shortnametaken', 'error', $('#new_course_short_name_input')[0].value)
-                                .done(function(duplicateroleshortname) {
-                            str.get_string('ok', 'moodle').done(function(accept) {
-                                notification.alert(error, duplicateroleshortname, accept);
+                        var promises = ajax.call([{
+                            methodname: 'tool_supporter_create_new_course',
+                            args: {
+                                shortname: $('#new_course_short_name_input')[0].value,
+                                fullname: $('#new_course_full_name_input')[0].value,
+                                visible: $("#new_course_is_visible").is(":checked"),
+                                categoryid: $('#new_course_category_input')[0].value
+                            }
+                        }]);
+
+                        promises[0].done(function(data) {
+                            console.log("create new course return data: ");
+                            console.log(data);
+
+                            // Display the created course.
+                            var promise1 = load_information.show_course_detail(data.id, true);
+                            $('[data-region="create_new_course_section"]').toggle();
+
+                            var otables = $.fn.dataTable.tables();
+                            var coursetableid;
+                            $.each(otables, function(i, val) {
+                                if (val.id.indexOf("courseTable") >= 0) {
+                                    coursetableid = val.id;
+                                    return false;
+                                }
+                            });
+                            promise1[0].done(function(data){
+                                var visible = 0;
+                                if(data.courseDetails.visible) {visible = 1;}
+
+                                // Add the newly created course to the DataTable without reloading the whole thing.
+                                $('#' + coursetableid).DataTable().row.add({
+                                    "id": data.courseDetails.id,
+                                    "shortname": data.courseDetails.shortname,
+                                    "fullname": data.courseDetails.fullname,
+                                    "fb": data.courseDetails.fb,
+                                    "semester": data.courseDetails.semester,
+                                    "visible": visible
+                                }).draw( false );
                             });
                         });
-                    });
-                });
 
-            });
-        }
-    };
-});
+                        promises[0].fail(function() {
+                            str.get_string('error', 'error').done(function(error) {
+                                str.get_string('shortnametaken', 'error', $('#new_course_short_name_input')[0].value)
+                                        .done(function(duplicateroleshortname) {
+                                            str.get_string('ok', 'moodle').done(function(accept) {
+                                                notification.alert(error, duplicateroleshortname, accept);
+                                            });
+                                        });
+                            });
+                        });
+
+                    });
+                }
+            };
+        });

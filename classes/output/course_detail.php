@@ -32,7 +32,7 @@ use stdClass;
 
 /**
  * Class containing data for course_detail
- * 
+ *
  * Gets passed to the renderer
  *
  * @package tool_supporter
@@ -47,11 +47,11 @@ class course_detail implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
+        global $CFG;
 
         $array = null;
-        $val = get_config('supporter', 'configuration');
-        print_r($val);
         $data = $array;
+        $data['wwwroot'] = $CFG->wwwroot;
         return $data;
     }
 }

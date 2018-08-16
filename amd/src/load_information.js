@@ -81,7 +81,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method show_course_detail
          */
         show_course_detail: function(course_id, boolreturn) {
-            if(boolreturn === 'undefined') boolreturn = 0;
+            if(boolreturn === 'undefined') { boolreturn = 0 };
             // Go to top.
             var position = $("#course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
@@ -92,7 +92,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     courseID: course_id
                 }
             }]);
-            //var temp;
+
             promise[0].done(function(data){
                 console.log("Show course detail Returns: ");
                 console.log(data);
@@ -142,7 +142,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 $('#btn_expand_user_details').show();
             });
         },
-        
+
         /**
          * expand the user block after it was hidden
          *
@@ -163,14 +163,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          */
         hide_course_detail: function() {
             $('#btn_hide_course_details').on('click', function() {
-            	console.log("SABDISA");
-            	$('#course_details_body').hide();
-            	$('#btn_hide_course_details').hide();
-            	$('#btn_expand_course_details').show();
-                //$('[data-region="enroluserregion"]').hide();
+                $('#course_details_body').hide();
+                $('#btn_hide_course_details').hide();
+                $('#btn_expand_course_details').show();
             });
         },
-        
+
         /**
          * expands the course detail block again after it was hidden
          *
@@ -178,10 +176,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          */
         expand_course_detail: function() {
             $('#btn_expand_course_details').on('click', function() {
-            	$('#course_details_body').show();
-            	$('#btn_hide_course_details').show();
-            	$('#btn_expand_course_details').hide();
-                //$('[data-region="enroluserregion"]').hide();
+                $('#course_details_body').show();
+                $('#btn_hide_course_details').show();
+                $('#btn_expand_course_details').hide();
             });
         },
 
@@ -213,7 +210,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     templates.render('tool_supporter/user_detail', data).done(function(html, js) {
                         $('[data-region="user_details"]').replaceWith(html);
                         $('[data-region="user_details"]').show();
-                    	
+
                         // Only show the section if a course is selected.
                         if ($('[data-region="course_details"]').is(':visible')) {
                             var courseid = $('#selectedcourseid')[0].textContent;
@@ -238,44 +235,44 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 show_course_detail_private(course_id);
             });
         },
-        
-    	click_on_refresh: function(tableID, methodname, args, datainfo, columns) {
-    		
-    		// For users table
+
+        click_on_refresh: function(tableID, methodname, args, datainfo, columns) {
+
+            // For users table.
             $('#btn_refresh_users').on('click', function() {
                 var promises = ajax.call([{
                     "methodname": methodname,
                     "args": args
-                }]);  
+                }]);
                 promises[0].done(function(data) {
-                	console.log("return data for refreshing a user");
-                	console.log(data);
+                    console.log("return data for refreshing a user");
+                    console.log(data);
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
                         $('[data-region="user_table"]').replaceWith(html);
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
                 }).fail(notification.exception);
             });
-            
-            // For courses table
+
+            // For courses table.
             $('#btn_refresh_courses').on('click', function() {
                 var promises = ajax.call([{
                     "methodname": methodname,
                     "args": args
-                }]);  
+                }]);
                 promises[0].done(function(data) {
-                	console.log("return data for refreshing a course");
-                	console.log(data);
+                    console.log("return data for refreshing a course");
+                    console.log(data);
                     templates.render('tool_supporter/course_table', data).done(function(html, js) {
                         $('[data-region="course_table"]').replaceWith(html);
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
                 }).fail(notification.exception);
             });
-		}
-    
+        }
+
     };
-    
+
     // Alias module:tool_supporter/load_information.
     return  public;
 });
