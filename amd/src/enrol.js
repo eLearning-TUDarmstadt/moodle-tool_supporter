@@ -46,13 +46,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }]);
 
                 promises[0].done(function(course) {
-                    console.log("promise is done with return data: ");
+                    console.log("User was enrolled into course: ");
                     console.log(course);
 
                     // Re-render the template to show the changes.
                     templates.render('tool_supporter/course_detail', course).done(function(html, js) {
-                        $('[data-region="tool_supporter_course_details"]').replaceWith(html);
-                        $('[data-region="tool_supporter_course_details"]').show();
+                        $('[data-region="course_details"]').replaceWith(html);
+                        $('[data-region="course_details"]').show();
                         templates.runTemplateJS(js);
                     }).fail(notification.exception);
 
