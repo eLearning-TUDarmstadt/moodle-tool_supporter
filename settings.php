@@ -23,13 +23,15 @@
 defined('MOODLE_INTERNAL') || die;
 
 // Possible places in admin menu: root, users, courses, reports, (admin) tools
-// Add to Plugins->Admin tools.
-$ADMIN->add('tools', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
+// Add the plugin to Administration menu.
+$ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
          new moodle_url('/admin/tool/supporter/index.php')));
 
+// Settings page
 if ($hassiteconfig) {
     $settings = new admin_settingpage('tool_supporter', get_string('supporter_settings', 'tool_supporter'));
-    $ADMIN->add('tools', $settings);
+    // Add the config page to the administration menu.
+    $ADMIN->add('reports', $settings);
 
     $settings->add(new admin_setting_heading('level_labeling', '', get_string('levels', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_levels', get_string('levels', 'tool_supporter'),

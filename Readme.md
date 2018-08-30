@@ -26,14 +26,14 @@ The Supporter is developed with amd and thus only retrieves the information from
 It has built-in the standard Moodle Capability-Checks so there are no extra capabilites needed and multiple levels of Support can be accomplished.
 
 ## Prerequisites
-* This version is tested on Moodle 3.3 and 3.4
+* This version is tested on Moodle 3.5
   * No guarantees for other versions of moodle!
 * A php version of 5.5 or greater is needed
 
 ## Installation
 * Copy/Clone to `https://YOURSITE/admin/tool/` directory
 * Enable database upgrade
-* Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->Plugins->Admin Tools -> Supporter`
+* Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->Reports->Supporter`
 
 ## Capabilites
 With this Plugin, we strove to implement all nesseccary moodle-capabilities. As such, there is no need to give users additional caps. 
@@ -55,7 +55,7 @@ level 2 Support (also write):
 
 ## Configuration
 * When visiting the site, the navdrawer should be closed for maximum space. Afterwards, a reloading of the site for better alignment in the tables
-  * Blocks are disabled by default
+  * Blocks are disabled by default and the nav drawer gets closed
 * The settings menu and it's functions are currently WIP
 
 ## Screenshot
