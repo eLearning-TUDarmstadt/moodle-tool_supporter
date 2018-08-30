@@ -31,7 +31,7 @@ define(['jquery'], function($) {
 
         var filterElements = [];
         var string_value = '';
-        $(checked_elements).each(function(index){
+        $(checked_elements).each(function(){
             var val = $(this).val();
             if(val === ""){string_value = '^(?![\\s\\S])';}
             // String value is added several times with different starts and endings so filter for i.e. "Teacher" does not match "non-editing teacher".

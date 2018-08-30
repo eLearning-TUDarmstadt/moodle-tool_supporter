@@ -81,7 +81,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method show_course_detail
          */
         show_course_detail: function(course_id, boolreturn) {
-            if(boolreturn === 'undefined') { boolreturn = 0 };
+            if(boolreturn === 'undefined') { boolreturn = 0 ;}
             // Go to top.
             var position = $("#course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
@@ -236,7 +236,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             });
         },
 
-        click_on_refresh: function(tableID, methodname, args, datainfo, columns) {
+        click_on_refresh: function(tableID, methodname, args) {
 
             // For users table.
             $('#btn_refresh_users').on('click', function() {
