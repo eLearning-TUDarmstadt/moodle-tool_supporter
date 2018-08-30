@@ -20,28 +20,18 @@
     Template which displays the Header / Navbar of the supporter
 
 }}
-<nav class="navbar navbar-default">
-    <div class = "navbar-inner">
-        <!-- 
-        <a class="brand navbar-brand" href={{wwwroot}} data-toggle="tooltip" title="{{#str}}backto, core, Moodle{{/str}}">{{#pix}} f/moodle, core, {{/pix}}</a>
-        <a class="brand navbar-brand" href="#">Supporter</a>
-         -->
-            
-        <ul class="nav navbar-nav float-right pull-right">
-        	{{#isallowedtocreatecourses}}
-	            <li class = "nav-item">
-	                <button href="#" class="btn btn-secondary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
-	            </li>
-			{{/isallowedtocreatecourses}}
-            <li class = "nav-item">
-	            <a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}settings{{/str}}">
-	                {{#pix}} i/settings, core, {{#str}}settings{{/str}} {{/pix}}
-	            </a>
-            </li>
-        </ul>
-        
-    </div>
-</nav>
+
+<div class="btn-group mr-2 float-right">
+	<a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}settings{{/str}}">
+		{{#pix}} i/settings, core, {{#str}}settings{{/str}} {{/pix}}
+	</a>
+</div>
+  
+<div class="btn-group mr-2 float-right">
+	{{#isallowedtocreatecourses}}
+		<button href="#" class="btn btn-secondary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
+	{{/isallowedtocreatecourses}}
+</div>
 
 {{#js}}
 require(['tool_supporter/create_new_course'], function(show_new_course){

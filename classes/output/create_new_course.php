@@ -55,7 +55,7 @@ class create_new_course implements renderable, templatable {
             $path = explode("/", $row->path);
             $row->name = '';
             foreach ($path as $entry) { // Get name for each /path/-element.
-                $row->name = " / ".$row->name . $categoriesnamearray[$entry];
+                $row->name = $row->name . " / " . $categoriesnamearray[$entry];
             }
             $categories[] = (array)$row;
         }

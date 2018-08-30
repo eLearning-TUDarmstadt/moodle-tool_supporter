@@ -155,42 +155,41 @@
 
 <!--View details after clicking on a user in user table.  -->
 <div style="display: none; border:1px solid #8a8a8a" id = "user_details" data-region="user_details" class="card">
-    <div class="card-header">
-        <ul class="nav nav-pills">
-            <li class="navbar-brand"> <a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a></li>
-            <li class =" nav-item pull-right float-right">
-                <div class="btn-group pull-right float-right" role="group">
-                	{{#loginaslink}}
-	                    <a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
-	                        {{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
-	                    </a>
-                    {{/loginaslink}}
-                    {{#isallowedtoupdateusers}}
-	                    <a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
-	                        {{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
-	                    </a>
-	                    <a href="{{deleteuserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
-	                        {{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
-	                    </a>
-                    {{/isallowedtoupdateusers}}
-                    <a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
-                        {{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
-                    </a>
-                    <a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_expand_user_details" style="display: none">
-						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
+	<div class="card-header">
+		<div class = "float-left">
+			<a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a>
+		</div>
+		<div class="btn-group mr-2 float-right">
+			{{#loginaslink}}
+				<a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+					{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
+				</a>
+			{{/loginaslink}}
+			{{#isallowedtoupdateusers}}
+				<a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+					{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
+				</a>
+				<a href="{{deleteuserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
+					{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
+				</a>
+			{{/isallowedtoupdateusers}}
+			<a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+				{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
+			</a>
+			<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_expand_user_details" style="display: none">
+				{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
+			</a>
+		</div>
+	</div>
 
     <div class="card-block" id="user_details_body">
 		<!-- Enrol the user into the course -->
+		<br>
         {{> tool_supporter/enrolusersection}}
 		<br> 
 		
-		<!--Show user details  -->
-        <table class = "table table borderless">
+		<!-- Show user details  -->
+        <table class = "table borderless">
           <tbody>
             {{#userinformation}}
             <tr>
@@ -279,7 +278,6 @@
 		
     </div>
 </div>
-
 
 {{#js}}
 require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],

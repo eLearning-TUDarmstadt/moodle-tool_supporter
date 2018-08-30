@@ -60,7 +60,9 @@
 	       <!--filter course list by selecting wanted parent-->
 	       <ul class="dropdown-menu" id="courses_departmentdropdown">
 	         {{#uniquecategoryname}}
-	         <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</li>
+	         	<li class = "dropdown-item">
+	         		<label><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</label>
+	         	</li>
 	         {{/uniquecategoryname}}
 	       </ul>
 	     </li>
@@ -69,13 +71,15 @@
 	       <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
 	       <ul class="dropdown-menu" id="courses_semesterdropdown">
 	         {{#uniqueparentcategory}}
-	         <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</li>
+	         	<li class = "dropdown-item">
+	         		<label><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</label>
+	         	</li>
 	         {{/uniqueparentcategory}}
 	       </ul>
 	     </li>
 	  </ul>
 	</div>
-	
+
 	<div class = "table table-responsive">
 	  <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
 	    <thead>

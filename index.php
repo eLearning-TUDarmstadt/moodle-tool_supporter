@@ -59,45 +59,46 @@ echo $output->header();
 
 echo'
 <div class="container-fluid">
-    <div class="row-fluid" style = "min-height: 0px;">
+    <div class="row-fluid" style="padding-top: 5px;">
         <div class="span12 col-sm-12">
-        '.$index.'
-        <div class="row-fluid" style = "min-height: 0px;">
-
-            <div class="span6 col-sm-6">
-                <div class="row-fluid" style = "min-height: 0px;">
-                    <div class="span12 col-md-12" style = "min-height: 0px;">
-                      '.$createnewcourse.'
-                    </div>
-                </div>
-                <div class="row-fluid" style = "min-height: 0px;">
-                    <div class="span12 col-sm-12" style = "min-height: 0px;">
-                      '.$coursedetail.'
-                    </div>
-                </div>
-                <div class="row-fluid" style = "min-height: 0px;">
-                    <div class="span12 col-sm-12" style = "min-height: 0px;">
-                      '.$coursetable.'
-                    </div>
-                </div>
-            </div>
-
-            <div class="span6 col-sm-6">
-                <div class="row-fluid" style = "min-height: 0px;">
-                    <div class="span12 col-sm-12" style = "min-height: 0px;">
-                         '.$userdetail.'
-                    </div>
-                </div>
-                <div class="row-fluid" style = "min-height: 0px;">
-                    <div class="span12 col-sm-12" style = "min-height: 0px;">
-                        '.$usertable.'
-                    </div>
-                </div>
-            </div>
-
+            '.$index.'
         </div>
-     </div>
-   </div>
+
+        <div class="span12 col-sm-12">
+            <div class="row-fluid">
+                <div class="span6 col-sm-6">
+                    <div class="row-fluid">
+                        <div class="span12 col-md-12">
+                          '.$createnewcourse.'
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12 col-sm-12">
+                          '.$coursedetail.'
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12 col-sm-12">
+                          '.$coursetable.'
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="span6 col-sm-6">
+                    <div class="row-fluid">
+                        <div class="span12 col-sm-12">
+                             '.$userdetail.'
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12 col-sm-12">
+                            '.$usertable.'
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 ';
 echo $output->footer();
