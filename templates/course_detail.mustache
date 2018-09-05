@@ -184,7 +184,7 @@
             <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
                 <!-- Table of users in this course-->
 
-	            <div class = "nav-item dropdown" style="padding-left: 5px;">
+	            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
 					<b>{{#str}}filter{{/str}}:</b>
 	                <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
 	                <ul class="dropdown-menu" id="roledropdown">
@@ -193,6 +193,12 @@
 	                     	<li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
 	                     {{/rolesincourse}}
 	                </ul>
+	            </div>
+	            
+                <div class = "float-right">
+		            <th><u><a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+		            	{{#pix}} i/settings, core{{/pix}}
+		            </a></u></th>
 	            </div>
               
                 <div class="table table-responsive">
@@ -204,6 +210,7 @@
                                 <th>{{#str}}firstname{{/str}}</th>
                                 <th>{{#str}}lastname{{/str}}</th>
                                 <th>{{#str}}roles{{/str}}</th>
+                                <th>{{#str}}lastaccess{{/str}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -214,6 +221,7 @@
                                 <td>{{firstname}}</td>
                                 <td>{{lastname}}</td>
                                 <td>{{roles}}</td>
+                                <td>{{lastaccess}}</td>
                             </tr>
                             {{/users}}
                         </tbody>

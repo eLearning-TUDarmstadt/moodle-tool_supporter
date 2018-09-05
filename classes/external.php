@@ -249,8 +249,8 @@ class external extends external_api {
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
-            $info->timecreated = date(DATE_RFC850, $info->timecreated);
-            $info->timemodified = date(DATE_RFC850, $info->timemodified);
+            $info->timecreated = date('d.m.Y', $info->timecreated);
+            $info->timemodified = date('d.m.Y', $info->timemodified);
             // Cast as an array.
             $userinformationarray[] = (array)$info;
         }
@@ -577,6 +577,7 @@ class external extends external_api {
         $users = array();
         foreach ($usersraw as $u) {
             $u = (array)$u;
+            $u['lastaccess'] = date('d.m.Y', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid'=>$courseid, 'userid'=>$u['id'])));
             // Find user specific roles.
             $rolesofuser = get_user_roles($coursecontext, $u['id']);
             $userroles = [];
@@ -680,6 +681,7 @@ class external extends external_api {
                     'username' => new external_value(PARAM_RAW, 'name of user'),
                     'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
                     'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
+                    'lastaccess' => new external_value(PARAM_RAW, 'lastaccess of the user to the course'),
                     'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
                 ))),
                 'activities' => new external_multiple_structure(
