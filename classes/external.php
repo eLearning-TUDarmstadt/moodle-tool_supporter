@@ -754,7 +754,7 @@ class external extends external_api {
         $studentrole = array_values(get_archetype_roles('student'))[0];
         $count = 0;
         foreach ($arrayofroles as $role) {
-            if ($role['name'] == $studentrole->name) {
+            if ($role['id'] == $studentrole->id) {
                 $tmp = $role;
                 unset($arrayofroles[$count]); // Funzt nicht
                 array_unshift($arrayofroles, $role);
