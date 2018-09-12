@@ -80,37 +80,6 @@
 	</form>
 </div>
 
-<!-- 
-<div data-region="create_new_course_section" class="well well-sm" id="create_new_course_section" style="display: none">
-  <table>
-    <tr>
-      <td>{{#str}}fullnamecourse{{/str}}:</td>
-      <td><input type="text" placeholder = "{{#str}}fullnamecourse{{/str}}" id="new_course_full_name_input"></td>
-    </tr>
-    <tr>
-      <td>{{#str}}shortnamecourse{{/str}}:</td>
-      <td><input type="text" placeholder = "{{#str}}shortnamecourse{{/str}}" id="new_course_short_name_input"></td>
-    </tr>
-    <tr>
-      <td>{{#str}}categories{{/str}}:</td>
-      <td>
-        <select id="new_course_category_input">
-          {{#categories}}
-          <option value="{{id}}">{{name}}</option>
-          {{/categories}}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>{{#str}}visible{{/str}}:</td>
-      <td><input id="new_course_is_visible" type="checkbox" name="is_visible"></td>
-    </tr>
-  </tr>
-  </table>
-  <td><button class="btn btn-primary" id="create_new_course_button">{{#str}}addnewcourse{{/str}}</button></td>
-</div>
- -->
-
 {{#js}}
  require(['tool_supporter/create_new_course'], function(create_new_course){
    create_new_course.create_new_course();
