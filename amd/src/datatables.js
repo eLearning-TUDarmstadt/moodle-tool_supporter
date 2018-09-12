@@ -53,17 +53,18 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     "retrieve": true,   // So the table can be accessed after initialization.
                     "responsive": true,
                     "lengthChange": true,
-                    "pageLength": 30,
                     "language": {
                         // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                         'info': "",
                         'search': searchString + ": ",
                         'lengthMenu': "_MENU_"
                     },
-                    "dom": "<'w-100'<'col'f>>" + "<'w-100'<'col't>>" + "<'w-100'<'col-sm-3'i><'col-sm-6'p><'col-sm-3'l>>",
+                    //"dom": "<'w-100'<'col'f>>" + "<'w-100'<'col't>>" + "<'w-100'<'col-sm-3'i><'col-sm-6'p><'col-sm-3'l>>",
+                    "dom": "f" + "<'col-sm-12't>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
                     "paging": true,
                     "pagingType": "numbers",
-                    "scrollX": "true"
+                    //"scrollX": "true"
+                    "pageLength": 10, // TODO: Change later when the according setting is in place
                 });
                 
                 // Apply Dropdown-Filters to DataTable.
@@ -87,13 +88,11 @@ function($, datatables, str, filter, ajax, notification, templates) {
                 "args": args
             }]);
             
-            var otable;
             promise[0].done(function(data) {
-            	
                 str.get_string('search', 'moodle').done(function(searchString) {
-                    otable = $(tableID).DataTable( {
+                    $(tableID).DataTable( {
                         "data": data[datainfo],
-                        "columns":columns,
+                        "columns": columns,
                         "retrieve": true,   // So the table can be accessed after initialization.
                         "responsive": true,
                         "lengthChange": true,
@@ -104,31 +103,31 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             'search': searchString + ": ",
                             'lengthMenu': "_MENU_"
                         },
-                        "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>" + "<'row'<'col-sm-12't>>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
+                        // l(ength), f(iltering), t(able), i(nformation), p(agination), p(r)ocessing, see https://datatables.net/reference/option/dom
+                        "dom": "<'col-sm-12't>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
                         "paging": true,
                         "pagingType": "numbers",
-                        "lengthMenu": [ 10, 25, 50, 75, 100 ],
-                        "scrollX": true,
-                        //"pageLength": 30 // Activate later when the according setting is in place
+                        //"scrollX": true,
+                        "pageLength": 10, // TODO: Change later when the according setting is in place
                     });
-                });
-                
-                // TODO This could impact performance when whole data is passed to render function.
-                
-                // Add the course filtering for the courses table 
-                templates.render('tool_supporter/course_table', data).done(function(html, js) {
-                	console.log("course filtering data:");
-                	console.log(data);
-
-                	// Only render the filtering dropdown of the tables.
-                	var anchor = $('[data-region="course_filtering"]', $(html));
-                    $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
                     
-                    // Counting begins at 0, but the column shortname is invisible
-                    use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
+                    // Add the course filtering for the courses table
+                    if (tableID.includes("courseTable")) {
+                        // TODO This could impact performance when whole data is passed to render function.
+                        templates.render('tool_supporter/course_table', data).done(function(html, js) {
+                            //console.log("course filtering data:");
+                            //console.log(data);
+    
+                            // Only render the filtering dropdowns of the tables, not the whole course_table.
+                            var anchor = $('[data-region="course_filtering"]', $(html));
+                            $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
+                            
+                            // Counting begins at 0, but the shortname-column is invisible
+                            use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
+                        }).fail(notification.exception); 
+                    }
 
-                }).fail(notification.exception);                
-                
+                });
             }).fail(notification.exception);
         }
     };

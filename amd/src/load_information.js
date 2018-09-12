@@ -269,6 +269,31 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     }).fail(notification.exception);
                 }).fail(notification.exception);
             });
+        },
+
+        search: function(tableID, columnDropdownID, searchFieldID, columns) {
+            // Initialize Dropdown - add other options than "all".
+            var counter = 0;
+            columns.forEach(function(element) {
+                $(columnDropdownID).append($('<option>', {
+                    value: counter,
+                    text : element.name
+                }));
+                counter++;
+            });
+
+            // Apply Filter when user is typing.
+            $(searchFieldID).on('keyup', function(){
+                var otable = $(tableID).dataTable();
+                var searchValue = $(searchFieldID)[0].value;
+                var column = $(columnDropdownID)[0].value;
+
+                if (column == "-1") {
+                    otable.fnFilter(searchValue, null, true, false, false, true); // Search all columns.
+                } else {
+                    otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
+                }
+            });
         }
 
     };

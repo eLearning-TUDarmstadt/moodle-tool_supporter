@@ -50,7 +50,19 @@
 	    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
 	    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
 	</div>
-	   
+
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group" role="group">
+			<select id="course_table_column_chooser" class="form-control-">
+				<!-- Additional Options will be added later with javascript -->
+				<option selected value="-1">{{#str}}all{{/str}}</option>
+			</select>
+		</div>
+		<div class="btn-group" role="group">
+			<input type="text" id="course_table_search_input" class="form-control form-control-sm" placeholder="Search">
+		</div>
+	</div>
+	
 	<!-- Filtering for course table -->
 	<div id ="course_filtering" data-region = "course_filtering">
 	   <ul class="nav nav-tabs nav-justified">
@@ -81,7 +93,7 @@
 	</div>
 
 	<div class = "table table-responsive">
-	  <table id = "{{uniqid}}-courseTable" class = "stripe hover row-border compact" cellspacing="0" width="100%">
+	  <table id = "{{uniqid}}-courseTable" class="stripe hover row-border compact" cellspacing="0" width="100%">
 	    <thead>
 	      <tr>
 	        <th>ID  </th>
@@ -103,12 +115,12 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
     function(load_information, $, ajax, notification, templates, datatables) {
 
 		var columns1 = [
-		                { data: 'id' },
-		                { data: 'shortname', "visible": false, "searchable": true},
-		                { data: 'fullname' },
-		                { data: 'fb' },
-		                { data: 'semester' },
-		                { data: 'visible' }
+		                {data: 'id', name: 'ID'},
+		                {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
+		                {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
+		                {data: 'fb', name: '{{#str}}department, tool_supporter{{/str}}'},
+		                {data: 'semester', name: '{{#str}}semester, tool_supporter{{/str}}'},
+		                {data: 'visible', name: '{{#str}}visible{{/str}}'}
 		            ];
 		
 		// Convert the table to dataTable and apply Filtering      
@@ -119,5 +131,8 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
 		
 		// Load detailed information about the clicked course
 		load_information.click_on_course('#{{uniqid}}-courseTable'); //Load information about the clicked course
+		
+		// Search the table
+		load_information.search('#{{uniqid}}-courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);
   });
 {{/js}}
