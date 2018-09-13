@@ -107,27 +107,28 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "paging": true,
                         "pagingType": "numbers",
                         //"scrollX": true,
-                        "pageLength": 10, // TODO: Change later when the according setting is in place
+                        "pageLength": 10, // TODO: Change later when the according setting is in place.
+                        "initComplete" : function () { // Only do this after the dataTable was rendered as it is needed for the filters
+                            // Add the course filtering for the courses table.
+                            if (tableID.includes("courseTable")) {
+                                templates.render('tool_supporter/course_table', data).done(function(html, js) {
+                                    //console.log("course filtering data:");
+                                    //console.log(data);
+            
+                                    // Only render the filtering dropdowns of the tables, not the whole course_table.
+                                    var anchor = $('[data-region="course_filtering"]', $(html));
+                                    $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
+                                    
+                                    // Counting begins at 0, but the shortname-column is invisible
+                                    use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
+                                }).fail(notification.exception); 
+                            }
+                        }
+                        
                     });
-                    
-                    // Add the course filtering for the courses table
-                    if (tableID.includes("courseTable")) {
-                        // TODO This could impact performance when whole data is passed to render function.
-                        templates.render('tool_supporter/course_table', data).done(function(html, js) {
-                            //console.log("course filtering data:");
-                            //console.log(data);
-    
-                            // Only render the filtering dropdowns of the tables, not the whole course_table.
-                            var anchor = $('[data-region="course_filtering"]', $(html));
-                            $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
-                            
-                            // Counting begins at 0, but the shortname-column is invisible
-                            use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
-                        }).fail(notification.exception); 
-                    }
-
                 });
             }).fail(notification.exception);
+            
         }
     };
 });
