@@ -59,8 +59,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         'search': searchString + ": ",
                         'lengthMenu': "_MENU_"
                     },
-                    //"dom": "<'w-100'<'col'f>>" + "<'w-100'<'col't>>" + "<'w-100'<'col-sm-3'i><'col-sm-6'p><'col-sm-3'l>>",
-                    "dom": "f" + "<'col-sm-12't>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
+                    "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>" + "<'row'<'col-sm-12't>>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
                     "paging": true,
                     "pagingType": "numbers",
                     //"scrollX": "true"

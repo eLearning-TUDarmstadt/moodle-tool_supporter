@@ -289,7 +289,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var column = $(columnDropdownID)[0].value;
 
                 if (column == "-1") {
-                    otable.fnFilter(searchValue, null, true, false, false, true); // Search all columns.
+                    otable.fnFilter(searchValue, null); // Search all columns.
                 } else {
                     otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
                 }
