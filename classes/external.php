@@ -295,7 +295,9 @@ class external extends external_api {
 
         // Get unique categories for filtering.
         $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
+        asort($data['uniquecategoryname']);
         $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
+        asort($data['uniqueparentcategory']);
 
         $data['userscourses'] = $usercoursesarray;
         $data['userinformation'] = $userinformationarray;
@@ -459,10 +461,12 @@ class external extends external_api {
 
         // Get unique categories for filtering.
         $data['uniqueparentcategory'] = array_filter(array_unique($allparentcategories));
+        asort($data['uniqueparentcategory']);
         $data['uniquecategoryname'] = array_filter(array_unique($allcategorynames));
-
+        asort($data['uniquecategoryname']);
+        
         //error_log(print_r('data -------------', TRUE));
-        //error_log(str_replace("\n", "", print_r($data, TRUE)));
+        //error_log(str_replace("\n", "", print_r($data['uniquecategoryname'], TRUE)));
 
         return $data;
     }
@@ -570,6 +574,7 @@ class external extends external_api {
                 $rolesincourse[] = $rolename;
             }
         }
+        asort($rolesincourse);
 
         // Get userinformation about users in course.
         $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
