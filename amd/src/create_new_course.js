@@ -27,6 +27,18 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
             return /** @alias module:tool_supporter/create_new_course */ {
 
                 /**
+                 * Toggles the disabled-property of the password input
+                 *
+                 * @method toggle_password_input
+                 */
+                toggle_password_input: function() {
+                    $('#new_course_enable_self').on('click', function() {
+                        // Set to the opposite of the checkbox.
+                        $('#new_course_self_password').prop('disabled', !this.checked);
+                    });
+                },
+                
+                /**
                  * show the form to create a course
                  *
                  * @method show_new_course
@@ -51,7 +63,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 shortname: $('#new_course_short_name_input')[0].value,
                                 fullname: $('#new_course_full_name_input')[0].value,
                                 visible: $("#new_course_is_visible").is(":checked"),
-                                categoryid: $('#new_course_category_input')[0].value
+                                categoryid: $('#new_course_category_input')[0].value,
+                                activate_self_enrol: $("#new_course_enable_self").is(":checked"),
+                                self_enrol_password: $('#new_course_self_password')[0].value
                             }
                         }]);
 
@@ -87,14 +101,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                             });
                         });
 
-                        promises[0].fail(function() {
-                            str.get_string('error', 'error').done(function(error) {
-                                str.get_string('shortnametaken', 'error', $('#new_course_short_name_input')[0].value)
-                                        .done(function(duplicateroleshortname) {
-                                            str.get_string('ok', 'moodle').done(function(accept) {
-                                                notification.alert(error, duplicateroleshortname, accept);
-                                            });
-                                        });
+                        promises[0].fail(function(error) {
+                            console.log("THERE WAS AN ERROR DURING CREATING OF THE NEW COURSE - RESPONSE IS:");
+                            console.log(error);
+                            str.get_string('error', 'error').done(function(error_string) {
+                                str.get_string('ok', 'moodle').done(function(accept) {
+                                    notification.alert(error_string, "Backtrace:<br>" + error.backtrace + "<br><br>Debuginfo:<br>" + error.debuginfo, accept);
+                                });
                             });
                         });
 

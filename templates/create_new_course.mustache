@@ -72,16 +72,23 @@
 			<label for="new_course_is_visible" class="col-sm-4 col-form-label">{{#str}}visible{{/str}}:</label>
 			<input class="form-control-input col-sm-1" type="checkbox" value="" id="new_course_is_visible">
 	    </div>
+	    <div class="form-group row">
+	    	<label for="new_course_is_visible" class="col-sm-4 col-form-label">{{#str}}enable_selfenrolment, tool_supporter{{/str}}:</label>
+	    	<input class="form-control-input col-sm-1" type="checkbox" value="" id="new_course_enable_self">
+	    	<input type="text" class="form-contro col-sm-6" id="new_course_self_password" placeholder="{{#str}}password{{/str}}" disabled>
+	    </div>
 		<div class="form-group row">
 			<div class="col-md-12 text-left"> 
-				<button class="btn btn-primary" id="create_new_course_button">{{#str}}addnewcourse{{/str}}</button>
+				<input type="button" class="btn btn-primary" id="create_new_course_button" value="{{#str}}addnewcourse{{/str}}"/>
 			</div>
 		</div>
+		
 	</form>
 </div>
 
 {{#js}}
  require(['tool_supporter/create_new_course'], function(create_new_course){
    create_new_course.create_new_course();
+   create_new_course.toggle_password_input();
  });
 {{/js}}

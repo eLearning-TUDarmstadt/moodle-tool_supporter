@@ -27,6 +27,7 @@
  $string['pluginname'] = 'Supporter';
  $string['department'] = 'Department';
  $string['semester'] = 'Semester';
+ $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 
  // Strings for setting page - setting.php.
  $string['levels'] = 'Labeling of course categorie levels';

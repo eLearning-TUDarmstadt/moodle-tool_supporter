@@ -57,7 +57,10 @@ class external extends external_api {
             'shortname' => new external_value ( PARAM_TEXT, 'The short name of the course to be created' ),
             'fullname' => new external_value ( PARAM_TEXT, 'The full name of the course to be created' ),
             'visible' => new external_value ( PARAM_BOOL, 'Toggles visibility of course' ),
-            'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' )
+            'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' ),
+            'activate_self_enrol' => new external_value ( PARAM_BOOL, 'Toggles if self_enrolment should be activated' ),
+            'self_enrol_password' => new external_value ( PARAM_TEXT, 'Passowrd of self enrolment' ),
+            
         ));
     }
 
@@ -69,7 +72,7 @@ class external extends external_api {
      * @param int $categoryid Id of the category
      * @return array Course characteristics
      */
-    public static function create_new_course($shortname, $fullname, $visible, $categoryid) {
+    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activate_self_enrol, $self_enrol_password) {
 
         global $DB, $CFG;
 
@@ -81,7 +84,9 @@ class external extends external_api {
             'shortname' => $shortname,
             'fullname' => $fullname,
             'visible' => $visible,
-            'categoryid' => $categoryid
+            'categoryid' => $categoryid,
+            'activate_self_enrol' => $activate_self_enrol,
+            'self_enrol_password' => $self_enrol_password
         );
 
         // Parameters validation.
@@ -120,6 +125,14 @@ class external extends external_api {
 
         $createdcourse = create_course($data);
 
+        if ($activate_self_enrol) {
+            // Activate self enrolment and set password for the newly created course.
+            $self_enrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), $fields='*');
+            $self_enrolment->status = 0; // 0 is active!
+            $self_enrolment->password = $self_enrol_password; // The PW is safed as plain text
+            $DB->update_record("enrol", $self_enrolment);
+        }
+        
         $returndata = array(
             'id' => $createdcourse->id,
             'category' => $createdcourse->category,
@@ -249,8 +262,8 @@ class external extends external_api {
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
-            $info->timecreated = date('d.m.Y', $info->timecreated);
-            $info->timemodified = date('d.m.Y', $info->timemodified);
+            $info->timecreated = date('d.m.Y m:h', $info->timecreated);
+            $info->timemodified = date('d.m.Y m:h', $info->timemodified);
             // Cast as an array.
             $userinformationarray[] = (array)$info;
         }
@@ -543,7 +556,7 @@ class external extends external_api {
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
-        $coursedetails['timecreated'] = date('d.m.Y', $coursedetails['timecreated']); // convert timestamp to readable format.
+        $coursedetails['timecreated'] = date('d.m.Y m:h', $coursedetails['timecreated']); // convert timestamp to readable format.
 
         // Get whole course-path.
         // Extract IDs from path and remove empty values by using array_filter.
@@ -583,7 +596,7 @@ class external extends external_api {
         $users = array();
         foreach ($usersraw as $u) {
             $u = (array)$u;
-            $u['lastaccess'] = date('d.m.Y', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid'=>$courseid, 'userid'=>$u['id'])));
+            $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid'=>$courseid, 'userid'=>$u['id'])));
             // Find user specific roles.
             $rolesofuser = get_user_roles($coursecontext, $u['id']);
             $userroles = [];

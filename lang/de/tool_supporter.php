@@ -27,6 +27,7 @@
  $string['pluginname'] = 'Supporter';
  $string['department'] = 'Fachbereich';
  $string['semester'] = 'Semester';
+ $string['enable_selfenrolment'] = 'Selbsteinschreibung aktivieren und Passwort setzen';
 
  // Strings for setting page.
  $string['levels'] = 'Bezeichnung Kursbereichsebenen';
