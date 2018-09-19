@@ -188,9 +188,17 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method click_on_user
          * @param table Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
          */
-        click_on_user: function(table) {
-            $(table + ' tbody').on('click', 'tr', function() { // Click event on each row.
-                var user_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
+        click_on_user: function(tableID) {
+            $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
+
+                // Remove previous hightlights.
+                var dataTable = $(tableID).dataTable()[0];
+                $(dataTable.rows).css("background-color", "");
+                // Highlight the clicked user.
+                $(this).css("background-color", "#bcbcbc");
+
+                // Get id (first column) of clicked row.
+                var user_id = $(this).find('td:first-child').text();
 
                 // Go to top.
                 var position = $("#user_details").offset().top;
@@ -229,15 +237,21 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          *
          * @method click_on_user
          */
-        click_on_course: function(table) {
-            $(table + ' tbody').on('click', 'tr', function() { // Click event on each row.
+        click_on_course: function(tableID) {
+            $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
+                // Remove previous hightlights.
+                var dataTable = $(tableID).dataTable()[0];
+                $(dataTable.rows).css("background-color", "");
+                // Highlight the clicked course.
+                $(this).css("background-color", "#bcbcbc");
+
+                // Show details of this course
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 show_course_detail_private(course_id);
             });
         },
 
         click_on_refresh: function(tableID, methodname, args) {
-
             // For users table.
             $('#btn_refresh_users').on('click', function() {
                 var promises = ajax.call([{
