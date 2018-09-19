@@ -47,7 +47,7 @@ class create_new_course implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $DB;
 
-        $categoriespath = $DB->get_records('course_categories', null, null, 'id, path');
+        $categoriespath = $DB->get_records('course_categories', null, 'path DESC', 'id, path');
         $categoriesnamearray = $DB->get_records_menu('course_categories', null, null, 'id, name');
 
         foreach ($categoriespath as $row) {

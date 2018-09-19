@@ -27,11 +27,6 @@
  $string['pluginname'] = 'Supporter';
  $string['department'] = 'Department';
  $string['semester'] = 'Semester';
- $string['search'] = 'Search...';
-
-// These two probably already are somewhere.
- $string['timecreateduser'] = 'User was created on';
- $string['timemodifieduser'] = 'User was last modified on';
 
  // Strings for setting page - setting.php.
  $string['levels'] = 'Labeling of course categorie levels';

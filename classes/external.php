@@ -532,17 +532,18 @@ class external extends external_api {
         \require_capability('moodle/course:view', $coursecontext);
 
         // Get information about the course.
-        // TODO: Also get time created and make this dynamic
+        // TODO: Make this dynamic for more or less than 2 levels of course categories.
         /*
         $course = get_course($courseid);
         $coursecat = $DB->get_records('course_categories', array('id'=>$courseid));
         */
 
-        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, cat.name AS fb, cat.path AS path, ".
+        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, cat.name AS fb, cat.path AS path, ".
                   "(SELECT name FROM {course_categories} WHERE id = cat.parent) AS semester FROM {course} c, ".
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
+        $coursedetails['timecreated'] = date('d.m.Y', $coursedetails['timecreated']); // convert timestamp to readable format.
 
         // Get whole course-path.
         // Extract IDs from path and remove empty values by using array_filter.
@@ -672,7 +673,8 @@ class external extends external_api {
                 'fb' => new external_value(PARAM_RAW, 'course category'),
                 'path' => new external_value(PARAM_RAW, 'path to course'),
                 'semester' => new external_value(PARAM_RAW, 'parent category'),
-                'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers')
+                'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers'),
+                'timecreated' => new external_value(PARAM_TEXT, 'time the course was created as readable date format')
             )),
             'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
