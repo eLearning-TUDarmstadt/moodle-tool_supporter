@@ -92,7 +92,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     $(tableID).DataTable( {
                         "data": data[datainfo],
                         "columns": columns,
-                        "retrieve": true,   // So the table can be accessed after initialization.
+                        "retrieve": true, // So the table can be accessed after initialization.
                         "responsive": true,
                         "lengthChange": true,
                         "deferRender": true, // For perfomance reasons
@@ -106,11 +106,13 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "dom": "<'col-sm-12't>" + "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
                         "paging": true,
                         "pagingType": "numbers",
+                        "processing": true,
                         //"scrollX": true,
                         "pageLength": 25, // TODO: Change later when the according setting is in place.
                         "initComplete" : function () { // Only do this after the dataTable was rendered as it is needed for the filters
-                            // Add the course filtering for the courses table.
-                            if (tableID.includes("courseTable")) {
+                            loading_span = $(tableID + "-loadingIcon").hide();
+                            
+                            if (tableID.includes("courseTable")) { // Add the course filtering for the courses table.
                                 templates.render('tool_supporter/course_table', data).done(function(html, js) {
                                     //console.log("course filtering data:");
                                     //console.log(data);

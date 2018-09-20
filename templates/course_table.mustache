@@ -91,7 +91,6 @@
 	     </li>
 	  </ul>
 	</div>
-
 	<div class = "table table-responsive">
 	  <table id = "{{uniqid}}-courseTable" class="stripe hover row-border compact" cellspacing="0" width="100%">
 	    <thead>
@@ -108,8 +107,8 @@
 	    </tbody>
 	  </table>
 	</div>
+	<span class="loading-icon text-center" id="{{uniqid}}-courseTable-loadingIcon">{{#pix}} i/loading, core, {{#str}} loading {{/str}} {{/pix}}</span>
 </div>
-
 {{#js}}
 require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
     function(load_information, $, ajax, notification, templates, datatables) {
