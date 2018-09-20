@@ -72,7 +72,7 @@
 	       <!--filter course list by selecting wanted parent-->
 	       <ul class="dropdown-menu" id="courses_departmentdropdown">
 	         {{#uniquecategoryname}}
-	         	<li class = "dropdown-item">
+	         	<li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
 	         		<label><input type="checkbox" value="{{{.}}}" name="courses_departmentcheckbox"  id="courses_departmentcheckbox"> {{{.}}}</label>
 	         	</li>
 	         {{/uniquecategoryname}}
@@ -83,7 +83,7 @@
 	       <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
 	       <ul class="dropdown-menu" id="courses_semesterdropdown">
 	         {{#uniqueparentcategory}}
-	         	<li class = "dropdown-item">
+	         	<li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
 	         		<label><input type="checkbox" value="{{{.}}}" name="courses_semestercheckbox" id="courses_semestercheckbox"> {{{.}}}</label>
 	         	</li>
 	         {{/uniqueparentcategory}}

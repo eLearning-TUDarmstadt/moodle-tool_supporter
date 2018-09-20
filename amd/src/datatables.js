@@ -107,7 +107,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "paging": true,
                         "pagingType": "numbers",
                         //"scrollX": true,
-                        "pageLength": 10, // TODO: Change later when the according setting is in place.
+                        "pageLength": 25, // TODO: Change later when the according setting is in place.
                         "initComplete" : function () { // Only do this after the dataTable was rendered as it is needed for the filters
                             // Add the course filtering for the courses table.
                             if (tableID.includes("courseTable")) {
