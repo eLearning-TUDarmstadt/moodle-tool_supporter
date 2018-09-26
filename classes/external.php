@@ -282,7 +282,10 @@ class external extends external_api {
         $usercoursesarray = [];
         $allcategorynames = [];
         $allparentcategories = [];
+        $user_enrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
+        
         foreach ($usercourses as $course) {
+            
             // Get the semester the course is in (parent of category).
             $course->categoryname = $categories[$course->category]; // Department, Fachbereich.
             array_push ($allcategorynames, $course->categoryname);
@@ -303,6 +306,9 @@ class external extends external_api {
             foreach ($usedroles as $role) {
                 $course->roles[] = $assignableroles[$role->roleid];
             }
+            
+            $course->enrol_id = $user_enrolments[$course->id]->id;
+            
             $usercoursesarray[] = (array)$course; // Cast it as an array.
         }
 
@@ -368,7 +374,8 @@ class external extends external_api {
                 'visible' => new external_value (PARAM_BOOL, 'visible of course'),
                 'parentcategory' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
                 'categoryname' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
-                'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course'))
+                'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course')),
+                'enrol_id' => new external_value (PARAM_INT, 'id of user enrolment')
                 // Additional information which could be added: idnumber, sortorder, defaultgroupingid, groupmode, groupmodeforce,
                 // And: ctxid, ctxpath, ctsdepth, ctxinstance, ctxlevel.
             ))),
@@ -638,6 +645,7 @@ class external extends external_api {
         $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
         $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
         $users = array();
+        $user_enrolments = $DB->get_records_sql('SELECT ue.userid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', array($courseid));
         foreach ($usersraw as $u) {
             $u = (array)$u;
             $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid'=>$courseid, 'userid'=>$u['id'])));
@@ -648,9 +656,10 @@ class external extends external_api {
                 $userroles[] = $usedrolesincourse[$role->roleid];
             }
             $u['roles'] = $userroles;
+            $u['enrol_id'] = $user_enrolments[$u['id']]->id;
             $users[] = $u;
         }
-        
+
         // Get Activities in course.
         $activities = array();
         $modules = \get_array_of_activities($courseid);
@@ -746,7 +755,8 @@ class external extends external_api {
                     'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
                     'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
                     'lastaccess' => new external_value(PARAM_RAW, 'lastaccess of the user to the course'),
-                    'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user'))
+                    'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user')),
+                    'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment to course')
                 ))),
                 'activities' => new external_multiple_structure(
                 new external_single_structure( array(
