@@ -258,12 +258,13 @@ class external extends external_api {
 
         $userinformation = user_get_users_by_id(array('userid' => $userid));
         // Important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual].
-
+        
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
             $info->timecreated = date('d.m.Y m:h', $info->timecreated);
             $info->timemodified = date('d.m.Y m:h', $info->timemodified);
+            $info->lastlogin = date('d.m.Y m:h', $info->lastlogin);
             // Cast as an array.
             $userinformationarray[] = (array)$info;
         }
@@ -360,8 +361,9 @@ class external extends external_api {
                 'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
                 'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
                 'email' => new external_value (PARAM_TEXT, 'email of the user'),
-                'timecreated' => new external_value (PARAM_TEXT, 'timecreated of the user'),
-                'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user'),
+                'timecreated' => new external_value (PARAM_TEXT, 'timecreated of the user as date'),
+                'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user as date'),
+                'lastlogin' => new external_value (PARAM_TEXT, 'last login of the user as date'),
                 'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
                 'auth' => new external_value (PARAM_TEXT, 'auth of the user')
             )),
