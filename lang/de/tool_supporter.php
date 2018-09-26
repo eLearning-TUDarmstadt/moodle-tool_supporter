@@ -25,8 +25,9 @@
 
  $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
  $string['pluginname'] = 'Supporter';
- $string['department'] = 'Fachbereich';
- $string['semester'] = 'Semester';
+ $string['department'] = 'Fachbereich'; // TODO: Ersetzen
+ $string['semester'] = 'Semester'; // TODO: Ersetzen
+ $string['level'] = 'Ebene';
  $string['enable_selfenrolment'] = 'Selbsteinschreibung aktivieren und Passwort setzen';
 
  // Strings for setting page.
