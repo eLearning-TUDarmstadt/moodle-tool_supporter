@@ -104,11 +104,21 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         promises[0].fail(function(error) {
                             console.log("THERE WAS AN ERROR DURING CREATING OF THE NEW COURSE - RESPONSE IS:");
                             console.log(error);
+
                             str.get_string('error', 'error').done(function(error_string) {
                                 str.get_string('ok', 'moodle').done(function(accept) {
-                                    notification.alert(error_string, "Backtrace:<br>" + error.backtrace + "<br><br>Debuginfo:<br>" + error.debuginfo, accept);
+                                    wanted_shortname = $('#new_course_short_name_input')[0].value;
+                                    str.get_string('shortnametaken', 'error', wanted_shortname).done(function(shortnametaken_string) {
+                                        error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
+                                        if (error.message) {error_message += "Error-Message:<br>" + error.message + "<br><br>";}
+                                        if (error.debuginfo) {error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";}
+                                        
+                                        notification.alert(error_string, error_message, accept);
+                                    });
                                 });
                             });
+                            
+                            
                         });
 
                     });
