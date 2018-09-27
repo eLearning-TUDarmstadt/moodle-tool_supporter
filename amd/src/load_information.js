@@ -285,7 +285,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             });
         },
 
-        search: function(tableID, columnDropdownID, searchFieldID, columns) {
+        search_table: function(tableID, columnDropdownID, searchFieldID, columns) {
             // Initialize Dropdown - add other options than "all".
             var counter = 0;
             columns.forEach(function(element) {
@@ -297,7 +297,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             });
 
             // Apply Filter when user is typing.
-            $(searchFieldID).on('keyup', function(){
+            $(searchFieldID).on('keyup', actually_search);
+            
+            // Change column to search when changing dropdown.
+            $(columnDropdownID).on('change', actually_search);
+            
+            function actually_search() {
                 var otable = $(tableID).dataTable();
                 var searchValue = $(searchFieldID)[0].value;
                 var column = $(columnDropdownID)[0].value;
@@ -307,7 +312,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 } else {
                     otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
                 }
-            });
+            }
         }
 
     };
