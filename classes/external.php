@@ -466,9 +466,6 @@ class external extends external_api {
         self::validate_context($context);
         // Is the closest to the needed capability. Is used in /course/management.php.
         \require_capability('moodle/course:viewhiddencourses', $context);
-
-        
-        
         
         /*
         $courses = array();
@@ -495,8 +492,7 @@ class external extends external_api {
         //error_log(print_r('data -------------', TRUE));
         //error_log(str_replace("\n", "", print_r($data, TRUE)));
         
-        
-        $categories = $DB->get_records("course_categories", $conditions=null, $sort='', $fields='id, name, parent, depth, path');
+        $categories = $DB->get_records("course_categories", $conditions=null, $sort='sortorder ASC', $fields='id, name, parent, depth, path');
         $courses = $DB->get_records("course", $conditions=null, $sort='', $fields='id, shortname, fullname, visible, category');
         
         $all_level_ones = [];
@@ -506,18 +502,15 @@ class external extends external_api {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
                 $path_array = explode("/", $category->path);
-                //print_r($path_array);
                 if (isset($path_array[1])) {
                     $path_array[1] = $categories[$path_array[1]]->name;
                     $course->level_one = $path_array[1];
-                    array_push($all_level_ones, $path_array[1]);
                 } else {
                     $course->level_one = "";
                 }
                 if (isset($path_array[2])) {
                     $path_array[2] = $categories[$path_array[2]]->name;
                     $course->level_two = $path_array[2];
-                    array_push($all_level_twos, $path_array[2]);
                 } else {
                     $course->level_two = "";
                 }
@@ -525,15 +518,23 @@ class external extends external_api {
                 
             }
         }
-        
         $data['courses'] = $courses_array;
-        $data['uniqueparentcategory'] = array_filter(array_unique($all_level_twos));
-        asort($data['uniqueparentcategory']);
-        $data['uniquecategoryname'] = array_filter(array_unique($all_level_ones));
-        asort($data['uniquecategoryname']);
         
+        $data['uniqueparentcategory'] = [];
+        $data['uniquecategoryname'] = [];
+        foreach ($categories as $category) {
+            if ($category->depth == 1) {
+                array_push($data['uniqueparentcategory'], $category->name);
+            }
+            if ($category->depth == 2) {
+                array_push($data['uniquecategoryname'], $category->name);
+            }
+        }
         
-
+        // Filters should only appear once in the dropdown-menues.
+        $data['uniqueparentcategory'] = array_filter(array_unique($data['uniqueparentcategory']));
+        $data['uniquecategoryname'] = array_filter(array_unique($data['uniquecategoryname']));
+        
         return $data;
     }
 
