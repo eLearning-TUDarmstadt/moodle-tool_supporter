@@ -232,22 +232,22 @@
         <!-- Navigation for users course table -->
           <ul class="nav nav-tabs nav-justified">
             <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
+            <!--filter course list by selecting wanted first level category -->
             <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}department, tool_supporter{{/str}}<span class="caret"></span></a>
-              <!--filter course list by selecting wanted parent-->
-              <ul class="dropdown-menu" id="user_detail_departmentdropdown">
-                {{#uniquecategoryname}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_departmentcheckbox"  id="user_detail_departmentcheckbox"> {{{.}}}</li>
-                {{/uniquecategoryname}}
+              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 1<span class="caret"></span></a>
+              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
+                {{#uniquelevelones}}
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
+                {{/uniquelevelones}}
               </ul>
             </li>
-           <!--filter course list by selecting wanted grand parent-->
             <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}semester, tool_supporter{{/str}}<span class="caret"></span></a>
-              <ul class="dropdown-menu" id="user_detail_semesterdropdown">
-                {{#uniqueparentcategory}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_semestercheckbox" id="user_detail_semestercheckbox"> {{{.}}}</li>
-                {{/uniqueparentcategory}}
+              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 2<span class="caret"></span></a>
+              <!--filter course list by selecting wanted second level category-->
+              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
+                {{#uniqueleveltwoes}}
+                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_leveltwocheckbox"  id="user_detail_leveltwocheckbox"> {{{.}}}</li>
+                {{/uniqueleveltwoes}}
               </ul>
             </li>
          </ul>
@@ -259,9 +259,9 @@
                 <tr>
                   <th>ID</th>
                   <th>{{#str}}fullnamecourse{{/str}}</th>
-                  <th>{{#str}}department, tool_supporter{{/str}}</th>
+                  <th>{{#str}}level, tool_supporter{{/str}} 1</th>
+                  <th>{{#str}}level, tool_supporter{{/str}} 2</th>
                   <th>{{#str}}roles{{/str}}</th>
-                  <th>{{#str}}semester, tool_supporter{{/str}}</th>
                   <th>{{#str}}visible{{/str}}</th>
                   <th></th>
                 </tr>
@@ -271,9 +271,9 @@
                 <tr>
                   <td>{{id}}</td>
                   <td>{{fullname}}</td>
-                  <td>{{categoryname}}</td> <!-- TUD intern: Fachbereiche -->
-                  <td>{{roles}}</td> <!-- TUD intern: Rollen -->
-                  <td>{{parentcategory}}</td> <!-- TUD intern: Semester -->
+                  <td>{{level_one}}</td> <!-- TUD intern: Semester -->
+                  <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
+                  <td>{{roles}}</td>
                   <td>{{visible}}</td>
 			      <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{id}}&ue={{#userinformation}}{{enrol_id}}{{/userinformation}}" target="_blank">
 				  	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
@@ -292,7 +292,7 @@ require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_suppo
 	function(search, sort, dataTable, load_information){
 
 		//Convert table to DataTable and add filter functionality to dropdown-menue
-		dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', [['user_detail_departmentcheckbox', '#user_detail_departmentdropdown', 2], ['user_detail_semestercheckbox', '#user_detail_semesterdropdown', 4]]);
+		dataTable.use_dataTable('#{{uniqid}}-userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2], ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
 		
 		//Load information about the clicked course
 		load_information.click_on_course('#{{uniqid}}-userdetailcourses');

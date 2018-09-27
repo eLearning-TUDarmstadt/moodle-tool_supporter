@@ -37,8 +37,8 @@
            [shortname] => FB03 Kurs short name
            [fullname] => FB03 Kurs full name
            [visible] => 0
-           [fb] => FB03 Humanwissenschaften
-           [semester] => WiSe 2016/17
+           [level_two] => FB03 Humanwissenschaften
+           [level_one] => WiSe 2016/17
            [enrolledUsers] => 1)
 
       [rolesincourse] => Array
@@ -265,15 +265,13 @@
             
             <div id="CoursePill_3" class="tab-pane" role="tabpanel">
                 <!-- Table of enrolment methods in this course-->
+              	<div class = "float-right">
+		            <th><u><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+		            	{{#pix}} i/settings, core{{/pix}}
+		            </a></u></th>
+	            </div>
                 <div class = "table table-responsive">
                     <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th><u><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
-                          			{{#str}}enrolmentinstances, enrol{{/str}}
-                          		</a></u></th>
-                            </tr>
-                        </thead>
                         <tbody>
                             {{#enrolmentMethods}}
                             <tr {{#enabled}} class="dimmed_text" {{/enabled}}>

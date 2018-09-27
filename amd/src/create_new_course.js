@@ -70,8 +70,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         }]);
 
                         promises[0].done(function(data) {
-                            console.log("create new course return data: ");
-                            console.log(data);
 
                             // Display the created course.
                             var promise1 = load_information.show_course_detail(data.id, true);
@@ -88,21 +86,21 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                             promise1[0].done(function(data){
                                 var visible = 0;
                                 if(data.courseDetails.visible) {visible = 1;}
-
+                                
                                 // Add the newly created course to the DataTable without reloading the whole thing.
                                 $('#' + coursetableid).DataTable().row.add({
                                     "id": data.courseDetails.id,
                                     "shortname": data.courseDetails.shortname,
                                     "fullname": data.courseDetails.fullname,
-                                    "fb": data.courseDetails.fb,
-                                    "semester": data.courseDetails.semester,
+                                    "level_one": data.courseDetails.level_one,
+                                    "level_two": data.courseDetails.level_two,
                                     "visible": visible
                                 }).draw( false );
                             });
                         });
 
                         promises[0].fail(function(error) {
-                            console.log("THERE WAS AN ERROR DURING CREATING OF THE NEW COURSE - RESPONSE IS:");
+                            console.log("There was an error during course creation - response is:");
                             console.log(error);
 
                             str.get_string('error', 'error').done(function(error_string) {

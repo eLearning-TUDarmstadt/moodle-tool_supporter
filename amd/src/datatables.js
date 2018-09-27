@@ -27,7 +27,6 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
 function($, datatables, str, filter, ajax, notification, templates) {
 	
 	var use_filters = function(tableID, filterSelector){
-    	
     	// Only execute if there are filters.
         if (typeof filterSelector != "undefined") {
             // Set filters for every dropdown-menu.
@@ -81,7 +80,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
          * @param columns : Name of table columns
          */
         dataTable_ajax: function(tableID, methodname, args, datainfo, columns){
-        	
+            
             var promise = ajax.call([{
                 "methodname": methodname,
                 "args": args
@@ -122,7 +121,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                     $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
                                     
                                     // Counting begins at 0, but the shortname-column is invisible
-                                    use_filters(tableID, [['courses_departmentcheckbox', '#courses_departmentdropdown', 3], ['courses_semestercheckbox', '#courses_semesterdropdown', 4]]);
+                                    use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3], 
+                                                          ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
                                 }).fail(notification.exception); 
                             }
                         }
