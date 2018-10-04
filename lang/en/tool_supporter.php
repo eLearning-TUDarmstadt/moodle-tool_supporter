@@ -25,8 +25,6 @@
 
  $string['pagetitle'] = 'This is the tool for supporters!';
  $string['pluginname'] = 'Supporter';
- $string['department'] = 'Department'; // TODO: Ersetzen
- $string['semester'] = 'Semester'; // TODO: Ersetzen
  $string['level'] = 'Level';
  $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 

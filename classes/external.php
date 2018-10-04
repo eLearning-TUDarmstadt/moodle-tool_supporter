@@ -606,6 +606,8 @@ class external extends external_api {
         foreach ($parentcategoriesnames as $val) {
             $pathcategories[] = $val->name;
         }
+        $coursedetails['level_one'] = $pathcategories[0];
+        isset($pathcategories[1]) ? $coursedetails['level_two'] = $pathcategories[1] : $coursedetails['level_two'] = "";
         $coursedetails['path'] = implode('/', $pathcategories);
 
         // How many students are enrolled in the course?
@@ -725,7 +727,9 @@ class external extends external_api {
                 'visible' => new external_value(PARAM_BOOL, 'Is the course visible?'),
                 'path' => new external_value(PARAM_RAW, 'path to course'),
                 'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers'),
-                'timecreated' => new external_value(PARAM_TEXT, 'time the course was created as readable date format')
+                'timecreated' => new external_value(PARAM_TEXT, 'time the course was created as readable date format'),
+                'level_one' => new external_value(PARAM_TEXT, 'first level of the course'),
+                'level_two' => new external_value(PARAM_TEXT, 'second level of the course')
             )),
             'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
