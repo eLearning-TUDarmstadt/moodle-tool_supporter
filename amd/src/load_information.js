@@ -298,10 +298,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
             // Apply Filter when user is typing.
             $(searchFieldID).on('keyup', actually_search);
-            
+
             // Change column to search when changing dropdown.
             $(columnDropdownID).on('change', actually_search);
-            
+
             function actually_search() {
                 var otable = $(tableID).dataTable();
                 var searchValue = $(searchFieldID)[0].value;
