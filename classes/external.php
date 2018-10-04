@@ -126,11 +126,18 @@ class external extends external_api {
         $createdcourse = create_course($data);
 
         if ($activate_self_enrol) {
-            // Activate self enrolment and set password for the newly created course.
             $self_enrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), $fields='*');
-            $self_enrolment->status = 0; // 0 is active!
-            $self_enrolment->password = $self_enrol_password; // The PW is safed as plain text
-            $DB->update_record("enrol", $self_enrolment);
+            
+            if(empty($self_enrolment)) {
+                // If self enrolment is NOT activated for new courses, add one.
+                $plugin = enrol_get_plugin('self');
+                $plugin->add_instance($createdcourse, array("password"=>$self_enrol_password));
+            } else {
+                // If self enrolment is activated for new courses, activaten and update it.
+                $self_enrolment->status = 0; // 0 is active!
+                $self_enrolment->password = $self_enrol_password; // The PW is safed as plain text
+                $DB->update_record("enrol", $self_enrolment);
+            }
         }
         
         $returndata = array(
