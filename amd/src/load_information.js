@@ -131,54 +131,28 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         },
 
         /**
-         * hide the user block
+         * Toggles the user block
          *
-         * @method hide_user_details
+         * @method toggle_user_details
          */
-        hide_user_details: function() {
-            $('#btn_hide_user_details').on('click', function() {
-                $('#user_details_body').hide();
-                $('#btn_hide_user_details').hide();
-                $('#btn_expand_user_details').show();
+        toggle_user_details: function() {
+            $('#btn_hide_user_details, #btn_show_user_details').on('click', function() {
+                $('#user_details_body').toggle();
+                $('#btn_hide_user_details').toggle();
+                $('#btn_show_user_details').toggle();
             });
         },
 
         /**
-         * expand the user block after it was hidden
+         * Toggles the course detail block
          *
-         * @method expand_user_details
+         * @method toggle_course_detail
          */
-        expand_user_details: function() {
-            $('#btn_expand_user_details').on('click', function() {
-                $('#user_details_body').show();
-                $('#btn_hide_user_details').show();
-                $('#btn_expand_user_details').hide();
-            });
-        },
-
-        /**
-         * hide the course detail block
-         *
-         * @method hide_course_detail
-         */
-        hide_course_detail: function() {
-            $('#btn_hide_course_details').on('click', function() {
-                $('#course_details_body').hide();
-                $('#btn_hide_course_details').hide();
-                $('#btn_expand_course_details').show();
-            });
-        },
-
-        /**
-         * expands the course detail block again after it was hidden
-         *
-         * @method expand_course_detail
-         */
-        expand_course_detail: function() {
-            $('#btn_expand_course_details').on('click', function() {
-                $('#course_details_body').show();
-                $('#btn_hide_course_details').show();
-                $('#btn_expand_course_details').hide();
+        toggle_course_details: function() {
+            $('#btn_hide_course_details, #btn_show_course_details').on('click', function() {
+                $('#course_details_body').toggle();
+                $('#btn_hide_course_details').toggle();
+                $('#btn_show_course_details').toggle();
             });
         },
 
