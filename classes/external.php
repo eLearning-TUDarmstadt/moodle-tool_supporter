@@ -60,7 +60,7 @@ class external extends external_api {
             'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' ),
             'activate_self_enrol' => new external_value ( PARAM_BOOL, 'Toggles if self_enrolment should be activated' ),
             'self_enrol_password' => new external_value ( PARAM_TEXT, 'Passowrd of self enrolment' ),
-            
+
         ));
     }
 
@@ -127,7 +127,7 @@ class external extends external_api {
 
         if ($activate_self_enrol) {
             $self_enrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), $fields='*');
-            
+
             if(empty($self_enrolment)) {
                 // If self enrolment is NOT activated for new courses, add one.
                 $plugin = enrol_get_plugin('self');
@@ -139,7 +139,7 @@ class external extends external_api {
                 $DB->update_record("enrol", $self_enrolment);
             }
         }
-        
+
         $returndata = array(
             'id' => $createdcourse->id,
             'category' => $createdcourse->category,
@@ -265,7 +265,7 @@ class external extends external_api {
 
         $userinformation = user_get_users_by_id(array('userid' => $userid));
         // Important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual].
-        
+
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
@@ -282,13 +282,13 @@ class external extends external_api {
         // Get assignable roles with correct role name.
         $coursecontext = \context_course::instance(1);
         $assignableroles = \get_assignable_roles($coursecontext);
-        
+
         $categories = $DB->get_records("course_categories", $conditions=null, $sort='sortorder ASC', $fields='id, name, parent, depth, path');
-        //$courses = $DB->get_records("course", $conditions=null, $sort='', $fields='id, shortname, fullname, visible, category');
-        
+        $user_enrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
+
         $all_level_ones = [];
         $all_level_twos = [];
-        
+
         foreach ($usercourses as $course) {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
@@ -305,7 +305,7 @@ class external extends external_api {
                 } else {
                     $course->level_two = "";
                 }
-                
+
                 // Get the used Roles the user is enrolled as (teacher, student, ...).
                 $context = \context_course::instance($course->id);
                 $usedroles = get_user_roles($context, $userid);
@@ -313,16 +313,16 @@ class external extends external_api {
                 foreach ($usedroles as $role) {
                     $course->roles[] = $assignableroles[$role->roleid];
                 }
-                
+
                 $course->enrol_id = $user_enrolments[$course->id]->id;
-                
+
                 $courses_array[] = (array)$course;
-                
+
             }
         }
         //$data['courses'] = $courses_array;
         $data['userscourses'] = $courses_array;
-        
+
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
         foreach ($categories as $category) {
@@ -333,7 +333,7 @@ class external extends external_api {
                 array_push($data['uniqueleveltwoes'], $category->name);
             }
         }
-        
+
         // Filters should only appear once in the dropdown-menues.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
@@ -482,13 +482,13 @@ class external extends external_api {
         self::validate_context($context);
         // Is the closest to the needed capability. Is used in /course/management.php.
         \require_capability('moodle/course:viewhiddencourses', $context);
-        
+
         $categories = $DB->get_records("course_categories", $conditions=null, $sort='sortorder ASC', $fields='id, name, parent, depth, path');
         $courses = $DB->get_records("course", $conditions=null, $sort='', $fields='id, shortname, fullname, visible, category');
-        
+
         $all_level_ones = [];
         $all_level_twos = [];
-        
+
         foreach ($courses as $course) {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
@@ -506,11 +506,11 @@ class external extends external_api {
                     $course->level_two = "";
                 }
                 $courses_array[] = (array)$course;
-                
+
             }
         }
         $data['courses'] = $courses_array;
-        
+
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
         foreach ($categories as $category) {
@@ -521,11 +521,11 @@ class external extends external_api {
                 array_push($data['uniqueleveltwoes'], $category->name);
             }
         }
-        
+
         // Filters should only appear once in the dropdown-menues.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
-        
+
         return $data;
     }
 
@@ -691,7 +691,7 @@ class external extends external_api {
         }
 
         $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
-        
+
         $links = array(
             'settingslink' => $settingslink,
             'deletelink' => $deletelink,
