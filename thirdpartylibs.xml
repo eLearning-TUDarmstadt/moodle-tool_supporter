@@ -8,43 +8,7 @@
     <version>1.10.13</version>
   </library>
   <library>
-    <location>amd/src/dataTables.bootstrap.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
     <location>amd/src/dataTables.bootstrap4.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
-    <location>amd/src/dataTables.foundation.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
-    <location>amd/src/dataTables.jqueryui.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
-    <location>amd/src/dataTables.material.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
-    <location>amd/src/dataTables.semanticui.js</location>
-    <name>DataTable</name>
-    <license>MIT</license>
-    <version>1.10.13</version>
-  </library>
-  <library>
-    <location>amd/src/dataTables.uikit.js</location>
     <name>DataTable</name>
     <license>MIT</license>
     <version>1.10.13</version>
