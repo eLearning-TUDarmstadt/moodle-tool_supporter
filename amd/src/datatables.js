@@ -61,7 +61,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     },
                     "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>"+
                            "<'row'<'col-sm-12't>>"+
-                           "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
+                           "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                     "paging": true,
                     "pagingType": "numbers",
                     //"scrollX": "true"
@@ -105,7 +105,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             'lengthMenu': "_MENU_"
                         },
                         "dom": "<'col-sm-12't>"+
-                               "<'row'<'col-sm-3'i><'col-sm-6 center-block'p><'col-sm-3 center-block'l>>",
+                        "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                         "paging": true,
                         "pagingType": "numbers",
                         "processing": true,

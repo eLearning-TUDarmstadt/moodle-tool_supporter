@@ -40,9 +40,9 @@ require_login();
 
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
 
-// Needed for sorting-arrows and responsive tables without horizontal scrollbars.
+// Needed for sorting-arrows and responsive tables without horizontal scrollbars, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
-// Needed for Paging-Buttons and spacing in tables.
+// Needed for Paging-Buttons and spacing in tables, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
 
 $output = $PAGE->get_renderer('tool_supporter');
