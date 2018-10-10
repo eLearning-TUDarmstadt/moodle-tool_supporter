@@ -81,8 +81,8 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
-function(load_information, $, ajax, notification, templates, datatables){
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables', 'tool_supporter/table_filter'],
+function(load_information, $, ajax, notification, templates, datatables, table_filter){
 
 	var columns = [
 	                 {data: 'id', name: 'ID'},
@@ -100,6 +100,6 @@ function(load_information, $, ajax, notification, templates, datatables){
 	load_information.click_on_user('#{{uniqid}}-userTable'); 
 
 	// Search the table
-	load_information.search_table('#{{uniqid}}-userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+	table_filter.search_table('#{{uniqid}}-userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}

@@ -33,14 +33,19 @@ define(['jquery'], function($) {
         var string_value = '';
         $(checked_elements).each(function(){
             var val = $(this).val();
-            if(val === ""){string_value = '^(?![\\s\\S])';}
-            // String value is added several times with different starts and endings.
-            // So filter for "Teacher" does not match "non-editing teacher".
-            else {string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';}
+            if(val === ""){
+                string_value = '^(?![\\s\\S])';
+            }
+            else {
+                // Escape Regex-Characters which may be in names of categories.
+                val = val.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                // String value is added several times with different starts and endings.
+                // So filter for "Teacher" does not match "non-editing teacher".
+                string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';
+            }
             filterElements.push(string_value);
         });
         var filter = filterElements.join("|");
-
         otable.fnFilter(filter, column, true, false, false, true);
     };
 
@@ -62,6 +67,46 @@ define(['jquery'], function($) {
                 filterTable(checked_elements, otable, column);
             });
 
+        },
+
+        search_table: function(tableID, columnDropdownID, searchFieldID, columns) {
+            // Initialize Dropdown - add other options than "all".
+            var counter = 0;
+            columns.forEach(function(element) {
+                $(columnDropdownID).append($('<option>', {
+                    value: counter,
+                    text : element.name
+                }));
+                counter++;
+            });
+
+            // Apply Filter when user is typing.
+            $(searchFieldID).on('keyup', actually_search);
+
+            var previousColumn;
+
+            // Safe last column when dropdown is clicked.
+            $(columnDropdownID).on('click', function(){
+                previousColumn = this.value;
+            });
+
+            // Clear previous search and apply new search.
+            $(columnDropdownID).on('change', function(){
+                $(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
+                actually_search();
+            });
+
+            function actually_search() {
+                var otable = $(tableID).dataTable();
+                var searchValue = $(searchFieldID)[0].value;
+                var column = $(columnDropdownID)[0].value;
+
+                if (column == "-1") {
+                    otable.fnFilter(searchValue, null); // Search all columns.
+                } else {
+                    otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
+                }
+            }
         }
     };
 });
