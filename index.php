@@ -58,8 +58,8 @@ echo $output->header();
 
 echo'
 <div class="container-fluid">
-    <div class="row-fluid" style="padding-top: 5px; line-height: 1 !important;">
-        <div class="span12 col-sm-12">
+    <div class="row-fluid" style="line-height: 1 !important;">
+        <div class="span12 col-sm-12" style="padding-bottom: 15px">
             '.$index.'
         </div>
 

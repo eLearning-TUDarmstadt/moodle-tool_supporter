@@ -93,199 +93,201 @@
 }}
 <!--View details after clicking on a course in course table.  -->
 
-<div style="display: none; border:1px solid #8a8a8a" id ="course_details" data-region = "course_details" class="card">
-    <div class="card-header">
-		{{#links}}
-			<div class = "float-left">
-				<a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a>
-			</div>
-			<div class="btn-group mr-2 float-right">
-				{{#isallowedtoupdatecourse}}
-					{{#courseDetails}}
-						{{^visible}}
-							<a href="#" class="btn btn-default" id="show_course_visibility">
-								{{#pix}} i/show, core, make visible {{/pix}}
-							</a>
-						{{/visible}}
-						{{#visible}}
-							<a href="#" class="btn btn-default" id="hide_course_visibility">
-								{{#pix}} i/hide, core, make invisible {{/pix}}
-							</a>
-						{{/visible}}
-					{{/courseDetails}}
-					<a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
-						{{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
+<div style="display: none; padding-bottom: 15px" id ="course_details" data-region = "course_details">
+	<div class="card" style="border:1px solid #8a8a8a"">
+	    <div class="card-header">
+			{{#links}}
+				<div class = "float-left">
+					<a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a>
+				</div>
+				<div class="btn-group mr-2 float-right">
+					{{#isallowedtoupdatecourse}}
+						{{#courseDetails}}
+							{{^visible}}
+								<a href="#" class="btn btn-default" id="show_course_visibility">
+									{{#pix}} i/show, core, make visible {{/pix}}
+								</a>
+							{{/visible}}
+							{{#visible}}
+								<a href="#" class="btn btn-default" id="hide_course_visibility">
+									{{#pix}} i/hide, core, make invisible {{/pix}}
+								</a>
+							{{/visible}}
+						{{/courseDetails}}
+						<a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
+							{{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
+						</a>
+					{{/isallowedtoupdatecourse}}
+					{{#deletelink}}
+						<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
+							{{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
+						</a>
+					{{/deletelink}}
+					<a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="btn_hide_course_details">
+						{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 					</a>
-				{{/isallowedtoupdatecourse}}
-				{{#deletelink}}
-					<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
-						{{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
+					<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_course_details" style="display: none">
+						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 					</a>
-				{{/deletelink}}
-				<a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="btn_hide_course_details">
-					{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
-				</a>
-				<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_course_details" style="display: none">
-					{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
-				</a>
-			</div>
-		{{/links}}
-    </div>
-    <div class="card-block" id="course_details_body">
-        <!-- Show course details  -->
-        <table class = "table borderless">
-          <tbody>
-            {{#courseDetails}}
-            <tr>
-              <th>ID</th>
-              <td id="selectedcourseid">{{id}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}shortnamecourse{{/str}}</th>
-              <td>{{shortname}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}fullnamecourse{{/str}}</th>
-              <td>{{fullname}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}visible{{/str}}</th>
-              <td>{{visible}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}path{{/str}}</th>
-              <td>{{path}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}eventcoursecreated{{/str}}</th>
-              <td>{{timecreated}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}users{{/str}}</th>
-              <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
-            </tr>
-            {{/courseDetails}}
-            {{#roles}}
-            <tr>
-              <th>{{roleName}}</th>
-              <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
-            </tr>
-            {{/roles}}
-          </tbody>
-        </table>
-		<hr>
-
-        <!-- Navigation for user- and activity-table of selected course -->
-        <div>
-          <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
-              <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
-              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
-              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
-          </ul>
-        </div>
-
-        <div class="tab-content">
-            <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
-                <!-- Table of users in this course-->
-
-	            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
-					<b>{{#str}}filter{{/str}}:</b>
-	                <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
-	                <ul class="dropdown-menu" id="roledropdown">
-	                    <!--filter user list by selecting wanted role-->
-	                     {{#rolesincourse}}
-	                     	<li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
-	                     {{/rolesincourse}}
-	                </ul>
+				</div>
+			{{/links}}
+	    </div>
+	    <div class="card-block" id="course_details_body">
+	        <!-- Show course details  -->
+	        <table class = "table borderless">
+	          <tbody>
+	            {{#courseDetails}}
+	            <tr>
+	              <th>ID</th>
+	              <td id="selectedcourseid">{{id}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}shortnamecourse{{/str}}</th>
+	              <td>{{shortname}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}fullnamecourse{{/str}}</th>
+	              <td>{{fullname}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}visible{{/str}}</th>
+	              <td>{{visible}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}path{{/str}}</th>
+	              <td>{{path}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}eventcoursecreated{{/str}}</th>
+	              <td>{{timecreated}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}users{{/str}}</th>
+	              <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
+	            </tr>
+	            {{/courseDetails}}
+	            {{#roles}}
+	            <tr>
+	              <th>{{roleName}}</th>
+	              <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
+	            </tr>
+	            {{/roles}}
+	          </tbody>
+	        </table>
+			<hr>
+	
+	        <!-- Navigation for user- and activity-table of selected course -->
+	        <div>
+	          <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
+	              <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
+	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
+	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
+	          </ul>
+	        </div>
+	
+	        <div class="tab-content">
+	            <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
+	                <!-- Table of users in this course-->
+	
+		            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
+						<b>{{#str}}filter{{/str}}:</b>
+		                <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
+		                <ul class="dropdown-menu" id="roledropdown">
+		                    <!--filter user list by selecting wanted role-->
+		                     {{#rolesincourse}}
+		                     	<li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse">{{{.}}}</li>
+		                     {{/rolesincourse}}
+		                </ul>
+		            </div>
+		            
+	                <div class = "float-right">
+			            <th><u><a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+			            	{{#pix}} i/settings, core{{/pix}}
+			            </a></u></th>
+		            </div>
+	              
+	                <div class="table table-responsive">
+	                    <table class="stripe hover row-border compact" id="{{uniqid}}-userincourse" cellspacing="0" width="100%">
+	                        <thead>
+	                            <tr>
+	                                <th>ID</th>
+	                                <th>{{#str}}username{{/str}}</th>
+	                                <th>{{#str}}firstname{{/str}}</th>
+	                                <th>{{#str}}lastname{{/str}}</th>
+	                                <th>{{#str}}roles{{/str}}</th>
+	                                <th>{{#str}}lastaccess{{/str}}</th>
+	                                <th></th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            {{#users}}
+	                            <tr>
+	                                <td>{{id}}</td>
+	                                <td>{{username}}</td>
+	                                <td>{{firstname}}</td>
+	                                <td>{{lastname}}</td>
+	                                <td>{{roles}}</td>
+	                                <td>{{lastaccess}}</td>
+	                                <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
+						            	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
+						            </a></td>
+	                            </tr>
+	                            {{/users}}
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+	
+	            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
+	                <!-- Table of activites in this course-->
+	                <div class="table table-responsive">
+	                    <table class="stripe hover row-border compact" id="{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+	                        <thead>
+	                            <tr>
+	                                <th>{{#str}}sectionname{{/str}}</th>
+	                                <th>{{#str}}activity{{/str}}</th>
+	                                <th>{{#str}}name{{/str}}</th>
+	                                <th>{{#str}}visible{{/str}}</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            {{#activities}}
+	                            <tr>
+	                                <td>{{section}}</td>
+	                                <td>{{activity}}</td>
+	                                <td>{{name}}</td>
+	                                <td>{{visible}}</td>
+	                            </tr>
+	                            {{/activities}}
+	                        </tbody>
+	                    </table>
+	                </div>
 	            </div>
 	            
-                <div class = "float-right">
-		            <th><u><a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
-		            	{{#pix}} i/settings, core{{/pix}}
-		            </a></u></th>
+	            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
+	                <!-- Table of enrolment methods in this course-->
+	              	<div class = "float-right">
+			            <th><u><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+			            	{{#pix}} i/settings, core{{/pix}}
+			            </a></u></th>
+		            </div>
+	                <div class = "table table-responsive">
+	                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
+	                        <tbody>
+	                            {{#enrolmentMethods}}
+	                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
+	                                <td>{{methodname}}</td>
+	                                <td>{{users}}</td>
+	                            </tr>
+	                            {{/enrolmentMethods}}
+	                        </tbody>
+	                    </table>
+	                </div>
 	            </div>
-              
-                <div class="table table-responsive">
-                    <table class="stripe hover row-border compact" id="{{uniqid}}-userincourse" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{#str}}username{{/str}}</th>
-                                <th>{{#str}}firstname{{/str}}</th>
-                                <th>{{#str}}lastname{{/str}}</th>
-                                <th>{{#str}}roles{{/str}}</th>
-                                <th>{{#str}}lastaccess{{/str}}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#users}}
-                            <tr>
-                                <td>{{id}}</td>
-                                <td>{{username}}</td>
-                                <td>{{firstname}}</td>
-                                <td>{{lastname}}</td>
-                                <td>{{roles}}</td>
-                                <td>{{lastaccess}}</td>
-                                <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
-					            	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
-					            </a></td>
-                            </tr>
-                            {{/users}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
-                <!-- Table of activites in this course-->
-                <div class="table table-responsive">
-                    <table class="stripe hover row-border compact" id="{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>{{#str}}sectionname{{/str}}</th>
-                                <th>{{#str}}activity{{/str}}</th>
-                                <th>{{#str}}name{{/str}}</th>
-                                <th>{{#str}}visible{{/str}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#activities}}
-                            <tr>
-                                <td>{{section}}</td>
-                                <td>{{activity}}</td>
-                                <td>{{name}}</td>
-                                <td>{{visible}}</td>
-                            </tr>
-                            {{/activities}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
-                <!-- Table of enrolment methods in this course-->
-              	<div class = "float-right">
-		            <th><u><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
-		            	{{#pix}} i/settings, core{{/pix}}
-		            </a></u></th>
-	            </div>
-                <div class = "table table-responsive">
-                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
-                        <tbody>
-                            {{#enrolmentMethods}}
-                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
-                                <td>{{methodname}}</td>
-                                <td>{{users}}</td>
-                            </tr>
-                            {{/enrolmentMethods}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+	            
+	        </div>
+	    </div>
+	</div>
 </div>
 
 {{#js}}

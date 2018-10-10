@@ -154,137 +154,139 @@
 }}
 
 <!--View details after clicking on a user in user table.  -->
-<div style="display: none; border:1px solid #8a8a8a" id = "user_details" data-region="user_details" class="card">
-	<div class="card-header">
-		<div class = "float-left">
-			<a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a>
+<div style="display: none; padding-bottom: 15px" id = "user_details" data-region="user_details">
+	<div class="card" style="border:1px solid #8a8a8a"">
+		<div class="card-header">
+			<div class = "float-left">
+				<a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a>
+			</div>
+			<div class="btn-group mr-2 float-right">
+				{{#loginaslink}}
+					<a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+						{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
+					</a>
+				{{/loginaslink}}
+				{{#isallowedtoupdateusers}}
+					<a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+						{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
+					</a>
+					<a href="{{deleteuserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
+						{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
+					</a>
+				{{/isallowedtoupdateusers}}
+				<a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+					{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
+				</a>
+				<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_user_details" style="display: none">
+					{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
+				</a>
+			</div>
 		</div>
-		<div class="btn-group mr-2 float-right">
-			{{#loginaslink}}
-				<a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
-					{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
-				</a>
-			{{/loginaslink}}
-			{{#isallowedtoupdateusers}}
-				<a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
-					{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
-				</a>
-				<a href="{{deleteuserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
-					{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
-				</a>
-			{{/isallowedtoupdateusers}}
-			<a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
-				{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
-			</a>
-			<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_user_details" style="display: none">
-				{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
-			</a>
-		</div>
+	
+	    <div class="card-block" id="user_details_body">
+			<!-- Enrol the user into the course -->
+			<br>
+	        {{> tool_supporter/enrolusersection}}
+			<br> 
+			
+			<!-- Show user details  -->
+	        <table class = "table borderless">
+	          <tbody>
+	            {{#userinformation}}
+	            <tr>
+	              <th>ID</th>
+	              <td id="selecteduserid">{{id}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}username{{/str}}</th>
+	              <td>{{username}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}firstname{{/str}}</th>
+	              <td>{{firstname}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}lastname{{/str}}</th>
+	              <td>{{lastname}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}email{{/str}}</th>
+	              <td>{{email}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}eventusercreated{{/str}}</th>
+	              <td>{{timecreated}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}lastmodified{{/str}}</th>
+	              <td>{{timemodified}}</td>
+	            </tr>
+	            <tr>
+	              <th>{{#str}}lastlogin{{/str}}</th>
+	              <td>{{lastlogin}}</td>
+	            </tr>
+	            {{/userinformation}}
+	          </tbody>
+	        </table>
+	        <hr>
+	
+	        <!-- Navigation for users course table -->
+	          <ul class="nav nav-tabs nav-justified">
+	            <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
+	            <!--filter course list by selecting wanted first level category -->
+	            <li class="nav-item dropdown">
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 1<span class="caret"></span></a>
+	              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
+	                {{#uniquelevelones}}
+	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
+	                {{/uniquelevelones}}
+	              </ul>
+	            </li>
+	            <li class="nav-item dropdown">
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 2<span class="caret"></span></a>
+	              <!--filter course list by selecting wanted second level category-->
+	              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
+	                {{#uniqueleveltwoes}}
+	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_leveltwocheckbox"  id="user_detail_leveltwocheckbox"> {{{.}}}</li>
+	                {{/uniqueleveltwoes}}
+	              </ul>
+	            </li>
+	         </ul>
+	
+	       <!--Table showing users courses-->
+	        <div> 
+	            <table class = "table table-responsive stripe hover row-border compact" id="{{uniqid}}-userdetailcourses" cellspacing="0" width="100%">
+	              <thead>
+	                <tr>
+	                  <th>ID</th>
+	                  <th>{{#str}}fullnamecourse{{/str}}</th>
+	                  <th>{{#str}}level, tool_supporter{{/str}} 1</th>
+	                  <th>{{#str}}level, tool_supporter{{/str}} 2</th>
+	                  <th>{{#str}}roles{{/str}}</th>
+	                  <th>{{#str}}visible{{/str}}</th>
+	                  <th></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                {{#userscourses}}
+	                <tr>
+	                  <td>{{id}}</td>
+	                  <td>{{fullname}}</td>
+	                  <td>{{level_one}}</td> <!-- TUD intern: Semester -->
+	                  <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
+	                  <td>{{roles}}</td>
+	                  <td>{{visible}}</td>
+				      <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{id}}&ue={{enrol_id}}" target="_blank">
+					  	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
+					  </a></td>
+	                </tr>
+	                {{/userscourses}}
+	              </tbody>
+	            </table>
+			</div>
+			
+	    </div>
 	</div>
-
-    <div class="card-block" id="user_details_body">
-		<!-- Enrol the user into the course -->
-		<br>
-        {{> tool_supporter/enrolusersection}}
-		<br> 
-		
-		<!-- Show user details  -->
-        <table class = "table borderless">
-          <tbody>
-            {{#userinformation}}
-            <tr>
-              <th>ID</th>
-              <td id="selecteduserid">{{id}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}username{{/str}}</th>
-              <td>{{username}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}firstname{{/str}}</th>
-              <td>{{firstname}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}lastname{{/str}}</th>
-              <td>{{lastname}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}email{{/str}}</th>
-              <td>{{email}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}eventusercreated{{/str}}</th>
-              <td>{{timecreated}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}lastmodified{{/str}}</th>
-              <td>{{timemodified}}</td>
-            </tr>
-            <tr>
-              <th>{{#str}}lastlogin{{/str}}</th>
-              <td>{{lastlogin}}</td>
-            </tr>
-            {{/userinformation}}
-          </tbody>
-        </table>
-        <hr>
-
-        <!-- Navigation for users course table -->
-          <ul class="nav nav-tabs nav-justified">
-            <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
-            <!--filter course list by selecting wanted first level category -->
-            <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 1<span class="caret"></span></a>
-              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
-                {{#uniquelevelones}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
-                {{/uniquelevelones}}
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 2<span class="caret"></span></a>
-              <!--filter course list by selecting wanted second level category-->
-              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
-                {{#uniqueleveltwoes}}
-                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_leveltwocheckbox"  id="user_detail_leveltwocheckbox"> {{{.}}}</li>
-                {{/uniqueleveltwoes}}
-              </ul>
-            </li>
-         </ul>
-
-       <!--Table showing users courses-->
-        <div> 
-            <table class = "table table-responsive stripe hover row-border compact" id="{{uniqid}}-userdetailcourses" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>{{#str}}fullnamecourse{{/str}}</th>
-                  <th>{{#str}}level, tool_supporter{{/str}} 1</th>
-                  <th>{{#str}}level, tool_supporter{{/str}} 2</th>
-                  <th>{{#str}}roles{{/str}}</th>
-                  <th>{{#str}}visible{{/str}}</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#userscourses}}
-                <tr>
-                  <td>{{id}}</td>
-                  <td>{{fullname}}</td>
-                  <td>{{level_one}}</td> <!-- TUD intern: Semester -->
-                  <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
-                  <td>{{roles}}</td>
-                  <td>{{visible}}</td>
-			      <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{id}}&ue={{enrol_id}}" target="_blank">
-				  	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
-				  </a></td>
-                </tr>
-                {{/userscourses}}
-              </tbody>
-            </table>
-		</div>
-		
-    </div>
 </div>
 
 {{#js}}
