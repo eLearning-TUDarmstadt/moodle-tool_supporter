@@ -98,7 +98,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "visible": visible
                                 }).draw(false);
                             });
-                            
+
                         });
 
                         promises[0].fail(function(error) {
