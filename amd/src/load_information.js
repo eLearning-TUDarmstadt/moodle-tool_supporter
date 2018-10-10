@@ -273,14 +273,24 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             // Apply Filter when user is typing.
             $(searchFieldID).on('keyup', actually_search);
 
-            // Change column to search when changing dropdown.
-            $(columnDropdownID).on('change', actually_search);
+            var previousColumn;
+            
+            // Safe last column when dropdown is clicked.
+            $(columnDropdownID).on('click', function(){
+                previousColumn = this.value;
+            });
+            
+            // Clear previous search and apply new search.
+            $(columnDropdownID).on('change', function(){
+                $(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
+                actually_search();
+            });
 
             function actually_search() {
                 var otable = $(tableID).dataTable();
                 var searchValue = $(searchFieldID)[0].value;
                 var column = $(columnDropdownID)[0].value;
-
+                
                 if (column == "-1") {
                     otable.fnFilter(searchValue, null); // Search all columns.
                 } else {
