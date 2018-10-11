@@ -483,7 +483,7 @@ class external extends external_api {
         // Is the closest to the needed capability. Is used in /course/management.php.
         \require_capability('moodle/course:viewhiddencourses', $context);
 
-        $categories = $DB->get_records("course_categories", $conditions=null, $sort='sortorder ASC', $fields='id, name, parent, depth, path');
+        $categories = $DB->get_records("course_categories", array("visible"=>"1"), $sort='sortorder ASC', $fields='id, name, parent, depth, path');
         $courses = $DB->get_records("course", $conditions=null, $sort='', $fields='id, shortname, fullname, visible, category');
 
         $all_level_ones = [];
