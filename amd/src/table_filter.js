@@ -92,7 +92,8 @@ define(['jquery'], function($) {
 
             // Clear previous search and apply new search.
             $(columnDropdownID).on('change', function(){
-                $(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
+                //$(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
+                $(tableID).DataTable().column(previousColumn).search("");
                 actually_search();
             });
 
@@ -102,9 +103,23 @@ define(['jquery'], function($) {
                 var column = $(columnDropdownID)[0].value;
 
                 if (column == "-1") {
-                    otable.fnFilter(searchValue, null); // Search all columns.
+                    console.log("Search all columns for");
+                    console.log(searchValue);
+                    console.log("Table ID:");
+                    console.log(tableID);
+                    //$(tableID).DataTable().search(searchValue, false, true).draw(); // Regex, Smart Search
+                    $(tableID).DataTable().search(searchValue).draw();
+                    $(tableID).dataTable().fnFilter(searchValue);
+
+                    //searchValue = searchValue.trimRight().replace(" ", "&")
+                    //console.log(searchValue);
+                    //otable.fnFilter(searchValue, null, true, true, false, true); // Search all columns.
+                    //otable.fnFilter(searchValue); // Search all columns.
+                    //otable.filter()
+                    //otable.search(searchValue).draw();
                 } else {
-                    otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
+                    //sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive
+                    otable.fnFilter(searchValue, column, true, true, false, true); // Search a specific column.
                 }
             }
         }

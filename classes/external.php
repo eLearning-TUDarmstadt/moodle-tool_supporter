@@ -284,6 +284,7 @@ class external extends external_api {
         $assignableroles = \get_assignable_roles($coursecontext);
 
         $categories = $DB->get_records("course_categories", $conditions=null, $sort='sortorder ASC', $fields='id, name, parent, depth, path');
+        // Used for unenrolling users.
         $user_enrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
 
         $all_level_ones = [];
@@ -314,13 +315,13 @@ class external extends external_api {
                     $course->roles[] = $assignableroles[$role->roleid];
                 }
 
+                // Used for unenrolling users.
                 $course->enrol_id = $user_enrolments[$course->id]->id;
 
                 $courses_array[] = (array)$course;
-
             }
         }
-        //$data['courses'] = $courses_array;
+        if (empty($courses_array)) {$courses_array = array();} // Initialize array if there are no courses.
         $data['userscourses'] = $courses_array;
 
         $data['uniquelevelones'] = [];
@@ -431,8 +432,9 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => '0'), null, 'id, username, firstname, lastname, email');
-        //$data['users'] = get_users_listing(); // Moodle Core function, but also returns suspended and deleted users.
+        //$data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, username, firstname, lastname, email');
+        $data['users'] = get_users_listing(); // Does not return guest and deleted users.
+        //$data['users'] = get_users();
 
         return $data;
     }
