@@ -287,9 +287,9 @@ class external extends external_api {
         // Used for unenrolling users.
         $user_enrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
 
-        $all_level_ones = [];
-        $all_level_twos = [];
-
+        $data['uniquelevelones'] = [];
+        $data['uniqueleveltwoes'] = [];
+        $courses_array = [];
         foreach ($usercourses as $course) {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
@@ -297,19 +297,21 @@ class external extends external_api {
                 if (isset($path_array[1])) {
                     $path_array[1] = $categories[$path_array[1]]->name;
                     $course->level_one = $path_array[1];
+                    array_push($data['uniquelevelones'], $path_array[1]);
                 } else {
                     $course->level_one = "";
                 }
+
                 if (isset($path_array[2])) {
                     $path_array[2] = $categories[$path_array[2]]->name;
                     $course->level_two = $path_array[2];
+                    array_push($data['uniqueleveltwoes'], $path_array[2]);
                 } else {
                     $course->level_two = "";
                 }
 
                 // Get the used Roles the user is enrolled as (teacher, student, ...).
-                $context = \context_course::instance($course->id);
-                $usedroles = get_user_roles($context, $userid);
+                $usedroles = get_user_roles(\context_course::instance($course->id), $userid);
                 $course->roles = [];
                 foreach ($usedroles as $role) {
                     $course->roles[] = $assignableroles[$role->roleid];
@@ -321,19 +323,7 @@ class external extends external_api {
                 $courses_array[] = (array)$course;
             }
         }
-        if (empty($courses_array)) {$courses_array = array();} // Initialize array if there are no courses.
         $data['userscourses'] = $courses_array;
-
-        $data['uniquelevelones'] = [];
-        $data['uniqueleveltwoes'] = [];
-        foreach ($categories as $category) {
-            if ($category->depth == 1) {
-                array_push($data['uniquelevelones'], $category->name);
-            }
-            if ($category->depth == 2) {
-                array_push($data['uniqueleveltwoes'], $category->name);
-            }
-        }
 
         // Filters should only appear once in the dropdown-menues.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));

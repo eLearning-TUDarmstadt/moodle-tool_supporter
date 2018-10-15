@@ -97,7 +97,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "retrieve": true, // So the table can be accessed after initialization.
                         "responsive": true,
                         "lengthChange": true,
-                        "deferRender": true, // For perfomance reasons
+                        "deferRender": true, // For perfomance reasons.
+                        "order": [[ 0, "desc" ]], // Sort the ID descending.
                         "language": {
                             // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                             'info': " ",
