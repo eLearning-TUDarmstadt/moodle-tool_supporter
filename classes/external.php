@@ -433,8 +433,13 @@ class external extends external_api {
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
         //$data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, username, firstname, lastname, email');
-        $data['users'] = get_users_listing(); // Does not return guest and deleted users.
-        //$data['users'] = get_users();
+        // Returns fields: id, username, firstname, lsatname without guest and deleted users.
+        //$data['users'] = get_users_listing();
+        // Returns fields: id, auth, confirmed, policyagree, deleted, suspended, mnethostid, username, password, idnumber without guest.
+        $data['users'] = get_users();
+
+        //error_log(print_r('data -------------', TRUE));
+        //error_log(str_replace("stdClass Object", "Array",str_replace("\n", "", print_r($data, TRUE))));
 
         return $data;
     }
@@ -450,11 +455,12 @@ class external extends external_api {
                 'users' => new external_multiple_structure(
                     new external_single_structure(
                         array(
-                        'id' => new external_value(PARAM_INT, 'id of user'),
-                        'username' => new external_value(PARAM_RAW, 'username of user'),
-                        'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
-                        'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
-                        'email' => new external_value(PARAM_RAW, 'email adress of user')
+                            'id' => new external_value(PARAM_INT, 'id of user'),
+                            'idnumber' => new external_value(PARAM_RAW, 'idnumber of user'),
+                            'username' => new external_value(PARAM_TEXT, 'username of user'),
+                            'firstname' => new external_value(PARAM_TEXT, 'firstname of user'),
+                            'lastname' => new external_value(PARAM_TEXT, 'lastname of user'),
+                            'email' => new external_value(PARAM_TEXT, 'email adress of user')
                         )
                     )
                 )
@@ -709,9 +715,6 @@ class external extends external_api {
             'enrolmentMethods' => (array)$enrolmentmethods,
             'isallowedtoupdatecourse' => $isallowedtoupdatecourse
         );
-
-        //error_log(print_r('data -------------', TRUE));
-        //error_log(str_replace("\n", "", print_r($data['enrolmentMethods'], TRUE)));
 
         return (array)$data;
     }
