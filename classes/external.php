@@ -390,7 +390,7 @@ class external extends external_api {
                 'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
                 'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
                 'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
-                'visible' => new external_value (PARAM_BOOL, 'visible of course'),
+                'visible' => new external_value(PARAM_INT, 'Is the course visible'),
                 'level_one' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
                 'level_two' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
                 'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course')),
