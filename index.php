@@ -40,10 +40,9 @@ require_login();
 
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
 
+// Needed for sorting-arrows and responsive tables without horizontal scrollbars, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
-$PAGE->requires->css('/admin/tool/supporter/style/responsive.bootstrap4.css');
-$PAGE->requires->css('/admin/tool/supporter/style/select.bootstrap4.css');
-$PAGE->requires->css('/admin/tool/supporter/style/buttons.bootstrap4.css');
+// Needed for Paging-Buttons and spacing in tables, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
 
 $output = $PAGE->get_renderer('tool_supporter');
@@ -59,8 +58,8 @@ echo $output->header();
 
 echo'
 <div class="container-fluid">
-    <div class="row-fluid" style="padding-top: 5px;">
-        <div class="span12 col-sm-12">
+    <div class="row-fluid" style="line-height: 1 !important;">
+        <div class="span12 col-sm-12" style="padding-bottom: 15px">
             '.$index.'
         </div>
 
@@ -83,7 +82,7 @@ echo'
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="span6 col-sm-6">
                     <div class="row-fluid">
                         <div class="span12 col-sm-12">

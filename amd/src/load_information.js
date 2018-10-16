@@ -131,54 +131,28 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         },
 
         /**
-         * hide the user block
+         * Toggles the user block
          *
-         * @method hide_user_details
+         * @method toggle_user_details
          */
-        hide_user_details: function() {
-            $('#btn_hide_user_details').on('click', function() {
-                $('#user_details_body').hide();
-                $('#btn_hide_user_details').hide();
-                $('#btn_expand_user_details').show();
+        toggle_user_details: function() {
+            $('#btn_hide_user_details, #btn_show_user_details').on('click', function() {
+                $('#user_details_body').toggle();
+                $('#btn_hide_user_details').toggle();
+                $('#btn_show_user_details').toggle();
             });
         },
 
         /**
-         * expand the user block after it was hidden
+         * Toggles the course detail block
          *
-         * @method expand_user_details
+         * @method toggle_course_detail
          */
-        expand_user_details: function() {
-            $('#btn_expand_user_details').on('click', function() {
-                $('#user_details_body').show();
-                $('#btn_hide_user_details').show();
-                $('#btn_expand_user_details').hide();
-            });
-        },
-
-        /**
-         * hide the course detail block
-         *
-         * @method hide_course_detail
-         */
-        hide_course_detail: function() {
-            $('#btn_hide_course_details').on('click', function() {
-                $('#course_details_body').hide();
-                $('#btn_hide_course_details').hide();
-                $('#btn_expand_course_details').show();
-            });
-        },
-
-        /**
-         * expands the course detail block again after it was hidden
-         *
-         * @method expand_course_detail
-         */
-        expand_course_detail: function() {
-            $('#btn_expand_course_details').on('click', function() {
-                $('#course_details_body').show();
-                $('#btn_hide_course_details').show();
-                $('#btn_expand_course_details').hide();
+        toggle_course_details: function() {
+            $('#btn_hide_course_details, #btn_show_course_details').on('click', function() {
+                $('#course_details_body').toggle();
+                $('#btn_hide_course_details').toggle();
+                $('#btn_show_course_details').toggle();
             });
         },
 
@@ -283,33 +257,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     }).fail(notification.exception);
                 }).fail(notification.exception);
             });
-        },
-
-        search: function(tableID, columnDropdownID, searchFieldID, columns) {
-            // Initialize Dropdown - add other options than "all".
-            var counter = 0;
-            columns.forEach(function(element) {
-                $(columnDropdownID).append($('<option>', {
-                    value: counter,
-                    text : element.name
-                }));
-                counter++;
-            });
-
-            // Apply Filter when user is typing.
-            $(searchFieldID).on('keyup', function(){
-                var otable = $(tableID).dataTable();
-                var searchValue = $(searchFieldID)[0].value;
-                var column = $(columnDropdownID)[0].value;
-
-                if (column == "-1") {
-                    otable.fnFilter(searchValue, null); // Search all columns.
-                } else {
-                    otable.fnFilter(searchValue, column, true, false, false, true); // Search a specific column.
-                }
-            });
         }
-
     };
 
     // Alias module:tool_supporter/load_information.

@@ -33,14 +33,19 @@ define(['jquery'], function($) {
         var string_value = '';
         $(checked_elements).each(function(){
             var val = $(this).val();
-            if(val === ""){string_value = '^(?![\\s\\S])';}
-            // String value is added several times with different starts and endings so filter for i.e. "Teacher" does not match "non-editing teacher".
-            else {string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';}
+            if(val === ""){
+                string_value = '^(?![\\s\\S])';
+            }
+            else {
+                // Escape Regex-Characters which may be in names of categories.
+                val = val.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                // String value is added several times with different starts and endings.
+                // So filter for "Teacher" does not match "non-editing teacher".
+                string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';
+            }
             filterElements.push(string_value);
         });
         var filter = filterElements.join("|");
-
-        // Params: String to filter; Column to limit filtering to; Treat as regex; Smart Filtering; Show input global filter; Case insensitive.
         otable.fnFilter(filter, column, true, false, false, true);
     };
 
@@ -50,7 +55,7 @@ define(['jquery'], function($) {
          * Filtering the table with the appropiate form!
          *
          * @method FilterEvent
-         * @param searchInputName : Name of the input fields you want to use as filter parameters. All fields have to have the same name. Here: The dropdown menu entries
+         * @param searchInputName : Name of the input fields you want to use as filter parameters.
          * @param tableID : ID of the table or part of the table you want to filter
          * @param FormInput : The ID of the dropdownmenu or something similiary you want to use to filter the table
          * @param column : which column should be filtered
@@ -62,6 +67,61 @@ define(['jquery'], function($) {
                 filterTable(checked_elements, otable, column);
             });
 
+        },
+
+        search_table: function(tableID, columnDropdownID, searchFieldID, columns) {
+            // Initialize Dropdown - add other options than "all".
+            var counter = 0;
+            columns.forEach(function(element) {
+                $(columnDropdownID).append($('<option>', {
+                    value: counter,
+                    text : element.name
+                }));
+                counter++;
+            });
+
+            // Apply Filter when user is typing.
+            $(searchFieldID).on('keyup', actually_search);
+
+            var previousColumn;
+
+            // Safe last column when dropdown is clicked.
+            $(columnDropdownID).on('click', function(){
+                previousColumn = this.value;
+            });
+
+            // Clear previous search and apply new search.
+            $(columnDropdownID).on('change', function(){
+                //$(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
+                $(tableID).DataTable().column(previousColumn).search("");
+                actually_search();
+            });
+
+            function actually_search() {
+                var otable = $(tableID).dataTable();
+                var searchValue = $(searchFieldID)[0].value;
+                var column = $(columnDropdownID)[0].value;
+
+                if (column == "-1") {
+                    console.log("Search all columns for");
+                    console.log(searchValue);
+                    console.log("Table ID:");
+                    console.log(tableID);
+                    //$(tableID).DataTable().search(searchValue, false, true).draw(); // Regex, Smart Search
+                    $(tableID).DataTable().search(searchValue).draw();
+                    $(tableID).dataTable().fnFilter(searchValue);
+
+                    //searchValue = searchValue.trimRight().replace(" ", "&")
+                    //console.log(searchValue);
+                    //otable.fnFilter(searchValue, null, true, true, false, true); // Search all columns.
+                    //otable.fnFilter(searchValue); // Search all columns.
+                    //otable.filter()
+                    //otable.search(searchValue).draw();
+                } else {
+                    //sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive
+                    otable.fnFilter(searchValue, column, true, true, false, true); // Search a specific column.
+                }
+            }
         }
     };
 });

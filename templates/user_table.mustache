@@ -44,9 +44,12 @@
 }}
 <div data-region="user_table" class="card" style="border:1px solid #8a8a8a">
     <div class = "card-header">
-    	<div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
-    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+	    <div class="row">
+	    	<div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
+	    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+	    </div>
     </div>
+    
   	<div class="btn-toolbar" role="toolbar">
 		<div class="btn-group pull-right" role="group">
 			<select id="user_table_column_chooser" class="form-control-">
@@ -54,15 +57,17 @@
 				<option selected value="-1">{{#str}}all{{/str}}</option>
 			</select>
 		</div>
-		<div class="btn-group" role="group">
+		<div class="btn-group" role="group" style="width: 60%">
 			<input type="text" id="user_table_search_input" class="form-control form-control-sm" placeholder="Search">
 		</div>
 	</div>
+	
 	 <div class = "table table-responsive">
 	     <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
 	         <thead>
 				<tr>
 			        <th>ID</th>
+			        <th>{{#str}}idnumbermod{{/str}}</th>
 			        <th>{{#str}}username{{/str}}</th>
 			        <th>{{#str}}firstname{{/str}}</th>
 			        <th>{{#str}}lastname{{/str}}</th>
@@ -77,11 +82,12 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables'],
-function(load_information, $, ajax, notification, templates, datatables){
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables', 'tool_supporter/table_filter'],
+function(load_information, $, ajax, notification, templates, datatables, table_filter){
 
 	var columns = [
 	                 {data: 'id', name: 'ID'},
+	                 {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
 	                 {data: 'username', name: '{{#str}}username{{/str}}'},
 	                 {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
 	                 {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
@@ -96,6 +102,6 @@ function(load_information, $, ajax, notification, templates, datatables){
 	load_information.click_on_user('#{{uniqid}}-userTable'); 
 
 	// Search the table
-	load_information.search('#{{uniqid}}-userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+	table_filter.search_table('#{{uniqid}}-userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}

@@ -25,8 +25,7 @@
 
  $string['pagetitle'] = 'This is the tool for supporters!';
  $string['pluginname'] = 'Supporter';
- $string['department'] = 'Department';
- $string['semester'] = 'Semester';
+ $string['level'] = 'Level';
  $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 
  // Strings for setting page - setting.php.
