@@ -92,7 +92,6 @@ define(['jquery'], function($) {
 
             // Clear previous search and apply new search.
             $(columnDropdownID).on('change', function(){
-                //$(tableID).dataTable().fnFilter("", previousColumn, true, false, false, true);
                 $(tableID).DataTable().column(previousColumn).search("");
                 actually_search();
             });
@@ -103,20 +102,8 @@ define(['jquery'], function($) {
                 var column = $(columnDropdownID)[0].value;
 
                 if (column == "-1") {
-                    console.log("Search all columns for");
-                    console.log(searchValue);
-                    console.log("Table ID:");
-                    console.log(tableID);
-                    //$(tableID).DataTable().search(searchValue, false, true).draw(); // Regex, Smart Search
-                    $(tableID).DataTable().search(searchValue).draw();
-                    $(tableID).dataTable().fnFilter(searchValue);
-
-                    //searchValue = searchValue.trimRight().replace(" ", "&")
-                    //console.log(searchValue);
-                    //otable.fnFilter(searchValue, null, true, true, false, true); // Search all columns.
-                    //otable.fnFilter(searchValue); // Search all columns.
-                    //otable.filter()
-                    //otable.search(searchValue).draw();
+                    $(tableID).DataTable().search(searchValue).draw(); // Search all columns.
+                    // $(tableID).dataTable().fnFilter(searchValue); Legacy-function.
                 } else {
                     //sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive
                     otable.fnFilter(searchValue, column, true, true, false, true); // Search a specific column.

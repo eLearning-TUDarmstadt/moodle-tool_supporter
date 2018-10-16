@@ -115,7 +115,9 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "initComplete" : function () { // Only after the dataTable was rendered.
                             $(tableID + "-loadingIcon").hide();
 
-                            if (tableID.includes("courseTable")) { // Add the course filtering for the courses table.
+                            if (tableID.includes("-courseTable")) {
+                                $('#courses_dynamic_search').show(); // Show search input.
+                                // Add the course filtering for the courses table.
                                 templates.render('tool_supporter/course_table', data).done(function(html) {
 
                                     // Only render the filtering dropdowns of the tables, not the whole course_table.
@@ -126,6 +128,9 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                     use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
                                                           ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
                                 }).fail(notification.exception);
+                            }
+                            if (tableID.includes("-userTable")) {
+                                $('#users_dynamic_search').show(); // Show search input.
                             }
                         }
 
