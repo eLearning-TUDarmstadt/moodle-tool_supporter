@@ -21,16 +21,17 @@
 
 }}
 
-<div class="btn-group mr-2 float-right">
-	<a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}settings{{/str}}">
-		{{#pix}} i/settings, core, {{#str}}settings{{/str}} {{/pix}}
-	</a>
-</div>
-  
-<div class="btn-group mr-2 float-right">
+<div class="d-flex align-items-center">
+
+	&nbsp|&nbsp
+
 	{{#isallowedtocreatecourses}}
-		<button href="#" class="btn btn-secondary" role="button" id="btn_show_new_course">{{#str}}addnewcourse{{/str}}</button>
+		<a href="#" id="btn_show_new_course"><u>{{#str}}addnewcourse{{/str}}</u></a>
 	{{/isallowedtocreatecourses}}
+	
+	&nbsp|&nbsp
+	
+	<a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank"><u>{{#str}}settings{{/str}}</u></a>
 </div>
 
 {{#js}}

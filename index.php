@@ -43,6 +43,8 @@ $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
 $PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
 $PAGE->requires->css('/admin/tool/supporter/style/styles.css');
 
+
+
 $output = $PAGE->get_renderer('tool_supporter');
 
 $index = $output->render(new \tool_supporter\output\index_page());
@@ -52,6 +54,8 @@ $createnewcourse = $output->render(new \tool_supporter\output\create_new_course(
 $userdetail = $output->render(new \tool_supporter\output\user_detail());
 $coursedetail = $output->render(new \tool_supporter\output\course_detail());
 
+$PAGE->set_headingmenu($index);
+
 // Force collapsed flat navigation for this page only.
 $old_pref = get_user_preferences('drawer-open-nav');
 set_user_preference('drawer-open-nav', false);
@@ -59,12 +63,7 @@ echo $output->header();
 set_user_preference('drawer-open-nav', $old_pref);
 
 echo'
-<div class="container-fluid">
     <div class="row-fluid" style="line-height: 1 !important;">
-        <div class="span12 col-sm-12" style="padding-bottom: 15px">
-            '.$index.'
-        </div>
-
         <div class="span12 col-sm-12">
             <div class="row-fluid">
                 <div class="span6 col-sm-6">
@@ -100,6 +99,5 @@ echo'
             </div>
         </div>
     </div>
-</div>
 ';
 echo $output->footer();
