@@ -18,13 +18,10 @@
  * This is the only page in this plugin.
  *
  * @package    tool_supporter
- * @copyright  2017 Benedikt Schneider, Klara Saary
+ * @copyright  2018 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(__DIR__ . '/../../../config.php');
-
-// Force collapsed flat navigation.
-set_user_preference('drawer-open-nav', false);
 
 $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
@@ -44,6 +41,7 @@ $PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
 // Needed for Paging-Buttons and spacing in tables, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/jquery.dataTables.css');
+$PAGE->requires->css('/admin/tool/supporter/style/styles.css');
 
 $output = $PAGE->get_renderer('tool_supporter');
 
@@ -54,7 +52,11 @@ $createnewcourse = $output->render(new \tool_supporter\output\create_new_course(
 $userdetail = $output->render(new \tool_supporter\output\user_detail());
 $coursedetail = $output->render(new \tool_supporter\output\course_detail());
 
+// Force collapsed flat navigation for this page only.
+$old_pref = get_user_preferences('drawer-open-nav');
+set_user_preference('drawer-open-nav', false);
 echo $output->header();
+set_user_preference('drawer-open-nav', $old_pref);
 
 echo'
 <div class="container-fluid">
