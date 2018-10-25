@@ -165,44 +165,45 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         click_on_user: function(tableID) {
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
 
-                // Remove previous hightlights.
-                var dataTable = $(tableID).dataTable()[0];
-                $(dataTable.rows).css("background-color", "");
-                // Highlight the clicked user.
-                $(this).css("background-color", "#bcbcbc");
-
                 // Get id (first column) of clicked row.
                 var user_id = $(this).find('td:first-child').text();
 
-                // Go to top.
-                var position = $("#user_details").offset().top;
-                $("html, body").animate({ scrollTop: position - 50}, "slow");
+                if (!isNaN(user_id)) {
+                    // Remove previous hightlights.
+                    var dataTable = $(tableID).dataTable()[0];
+                    $(dataTable.rows).css("background-color", "");
+                    // Highlight the clicked user.
+                    $(this).css("background-color", "#bcbcbc");
 
-                var promises = ajax.call([{
-                    methodname: 'tool_supporter_get_user_information',
-                    args: {
-                        userid: user_id
-                    }
-                }]);
+                    // Go to top.
+                    var position = $("#user_details").offset().top;
+                    $("html, body").animate({ scrollTop: position - 50}, "slow");
 
-                promises[0].done(function(data) {
-                    console.log("click on user Returns: ");
-                    console.log(data);
-                    data = data[0];
-                    templates.render('tool_supporter/user_detail', data).done(function(html, js) {
-                        $('[data-region="user_details"]').replaceWith(html);
-                        $('[data-region="user_details"]').show();
-
-                        // Only show the section if a course is selected.
-                        if ($('[data-region="course_details"]').is(':visible')) {
-                            var courseid = $('#selectedcourseid')[0].textContent;
-                            show_enrol_section(courseid);
+                    var promises = ajax.call([{
+                        methodname: 'tool_supporter_get_user_information',
+                        args: {
+                            userid: user_id
                         }
+                    }]);
 
-                        templates.runTemplateJS(js);
+                    promises[0].done(function(data) {
+                        console.log("click on user Returns: ");
+                        console.log(data);
+                        data = data[0];
+                        templates.render('tool_supporter/user_detail', data).done(function(html, js) {
+                            $('[data-region="user_details"]').replaceWith(html);
+                            $('[data-region="user_details"]').show();
+
+                            // Only show the section if a course is selected.
+                            if ($('[data-region="course_details"]').is(':visible')) {
+                                var courseid = $('#selectedcourseid')[0].textContent;
+                                show_enrol_section(courseid);
+                            }
+
+                            templates.runTemplateJS(js);
+                        }).fail(notification.exception);
                     }).fail(notification.exception);
-                }).fail(notification.exception);
-
+                }
             });
         },
 
@@ -213,15 +214,18 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          */
         click_on_course: function(tableID) {
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
-                // Remove previous hightlights.
-                var dataTable = $(tableID).dataTable()[0];
-                $(dataTable.rows).css("background-color", "");
-                // Highlight the clicked course.
-                $(this).css("background-color", "#bcbcbc");
 
-                // Show details of this course
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
-                show_course_detail_private(course_id);
+                if (!isNaN(course_id)) {
+                    // Remove previous hightlights.
+                    var dataTable = $(tableID).dataTable()[0];
+                    $(dataTable.rows).css("background-color", "");
+                    // Highlight the clicked course.
+                    $(this).css("background-color", "#bcbcbc");
+
+                    // Show details of this course
+                    show_course_detail_private(course_id);
+                }
             });
         },
 

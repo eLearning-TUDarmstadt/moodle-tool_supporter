@@ -48,7 +48,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
          */
         use_dataTable: function(tableID, filterSelector){
 
-            str.get_string('search', 'moodle').done(function(searchString) {
+            var string_noresults = str.get_string('noresults', 'admin');
+            var string_search = str.get_string('search', 'moodle');
+
+            $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
                 $(tableID).DataTable({
                     "retrieve": true,   // So the table can be accessed after initialization.
                     "responsive": true,
@@ -57,7 +60,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                         'info': "",
                         'search': searchString + ": ",
-                        'lengthMenu': "_MENU_"
+                        'lengthMenu': "_MENU_",
+                        'zeroRecords': noresultsString,
                     },
                     "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>"+
                            "<'row'<'col-sm-12't>>"+
@@ -90,7 +94,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
             }]);
 
             promise[0].done(function(data) {
-                str.get_string('search', 'moodle').done(function(searchString) {
+                var string_noresults = str.get_string('noresults', 'admin');
+                var string_search = str.get_string('search', 'moodle');
+
+                $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
                     $(tableID).DataTable( {
                         "data": data[datainfo],
                         "columns": columns,
@@ -103,7 +110,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                             'info': " ",
                             'search': searchString + ": ",
-                            'lengthMenu': "_MENU_"
+                            'lengthMenu': "_MENU_",
+                            'zeroRecords': noresultsString,
                         },
                         "dom": "<'col-sm-12't>"+
                         "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
