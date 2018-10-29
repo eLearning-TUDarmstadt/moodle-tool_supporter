@@ -189,8 +189,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     promises[0].done(function(data) {
                         console.log("click on user Returns: ");
                         console.log(data);
-                        data = data[0];
-                        templates.render('tool_supporter/user_detail', data).done(function(html, js) {
+                        templates.render('tool_supporter/user_detail', data[0]).done(function(html, js) {
                             $('[data-region="user_details"]').replaceWith(html);
                             $('[data-region="user_details"]').show();
 

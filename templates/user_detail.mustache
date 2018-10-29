@@ -202,6 +202,10 @@
 	              <td>{{username}}</td>
 	            </tr>
 	            <tr>
+	              <th>{{#str}}idnumbermod{{/str}}</th>
+	              <td>{{idnumber}}</td>
+	            </tr>
+	            <tr>
 	              <th>{{#str}}firstname{{/str}}</th>
 	              <td>{{firstname}}</td>
 	            </tr>
@@ -274,7 +278,7 @@
 	                  <td>{{fullname}}</td>
 	                  <td>{{level_one}}</td> <!-- TUD intern: Semester -->
 	                  <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
-	                  <td>{{#roles}}{{.}} {{/roles}}</td>
+	                  <td>{{roles}}</td>
 	                  <td>{{visible}}</td>
 				      <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{id}}&ue={{enrol_id}}" target="_blank">
 					  	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}

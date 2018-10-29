@@ -56,7 +56,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                  */
                 create_new_course: function() {
                     $('#create_new_course_button').on('click', function() {
-
                         var promises = ajax.call([{
                             methodname: 'tool_supporter_create_new_course',
                             args: {
@@ -70,35 +69,22 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         }]);
 
                         promises[0].done(function(data) {
-
                             // Display the created course.
                             var promise1 = load_information.show_course_detail(data.id, true);
 
                             promise1[0].done(function(data){
                                 $('[data-region="create_new_course_section"]').hide();
-                                var visible = 0;
-                                if(data.courseDetails.visible) {visible = 1;}
 
                                 // Add the newly created course to the DataTable without reloading the whole thing.
-                                var otables = $.fn.dataTable.tables();
-                                var coursetableid;
-                                $.each(otables, function(i, val) {
-                                    if (val.id.indexOf("courseTable") >= 0) {
-                                        coursetableid = val.id;
-                                        return false;
-                                    }
-                                });
-
-                                $('#' + coursetableid).DataTable().row.add({
+                                $('#courseTable').DataTable().row.add({
                                     "id": data.courseDetails.id,
                                     "shortname": data.courseDetails.shortname,
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
-                                    "visible": visible
+                                    "visible": +data.courseDetails.visible // Implicity cast false to 0.
                                 }).draw(false);
                             });
-
                         });
 
                         promises[0].fail(function(error) {

@@ -264,7 +264,6 @@ class external extends external_api {
         $params = self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
 
         $userinformation = user_get_users_by_id(array('userid' => $userid));
-        // Important output: id, username, firstname, lastname, email, timecreated, timemodified, lang [de, en], auth [manual].
 
         $userinformationarray = [];
         foreach ($userinformation as $info) {
@@ -372,7 +371,8 @@ class external extends external_api {
                 'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user as date'),
                 'lastlogin' => new external_value (PARAM_TEXT, 'last login of the user as date'),
                 'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
-                'auth' => new external_value (PARAM_TEXT, 'auth of the user')
+                'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
+                'idnumber' => new external_value (PARAM_TEXT, 'idnumber of the user'),
             )),
             'userscourses' => new external_multiple_structure (new external_single_structure (array (
                 'id' => new external_value (PARAM_INT, 'id of course'),
