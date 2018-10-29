@@ -636,8 +636,8 @@ class external extends external_api {
         foreach ($usersraw as $u) {
             $u = (array)$u;
             $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid'=>$courseid, 'userid'=>$u['id'])));
-            // Find user specific roles.
-            $rolesofuser = get_user_roles($coursecontext, $u['id']);
+            // Find user specific roles, but without parent context (no global roles)
+            $rolesofuser = get_user_roles($coursecontext, $u['id'], false);
             $userroles = [];
             foreach ($rolesofuser as $role) {
                 $userroles[] = $usedrolesincourse[$role->roleid];

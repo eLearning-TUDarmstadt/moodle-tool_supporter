@@ -50,7 +50,7 @@
 	    </div>
     </div>
     
-  	<div id="users_dynamic_search" class="btn-toolbar" role="toolbar" style="display: none;">
+  	<div id="users_dynamic_search" class="btn-toolbar" role="toolbar" style="visibility: hidden;">
 		<div class="btn-group pull-right" role="group">
 			<select id="user_table_column_chooser" class="form-control-">
 				<!-- Additional Options will be added later with javascript -->
@@ -63,7 +63,7 @@
 	</div>
 	
 	 <div class = "table table-responsive">
-	     <table class = "stripe hover row-border compact" id = "{{uniqid}}-userTable" cellspacing="0" width="100%">
+	     <table class = "stripe hover row-border compact" id = "userTable" cellspacing="0" width="100%">
 	         <thead>
 				<tr>
 			        <th>ID</th>
@@ -78,7 +78,7 @@
 		      </tbody>
 		</table>
 	</div>
-	<span class="loading-icon text-center" id="{{uniqid}}-userTable-loadingIcon">{{#pix}} i/loading, core, {{#str}} loading {{/str}} {{/pix}}</span>
+	<span class="loading-icon text-center" id="userTable-loadingIcon">{{#pix}} i/loading, core, {{#str}} loading {{/str}} {{/pix}}</span>
 </div>
 
 {{#js}}
@@ -93,15 +93,15 @@ function(load_information, $, ajax, notification, templates, datatables, table_f
 	                 {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
 	                 {data: 'email', name: '{{#str}}email{{/str}}'}
 	             ];
-	datatables.dataTable_ajax('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns);
+	datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 	
 	// Refresh this table
-	load_information.click_on_refresh('#{{uniqid}}-userTable', 'tool_supporter_get_users', {}, 'users', columns);
+	load_information.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 	
 	//Load detailed information about the clicked user
-	load_information.click_on_user('#{{uniqid}}-userTable'); 
+	load_information.click_on_user('#userTable'); 
 
 	// Search the table
-	table_filter.search_table('#{{uniqid}}-userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+	table_filter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}

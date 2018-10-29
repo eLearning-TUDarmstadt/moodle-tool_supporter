@@ -178,7 +178,7 @@
 	
 	        <!-- Navigation for user- and activity-table of selected course -->
 	        <div>
-	          <ul class="nav nav-tabs nav-justified" id = "{{uniqid}}-myTabs" role="tablist">
+	          <ul class="nav nav-tabs nav-justified" role="tablist">
 	              <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
 	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
 	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
@@ -207,7 +207,7 @@
 		            </div>
 	              
 	                <div class="table table-responsive">
-	                    <table class="stripe hover row-border compact" id="{{uniqid}}-userincourse" cellspacing="0" width="100%">
+	                    <table class="stripe hover row-border compact" id="userincourse" cellspacing="0" width="100%">
 	                        <thead>
 	                            <tr>
 	                                <th>ID</th>
@@ -226,7 +226,7 @@
 	                                <td>{{username}}</td>
 	                                <td>{{firstname}}</td>
 	                                <td>{{lastname}}</td>
-	                                <td>{{#roles}}{{.}} {{/roles}}</td>
+	                                <td>{{roles}}</td>
 	                                <td>{{lastaccess}}</td>
 	                                <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
 						            	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
@@ -241,7 +241,7 @@
 	            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
 	                <!-- Table of activites in this course-->
 	                <div class="table table-responsive">
-	                    <table class="stripe hover row-border compact" id="{{uniqid}}-activityInCourse" cellspacing="0" width="100%">
+	                    <table class="stripe hover row-border compact" id="activityInCourse" cellspacing="0" width="100%">
 	                        <thead>
 	                            <tr>
 	                                <th>{{#str}}sectionname{{/str}}</th>
@@ -272,7 +272,7 @@
 			            </a></u></th>
 		            </div>
 	                <div class = "table table-responsive">
-	                    <table class = "stripe hover row-border compact" id = "{{uniqid}}-enrolmentMethods" cellspacing="0" width="100%">
+	                    <table class = "stripe hover row-border compact" cellspacing="0" width="100%">
 	                        <tbody>
 	                            {{#enrolmentMethods}}
 	                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
@@ -295,13 +295,13 @@ require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 't
     function($, search, sort, dataTable, load_information) {
 
   // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
-  dataTable.use_dataTable('#{{uniqid}}-userincourse', [['rolesincourse', '#roledropdown', 4]]);
+  dataTable.use_dataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
 
   // Convert activity-table to DataTable
-  dataTable.use_dataTable("#{{uniqid}}-activityInCourse");
+  dataTable.use_dataTable("#activityInCourse");
 
   // Load information about the clicked user
-  load_information.click_on_user('#{{uniqid}}-userincourse');
+  load_information.click_on_user('#userincourse');
 
   // Buttons on top
   load_information.toggle_course_details();

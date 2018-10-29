@@ -55,14 +55,16 @@ define(['jquery'], function($) {
          * Filtering the table with the appropiate form!
          *
          * @method FilterEvent
-         * @param searchInputName : Name of the input fields you want to use as filter parameters.
+         * @param checkbox_name : Name of the checkboxes that are used to filter.
          * @param tableID : ID of the table or part of the table you want to filter
          * @param FormInput : The ID of the dropdownmenu or something similiary you want to use to filter the table
          * @param column : which column should be filtered
          */
-        filterEvent: function(checkboxes, FormInput, column, tableID) {
+        filterEvent: function(checkbox_name, FormInput, column, tableID) {
             $(FormInput).change(function() {
-                var checked_elements = $('input[name=' + checkboxes + ']:checked');
+                $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+
+                var checked_elements = $('input[name=' + checkbox_name + ']:checked');
                 var otable = $(tableID).dataTable();
                 filterTable(checked_elements, otable, column);
             });
@@ -97,18 +99,27 @@ define(['jquery'], function($) {
             });
 
             function actually_search() {
+                $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+
                 var otable = $(tableID).dataTable();
                 var searchValue = $(searchFieldID)[0].value;
-                var column = $(columnDropdownID)[0].value;
-
-                if (column == "-1") {
+                var columnID = $(columnDropdownID)[0].value;
+                if (columnID == "-1") {
                     $(tableID).DataTable().search(searchValue).draw(); // Search all columns.
-                    // $(tableID).dataTable().fnFilter(searchValue); Legacy-function.
                 } else {
-                    //sInput, iColumn, bRegex, bSmart, bShowGlobal, bCaseInsensitive
-                    otable.fnFilter(searchValue, column, true, true, false, true); // Search a specific column.
+                    otable.fnFilter(searchValue, columnID, true, true, false, true); // Search a specific column.
                 }
             }
-        }
+        },
+
+        courses_clear_filters: function(tableID) {
+            $('#courses_clear_filters').on('click', function(){
+                $(tableID).DataTable().search('').columns().search('').draw();
+                $('#course_table_search_input')[0].value = '';
+                $('input[name^=courses_level]:checked').prop( "checked", false ); //Uncheck all checked Boxes.
+                $(this).css('visibility', 'hidden');
+            });
+        },
+
     };
 });
