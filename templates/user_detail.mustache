@@ -211,7 +211,7 @@
 	            <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
 	            <!--filter course list by selecting wanted first level category -->
 	            <li class="nav-item dropdown">
-	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 1<span class="caret"></span></a>
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
 	              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
 	                {{#uniquelevelones}}
 	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
@@ -219,7 +219,7 @@
 	              </ul>
 	            </li>
 	            <li class="nav-item dropdown">
-	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{#str}}level, tool_supporter{{/str}} 2<span class="caret"></span></a>
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
 	              <!--filter course list by selecting wanted second level category-->
 	              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
 	                {{#uniqueleveltwoes}}
@@ -230,14 +230,14 @@
 	         </ul>
 	
 	       <!--Table showing users courses-->
-	        <div> 
-	            <table class = "table table-responsive stripe hover row-border compact" id="userdetailcourses" cellspacing="0" width="100%">
+	        <div>
+                <table class = "table stripe hover row-border compact" id="userdetailcourses" cellspacing="0" width="100%">
 	              <thead>
 	                <tr>
 	                  <th>ID</th>
 	                  <th>{{#str}}fullnamecourse{{/str}}</th>
-	                  <th>{{#str}}level, tool_supporter{{/str}} 1</th>
-	                  <th>{{#str}}level, tool_supporter{{/str}} 2</th>
+	                  <th>{{label_level_1}}</th>
+	                  <th>{{label_level_2}}</th>
 	                  <th>{{#str}}roles{{/str}}</th>
 	                  <th>{{#str}}visible{{/str}}</th>
 	                  <th></th>

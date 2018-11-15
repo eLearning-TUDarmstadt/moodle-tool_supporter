@@ -124,7 +124,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             $(tableID + "-loadingIcon").hide();
 
                             if (tableID == "#courseTable") {
-                                $('#courses_dynamic_search').css('visibility', 'visible'); // Show search input.
+                                $('#course_table_filtering').css('visibility', 'visible'); //Make it visible.
                                 // Add the course filtering for the courses table.
                                 templates.render('tool_supporter/course_table', data).done(function(html) {
 

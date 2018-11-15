@@ -312,7 +312,7 @@ class external extends external_api {
                 }
 
                 // Get the used Roles the user is enrolled as (teacher, student, ...).
-                $usedroles = get_user_roles(\context_course::instance($course->id), $userid);
+                $usedroles = get_user_roles(\context_course::instance($course->id), $userid, false);
                 $course->roles = [];
                 foreach ($usedroles as $role) {
                     $course->roles[] = $assignableroles[$role->roleid];
@@ -364,6 +364,14 @@ class external extends external_api {
             'showtimemodified' => $CFG->tool_supporter_user_details_showtimemodified,
             'showlastlogin' => $CFG->tool_supporter_user_details_showlastlogin,
         );
+
+        // Get level labels
+        $labels = $CFG->tool_supporter_level_labels;
+        $count = 1; // Root is level 0, so we begin at 1.
+        foreach(explode(';', $labels) as $label) {
+            $data['label_level_'.$count] = $label; //Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
+            $count++;
+        }
 
         return array($data);
     }
@@ -421,7 +429,13 @@ class external extends external_api {
                     new external_value(PARAM_TEXT, 'array with unique first level categories')),
             'uniqueleveltwoes' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique second level categories')),
-            'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?")
+            'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+            // For now, it is limited to 5 levels and this implementation is ugly.
+            'label_level_1' => new external_value(PARAM_TEXT, 'label of first level', VALUE_OPTIONAL),
+            'label_level_2' => new external_value(PARAM_TEXT, 'label of second level', VALUE_OPTIONAL),
+            'label_level_3' => new external_value(PARAM_TEXT, 'label of third level', VALUE_OPTIONAL),
+            'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
+            'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
         )));
     }
 
@@ -498,7 +512,7 @@ class external extends external_api {
      * Gets every moodle course
      */
     public static function get_courses() {
-        global $DB;
+        global $DB, $CFG;
 
         self::validate_parameters(self::get_courses_parameters(), array());
         $context = \context_system::instance();
@@ -549,6 +563,14 @@ class external extends external_api {
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
 
+        // Get level labels
+        $labels = $CFG->tool_supporter_level_labels;
+        $count = 1; // Root is level 0, so we begin at 1.
+        foreach(explode(';', $labels) as $label) {
+            $data['label_level_'.$count] = $label; //Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
+            $count++;
+        }
+
         return $data;
     }
 
@@ -558,26 +580,32 @@ class external extends external_api {
      * @return array of courses
      */
     public static function get_courses_returns() {
-        return new external_single_structure (
-            array (
-                'courses' => new external_multiple_structure(
-                    new external_single_structure(
-                        array(
-                            'id' => new external_value(PARAM_INT, 'id of course'),
-                            'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-                            'fullname' => new external_value(PARAM_RAW, 'course name'),
-                            'level_two' => new external_value(PARAM_RAW,  'parent category'),
-                            'level_one' => new external_value(PARAM_RAW, 'course category'),
-                            'visible' => new external_value(PARAM_INT, 'Is the course visible')
-                        )
+        return new external_single_structure (array (
+            'courses' => new external_multiple_structure(
+                new external_single_structure(
+                    array(
+                        'id' => new external_value(PARAM_INT, 'id of course'),
+                        'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
+                        'fullname' => new external_value(PARAM_RAW, 'course name'),
+                        'level_two' => new external_value(PARAM_RAW,  'parent category'),
+                        'level_one' => new external_value(PARAM_RAW, 'course category'),
+                        'visible' => new external_value(PARAM_INT, 'Is the course visible')
                     )
-                ),
-                'uniqueleveltwoes' => new external_multiple_structure (
-                    new external_value(PARAM_TEXT, 'array with unique category names of all first levels')),
-                'uniquelevelones' => new external_multiple_structure (
-                    new external_value(PARAM_TEXT, 'array with unique category names of all second levels'))
-            )
-        );
+                )
+            ),
+            'uniqueleveltwoes' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique category names of all first levels')
+            ),
+            'uniquelevelones' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique category names of all second levels')
+            ),
+            // For now, it is limited to 5 levels and this implementation is ugly.
+            'label_level_1' => new external_value(PARAM_TEXT, 'label of first level', VALUE_OPTIONAL),
+            'label_level_2' => new external_value(PARAM_TEXT, 'label of second level', VALUE_OPTIONAL),
+            'label_level_3' => new external_value(PARAM_TEXT, 'label of third level', VALUE_OPTIONAL),
+            'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
+            'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
+        ));
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
