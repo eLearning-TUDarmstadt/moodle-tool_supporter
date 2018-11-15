@@ -25,6 +25,8 @@ namespace tool_supporter;
 
 defined('MOODLE_INTERNAL') || die;
 
+global $CFG;
+
 require_once("$CFG->libdir/externallib.php");
 require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
@@ -351,6 +353,18 @@ class external extends external_api {
             $data['isallowedtoupdateusers'] = false;
         }
 
+        $data['config'] = array(
+            'showid' => $CFG->tool_supporter_showid,
+            'showusername' => $CFG->tool_supporter_showusername,
+            'showidnumber' => $CFG->tool_supporter_showidnumber,
+            'showfirstname' => $CFG->tool_supporter_showfirstname,
+            'showlastname' => $CFG->tool_supporter_showlastname,
+            'showmailadress' =>  $CFG->tool_supporter_showmailadress,
+            'showtimecreated' => $CFG->tool_supporter_showtimecreated,
+            'showtimemodified' => $CFG->tool_supporter_showtimemodified,
+            'showlastlogin' => $CFG->tool_supporter_showlastlogin,
+        );
+
         return array($data);
     }
 
@@ -374,6 +388,17 @@ class external extends external_api {
                 'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
                 'idnumber' => new external_value (PARAM_TEXT, 'idnumber of the user'),
             )),
+            'config' => new external_single_structure( (array (
+                'showid' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showusername' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showidnumber' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showfirstname' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showlastname' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showmailadress' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showtimecreated' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showtimemodified' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+                'showlastlogin' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+            ))),
             'userscourses' => new external_multiple_structure (new external_single_structure (array (
                 'id' => new external_value (PARAM_INT, 'id of course'),
                 'category' => new external_value (PARAM_INT, 'category id of the course'),
@@ -426,7 +451,7 @@ class external extends external_api {
         // Returns fields: id, username, firstname, lsatname without guest and deleted users.
         //$data['users'] = get_users_listing();
         // Returns fields: id, auth, confirmed, policyagree, deleted, suspended, mnethostid, username, password, idnumber without guest.
-        $data['users'] = get_users();
+        $data['users'] = get_users(); // Gives warning about possible out of memory error. But because it is processed server-side, it should not be a problem.
 
         //error_log(print_r('data -------------', TRUE));
         //error_log(str_replace("stdClass Object", "Array",str_replace("\n", "", print_r($data, TRUE))));
