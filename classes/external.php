@@ -355,14 +355,14 @@ class external extends external_api {
 
         $data['config'] = array(
             'showid' => $CFG->tool_supporter_showid,
-            'showusername' => $CFG->tool_supporter_showusername,
-            'showidnumber' => $CFG->tool_supporter_showidnumber,
-            'showfirstname' => $CFG->tool_supporter_showfirstname,
-            'showlastname' => $CFG->tool_supporter_showlastname,
-            'showmailadress' =>  $CFG->tool_supporter_showmailadress,
-            'showtimecreated' => $CFG->tool_supporter_showtimecreated,
-            'showtimemodified' => $CFG->tool_supporter_showtimemodified,
-            'showlastlogin' => $CFG->tool_supporter_showlastlogin,
+            'showusername' => $CFG->tool_supporter_user_details_showusername,
+            'showidnumber' => $CFG->tool_supporter_user_details_showidnumber,
+            'showfirstname' => $CFG->tool_supporter_user_details_showfirstname,
+            'showlastname' => $CFG->tool_supporter_user_details_showlastname,
+            'showmailadress' =>  $CFG->tool_supporter_user_details_showmailadress,
+            'showtimecreated' => $CFG->tool_supporter_user_details_showtimecreated,
+            'showtimemodified' => $CFG->tool_supporter_user_details_showtimemodified,
+            'showlastlogin' => $CFG->tool_supporter_user_details_showlastlogin,
         );
 
         return array($data);

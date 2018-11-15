@@ -40,18 +40,17 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_heading('course_details', 'heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_showid', "Show user ID", "Beschreibung", 1));
-    // TODO: Do the same thing for course detail
 
     $settings->add(new admin_setting_heading('user_details', 'heading for user details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showid', "Show ID", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showusername', "Show username", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showidnumber', "Show field idnumber", "Beschreibung", 0));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showfirstname', "Show first name", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showlastname', "Show last name", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showmailadress', "Show mail adress", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showtimecreated', "Show time created", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showtimemodified', "Show time modified", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showlastlogin', "Show last login", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', "Show ID", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', "Show username", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', "Show field idnumber", "Beschreibung", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', "Show first name", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', "Show last name", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', "Show mail adress", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', "Show time created", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', "Show time modified", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', "Show last login", "Beschreibung", 1));
 
 
 }
