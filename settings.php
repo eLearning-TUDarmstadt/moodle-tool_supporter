@@ -39,18 +39,25 @@ if ($hassiteconfig) {
         get_string('levels_description', 'tool_supporter'), get_string('levels_default', 'tool_supporter'), PARAM_TEXT));
 
     $settings->add(new admin_setting_heading('course_details', 'heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_showid', "Show user ID", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "Show user ID", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', "Show shortname", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', "Show fullname", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showvisible', "Show visible", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showpath', "Show path", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showtimecreated', "Show time created", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount', "Show total amount of users", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount', "Show all roles and their amount", "Explicitly shows all roles and their amounts in seperate table row, i.e. amount of teachers, amount of student, etc.", 1));
 
     $settings->add(new admin_setting_heading('user_details', 'heading for user details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', "Show ID", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', "Show username", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', "Show field idnumber", "Beschreibung", 0));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', "Show first name", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', "Show last name", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', "Show mail adress", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', "Show time created", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', "Show time modified", "Beschreibung", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', "Show last login", "Beschreibung", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', "Show ID", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', "Show username", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', "Show field idnumber", "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', "Show first name", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', "Show last name", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', "Show mail adress", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', "Show time created", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', "Show time modified", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', "Show last login", "", 1));
 
 
 }

@@ -731,6 +731,17 @@ class external extends external_api {
             'isallowedtoupdatecourse' => $isallowedtoupdatecourse
         );
 
+        $data['config'] = array(
+            'showid' => $CFG->tool_supporter_course_details_showid,
+            'showshortname' => $CFG->tool_supporter_course_details_showshortname,
+            'showfullname'  => $CFG->tool_supporter_course_details_showfullname,
+            'showvisible'  => $CFG->tool_supporter_course_details_showvisible,
+            'showpath'  => $CFG->tool_supporter_course_details_showpath,
+            'showtimecreated'  => $CFG->tool_supporter_course_details_showtimecreated,
+            'showusersamount'  => $CFG->tool_supporter_course_details_showusersamount,
+            'showrolesandamount'  => $CFG->tool_supporter_course_details_showrolesandamount,
+        );
+
         return (array)$data;
     }
 
@@ -751,6 +762,16 @@ class external extends external_api {
                 'level_one' => new external_value(PARAM_TEXT, 'first level of the course'),
                 'level_two' => new external_value(PARAM_TEXT, 'second level of the course')
             )),
+            'config' => new external_single_structure( (array (
+                'showid' => new external_value(PARAM_BOOL, "Config setting if courses ID should be displayed"),
+                'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),
+                'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),
+                'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
+                'showpath' => new external_value(PARAM_BOOL, "Config setting if courses path should be displayed"),
+                'showtimecreated' => new external_value(PARAM_BOOL, "Config setting if courses timecreated should be displayed"),
+                'showusersamount' => new external_value(PARAM_BOOL, "Config setting if courses total amount of users should be displayed"),
+                'showrolesandamount' => new external_value(PARAM_BOOL, "Config setting if courses roles and their amount should be displayed"),
+            ))),
             'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
             new external_single_structure( array(
