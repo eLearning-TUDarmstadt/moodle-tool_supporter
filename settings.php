@@ -38,7 +38,9 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter_level_labels', get_string('levels', 'tool_supporter'),
         "The names of the levels can be entered here. <br>TODO: This setting will some day determine how many levels are displayed.", "Semester;Department;etc", PARAM_TEXT));
 
-    $settings->add(new admin_setting_heading('header_course_details', 'heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_heading('header_course_details', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', "Set the amount of courses shown in user details", "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "Show user ID", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', "Show shortname", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', "Show fullname", "", 1));
@@ -48,7 +50,9 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount', "Show total amount of users", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount', "Show all roles and their amount", "Explicitly shows all roles and their amounts in seperate table row, i.e. amount of teachers, amount of student, etc.", 1));
 
-    $settings->add(new admin_setting_heading('header_user_details', 'heading for user details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_heading('header_user_details', 'Heading for user details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength', "The amount of courses shown in user details", "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', "Show ID", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', "Show username", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', "Show field idnumber", "", 0));

@@ -63,6 +63,15 @@ $functions = array(
         'ajax'        => true,
         'requiredcapability' => 'moodle/course:view'
     ),
+    'tool_supporter_get_settings' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'get_settings',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'Get settings of settings-page',
+        'type'        => 'read',
+        'ajax'        => true,
+        'requiredcapability' => ''
+    ),
     /* -------- Write-capabilites --------- */
     'tool_supporter_create_new_course' => array(
         'classname'   => 'tool_supporter\external',

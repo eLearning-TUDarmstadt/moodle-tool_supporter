@@ -963,4 +963,49 @@ class external extends external_api {
     public static function toggle_course_visibility_returns() {
         return self::get_course_info_returns();
     }
+
+    // ------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns description of input parameters
+     * @return external_function_parameters
+     */
+    public static function get_settings_parameters() {
+        return new external_function_parameters(array());
+    }
+
+    /**
+     * Wrapper for core function toggle_course_visibility
+     *
+     * @return array: See return-function
+     */
+    public static function get_settings() {
+
+        global $CFG;
+
+        $systemcontext = \context_system::instance();
+        self::validate_context($systemcontext);
+
+        $data = array (
+            'tool_supporter_course_details_pagelength' => $CFG->tool_supporter_course_details_pagelength,
+            'tool_supporter_user_details_pagelength' => $CFG->tool_supporter_user_details_pagelength,
+            'tool_supporter_user_details_order' => $CFG->tool_supporter_user_details_order,
+            'tool_supporter_course_details_order' => $CFG->tool_supporter_course_details_order,
+        );
+
+        return $data;
+    }
+
+    /**
+     * Specifies return parameters
+     * @return external_single_structure a course with toggled visibility
+     */
+    public static function get_settings_returns() {
+        return new external_function_parameters(array(
+            'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_user_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_user_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
+            'tool_supporter_course_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
+        ));
+    }
 }

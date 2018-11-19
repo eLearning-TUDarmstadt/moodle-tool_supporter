@@ -48,35 +48,56 @@ function($, datatables, str, filter, ajax, notification, templates) {
          */
         use_dataTable: function(tableID, filterSelector){
 
-            var string_noresults = str.get_string('noresults', 'admin');
-            var string_search = str.get_string('search', 'moodle');
+            var promises = ajax.call([{
+                methodname: 'tool_supporter_get_settings',
+                args: {}
+            }]);
 
-            $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
-                $(tableID).DataTable({
-                    "retrieve": true,   // So the table can be accessed after initialization.
-                    "responsive": true,
-                    "lengthChange": true,
-                    "language": {
-                        // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
-                        'info': "",
-                        'search': searchString + ": ",
-                        'lengthMenu': "_MENU_",
-                        'zeroRecords': noresultsString,
-                    },
-                    "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>"+
-                           "<'row'<'col-sm-12't>>"+
-                           "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
-                    "paging": true,
-                    "pagingType": "numbers",
-                    //"scrollX": "true"
-                    "pageLength": 10, // TODO: Change later when the according setting is in place
+            promises[0].done(function(data) {
+
+                var string_noresults = str.get_string('noresults', 'admin');
+                var string_search = str.get_string('search', 'moodle');
+
+                $.when(string_noresults, string_search).done(function (noresultsString, searchString) {
+                    // Standard settings for every "details"-table.
+                    var options = {
+                        "retrieve": true,   // So the table can be accessed after initialization.
+                        "responsive": true,
+                        "lengthChange": true,
+                        "language": {
+                            // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
+                            'info': "",
+                            'search': searchString + ": ",
+                            'lengthMenu': "_MENU_",
+                            'zeroRecords': noresultsString,
+                        },
+                        "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>" +
+                            "<'row'<'col-sm-12't>>" +
+                            "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
+                        "pagingType": "numbers",
+                        "scrollX": "true",
+                    };
+
+                    // Initialize depending on setting
+                    if (tableID == '#userincourse') {
+                        options.order = [[ 0, data.tool_supporter_course_details_order ]],
+                        options.pageLength = data.tool_supporter_course_details_pagelength;
+                        options.lengthMenu = [data.tool_supporter_course_details_pagelength, 10, 25, 50, 100];
+                    };
+
+                    if (tableID == '#userdetailcourses') {
+                        options.order = [[ 0, data.tool_supporter_user_details_order ]],
+                        options.pageLength = data.tool_supporter_user_details_pagelength;
+                        options.lengthMenu = [data.tool_supporter_user_details_pagelength, 10, 25, 50, 100];
+                    };
+
+                    $(tableID).DataTable(options);
+
+                    // Apply Dropdown-Filters to DataTable.
+                    use_filters(tableID, filterSelector);
+
                 });
-
-                // Apply Dropdown-Filters to DataTable.
-                use_filters(tableID, filterSelector);
-
-            });
-        },
+            })},
 
         /**
          * @method dataTable_ajax
@@ -105,7 +126,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "responsive": true,
                         "lengthChange": true,
                         "deferRender": true, // For perfomance reasons.
-                        "order": [[ 0, "desc" ]], // Sort the ID descending.
+                        "order": [[ 0, "desc" ]], // Sort the ID-column in descending order (highest first).
                         "language": {
                             // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                             'info': " ",
@@ -120,7 +141,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "processing": true,
                         //"scrollX": true,
                         "pageLength": 25, // TODO: Change later when the according setting is in place.
-                        "initComplete" : function () { // Only after the dataTable was rendered.
+                        "initComplete" : function () { // Execute after the dataTable was rendered.
                             $(tableID + "-loadingIcon").hide();
 
                             if (tableID == "#courseTable") {
