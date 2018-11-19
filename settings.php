@@ -38,9 +38,18 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter_level_labels', get_string('levels', 'tool_supporter'),
         "The names of the levels can be entered here. <br>TODO: This setting will some day determine how many levels are displayed.", "Semester;Department;etc", PARAM_TEXT));
 
+
+    $settings->add(new admin_setting_heading('header_course_table', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength', "Set the amount of courses shown in user details", "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', "Ordering of ID-column", "", "desc", array("asc"=>"Ascending", "desc"=>"Descending")));
+
+    $settings->add(new admin_setting_heading('header_user_table', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', "Set the amount of courses shown in user details", "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
+
     $settings->add(new admin_setting_heading('header_course_details', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
     $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', "Set the amount of courses shown in user details", "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', "Ordering of ID-column", "", "desc", array("asc"=>"Ascending", "desc"=>"Descending")));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "Show user ID", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', "Show shortname", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', "Show fullname", "", 1));

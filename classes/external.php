@@ -987,10 +987,14 @@ class external extends external_api {
         self::validate_context($systemcontext);
 
         $data = array (
-            'tool_supporter_course_details_pagelength' => $CFG->tool_supporter_course_details_pagelength,
             'tool_supporter_user_details_pagelength' => $CFG->tool_supporter_user_details_pagelength,
             'tool_supporter_user_details_order' => $CFG->tool_supporter_user_details_order,
+            'tool_supporter_course_details_pagelength' => $CFG->tool_supporter_course_details_pagelength,
             'tool_supporter_course_details_order' => $CFG->tool_supporter_course_details_order,
+            'tool_supporter_user_table_pagelength' => $CFG->tool_supporter_user_table_pagelength,
+            'tool_supporter_user_table_order' => $CFG->tool_supporter_user_table_order,
+            'tool_supporter_course_table_pagelength' => $CFG->tool_supporter_course_table_pagelength,
+            'tool_supporter_course_table_order' => $CFG->tool_supporter_course_table_order,
         );
 
         return $data;
@@ -1002,10 +1006,14 @@ class external extends external_api {
      */
     public static function get_settings_returns() {
         return new external_function_parameters(array(
-            'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
             'tool_supporter_user_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
             'tool_supporter_user_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
+            'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
             'tool_supporter_course_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
+            'tool_supporter_user_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_user_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
+            'tool_supporter_course_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_course_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
         ));
     }
 }

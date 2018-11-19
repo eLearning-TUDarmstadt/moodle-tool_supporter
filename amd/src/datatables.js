@@ -53,7 +53,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                 args: {}
             }]);
 
-            promises[0].done(function(data) {
+            promises[0].done(function(settings) {
 
                 var string_noresults = str.get_string('noresults', 'admin');
                 var string_search = str.get_string('search', 'moodle');
@@ -80,16 +80,15 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                     // Initialize depending on setting
                     if (tableID == '#userincourse') {
-                        options.order = [[ 0, data.tool_supporter_course_details_order ]],
-                        options.pageLength = data.tool_supporter_course_details_pagelength;
-                        options.lengthMenu = [data.tool_supporter_course_details_pagelength, 10, 25, 50, 100];
-                    };
-
+                        options.order = [[ 0, settings.tool_supporter_course_details_order ]];
+                        options.pageLength = settings.tool_supporter_course_details_pagelength;
+                        options.lengthMenu = [settings.tool_supporter_course_details_pagelength, 10, 25, 50, 100];
+                    }
                     if (tableID == '#userdetailcourses') {
-                        options.order = [[ 0, data.tool_supporter_user_details_order ]],
-                        options.pageLength = data.tool_supporter_user_details_pagelength;
-                        options.lengthMenu = [data.tool_supporter_user_details_pagelength, 10, 25, 50, 100];
-                    };
+                        options.order = [[ 0, settings.tool_supporter_user_details_order ]];
+                        options.pageLength = settings.tool_supporter_user_details_pagelength;
+                        options.lengthMenu = [settings.tool_supporter_user_details_pagelength, 10, 25, 50, 100];
+                    }
 
                     $(tableID).DataTable(options);
 
@@ -115,54 +114,76 @@ function($, datatables, str, filter, ajax, notification, templates) {
             }]);
 
             promise[0].done(function(data) {
-                var string_noresults = str.get_string('noresults', 'admin');
-                var string_search = str.get_string('search', 'moodle');
 
-                $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
-                    $(tableID).DataTable( {
-                        "data": data[datainfo],
-                        "columns": columns,
-                        "retrieve": true, // So the table can be accessed after initialization.
-                        "responsive": true,
-                        "lengthChange": true,
-                        "deferRender": true, // For perfomance reasons.
-                        "order": [[ 0, "desc" ]], // Sort the ID-column in descending order (highest first).
-                        "language": {
-                            // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
-                            'info': " ",
-                            'search': searchString + ": ",
-                            'lengthMenu': "_MENU_",
-                            'zeroRecords': noresultsString,
-                        },
-                        "dom": "<'col-sm-12't>"+
-                        "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
-                        "paging": true,
-                        "pagingType": "numbers",
-                        "processing": true,
-                        //"scrollX": true,
-                        "pageLength": 25, // TODO: Change later when the according setting is in place.
-                        "initComplete" : function () { // Execute after the dataTable was rendered.
-                            $(tableID + "-loadingIcon").hide();
+                var promises = ajax.call([{
+                    methodname: 'tool_supporter_get_settings',
+                    args: {}
+                }]);
 
-                            if (tableID == "#courseTable") {
-                                $('#course_table_filtering').css('visibility', 'visible'); //Make it visible.
-                                // Add the course filtering for the courses table.
-                                templates.render('tool_supporter/course_table', data).done(function(html) {
+                promises[0].done(function(settings) {
+                    var string_noresults = str.get_string('noresults', 'admin');
+                    var string_search = str.get_string('search', 'moodle');
 
-                                    // Only render the filtering dropdowns of the tables, not the whole course_table.
-                                    var anchor = $('[data-region="course_filtering"]', $(html));
-                                    $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
+                    $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
+                        var options = {
+                            "data": data[datainfo],
+                            "columns": columns,
+                            "retrieve": true, // So the table can be accessed after initialization.
+                            "responsive": true,
+                            "lengthChange": true,
+                            "deferRender": true, // For perfomance reasons.
+                            "order": [[ 0, "desc" ]], // Sort the ID-column in descending order (highest first).
+                            "language": {
+                                // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
+                                'info': " ",
+                                'search': searchString + ": ",
+                                'lengthMenu': "_MENU_",
+                                'zeroRecords': noresultsString,
+                            },
+                            "dom": "<'col-sm-12't>"+
+                                "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
+                            "paging": true,
+                            "pagingType": "numbers",
+                            "processing": true,
+                            //"scrollX": true,
+                            "pageLength": 25, // TODO: Change later when the according setting is in place.
+                            "initComplete" : function () { // Execute after the dataTable was rendered.
+                                $(tableID + "-loadingIcon").hide();
 
-                                    // Counting begins at 0, but the shortname-column is invisible
-                                    use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
-                                                          ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
-                                }).fail(notification.exception);
+                                if (tableID == "#courseTable") {
+                                    $('#course_table_filtering').css('visibility', 'visible'); //Make it visible.
+                                    // Add the course filtering for the courses table.
+                                    templates.render('tool_supporter/course_table', data).done(function(html) {
+
+                                        // Only render the filtering dropdowns of the tables, not the whole course_table.
+                                        var anchor = $('[data-region="course_filtering"]', $(html));
+                                        $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
+
+                                        // Counting begins at 0, but the shortname-column is invisible
+                                        use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
+                                            ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
+                                    }).fail(notification.exception);
+                                }
+                                if (tableID.includes("#userTable")) {
+                                    $('#users_dynamic_search').css('visibility', 'visible'); // Show search input.
+                                }
                             }
-                            if (tableID.includes("#userTable")) {
-                                $('#users_dynamic_search').css('visibility', 'visible'); // Show search input.
-                            }
+
+                        };
+
+                        // Initialize depending on setting
+                        if (tableID == '#courseTable') {
+                            options.order = [[ 0, settings.tool_supporter_course_table_order ]];
+                            options.pageLength = settings.tool_supporter_course_table_pagelength;
+                            options.lengthMenu = [settings.tool_supporter_course_table_pagelength, 10, 25, 50, 100];
+                        }
+                        if (tableID == '#userTable') {
+                            options.order = [[ 0, settings.tool_supporter_user_table_order ]];
+                            options.pageLength = settings.tool_supporter_user_table_pagelength;
+                            options.lengthMenu = [settings.tool_supporter_user_table_pagelength, 10, 25, 50, 100];
                         }
 
+                        $(tableID).DataTable(options);
                     });
                 });
             }).fail(notification.exception);
