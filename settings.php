@@ -27,9 +27,9 @@ defined('MOODLE_INTERNAL') || die;
 $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
          new moodle_url('/admin/tool/supporter/index.php')));
 
-// Settings page
+// Settings page.
 if ($hassiteconfig) {
-    // These are currently stored in the "mdl_config"-table
+    // These are currently stored in the "mdl_config"-table.
     $settings = new admin_settingpage('tool_supporter', get_string('sett_title', 'tool_supporter'));
     // Add the config page to the administration menu.
     $ADMIN->add('reports', $settings);
@@ -41,17 +41,17 @@ if ($hassiteconfig) {
     // Settings for course table (bottom left).
     $settings->add(new admin_setting_heading('header_course_table', get_string('sett_course_table', 'tool_supporter'), get_string('sett_course_table_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
 
     // Settings for user table (bottom right).
     $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'), get_string('sett_user_table_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
 
-    //Settings for course details (top left).
+    // Settings for course details (top left).
     $settings->add(new admin_setting_heading('header_course_details', get_string('sett_course_details', 'tool_supporter'), get_string('sett_course_details_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "ID", "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', get_string('shortnamecourse'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', get_string('fullnamecourse'), "", 1));
@@ -64,7 +64,7 @@ if ($hassiteconfig) {
     // Settings for user details (top right).
     $settings->add(new admin_setting_heading('header_user_details', get_string('sett_user_details', 'tool_supporter'), get_string('sett_user_details_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', 'ID', "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', get_string('username'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', get_string('idnumbermod'), "", 0));

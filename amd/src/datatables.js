@@ -32,7 +32,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
         if (typeof filterSelector != "undefined") {
             // Set filters for every dropdown-menu.
             for(var i = 0; i < filterSelector.length; i++){
-                // Params: checkbox, FormInput, column, tableID
+                // Params: checkbox, FormInput, column, tableID.
                 filter.filterEvent(filterSelector[i][0], filterSelector[i][1], filterSelector[i][2], tableID);
             }
         }
@@ -78,7 +78,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                         "scrollX": "true",
                     };
 
-                    // Initialize depending on setting
+                    // Initialize depending on setting.
                     if (tableID == '#userincourse') {
                         options.order = [[ 0, settings.tool_supporter_course_details_order ]];
                         options.pageLength = settings.tool_supporter_course_details_pagelength;
@@ -97,7 +97,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                 });
             });
-            },
+        },
 
         /**
          * @method dataTable_ajax
@@ -140,17 +140,16 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                 'lengthMenu': "_MENU_",
                                 'zeroRecords': noresultsString,
                             },
-                            "dom": "<'col-sm-12't>"+
+                            "dom": "<'col-sm-12't>" +
                                 "<'row'<'col-sm-4'i><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                             "paging": true,
                             "pagingType": "numbers",
                             "processing": true,
-                            //"scrollX": true,
                             "initComplete" : function () { // Execute after the dataTable was rendered.
                                 $(tableID + "-loadingIcon").hide();
 
                                 if (tableID == "#courseTable") {
-                                    $('#course_table_filtering').css('visibility', 'visible'); //Make it visible.
+                                    $('#course_table_filtering').css('visibility', 'visible'); // Make it visible.
                                     // Add the course filtering for the courses table.
                                     templates.render('tool_supporter/course_table', data).done(function(html) {
 
@@ -158,7 +157,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                         var anchor = $('[data-region="course_filtering"]', $(html));
                                         $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
 
-                                        // Counting begins at 0, but the shortname-column is invisible
+                                        // Counting begins at 0, but the shortname-column is invisible.
                                         use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
                                             ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
                                     }).fail(notification.exception);
@@ -170,7 +169,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                         };
 
-                        // Initialize depending on setting
+                        // Initialize depending on setting.
                         if (tableID == '#courseTable') {
                             options.order = [[ 0, settings.tool_supporter_course_table_order ]];
                             options.pageLength = settings.tool_supporter_course_table_pagelength;

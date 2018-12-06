@@ -63,8 +63,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 fullname: $('#new_course_full_name_input')[0].value,
                                 visible: $("#new_course_is_visible").is(":checked"),
                                 categoryid: $('#new_course_category_input')[0].value,
-                                activate_self_enrol: $("#new_course_enable_self").is(":checked"),
-                                self_enrol_password: $('#new_course_self_password')[0].value
+                                activateselfenrol: $("#new_course_enable_self").is(":checked"),
+                                selfenrolpassword: $('#new_course_self_password')[0].value
                             }
                         }]);
 
@@ -96,12 +96,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     var wanted_shortname = $('#new_course_short_name_input')[0].value;
                                     str.get_string('shortnametaken', 'error', wanted_shortname).done(
                                             function(shortnametaken_string) {
-                                        var error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
-                                        if (error.message) {error_message += "Error-Message:<br>" + error.message + "<br><br>";}
-                                        if (error.debuginfo) {error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";}
+                                                var error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
+                                                if (error.message) {error_message += "Error-Message:<br>" + error.message + "<br><br>";}
+                                                if (error.debuginfo) {error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";}
 
-                                        notification.alert(error_string, error_message, accept);
-                                    });
+                                                notification.alert(error_string, error_message, accept);
+                                            });
                                 });
                             });
 
