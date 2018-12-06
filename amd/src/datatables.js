@@ -96,7 +96,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                     use_filters(tableID, filterSelector);
 
                 });
-            })},
+            });
+            },
 
         /**
          * @method dataTable_ajax
@@ -132,7 +133,6 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             "responsive": true,
                             "lengthChange": true,
                             "deferRender": true, // For perfomance reasons.
-                            "order": [[ 0, "desc" ]], // Sort the ID-column in descending order (highest first).
                             "language": {
                                 // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                                 'info': " ",
@@ -146,7 +146,6 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             "pagingType": "numbers",
                             "processing": true,
                             //"scrollX": true,
-                            "pageLength": 25, // TODO: Change later when the according setting is in place.
                             "initComplete" : function () { // Execute after the dataTable was rendered.
                                 $(tableID + "-loadingIcon").hide();
 
