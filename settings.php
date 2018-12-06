@@ -30,47 +30,48 @@ $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('plugi
 // Settings page
 if ($hassiteconfig) {
     // These are currently stored in the "mdl_config"-table
-    $settings = new admin_settingpage('tool_supporter', get_string('supporter_settings', 'tool_supporter'));
+    $settings = new admin_settingpage('tool_supporter', get_string('sett_title', 'tool_supporter'));
     // Add the config page to the administration menu.
     $ADMIN->add('reports', $settings);
 
-    $settings->add(new admin_setting_heading('header_level_labeling', '', get_string('levels', 'tool_supporter')." FUNKTIONIERT AKTUELL NICHT"));
-    $settings->add(new admin_setting_configtext('tool_supporter_level_labels', get_string('levels', 'tool_supporter'),
-        "The names of the levels can be entered here. <br>TODO: This setting will some day determine how many levels are displayed.", "Semester;Department;etc", PARAM_TEXT));
+    // Settings for level naming.
+    $settings->add(new admin_setting_configtext('tool_supporter_level_labels', get_string('sett_levels', 'tool_supporter'),
+        get_string('sett_levels_description', 'tool_supporter'), get_string('sett_levels_default', 'tool_supporter'), PARAM_TEXT));
 
+    // Settings for course table (bottom left).
+    $settings->add(new admin_setting_heading('header_course_table', get_string('sett_course_table', 'tool_supporter'), get_string('sett_course_table_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
 
-    $settings->add(new admin_setting_heading('header_course_table', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength', "Set the amount of courses shown in user details", "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', "Ordering of ID-column", "", "desc", array("asc"=>"Ascending", "desc"=>"Descending")));
+    // Settings for user table (bottom right).
+    $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'), get_string('sett_user_table_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
 
-    $settings->add(new admin_setting_heading('header_user_table', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', "Set the amount of courses shown in user details", "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
+    //Settings for course details (top left).
+    $settings->add(new admin_setting_heading('header_course_details', get_string('sett_course_details', 'tool_supporter'), get_string('sett_course_details_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "ID", "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', get_string('shortnamecourse'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', get_string('fullnamecourse'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showvisible', get_string('visible'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showpath', get_string('path'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showtimecreated', get_string('eventcoursecreated'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount', get_string('users'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount', get_string('sett_course_detail_showrolesandamount', 'tool_supporter'), get_string('sett_course_detail_showrolesandamount_desc', 'tool_supporter'), 1));
 
-    $settings->add(new admin_setting_heading('header_course_details', 'Heading for course details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', "Set the amount of courses shown in user details", "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', "Ordering of ID-column", "", "desc", array("asc"=>"Ascending", "desc"=>"Descending")));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showid', "Show user ID", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', "Show shortname", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', "Show fullname", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showvisible', "Show visible", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showpath', "Show path", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showtimecreated', "Show time created", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount', "Show total amount of users", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount', "Show all roles and their amount", "Explicitly shows all roles and their amounts in seperate table row, i.e. amount of teachers, amount of student, etc.", 1));
-
-    $settings->add(new admin_setting_heading('header_user_details', 'Heading for user details', 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked.'));
-    $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength', "The amount of courses shown in user details", "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', "Ordering of ID-column", "", "asc", array("asc"=>"Ascending", "desc"=>"Descending")));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', "Show ID", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', "Show username", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', "Show field idnumber", "", 0));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', "Show first name", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', "Show last name", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', "Show mail adress", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', "Show time created", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', "Show time modified", "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', "Show last login", "", 1));
-
-
+    // Settings for user details (top right).
+    $settings->add(new admin_setting_heading('header_user_details', get_string('sett_user_details', 'tool_supporter'), get_string('sett_user_details_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc"=>get_string('asc'), "desc"=>get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showid', 'ID', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', get_string('username'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', get_string('idnumbermod'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', get_string('firstname'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', get_string('lastname'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', get_string('email'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', get_string('eventusercreated'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', get_string('lastmodified'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', get_string('lastlogin'), "", 1));
 }
