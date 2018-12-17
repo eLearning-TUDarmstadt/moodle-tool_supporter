@@ -445,22 +445,17 @@ class external extends external_api {
      * Gets every moodle user
      */
     public static function get_users() {
-        global $DB;
+        global $DB, $CFG;
 
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        $data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, idnumber, username, firstname, lastname, email');
-
-        // Returns fields: id, username, firstname, lastname without guest and deleted users.
-        //$data['users'] = get_users_listing();
-
-        // Returns fields: id, auth, confirmed, policyagree, deleted, suspended, mnethostid, username, password, idnumber without guest.
-        //$data['users'] = get_users(); // Gives warning about possible out of memory error. But because it is processed server-side, it should not be a problem.
-
-        //error_log(print_r('data -------------', TRUE));
-        //error_log(str_replace("stdClass Object", "Array",str_replace("\n", "", print_r($data, TRUE))));
+        if ($CFG->tool_supporter_user_table_excludesuspended) {
+            $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => 0), null, 'id, idnumber, username, firstname, lastname, email');
+        } else {
+            $data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, idnumber, username, firstname, lastname, email');
+        }
 
         return $data;
     }
