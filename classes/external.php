@@ -353,7 +353,6 @@ class external extends external_api {
         }
 
         $data['config'] = array(
-            'showid' => $CFG->tool_supporter_user_details_showid,
             'showusername' => $CFG->tool_supporter_user_details_showusername,
             'showidnumber' => $CFG->tool_supporter_user_details_showidnumber,
             'showfirstname' => $CFG->tool_supporter_user_details_showfirstname,
@@ -396,7 +395,6 @@ class external extends external_api {
                 'idnumber' => new external_value (PARAM_TEXT, 'idnumber of the user'),
             )),
             'config' => new external_single_structure( (array (
-                'showid' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
                 'showusername' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
                 'showidnumber' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
                 'showfirstname' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
@@ -460,11 +458,13 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        //$data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, username, firstname, lastname, email');
-        // Returns fields: id, username, firstname, lsatname without guest and deleted users.
+        $data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, idnumber, username, firstname, lastname, email');
+
+        // Returns fields: id, username, firstname, lastname without guest and deleted users.
         //$data['users'] = get_users_listing();
+
         // Returns fields: id, auth, confirmed, policyagree, deleted, suspended, mnethostid, username, password, idnumber without guest.
-        $data['users'] = get_users(); // Gives warning about possible out of memory error. But because it is processed server-side, it should not be a problem.
+        //$data['users'] = get_users(); // Gives warning about possible out of memory error. But because it is processed server-side, it should not be a problem.
 
         //error_log(print_r('data -------------', TRUE));
         //error_log(str_replace("stdClass Object", "Array",str_replace("\n", "", print_r($data, TRUE))));
@@ -756,7 +756,6 @@ class external extends external_api {
         );
 
         $data['config'] = array(
-            'showid' => $CFG->tool_supporter_course_details_showid,
             'showshortname' => $CFG->tool_supporter_course_details_showshortname,
             'showfullname'  => $CFG->tool_supporter_course_details_showfullname,
             'showvisible'  => $CFG->tool_supporter_course_details_showvisible,
@@ -787,7 +786,6 @@ class external extends external_api {
                 'level_two' => new external_value(PARAM_TEXT, 'second level of the course')
             )),
             'config' => new external_single_structure( (array (
-                'showid' => new external_value(PARAM_BOOL, "Config setting if courses ID should be displayed"),
                 'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),
                 'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),
                 'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
