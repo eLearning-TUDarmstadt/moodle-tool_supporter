@@ -45,11 +45,10 @@ class create_new_course implements renderable, templatable {
      * @return stdClass
      */
     public function export_for_template(renderer_base $output) {
-        global $DB;
+        global $DB, $CFG;
 
         $categoriespath = $DB->get_records('course_categories', null, 'sortorder ASC', 'id, path');
         $categoriesnamearray = $DB->get_records_menu('course_categories', null, null, 'id, name');
-
         foreach ($categoriespath as $row) {
             $row->path = substr($row->path, 1); // Delete first Slash.
             $path = explode("/", $row->path);
@@ -60,6 +59,12 @@ class create_new_course implements renderable, templatable {
             $categories[] = (array)$row;
         }
         $data['categories'] = $categories;
+
+        $data['config'] = array (
+            'startdate' => $CFG->tool_supporter_new_course_startdate,
+            'enddate' => $CFG->tool_supporter_new_course_enddate,
+        );
+
         return $data;
     }
 }

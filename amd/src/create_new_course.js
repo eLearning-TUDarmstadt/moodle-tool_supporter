@@ -64,7 +64,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 visible: $("#new_course_is_visible").is(":checked"),
                                 categoryid: $('#new_course_category_input')[0].value,
                                 activateselfenrol: $("#new_course_enable_self").is(":checked"),
-                                selfenrolpassword: $('#new_course_self_password')[0].value
+                                selfenrolpassword: $('#new_course_self_password')[0].value,
+                                startdate: $('#new_course_startdate_input')[0].value,
+                                enddate: $('#new_course_enddate_input')[0].value,
                             }
                         }]);
 
@@ -82,7 +84,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
-                                    "visible": +data.courseDetails.visible // Implicity cast false to 0.
+                                    "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);
                             });
                         });

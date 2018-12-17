@@ -48,6 +48,11 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
     $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
 
+    // Standard settings for new course.
+    $settings->add(new admin_setting_heading('header_new_course', get_string('addnewcourse', 'core'), ""));
+    $settings->add(new admin_setting_configtext('tool_supporter_new_course_startdate', get_string('standard')." ".get_string('startdate', 'core'), "", '01.10.2018', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('tool_supporter_new_course_enddate', get_string('standard')." ".get_string('enddate', 'core'), "", '31.04.2019', PARAM_TEXT));
+
     // Settings for course details (top left).
     $settings->add(new admin_setting_heading('header_course_details', get_string('sett_course_details', 'tool_supporter'), get_string('sett_course_details_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));

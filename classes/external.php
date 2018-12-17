@@ -61,7 +61,9 @@ class external extends external_api {
             'visible' => new external_value ( PARAM_BOOL, 'Toggles visibility of course' ),
             'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' ),
             'activateselfenrol' => new external_value ( PARAM_BOOL, 'Toggles if self_enrolment should be activated' ),
-            'selfenrolpassword' => new external_value ( PARAM_TEXT, 'Passowrd of self enrolment' ),
+            'selfenrolpassword' => new external_value ( PARAM_TEXT, 'Password of self enrolment' ),
+            'startdate' => new external_value ( PARAM_TEXT, 'Course start date' ),
+            'enddate' => new external_value ( PARAM_TEXT, 'Course end date' ),
         ));
     }
 
@@ -73,7 +75,7 @@ class external extends external_api {
      * @param int $categoryid Id of the category
      * @return array Course characteristics
      */
-    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol, $selfenrolpassword) {
+    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol, $selfenrolpassword, $startdate, $enddate) {
 
         global $DB, $CFG;
 
@@ -87,7 +89,9 @@ class external extends external_api {
             'visible' => $visible,
             'categoryid' => $categoryid,
             'activateselfenrol' => $activateselfenrol,
-            'selfenrolpassword' => $selfenrolpassword
+            'selfenrolpassword' => $selfenrolpassword,
+            'startdate' => $startdate,
+            'enddate' => $enddate,
         );
 
         // Parameters validation.
@@ -109,20 +113,9 @@ class external extends external_api {
             throw new invalid_parameter_exception('shortnametaken already taken');
         }
 
-        // Set Start date to 1.4. or 1.10.
-        if (strpos($params['shortname'], 'WiSe') !== false) {
-            $arrayaftersemester = explode('WiSe', shortname);
-            $year = substr($arrayaftersemester[1], 1, 4);
-            $data->startdate = mktime(24, 0, 0, 10, 1, $year); // Syntax: hour, minute, second, month, day, year.
-        } else if (strpos($shortname, 'SoSe') !== false) {
-            $arrayaftersemester = explode('SoSe', $shortname);
-            $year = substr($arrayaftersemester[1], 1, 4);
-            $data->startdate = mktime(24, 0, 0, 4, 1, $year);
-        } else {
-            $data->startdate = time();
-        }
-
-        $data->enddate = strtotime("+6 month", $data->startdate);
+        // Convert string to date
+        $data->startdate = strtotime($params['startdate']);
+        $data->enddate = strtotime($params['enddate']);
 
         $createdcourse = create_course($data);
 
