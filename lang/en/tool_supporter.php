@@ -21,18 +21,30 @@
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- $string['toolsupporter'] = 'toolsupporter';
+$string['toolsupporter'] = 'toolsupporter';
 
- $string['pagetitle'] = 'This is the tool for supporters!';
- $string['pluginname'] = 'Supporter';
- $string['level'] = 'Level';
- $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
+$string['pagetitle'] = 'This is the tool for supporters!';
+$string['pluginname'] = 'Supporter';
+$string['level'] = 'Level';
+$string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 
- // Strings for setting page - setting.php.
- $string['levels'] = 'Labeling of course categorie levels';
- $string['supporter_settings'] = 'Supporter configuration';
- $string['levels_textbox'] = 'Course levels';
- $string['levels_default'] = 'Department;Semester';
- $string['levels_description'] = 'Here, you can specify the individual name of the course area levels. '
-                                .'These are used in the supporter both as column captions and within the path. The names must be given '
-                                .'in descending order (uppermost level first) separated by semicolons. ';
+// Strings for setting page - settings.php.
+$string['sett_title'] = 'Supporter configuration';
+$string['sett_levels'] = 'Labeling of course category levels';
+$string['sett_levels_default'] = 'Semester;Department';
+$string['sett_levels_description'] = 'Here, you can specify the individual name of the course area levels. in descending order (uppermost level first) separated by semicolons. ';
+
+$string['sett_course_table'] = 'Course table';
+$string['sett_user_table'] = 'User table';
+$string['sett_user_details'] = 'User details';
+$string['sett_course_details'] = 'Course details';
+
+$string['sett_course_table_desc'] = 'In this section, you can select how the course table should be displayed (bottom left).';
+$string['sett_course_table_pagelength'] = 'The amount of courses shown';
+$string['sett_user_table_desc'] = 'In this section, you can select how the user table should be displayed (bottom right).';
+$string['sett_user_table_pagelength'] = 'The amount of users shown';
+$string['sett_order_id'] = 'Ordering of the first ID-Column';
+$string['sett_user_details_desc'] = 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked (top right).';
+$string['sett_course_details_desc'] = 'In this section you can select all the things you want to have shown in the course details, i.e. when a course is clicked (top left).';
+$string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amount';
+$string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in seperate table row, i.e. amount of teachers, amount of student, etc.';

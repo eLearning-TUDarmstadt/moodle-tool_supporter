@@ -29,6 +29,9 @@ It has built-in the standard Moodle Capability-Checks so there are no extra capa
 * This version is tested on Moodle 3.5
   * No guarantees for other versions of moodle!
 * A php version of 5.5 or greater is needed
+* It is recommended to activate zlib compression in your php.ini
+  * Add "zlib.output_compression = On"
+  * This reduces the transmitted data
 
 ## Installation
 * Copy/Clone to `https://YOURSITE/admin/tool/` directory

@@ -57,10 +57,10 @@ $coursedetail = $output->render(new \tool_supporter\output\course_detail());
 $PAGE->set_headingmenu($index);
 
 // Force collapsed flat navigation for this page only.
-$old_pref = get_user_preferences('drawer-open-nav');
+$oldpref = get_user_preferences('drawer-open-nav');
 set_user_preference('drawer-open-nav', false);
 echo $output->header();
-set_user_preference('drawer-open-nav', $old_pref);
+set_user_preference('drawer-open-nav', $oldpref);
 
 echo'
     <div class="row-fluid" style="line-height: 1 !important;">

@@ -116,7 +116,7 @@ define(['jquery'], function($) {
             $('#courses_clear_filters').on('click', function(){
                 $(tableID).DataTable().search('').columns().search('').draw();
                 $('#course_table_search_input')[0].value = '';
-                $('input[name^=courses_level]:checked').prop( "checked", false ); //Uncheck all checked Boxes.
+                $('input[name^=courses_level]:checked').prop( "checked", false ); // Uncheck all checked Boxes.
                 $(this).css('visibility', 'hidden');
             });
         },

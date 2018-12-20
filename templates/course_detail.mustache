@@ -94,7 +94,7 @@
 <!--View details after clicking on a course in course table.  -->
 
 <div style="display: none; padding-bottom: 15px" id ="course_details" data-region = "course_details">
-	<div class="card" style="border:1px solid #8a8a8a"">
+	<div class="card" style="border:1px solid #8a8a8a">
 	    <div class="card-header">
 			{{#links}}
 				<div class = "float-left">
@@ -135,44 +135,22 @@
 	    <div class="card-block" id="course_details_body">
 	        <!-- Show course details  -->
 	        <table class = "table borderless">
-	          <tbody>
-	            {{#courseDetails}}
-	            <tr>
-	              <th>ID</th>
-	              <td id="selectedcourseid">{{id}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}shortnamecourse{{/str}}</th>
-	              <td>{{shortname}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}fullnamecourse{{/str}}</th>
-	              <td>{{fullname}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}visible{{/str}}</th>
-	              <td>{{visible}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}path{{/str}}</th>
-	              <td>{{path}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}eventcoursecreated{{/str}}</th>
-	              <td>{{timecreated}}</td>
-	            </tr>
-	            <tr>
-	              <th>{{#str}}users{{/str}}</th>
-	              <td>{{enrolledUsers}}</td> <!--Number of enrolled users-->
-	            </tr>
-	            {{/courseDetails}}
-	            {{#roles}}
-	            <tr>
-	              <th>{{roleName}}</th>
-	              <td>{{roleNumber}}</td> <!--Number of users with role=roleName -->
-	            </tr>
-	            {{/roles}}
-	          </tbody>
+                <tbody>
+                    {{#config}}
+                        {{#courseDetails}}
+                            <tr><th>ID</th><td id="selectedcourseid">{{id}}</td></tr>
+                            {{#showshortname}}<tr><th>{{#str}}shortnamecourse{{/str}}</th><td>{{shortname}}</td></tr>{{/showshortname}}
+                            {{#showfullname}}<tr><th>{{#str}}fullnamecourse{{/str}}</th><td>{{fullname}}</td></tr>{{/showfullname}}
+                            {{#showvisible}}<tr><th>{{#str}}visible{{/str}}</th><td>{{visible}}</td></tr>{{/showvisible}}
+                            {{#showpath}}<tr><th>{{#str}}path{{/str}}</th><td>{{path}}</td></tr>{{/showpath}}
+                            {{#showtimecreated}}<tr><th>{{#str}}eventcoursecreated{{/str}}</th><td>{{timecreated}}</td></tr>{{/showtimecreated}}
+                            {{#showusersamount}}<tr><th>{{#str}}users{{/str}}</th><td>{{enrolledUsers}}</td></tr>{{/showusersamount}}
+                        {{/courseDetails}}
+                        {{#showrolesandamount}}{{#roles}}
+                            <tr><th>{{roleName}}</th><td>{{roleNumber}}</td></tr>
+                        {{/roles}}{{/showrolesandamount}}
+                    {{/config}}
+                </tbody>
 	        </table>
 			<hr>
 	
@@ -201,12 +179,14 @@
 		            </div>
 		            
 	                <div class = "float-right">
-			            <th><u><a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
-			            	{{#pix}} i/settings, core{{/pix}}
-			            </a></u></th>
+			            <th><u>
+                            <a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+			            	    {{#pix}} i/settings, core{{/pix}}
+			                </a>
+                        </u></th>
 		            </div>
 	              
-	                <div class="table table-responsive">
+	                <div class="table">
 	                    <table class="stripe hover row-border compact" id="userincourse" cellspacing="0" width="100%">
 	                        <thead>
 	                            <tr>
@@ -228,9 +208,11 @@
 	                                <td>{{lastname}}</td>
 	                                <td>{{roles}}</td>
 	                                <td>{{lastaccess}}</td>
-	                                <td><a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
-						            	{{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
-						            </a></td>
+	                                <td>
+                                        <a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
+						            	    {{#pix}} i/delete, core, {{#str}}unenrol, enrol{{/str}}{{/pix}}
+						                </a>
+                                    </td>
 	                            </tr>
 	                            {{/users}}
 	                        </tbody>
@@ -267,9 +249,11 @@
 	            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
 	                <!-- Table of enrolment methods in this course-->
 	              	<div class = "float-right">
-			            <th><u><a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
-			            	{{#pix}} i/settings, core{{/pix}}
-			            </a></u></th>
+			            <th><u>
+                            <a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
+			            	    {{#pix}} i/settings, core{{/pix}}
+			                </a>
+                        </u></th>
 		            </div>
 	                <div class = "table table-responsive">
 	                    <table class = "stripe hover row-border compact" cellspacing="0" width="100%">

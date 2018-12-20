@@ -21,18 +21,30 @@
  * @copyright  2017 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- $string['toolsupporter'] = 'toolsupporter';
+$string['toolsupporter'] = 'toolsupporter';
 
- $string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
- $string['pluginname'] = 'Supporter';
- $string['level'] = 'Ebene';
- $string['enable_selfenrolment'] = 'Selbsteinschreibung aktivieren und Passwort setzen';
+$string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
+$string['pluginname'] = 'Supporter';
+$string['level'] = 'Ebene';
+$string['enable_selfenrolment'] = 'Selbsteinschreibung aktivieren und Passwort setzen';
 
- // Strings for setting page.
- $string['levels'] = 'Bezeichnung Kursbereichsebenen';
- $string['supporter_settings'] = 'Supporter Konfiguration';
- $string['levels_textbox'] = 'Kursbereichsebenen';
- $string['levels_default'] = 'Fachbereich;Semester';
- $string['levels_description'] = 'Hier ist die individuelle Bezeichnung der Kursbereichsebenen möglich. Diese '
-         . 'werden im Supporter sowohl als Spaltenbezeichnungen als auch innerhalb des Pfades verwendet. '
-         .'Die Namen müssen in absteigender Reihenfolge durch Semikolon getrennt angegeben werden.';
+// Strings for setting page - settings.php.
+$string['sett_title'] = 'Supporter-Konfiguration';
+$string['sett_levels'] = 'Beschriftung der Kategorieebenen für Kurse';
+$string['sett_levels_default'] = 'Semester;Fachbereich';
+$string['sett_levels_description'] = 'Hier können Sie die  Namen der Kursbereichsebenen in absteigender Reihenfolge (oberste Ebene zuerst) getrennt durch Semikolon angeben.';
+
+$string['sett_course_table'] = 'Kurstabelle';
+$string['sett_user_table'] = 'Benutzertabelle';
+$string['sett_user_details'] = 'Benutzerdetails';
+$string['sett_course_details'] = 'Kursdetails';
+
+$string['sett_course_table_desc'] = 'In diesem Abschnitt können auswählen wie die Kurstabelle angezeigt werden soll (unten links).';
+$string['sett_course_table_pagelength'] = 'Die Anzahl der angezeigten Kurse';
+$string['sett_user_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Benutzertabelle angezeigt werden soll (unten rechts).';
+$string['sett_user_table_pagelength'] = 'Die Anzahl der angezeigten Benutzer';
+$string['sett_order_id'] = 'Sortierung der ersten ID-Spalte';
+$string['sett_user_details_desc'] = 'In diesem Abschnitt können Sie die Details auswählen, die Sie in den Benutzerdetails angezeigt haben möchten, d.h. wenn ein Benutzer angeklickt  (oben rechts).';
+$string['sett_course_details_desc'] = 'In diesem Abschnitt können Sie die Details auswählen, die Sie in den Kursdetails angezeigt bekommen möchten, d.h. wenn ein Kurs angeklickt wird (oben links).';
+$string['sett_course_detail_showrolesandamount'] = 'Zeigt alle Rollen und ihre Anzahl';
+$string['sett_course_detail_showrolesandamount_desc'] = 'Zeigt explizit alle Rollen und deren Anzahl in einer separaten Tabellenzeile an, d.h. Anzahl der Lehrer, Anzahl der Schüler, etc';

@@ -40,9 +40,15 @@ class course_table implements renderable, templatable {
      */
 
     public function export_for_template(renderer_base $output) {
+        global $CFG;
+        
+        $labels = $CFG->tool_supporter_level_labels;
+        $count = 1; // Root is level 0, so we begin at 1.
+        foreach (explode(';', $labels) as $label) {
+            $data['label_level_'.$count] = $label; // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
+            $count++;
+        }
 
-        $array = null;
-        $data = $array; // Uncomment to render course_tables with php \tool_supporter\external::get_courses().
         return $data;
     }
 }

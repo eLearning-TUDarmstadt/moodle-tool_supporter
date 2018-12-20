@@ -45,11 +45,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         }).fail(notification.exception);
     };
 
-    // Private function which can be referenced from the public click_on_course function.
-    var show_course_detail_private = function(courseID) {
-        public.show_course_detail(courseID);
-    };
-
     // Toggling course visibility on and off.
     var toggle_course_visibility_private = function() {
         var promises = ajax.call([{
@@ -81,7 +76,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method show_course_detail
          */
         show_course_detail: function(course_id, boolreturn) {
-            if(boolreturn === 'undefined') { boolreturn = 0 ;}
+            if(boolreturn === 'undefined') {
+                boolreturn = 0;
+            }
             // Go to top.
             var position = $("#course_details").offset().top;
             $("html, body").animate({ scrollTop: position - 50 }, "slow");
@@ -212,6 +209,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * @method click_on_user
          */
         click_on_course: function(tableID) {
+            var public_object = this;
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
 
                 var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
@@ -222,8 +220,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     // Highlight the clicked course.
                     $(this).css("background-color", "#bcbcbc");
 
-                    // Show details of this course
-                    show_course_detail_private(course_id);
+                    // Show details of this course.
+                    public_object.show_course_detail(course_id, false);
                 }
             });
         },
