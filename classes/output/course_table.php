@@ -36,6 +36,7 @@ class course_table implements renderable, templatable {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
+     * @param renderer_base $output
      * @return stdClass
      */
 

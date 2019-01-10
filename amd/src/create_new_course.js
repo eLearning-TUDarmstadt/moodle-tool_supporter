@@ -68,7 +68,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 startdate: $('#new_course_startdate_input')[0].value,
                                 enddate: $('#new_course_enddate_input')[0].value,
                             }
-                        }]);
+                        }], true, true);
 
                         promises[0].done(function(data) {
                             // Display the created course.
@@ -79,12 +79,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
                                 // Add the newly created course to the DataTable without reloading the whole thing.
                                 $('#courseTable').DataTable().row.add({
-                                    "id": data.courseDetails.id,
-                                    "shortname": data.courseDetails.shortname,
-                                    "fullname": data.courseDetails.fullname,
-                                    "level_one": data.courseDetails.level_one,
-                                    "level_two": data.courseDetails.level_two,
-                                    "visible": +data.courseDetails.visible, // Implicity cast false to 0.
+                                    "id": data['courseDetails']['id'],
+                                    "shortname": data['courseDetails']['shortname'],
+                                    "fullname": data['courseDetails']['fullname'],
+                                    "level_one": data['courseDetails']['level_one'],
+                                    "level_two": data['courseDetails']['level_two'],
+                                    "visible": +data['courseDetails']['visible'], // Implicity cast false to 0.
                                 }).draw(false);
                             });
                         });

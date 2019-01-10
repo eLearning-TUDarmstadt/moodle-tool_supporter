@@ -29,7 +29,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * Enrol a user into a course
          *
          * The user and the course are selected and their ids are stored in the fields with the ids
-         * @param selectedcourseid, selecteduserid
+         * selectedcourseid and selecteduserid
          *
          * @method enroluserintocours
          */
@@ -43,7 +43,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                         courseid: $('#selectedcourseid')[0].textContent,
                         roleid: $('#role-dropdown')[0].value
                     }
-                }]);
+                }], true, true);
 
                 promises[0].done(function(course) {
                     console.log("User was enrolled into course: ");

@@ -49,7 +49,7 @@
 	<div class = "card-header">
 		<div class="row">
 		    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
-		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></div></div>
 		</div>
 	</div>
 
@@ -78,7 +78,7 @@
 
                <ul class="dropdown-menu" id="courses_levelonedropdown">
                  {{#uniquelevelones}}
-                    <li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
+                    <li class = "dropdown-item" style="padding: 0 0 0 1.5rem"> <!-- padding: top, right, bottom, left -->
                         <label><input type="checkbox" value="{{{.}}}" name="courses_levelonecheckbox" id="courses_levelonecheckbox"> {{{.}}}</label>
                     </li>
                  {{/uniquelevelones}}
@@ -89,7 +89,7 @@
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
                <ul class="dropdown-menu" id="courses_leveltwodropdown">
                  {{#uniqueleveltwoes}}
-                    <li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
+                    <li class = "dropdown-item" style="padding: 0 0 0 1.5rem"> <!-- padding: top, right, bottom, left -->
                         <label><input type="checkbox" value="{{{.}}}" name="courses_leveltwocheckbox"  id="courses_leveltwocheckbox"> {{{.}}}</label>
                     </li>
                  {{/uniqueleveltwoes}}

@@ -73,11 +73,21 @@ class external extends external_api {
      * @param string $fullname Desired fullname
      * @param int $visible Visibility
      * @param int $categoryid Id of the category
+     * @param $activateselfenrol
+     * @param $selfenrolpassword
+     * @param $startdate
+     * @param $enddate
      * @return array Course characteristics
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol, $selfenrolpassword, $startdate, $enddate) {
 
-        global $DB, $CFG;
+        global $DB;
 
         $catcontext = \context_coursecat::instance($categoryid);
         self::validate_context($catcontext);
@@ -190,9 +200,12 @@ class external extends external_api {
      * @param int $roleid Id of the role with which the user should be enrolled
      *
      * @return array Course info user was enrolled to
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function enrol_user_into_course($userid, $courseid, $roleid) {
-        global $DB;
         global $CFG;
         require_once("$CFG->dirroot/enrol/manual/externallib.php");
 
@@ -208,7 +221,7 @@ class external extends external_api {
         );
 
         // Parameters validation.
-        $params = self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
+        self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
 
         $enrolment = array('courseid' => $courseid, 'userid' => $userid, 'roleid' => $roleid);
         $enrolments[] = $enrolment;
@@ -246,6 +259,12 @@ class external extends external_api {
      *
      * Gets and transforms the information of the given user
      * @param int $userid The id of the user
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_user_information($userid) {
         global $DB, $CFG, $USER;
@@ -255,7 +274,7 @@ class external extends external_api {
         \require_capability('moodle/user:viewdetails', $context);
 
         // Parameters validation.
-        $params = self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
+        self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
 
         $userinformation = user_get_users_by_id(array('userid' => $userid));
 
@@ -510,6 +529,7 @@ class external extends external_api {
         $categories = $DB->get_records("course_categories", array("visible" => "1"), $sort = 'sortorder ASC', $fields = 'id, name, parent, depth, path');
         $courses = $DB->get_records("course", $conditions = null, $sort = '', $fields = 'id, shortname, fullname, visible, category');
 
+        $coursesarray = [];
         foreach ($courses as $course) {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
@@ -611,9 +631,16 @@ class external extends external_api {
      * Accumulates and transforms course data to be displayed
      *
      * @param int $courseid Id of the course which needs to be displayed
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_course_info($courseid) {
-        global $DB, $CFG, $COURSE;
+        global $DB, $CFG;
 
         // Check parameters.
         $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
@@ -821,7 +848,6 @@ class external extends external_api {
         ));
     }
 
-
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
@@ -838,6 +864,11 @@ class external extends external_api {
      * Wrapper for core function get_assignable_roles
      *
      * @param int $courseid Id of the course the roles are present
+     * @return array
+     * @throws \dml_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_assignable_roles($courseid) {
         global $CFG, $PAGE;
@@ -848,7 +879,7 @@ class external extends external_api {
         \require_capability('enrol/manual:enrol', $coursecontext);
 
         // Parameter validation.
-        $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
+        self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
 
         // Get assignable roles in the course.
         require_once($CFG->dirroot.'/enrol/locallib.php');
@@ -913,6 +944,13 @@ class external extends external_api {
      * Wrapper for core function toggle_course_visibility
      *
      * @param int $courseid Id of the course which is to be toggled
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function toggle_course_visibility($courseid) {
 
@@ -959,9 +997,11 @@ class external extends external_api {
      * Wrapper for core function toggle_course_visibility
      *
      * @return array: See return-function
+     * @throws \dml_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_settings() {
-
         global $CFG;
 
         $systemcontext = \context_system::instance();
@@ -977,7 +1017,6 @@ class external extends external_api {
             'tool_supporter_course_table_pagelength' => $CFG->tool_supporter_course_table_pagelength,
             'tool_supporter_course_table_order' => $CFG->tool_supporter_course_table_order,
         );
-
         return $data;
     }
 

@@ -32,7 +32,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             args: {
                 courseID: courseID
             }
-        }]);
+        }], true, true);
         promise[0].done(function(data){
             console.log("assignableRoles Returns: ");
             console.log(data);
@@ -52,11 +52,11 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             args: {
                 courseID: $('#selectedcourseid')[0].textContent
             }
-        }]);
+        }], true, true);
 
         promises[0].done(function(course) {
             console.log("toggle visibility return data");
-            console.log(course.courseDetails.visible);
+            console.log(course['courseDetails'].visible);
 
             // Re-render the template to show the changes.
             templates.render('tool_supporter/course_detail', course).done(function(html, js) {
@@ -157,7 +157,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * Get the details of the user and displays them
          *
          * @method click_on_user
-         * @param table Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
+         * @param tableID Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
          */
         click_on_user: function(tableID) {
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
