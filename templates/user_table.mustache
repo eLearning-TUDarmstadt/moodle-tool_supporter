@@ -24,22 +24,43 @@
     Context variables required for this template:
     * users - array of arrays: user details to be displayed in a table.
 
-    Example Input structure:
-    Array ( [users] =>
-    	Array (
-    	[0] => Array (
-    		[id] => 1
-    		[username] => guest
-    		[firstname] => Guest user
-    		[lastname] =>
-    		[email] => root@localhost )
-    	[1] => Array (
-    		[id] => 2 [username] => admin
-    		[firstname] => Admin
-    		[lastname] => User
-    		[email] => dummy@gmx.de )
-    	)
-    )
+Example context (json):
+{
+  "users": [
+    {
+      "id": 1,
+      "idnumber": "",
+      "username": "guest",
+      "firstname": "Gast",
+      "lastname": " ",
+      "email": "root@localhost"
+    },
+    {
+      "id": 2,
+      "idnumber": "",
+      "username": "admin",
+      "firstname": "Admin",
+      "lastname": "Nutzer",
+      "email": "hasbvdjh@sabdhadbvsdaj.de"
+    },
+    {
+      "id": 3,
+      "idnumber": "",
+      "username": "testnutzer",
+      "firstname": "testnutzer",
+      "lastname": "testnutzer",
+      "email": "testnutzer@bsdahuvugdvsaudvusdaau.de"
+    },
+    {
+      "id": 4,
+      "idnumber": "Matrikel",
+      "username": "deaktiviert_suspended",
+      "firstname": "deaktiviert_suspended",
+      "lastname": "deaktiviert_suspended",
+      "email": "deaktiviert_suspended@sadhbsaudbsaudbvasubd.net"
+    }
+  ]
+}
 
 }}
 <div data-region="user_table" class="card" style="border:1px solid #8a8a8a">

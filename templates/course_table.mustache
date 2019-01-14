@@ -25,24 +25,82 @@
     Context variables required for this template:
     * courses - array of arrays: course details to be displayed in a table.
 
-    Example Input structure:
-    Array ( [courses] =>
-    	Array
-    	(
-    		[12] => Array (
-	            [id] => 51
-	            [fullname] => FB01 Kurs full name
-	            [visible] => 1
-	            [level_two] => FB01 Rechts- und Wirtschaftswissenschaften
-	            [level_one] => WiSe 2016/17 )
-    		[13] => Array (
-	            [id] => 52
-	            [fullname] => FB02 Kurs full name
-	            [visible] => 1
-	            [level_two] => FB02 Gesellschafts- und Geschichtswissenschaften
-	            [level_one] => WiSe 2016/17 )
-    	)
-    )
+Example context (json):
+{
+  "courses": [
+        {
+      "id": 8,
+      "shortname": "Kurs level 2",
+      "fullname": "Kurs level 2",
+      "level_two": "",
+      "level_one": "Top Level 2",
+      "visible": 1
+    },
+    {
+      "id": 9,
+      "shortname": "Kurs level 2.1",
+      "fullname": "Kurs level 2.1",
+      "level_two": "Level 2.1",
+      "level_one": "Top Level 2",
+      "visible": 1
+    },
+    {
+      "id": 17,
+      "shortname": "eee",
+      "fullname": "eee",
+      "level_two": "Level 2.1",
+      "level_one": "Top Level 2",
+      "visible": 0
+    },
+    {
+    {
+      "id": 19,
+      "shortname": "Ebene 3 Kurs",
+      "fullname": "Ebene 3 Kurs",
+      "level_two": "Verschiedenes 1",
+      "level_one": "Verschiedenes",
+      "visible": 0
+    },
+    {
+      "id": 21,
+      "shortname": "FB 01 Kurs im WS 17 18",
+      "fullname": "FB 01 Kurs im WS 17 18",
+      "level_two": "FB 01",
+      "level_one": "WiSe 2017/2018",
+      "visible": 1
+    },
+    {
+      "id": 30,
+      "shortname": "test",
+      "fullname": "test",
+      "level_two": "",
+      "level_one": "Verschiedenes",
+      "visible": 0
+    }
+  ],
+  "uniqueleveltwoes": [
+    "Verschiedenes 1",
+    "Testbereich mit (Klammern)",
+    "Level 1.1",
+    "Level 2.1",
+    "FB 01",
+    "FB 02",
+    "FB 03"
+  ],
+  "uniquelevelones": [
+    "Verschiedenes",
+    "Top Level 1",
+    "Top Level 2",
+    "SoSe 2018",
+    "WiSe 2017/2018",
+    "Semesterübergreifende Kurse",
+    "HRZ / E-Learning - Weiterbildung",
+    "WiSe 2018/19",
+    "SoSe 2019"
+  ],
+  "label_level_1": "Semester",
+  "label_level_2": "Fachbereich"
+}
 
 }}
 <div data-region="course_table" class="card" style="border:1px solid #8a8a8a">

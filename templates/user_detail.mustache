@@ -33,122 +33,80 @@
       * profilelink - array: Link to the profile of the user
       * edituserlink - array: Link to editing the user
 
-      Example Input structure:
-
-    Array
-    (
-        [uniqueparentcategory] => Array
-            (
-                [0] => WiSe 2016/17
-                [1] => SS 17
-            )
-
-        [uniquecategoryname] => Array
-            (
-                [0] => FB01 Rechts- und Wirtschaftswissenschaften
-                [1] => FB02 Gesellschafts- und Geschichtswissenschaften
-                [2] => FB03 Humanwissenschaften
-            )
-
-        [userscourses] => Array
-            (
-                [5] => Array
-                    (
-                        [id] => 50
-                        [category] => 9
-                        [sortorder] => 40001
-                        [shortname] => FB03 Kurs short name
-                        [fullname] => FB03 Kurs full name
-                        [idnumber] =>
-                        [startdate] => 1485187200
-                        [visible] => 0
-                        [defaultgroupingid] => 0
-                        [groupmode] => 0
-                        [groupmodeforce] => 0
-                        [ctxid] => 780
-                        [ctxpath] => /1/775/779/780
-                        [ctxdepth] => 4
-                        [ctxlevel] => 50
-                        [ctxinstance] => 50
-                        [categoryname] => FB03 Humanwissenschaften
-                        [parentcategory] => WiSe 2016/17
-                        [roles] => Array
-                            ([0] => manager
-                             [1] => editingteacher
-                             [2] => student)
-                    )
-            )
-
-        [userinformation] => Array
-            (
-                [id] => 3
-                [auth] => manual
-                [confirmed] => 1
-                [policyagreed] => 0
-                [deleted] => 0
-                [suspended] => 0
-                [mnethostid] => 1
-                [username] => username1
-                [password] => $2y$10$e1yTx2LyNxw1msfRaWZ5IOM/y7mTNR65CM.0OY4M7wjAZGE5L7EG.
-                [idnumber] =>
-                [firstname] => First Name 1
-                [lastname] => Surname 1
-                [email] => dummy@gmx.se
-                [emailstop] => 0
-                [icq] =>
-                [skype] =>
-                [yahoo] =>
-                [aim] =>
-                [msn] =>
-                [phone1] =>
-                [phone2] =>
-                [institution] =>
-                [department] =>
-                [address] =>
-                [city] =>
-                [country] =>
-                [lang] => en
-                [calendartype] => gregorian
-                [theme] =>
-                [timezone] => 99
-                [firstaccess] => 0
-                [lastaccess] => 0
-                [lastlogin] => 0
-                [currentlogin] => 0
-                [lastip] =>
-                [secret] =>
-                [picture] => 0
-                [url] =>
-                [description] =>
-                [descriptionformat] => 1
-                [mailformat] => 1
-                [maildigest] => 0
-                [maildisplay] => 2
-                [autosubscribe] => 1
-                [trackforums] => 0
-                [timecreated] => Monday, 01-Aug-16 16:18:17 WST
-                [timemodified] => Monday, 01-Aug-16 16:18:17 WST
-                [trustbitmask] => 0
-                [imagealt] =>
-                [lastnamephonetic] =>
-                [firstnamephonetic] =>
-                [middlename] =>
-                [alternatename] =>
-            )
-        [loginaslink] => Array
-            (
-                [0] => http://127.0.0.1/course/loginas.php?id=1&user=3&sesskey=8vj0eTuAj7
-            )
-
-        [profilelink] => Array
-            (
-                [0] => http://127.0.0.1/user/profile.php?id=3
-            )
-
-        [edituserlink] => Array
-            (
-                [0] => http://127.0.0.1/user/editadvanced.php?id=3
-            )
+Example context (json):
+[
+  {
+    "userinformation": {
+      "id": 2,
+      "username": "admin",
+      "firstname": "Admin",
+      "lastname": "Nutzer",
+      "email": "hasbvdjh@sabdhadbvsdaj.de",
+      "timecreated": "01.01.1970 01:01",
+      "timemodified": "29.08.2018 08:02",
+      "lastlogin": "07.01.2019 01:04",
+      "lang": "de",
+      "auth": "manual",
+      "idnumber": ""
+    },
+    "config": {
+      "showusername": true,
+      "showidnumber": true,
+      "showfirstname": true,
+      "showlastname": true,
+      "showmailadress": true,
+      "showtimecreated": true,
+      "showtimemodified": true,
+      "showlastlogin": true
+    },
+    "userscourses": [
+      {
+        "id": 4,
+        "category": 1,
+        "shortname": "Kurs3",
+        "fullname": "Kurs3",
+        "startdate": 1535544894,
+        "visible": 1,
+        "level_one": "Verschiedenes",
+        "level_two": "",
+        "roles": [
+          "Manager/in",
+          "Trainer/in",
+          "Adobe Connect-Host"
+        ],
+        "enrol_id": 1
+      },
+      {
+        "id": 3,
+        "category": 1,
+        "shortname": "Kurs2",
+        "fullname": "Kurs2",
+        "startdate": 1535544879,
+        "visible": 1,
+        "level_one": "Verschiedenes",
+        "level_two": "",
+        "roles": [
+          "Trainer/in ohne Bearbeitungsrecht"
+        ],
+        "enrol_id": 27
+      }
+    ],
+    "loginaslink": "http://127.0.0.1/course/loginas.php?id=1&user=2&sesskey=H7BoGwKh63",
+    "profilelink": "http://127.0.0.1/user/profile.php?id=2",
+    "edituserlink": "http://127.0.0.1/user/editadvanced.php?id=2",
+    "deleteuserlink": "http://127.0.0.1/admin/user.php?delete=2&sesskey=H7BoGwKh63",
+    "uniquelevelones": [
+      "Verschiedenes",
+      "WiSe 2017/2018"
+    ],
+    "uniqueleveltwoes": [
+      "FB 01"
+    ],
+    "isallowedtoupdateusers": true,
+    "label_level_1": "Semester",
+    "label_level_2": "Fachbereich"
+  }
+]
 
 
 }}

@@ -40,13 +40,7 @@ class enrolusersection implements renderable, templatable {
 
     public function export_for_template(renderer_base $output) {
 
-        $coursesroles = new \stdClass();
-        // Some testing data.
-        $coursesroles->id = 1;
-        $coursesroles->name = "student";
-
-        $data['assignableRoles'] = $coursesroles;
-
-        return $data;
+        // This template is only rendered in javascript.
+        return null;
     }
 }
