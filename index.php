@@ -63,7 +63,7 @@ echo $output->header();
 set_user_preference('drawer-open-nav', $oldpref);
 
 echo'
-    <div class="row-fluid" style="line-height: 1 !important;">
+    <div class="row-fluid">
         <div class="span12 col-sm-12">
             <div class="row-fluid">
                 <div class="span6 col-sm-6">

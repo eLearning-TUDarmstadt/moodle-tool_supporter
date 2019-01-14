@@ -75,7 +75,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             "<'row'<'col-sm-12't>>" +
                             "<'row'<'col-sm-4'><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                         "pagingType": "numbers",
-                        "scrollX": "true",
+                        //"scrollX": "false",
+                        //"sScrollX": "100%",
                     };
 
                     // Initialize depending on setting.

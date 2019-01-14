@@ -187,7 +187,7 @@
 		            </div>
 	              
 	                <div class="table">
-	                    <table class="stripe hover row-border compact" id="userincourse" cellspacing="0" width="100%">
+	                    <table class="stripe hover row-border" id="userincourse">
 	                        <thead>
 	                            <tr>
 	                                <th>ID</th>
@@ -223,7 +223,7 @@
 	            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
 	                <!-- Table of activites in this course-->
 	                <div class="table table-responsive">
-	                    <table class="stripe hover row-border compact" id="activityInCourse" cellspacing="0" width="100%">
+	                    <table class="stripe hover row-border" id="activityInCourse">
 	                        <thead>
 	                            <tr>
 	                                <th>{{#str}}sectionname{{/str}}</th>
@@ -256,7 +256,7 @@
                         </u>
 		            </div>
 	                <div class = "table table-responsive">
-	                    <table class = "stripe hover row-border compact" cellspacing="0" width="100%">
+	                    <table class = "stripe hover row-border">
 	                        <tbody>
 	                            {{#enrolmentMethods}}
 	                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
@@ -276,8 +276,8 @@
 
 {{#js}}
 require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
-         'tool_supporter/datatables', 'tool_supporter/loadInformation'],
-    function($, search, sort, dataTable, load_information) {
+         'tool_supporter/datatables', 'tool_supporter/load_information'],
+    function($, search, sort, dataTable, loadInformation) {
 
     // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
     dataTable.use_dataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
