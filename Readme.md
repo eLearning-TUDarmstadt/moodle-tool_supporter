@@ -2,7 +2,7 @@ Copyright: 2018 Benedikt Schneider (@Nullmann), Klara Saary (@KlaraSaary)
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
-# tool_supporter
+# tool_supporter [![Build Status](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter.svg?branch=master)](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter)
 
 ## About
 With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
