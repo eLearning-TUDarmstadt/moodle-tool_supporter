@@ -84,7 +84,7 @@
 {{#js}}
 require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates',
          'tool_supporter/datatables', 'tool_supporter/table_filter'],
-function(loadInformation, $, ajax, notification, templates, datatables, tableFilter){
+function(loadInformation, $, ajax, notification, templates, datatables, tableFilter) {
 
     var columns = [
                      {data: 'id', name: 'ID'},
@@ -99,7 +99,7 @@ function(loadInformation, $, ajax, notification, templates, datatables, tableFil
     // Refresh this table.
     loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
-    //Load detailed information about the clicked user.
+    // Load detailed information about the clicked user.
     loadInformation.click_on_user('#userTable');
 
     // Search the table.

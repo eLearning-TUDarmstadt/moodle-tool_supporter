@@ -124,7 +124,7 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
          'tool_supporter/datatables', 'tool_supporter/table_filter'],
     function(loadInformation, $, ajax, notification, templates, datatables, tableFilter) {
 
-		var columns1 = [
+        var columns1 = [
                         {data: 'id', name: 'ID'},
                         {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
                         {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
@@ -132,15 +132,15 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
                         {data: 'level_two', name: '{{label_level_2}}'},
                         {data: 'visible', name: '{{#str}}visible{{/str}}'}
                        ];
-		
+
         // Convert the table to dataTable and apply Filtering.
-        datatables.dataTable_ajax('#courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
+        datatables.dataTable_ajax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
 
         // Refresh this table.
         loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
 
         // Load detailed information about the clicked course.
-        loadInformation.click_on_course('#courseTable'); //Load information about the clicked course
+        loadInformation.click_on_course('#courseTable');
 
         // Search the table.
         tableFilter.search_table('#courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);

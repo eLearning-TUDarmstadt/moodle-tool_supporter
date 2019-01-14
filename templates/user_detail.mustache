@@ -268,8 +268,9 @@
 </div>
 
 {{#js}}
-require (['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-    function(search, sort, dataTable, loadInformation){
+require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables',
+         'tool_supporter/load_information'],
+    function(search, sort, dataTable, loadInformation) {
 
         // Convert table to DataTable and add filter functionality to dropdown-menue.
         dataTable.use_dataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
@@ -279,5 +280,5 @@ require (['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supp
         loadInformation.click_on_course('#userdetailcourses');
 
         loadInformation.toggle_user_details();
-	});
+    });
 {{/js}}
