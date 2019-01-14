@@ -24,27 +24,5 @@
  */
 defined('MOODLE_INTERNAL') || die();
 $capabilities = array(
-    /*
-    'tool/supporter:view' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'coursecreator'  => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/site:config',
-        'clonepermissionsfrom' => 'coursereport/log:view',
-    ),
-    'tool/supporter:viewtoday' => array(
-        'riskbitmask' => RISK_PERSONAL,
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'coursereport/log:viewtoday',
-    )
-    */
+
 );

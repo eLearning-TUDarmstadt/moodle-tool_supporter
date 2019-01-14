@@ -46,8 +46,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 }], true, true);
 
                 promises[0].done(function(course) {
-                    console.log("User was enrolled into course: ");
-                    console.log(course);
+                    //console.log("User was enrolled into course: ");
+                    //console.log(course);
 
                     // Re-render the template to show the changes.
                     templates.render('tool_supporter/course_detail', course).done(function(html, js) {

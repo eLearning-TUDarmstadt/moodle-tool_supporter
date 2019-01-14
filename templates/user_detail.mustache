@@ -157,7 +157,7 @@
 	<div class="card" style="border:1px solid #8a8a8a">
 		<div class="card-header">
 			<div class = "float-left">
-				<a href={{edituserlink}} target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a>
+				<a href="{{edituserlink}}" target="_blank"><h3>{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</h3></a>
 			</div>
 			<div class="btn-group mr-2 float-right">
 				{{#loginaslink}}
@@ -268,15 +268,16 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
-	function(search, sort, dataTable, load_information){
+require (['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+    function(search, sort, dataTable, loadInformation){
 
-		//Convert table to DataTable and add filter functionality to dropdown-menue
-		dataTable.use_dataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2], ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
-		
-		//Load information about the clicked course
-		load_information.click_on_course('#userdetailcourses');
-		
-		load_information.toggle_user_details();
+        // Convert table to DataTable and add filter functionality to dropdown-menue.
+        dataTable.use_dataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
+                                                       ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
+
+        // Load information about the clicked course.
+        loadInformation.click_on_course('#userdetailcourses');
+
+        loadInformation.toggle_user_details();
 	});
 {{/js}}

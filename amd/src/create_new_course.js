@@ -90,8 +90,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         });
 
                         promises[0].fail(function(error) {
-                            console.log("There was an error during course creation - response is:");
-                            console.log(error);
+                            //console.log("There was an error during course creation - response is:");
+                            //console.log(error);
 
                             str.get_string('error', 'error').done(function(error_string) {
                                 str.get_string('ok', 'moodle').done(function(accept) {
@@ -99,8 +99,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     str.get_string('shortnametaken', 'error', wanted_shortname).done(
                                             function(shortnametaken_string) {
                                                 var error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
-                                                if (error.message) {error_message += "Error-Message:<br>" + error.message + "<br><br>";}
-                                                if (error.debuginfo) {error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";}
+                                                if (error.message) {
+                                                    error_message += "Error-Message:<br>" + error.message + "<br><br>";
+                                                }
+                                                if (error.debuginfo) {
+                                                    error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";
+                                                }
 
                                                 notification.alert(error_string, error_message, accept);
                                             });

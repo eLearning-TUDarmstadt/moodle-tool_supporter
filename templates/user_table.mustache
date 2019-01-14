@@ -82,26 +82,27 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables', 'tool_supporter/table_filter'],
-function(load_information, $, ajax, notification, templates, datatables, table_filter){
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates',
+         'tool_supporter/datatables', 'tool_supporter/table_filter'],
+function(loadInformation, $, ajax, notification, templates, datatables, tableFilter){
 
-	var columns = [
-	                 {data: 'id', name: 'ID'},
-	                 {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
-	                 {data: 'username', name: '{{#str}}username{{/str}}'},
-	                 {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
-	                 {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
-	                 {data: 'email', name: '{{#str}}email{{/str}}'}
-	             ];
-	datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
-	
-	// Refresh this table
-	load_information.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
-	
-	//Load detailed information about the clicked user
-	load_information.click_on_user('#userTable'); 
+    var columns = [
+                     {data: 'id', name: 'ID'},
+                     {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
+                     {data: 'username', name: '{{#str}}username{{/str}}'},
+                     {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
+                     {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
+                     {data: 'email', name: '{{#str}}email{{/str}}'}
+                  ];
+    datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
-	// Search the table
-	table_filter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+    // Refresh this table.
+    loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
+
+    //Load detailed information about the clicked user.
+    loadInformation.click_on_user('#userTable');
+
+    // Search the table.
+    tableFilter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}

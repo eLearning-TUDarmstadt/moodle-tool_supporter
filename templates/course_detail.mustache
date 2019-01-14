@@ -30,7 +30,7 @@
     * activities - array of arrays: activities used in the course
     * links - array: Links to the course, to its settings and for deleting it
 
-    Example Input structure:
+    Example context (json):
     Array (
       [courseDetails] => Array
           ([id] => 50
@@ -275,22 +275,22 @@
 </div>
 
 {{#js}}
-require(['jquery','tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_supporter/datatables', 'tool_supporter/load_information'],
+require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
+         'tool_supporter/datatables', 'tool_supporter/loadInformation'],
     function($, search, sort, dataTable, load_information) {
 
-  // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
-  dataTable.use_dataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
+    // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
+    dataTable.use_dataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
 
-  // Convert activity-table to DataTable
-  dataTable.use_dataTable("#activityInCourse");
+    // Convert activity-table to DataTable
+    dataTable.use_dataTable("#activityInCourse");
 
-  // Load information about the clicked user
-  load_information.click_on_user('#userincourse');
+    // Load information about the clicked user
+    loadInformation.click_on_user('#userincourse');
 
-  // Buttons on top
-  load_information.toggle_course_details();
-  load_information.toggle_course_visibility();
-
+    // Buttons on top
+    loadInformation.toggle_course_details();
+    loadInformation.toggle_course_visibility();
 });
 
 {{/js}}
