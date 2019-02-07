@@ -30,6 +30,83 @@
     * activities - array of arrays: activities used in the course
     * links - array: Links to the course, to its settings and for deleting it
 
+Example context (json):
+{
+  "courseDetails": {
+    "id": 64,
+    "shortname": "Course for context creation",
+    "fullname": "Course for context creation",
+    "visible": true,
+    "path": "Top Level 1/Level 1.1",
+    "enrolledUsers": 1,
+    "timecreated": "07.02.2019 02:01",
+    "level_one": "Top Level 1",
+    "level_two": "Level 1.1"
+  },
+  "config": {
+    "showshortname": true,
+    "showfullname": true,
+    "showvisible": true,
+    "showpath": true,
+    "showtimecreated": true,
+    "showusersamount": true,
+    "showrolesandamount": true
+  },
+  "rolesincourse": [
+    "Teacher"
+  ],
+  "roles": [
+    {
+      "roleName": "Teacher",
+      "roleNumber": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 2,
+      "username": "admin",
+      "firstname": "Admin",
+      "lastname": "Nutzer",
+      "lastaccess": "07.02.2019 02:01",
+      "roles": [
+        "Teacher"
+      ],
+      "enrol_id": 43
+    }
+  ],
+  "activities": [
+    {
+      "section": "General",
+      "activity": "forum",
+      "name": "Announcements",
+      "visible": 1
+    }
+  ],
+  "links": {
+    "settingslink": "http://127.0.0.1/course/edit.php?id=64",
+    "deletelink": "http://127.0.0.1/course/delete.php?id=64",
+    "courselink": "http://127.0.0.1/course/view.php?id=64"
+  },
+  "enrolmentMethods": [
+    {
+      "methodname": "Manual enrolments",
+      "enabled": false,
+      "users": 1
+    },
+    {
+      "methodname": "Guest access",
+      "enabled": true,
+      "users": 0
+    },
+    {
+      "methodname": "Self enrolment (Student)",
+      "enabled": true,
+      "users": 0
+    }
+  ],
+  "isallowedtoupdatecourse": true
+}
+
 }}
 <!--View details after clicking on a course in course table.  -->
 
