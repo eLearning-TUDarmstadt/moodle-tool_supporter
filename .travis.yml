@@ -98,6 +98,7 @@ script:
   # tasks relevant to your plugin and Moodle version, but you can run
   # specific tasks by passing them as options,
   # EG: moodle-plugin-ci grunt -t task1 -t task2
+  # ToDo: Reactivate if I can ignore the dataTables-css
   - moodle-plugin-ci grunt -t eslint:amd -t uglify:amd # Do not run stylelint:css because third party css files cannot be ignored
   # This step runs the PHPUnit tests of your plugin.  If your plugin has
   # PHPUnit tests, then it is highly recommended that you keep this step.

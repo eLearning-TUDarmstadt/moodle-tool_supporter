@@ -39,7 +39,7 @@ Example context (json):
     "userinformation": {
       "id": 2,
       "username": "admin",
-      "firstname": "Admin",
+      "firstname": "Test",
       "lastname": "Nutzer",
       "email": "hasbvdjh@sabdhadbvsdaj.de",
       "timecreated": "01.01.1970 01:01",
@@ -47,7 +47,7 @@ Example context (json):
       "lastlogin": "07.01.2019 01:04",
       "lang": "de",
       "auth": "manual",
-      "idnumber": ""
+      "idnumber": "378910"
     },
     "config": {
       "showusername": true,
@@ -115,7 +115,7 @@ Example context (json):
 		<div class="card-header">
 			<div class = "float-left">
 				<a href="{{edituserlink}}" target="_blank">
-                    <h3>{{#userinformation}}{{firstname}}&nbsp;{{/userinformation}}{{#userinformation}}{{lastname}}{{/userinformation}}</h3>
+                    <h3>{{#userinformation}}{{firstname}}&nbsp;{{lastname}}{{/userinformation}}</h3>
                 </a>
 
 			</div>
