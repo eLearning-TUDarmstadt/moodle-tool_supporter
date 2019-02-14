@@ -39,8 +39,8 @@ Example context (json):
     "userinformation": {
       "id": 2,
       "username": "admin",
-      "firstname": "Test",
-      "lastname": "Nutzer",
+      "firstname": "Something",
+      "lastname": "Something",
       "email": "hasbvdjh@sabdhadbvsdaj.de",
       "timecreated": "01.01.1970 01:01",
       "timemodified": "29.08.2018 08:02",
@@ -118,11 +118,10 @@ Example context (json):
                 <a href="{{edituserlink}}" target="_blank"><h3>{{#userinformation}}{{firstname}}{{/userinformation}}</h3></a>
 			</div>
         -->
-            <h3>
-                <div class = "float-left">
-                    <a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</a>
-                </div>
-            </h3>
+            <div class = "float-left">
+                <h3><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</a></h3>
+            </div>
+
 			<div class="btn-group mr-2 float-right">
 				{{#loginaslink}}
 					<a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
