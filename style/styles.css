@@ -1,3 +1,6 @@
 #page-header .card {
     display: none;
 }
+tbody {
+    line-height: 1;
+}

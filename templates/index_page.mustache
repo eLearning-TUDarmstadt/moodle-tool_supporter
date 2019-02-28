@@ -19,23 +19,28 @@
     @template tool_supporter/index_page
     Template which displays the Header / Navbar of the supporter
 
+Example context (json):
+{
+    "isallowedtocreatecourses": "true"
+}
+
 }}
 
 <div class="d-flex align-items-center">
 
-	&nbsp|&nbsp
+	&nbsp;|&nbsp;
 
 	{{#isallowedtocreatecourses}}
 		<a href="#" id="btn_show_new_course"><u>{{#pix}}i/addblock, core{{/pix}}{{#str}}addnewcourse{{/str}}</u></a>
 	{{/isallowedtocreatecourses}}
 	
-	&nbsp|&nbsp
+	&nbsp;|&nbsp;
 	
 	<a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank"><u>{{#pix}} i/settings, core{{/pix}}{{#str}}settings{{/str}}</u></a>
 </div>
 
 {{#js}}
-require(['tool_supporter/create_new_course'], function(show_new_course){
-  show_new_course.show_new_course();
+require(['tool_supporter/create_new_course'], function(showNewCourse) {
+    showNewCourse.show_new_course();
 });
 {{/js}}

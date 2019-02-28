@@ -24,23 +24,35 @@
     Context variables required for this template:
     * categories - array of arrays: path, id and name of categories.
 
-    Example Input structure:
-    Array (
-    	[categories] => Array (
-    		[0] => Array (
-    			[id] => 5
-    			[path] => 5
-    			[name] => / WiSe 2016/17 )
-    		[1] => Array (
-    			[id] => 6
-    			[path] => 5/6
-    			[name] => / / WiSe 2016/17FB01 Rechts- und Wirtschaftswissenschaften )
-    		[2] => Array (
-    			[id] => 8
-    			[path] => 5/8
-    			[name] => / / WiSe 2016/17FB02 Gesellschafts- und Geschichtswissenschaften )
-    	)
-    )
+Example context (json):
+{
+    "categories": [
+        {
+            "id": "4",
+            "path": "4",
+            "name": " \/ Top Level 1"
+        },
+        {
+            "id": "7",
+            "path": "4\/7",
+            "name": " \/ Top Level 1 \/ Level 1.1"
+        },
+        {
+            "id": "5",
+            "path": "5",
+            "name": " \/ Top Level 2"
+        },
+        {
+            "id": "6",
+            "path": "5\/6",
+            "name": " \/ Top Level 2 \/ Level 2.1"
+        }
+    ],
+    "config": {
+        "startdate": "01.10.2018",
+        "enddate": "31.04.2019"
+    }
+}
 
 }}
 
@@ -84,7 +96,7 @@
 		</div>
         {{#config}}
             <div class="form-group row">
-                <label for="new_course_startdate_input" class="col-sm-4 col-form-label">{{#str}}startdate{{/str}}:</label>
+                <label class="col-sm-4 col-form-label" for="new_course_startdate_input">{{#str}}startdate{{/str}}:</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" id="new_course_startdate_input" placeholder="{{#str}}startdate{{/str}}" value={{startdate}}>
                 </div>
@@ -101,8 +113,8 @@
 </div>
 
 {{#js}}
- require(['tool_supporter/create_new_course'], function(create_new_course){
-   create_new_course.create_new_course();
-   create_new_course.toggle_password_input();
- });
+require(['tool_supporter/create_new_course'], function(createNewCourse) {
+    createNewCourse.create_new_course();
+    createNewCourse.toggle_password_input();
+});
 {{/js}}

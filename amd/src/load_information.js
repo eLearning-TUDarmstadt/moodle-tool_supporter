@@ -32,10 +32,10 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             args: {
                 courseID: courseID
             }
-        }]);
+        }], true, true);
         promise[0].done(function(data){
-            console.log("assignableRoles Returns: ");
-            console.log(data);
+            //console.log("assignableRoles Returns: ");
+            //console.log(data);
             // Render template with data.
             templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
                 $('[data-region="enroluserregion"]').replaceWith(html);
@@ -52,11 +52,11 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             args: {
                 courseID: $('#selectedcourseid')[0].textContent
             }
-        }]);
+        }], true, true);
 
         promises[0].done(function(course) {
-            console.log("toggle visibility return data");
-            console.log(course.courseDetails.visible);
+            //console.log("toggle visibility return data");
+            //console.log(course['courseDetails'].visible);
 
             // Re-render the template to show the changes.
             templates.render('tool_supporter/course_detail', course).done(function(html, js) {
@@ -91,8 +91,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
             }]);
 
             promise[0].done(function(data){
-                console.log("Show course detail Returns: ");
-                console.log(data);
+                //console.log("Show course detail Returns: ");
+                //console.log(data);
                 // Render template with data.
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                     $('[data-region="course_details"]').replaceWith(html);
@@ -157,7 +157,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * Get the details of the user and displays them
          *
          * @method click_on_user
-         * @param table Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
+         * @param tableID Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
          */
         click_on_user: function(tableID) {
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
@@ -184,8 +184,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     }]);
 
                     promises[0].done(function(data) {
-                        console.log("click on user Returns: ");
-                        console.log(data);
+                        //console.log("click on user Returns: ");
+                        //console.log(data);
                         templates.render('tool_supporter/user_detail', data[0]).done(function(html, js) {
                             $('[data-region="user_details"]').replaceWith(html);
                             $('[data-region="user_details"]').show();
@@ -234,8 +234,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     "args": args
                 }]);
                 promises[0].done(function(data) {
-                    console.log("return data for refreshing a user");
-                    console.log(data);
+                    //console.log("return data for refreshing a user");
+                    //console.log(data);
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
                         $('[data-region="user_table"]').replaceWith(html);
                         templates.runTemplateJS(js);
@@ -250,8 +250,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     "args": args
                 }]);
                 promises[0].done(function(data) {
-                    console.log("return data for refreshing a course");
-                    console.log(data);
+                    //console.log("return data for refreshing a course");
+                    //console.log(data);
                     templates.render('tool_supporter/course_table', data).done(function(html, js) {
                         $('[data-region="course_table"]').replaceWith(html);
                         templates.runTemplateJS(js);

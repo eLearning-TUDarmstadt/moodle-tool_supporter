@@ -49,9 +49,9 @@ function($, datatables, str, filter, ajax, notification, templates) {
         use_dataTable: function(tableID, filterSelector){
 
             var promises = ajax.call([{
-                methodname: 'tool_supporter_get_settings',
+                methodname: "tool_supporter_get_settings",
                 args: {}
-            }]);
+            }], true, true);
 
             promises[0].done(function(settings) {
 
@@ -75,19 +75,20 @@ function($, datatables, str, filter, ajax, notification, templates) {
                             "<'row'<'col-sm-12't>>" +
                             "<'row'<'col-sm-4'><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                         "pagingType": "numbers",
-                        "scrollX": "true",
+                        //"scrollX": "false",
+                        //"sScrollX": "100%",
                     };
 
                     // Initialize depending on setting.
                     if (tableID == '#userincourse') {
-                        options.order = [[ 0, settings.tool_supporter_course_details_order ]];
-                        options.pageLength = settings.tool_supporter_course_details_pagelength;
-                        options.lengthMenu = [settings.tool_supporter_course_details_pagelength, 10, 25, 50, 100];
+                        options.order = [[ 0, settings['tool_supporter_course_details_order'] ]];
+                        options.pageLength = settings['tool_supporter_course_details_pagelength'];
+                        options.lengthMenu = [settings['tool_supporter_course_details_pagelength'], 10, 25, 50, 100];
                     }
                     if (tableID == '#userdetailcourses') {
-                        options.order = [[ 0, settings.tool_supporter_user_details_order ]];
-                        options.pageLength = settings.tool_supporter_user_details_pagelength;
-                        options.lengthMenu = [settings.tool_supporter_user_details_pagelength, 10, 25, 50, 100];
+                        options.order = [[ 0, settings['tool_supporter_user_details_order'] ]];
+                        options.pageLength = settings['tool_supporter_user_details_pagelength'];
+                        options.lengthMenu = [settings['tool_supporter_user_details_pagelength'], 10, 25, 50, 100];
                     }
 
                     $(tableID).DataTable(options);
@@ -104,7 +105,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
          * @param tableID : ID of table you want to convert into datatable
          * @param methodname : Method to get the table data from
          * @param args : arguments for ajax-call
-         * @param datainfo : specification, wher to find table data in return value of method
+         * @param datainfo : where to find table data in return value of method
          * @param columns : Name of table columns
          */
         dataTable_ajax: function(tableID, methodname, args, datainfo, columns){
@@ -112,14 +113,14 @@ function($, datatables, str, filter, ajax, notification, templates) {
             var promise = ajax.call([{
                 "methodname": methodname,
                 "args": args
-            }]);
+            }], true, true);
 
             promise[0].done(function(data) {
 
                 var promises = ajax.call([{
                     methodname: 'tool_supporter_get_settings',
                     args: {}
-                }]);
+                }], true, true);
 
                 promises[0].done(function(settings) {
                     var string_noresults = str.get_string('noresults', 'admin');
@@ -171,14 +172,14 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                         // Initialize depending on setting.
                         if (tableID == '#courseTable') {
-                            options.order = [[ 0, settings.tool_supporter_course_table_order ]];
-                            options.pageLength = settings.tool_supporter_course_table_pagelength;
-                            options.lengthMenu = [settings.tool_supporter_course_table_pagelength, 10, 25, 50, 100];
+                            options.order = [[ 0, settings['tool_supporter_course_table_order'] ]];
+                            options.pageLength = settings['tool_supporter_course_table_pagelength'];
+                            options.lengthMenu = [settings['tool_supporter_course_table_pagelength'], 10, 25, 50, 100];
                         }
                         if (tableID == '#userTable') {
-                            options.order = [[ 0, settings.tool_supporter_user_table_order ]];
-                            options.pageLength = settings.tool_supporter_user_table_pagelength;
-                            options.lengthMenu = [settings.tool_supporter_user_table_pagelength, 10, 25, 50, 100];
+                            options.order = [[ 0, settings['tool_supporter_user_table_order'] ]];
+                            options.pageLength = settings['tool_supporter_user_table_pagelength'];
+                            options.lengthMenu = [settings['tool_supporter_user_table_pagelength'], 10, 25, 50, 100];
                         }
 
                         $(tableID).DataTable(options);

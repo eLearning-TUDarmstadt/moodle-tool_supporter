@@ -36,12 +36,12 @@ class course_table implements renderable, templatable {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
+     * @param renderer_base $output
      * @return stdClass
      */
 
     public function export_for_template(renderer_base $output) {
         global $CFG;
-        
         $labels = $CFG->tool_supporter_level_labels;
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {

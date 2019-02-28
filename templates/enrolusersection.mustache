@@ -24,19 +24,27 @@
     Context variables required for this template:
     * assignableRoles - array of arrays: roles which can be assigned when enrolling.
 
-    Array
-(
-    [assignableRoles] => Array
-        (
-            [0] => Array
-                ([id] => 5
-                [name] => Student)
-
-            [1] => Array
-                ([id] => 4
-                [name] => Non-editing teacher)
-        )
-)
+Example context (json):
+{
+  "assignableRoles": [
+    {
+      "id": 5,
+      "name": "Teilnehmer/in"
+    },
+    {
+      "id": 1,
+      "name": "Manager/in"
+    },
+    {
+      "id": 3,
+      "name": "Trainer/in"
+    },
+    {
+      "id": 4,
+      "name": "Trainer/in ohne Bearbeitungsrecht"
+    }
+  ]
+}
 
 }}
 
@@ -58,7 +66,7 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/enrol'], function(enroluserintocourse){
-  enroluserintocourse.enroluserintocourse();
+require(['tool_supporter/enrol'], function(enroluserintocourse) {
+    enroluserintocourse.enroluserintocourse();
 });
 {{/js}}

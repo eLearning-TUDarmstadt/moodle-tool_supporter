@@ -36,46 +36,82 @@ if ($hassiteconfig) {
 
     // Settings for level naming.
     $settings->add(new admin_setting_configtext('tool_supporter_level_labels', get_string('sett_levels', 'tool_supporter'),
-        get_string('sett_levels_description', 'tool_supporter'), get_string('sett_levels_default', 'tool_supporter'), PARAM_TEXT));
+        get_string('sett_levels_description', 'tool_supporter'),
+        get_string('sett_levels_default', 'tool_supporter'), PARAM_TEXT));
 
     // Settings for course table (bottom left).
-    $settings->add(new admin_setting_heading('header_course_table', get_string('sett_course_table', 'tool_supporter'), get_string('sett_course_table_desc', 'tool_supporter')));
-    $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_heading('header_course_table', get_string('sett_course_table', 'tool_supporter'),
+        get_string('sett_course_table_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_table_pagelength',
+        get_string('sett_course_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_table_order',
+        get_string('sett_order_id', 'tool_supporter'), "", "desc",
+        array("asc" => get_string('asc'), "desc" => get_string('desc'))));
 
     // Settings for user table (bottom right).
-    $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'), get_string('sett_user_table_desc', 'tool_supporter')));
-    $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_table_excludesuspended', get_string('exportonlyactive', 'grades'), "", 1));
+    $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'),
+        get_string('sett_user_table_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_table_pagelength',
+        get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_table_order', get_string('sett_order_id', 'tool_supporter'),
+        "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_table_excludesuspended',
+        get_string('exportonlyactive', 'grades'), "", 1));
 
     // Standard settings for new course.
     $settings->add(new admin_setting_heading('header_new_course', get_string('addnewcourse', 'core'), ""));
-    $settings->add(new admin_setting_configtext('tool_supporter_new_course_startdate', get_string('standard')." ".get_string('startdate', 'core'), "", '01.10.2018', PARAM_TEXT));
-    $settings->add(new admin_setting_configtext('tool_supporter_new_course_enddate', get_string('standard')." ".get_string('enddate', 'core'), "", '31.04.2019', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('tool_supporter_new_course_startdate',
+        get_string('standard')." ".get_string('startdate', 'core'), "", '01.10.2018', PARAM_TEXT));
+    $settings->add(new admin_setting_configtext('tool_supporter_new_course_enddate',
+        get_string('standard')." ".get_string('enddate', 'core'), "", '31.04.2019', PARAM_TEXT));
 
     // Settings for course details (top left).
-    $settings->add(new admin_setting_heading('header_course_details', get_string('sett_course_details', 'tool_supporter'), get_string('sett_course_details_desc', 'tool_supporter')));
-    $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength', get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order', get_string('sett_order_id', 'tool_supporter'), "", "desc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname', get_string('shortnamecourse'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname', get_string('fullnamecourse'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showvisible', get_string('visible'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showpath', get_string('path'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showtimecreated', get_string('eventcoursecreated'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount', get_string('users'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount', get_string('sett_course_detail_showrolesandamount', 'tool_supporter'), get_string('sett_course_detail_showrolesandamount_desc', 'tool_supporter'), 1));
+    $settings->add(new admin_setting_heading('header_course_details',
+        get_string('sett_course_details', 'tool_supporter'),
+        get_string('sett_course_details_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_course_details_pagelength',
+        get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_course_details_order',
+        get_string('sett_order_id', 'tool_supporter'), "", "desc",
+        array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showshortname',
+        get_string('shortnamecourse'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showfullname',
+        get_string('fullnamecourse'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showvisible',
+        get_string('visible'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showpath',
+        get_string('path'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showtimecreated',
+        get_string('eventcoursecreated'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showusersamount',
+        get_string('users'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_course_details_showrolesandamount',
+        get_string('sett_course_detail_showrolesandamount', 'tool_supporter'),
+        get_string('sett_course_detail_showrolesandamount_desc', 'tool_supporter'), 1));
 
     // Settings for user details (top right).
-    $settings->add(new admin_setting_heading('header_user_details', get_string('sett_user_details', 'tool_supporter'), get_string('sett_user_details_desc', 'tool_supporter')));
-    $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength', get_string('sett_user_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order', get_string('sett_order_id', 'tool_supporter'), "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername', get_string('username'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber', get_string('idnumbermod'), "", 0));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname', get_string('firstname'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname', get_string('lastname'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress', get_string('email'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated', get_string('eventusercreated'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified', get_string('lastmodified'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin', get_string('lastlogin'), "", 1));
+    $settings->add(new admin_setting_heading('header_user_details', get_string('sett_user_details', 'tool_supporter'),
+        get_string('sett_user_details_desc', 'tool_supporter')));
+    $settings->add(new admin_setting_configtext('tool_supporter_user_details_pagelength',
+        get_string('sett_user_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
+    $settings->add(new admin_setting_configselect('tool_supporter_user_details_order',
+        get_string('sett_order_id', 'tool_supporter'),
+        "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showusername',
+        get_string('username'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showidnumber',
+        get_string('idnumbermod'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showfirstname',
+        get_string('firstname'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastname',
+        get_string('lastname'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showmailadress',
+        get_string('email'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimecreated',
+        get_string('eventusercreated'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showtimemodified',
+        get_string('lastmodified'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter_user_details_showlastlogin',
+        get_string('lastlogin'), "", 1));
 }

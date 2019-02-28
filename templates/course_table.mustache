@@ -25,31 +25,88 @@
     Context variables required for this template:
     * courses - array of arrays: course details to be displayed in a table.
 
-    Example Input structure:
-    Array ( [courses] =>
-    	Array
-    	(
-    		[12] => Array (
-	            [id] => 51
-	            [fullname] => FB01 Kurs full name
-	            [visible] => 1
-	            [level_two] => FB01 Rechts- und Wirtschaftswissenschaften
-	            [level_one] => WiSe 2016/17 )
-    		[13] => Array (
-	            [id] => 52
-	            [fullname] => FB02 Kurs full name
-	            [visible] => 1
-	            [level_two] => FB02 Gesellschafts- und Geschichtswissenschaften
-	            [level_one] => WiSe 2016/17 )
-    	)
-    )
+Example context (json):
+{
+  "courses": [
+        {
+      "id": 8,
+      "shortname": "Kurs level 2",
+      "fullname": "Kurs level 2",
+      "level_two": "",
+      "level_one": "Top Level 2",
+      "visible": 1
+    },
+    {
+      "id": 9,
+      "shortname": "Kurs level 2.1",
+      "fullname": "Kurs level 2.1",
+      "level_two": "Level 2.1",
+      "level_one": "Top Level 2",
+      "visible": 1
+    },
+    {
+      "id": 17,
+      "shortname": "eee",
+      "fullname": "eee",
+      "level_two": "Level 2.1",
+      "level_one": "Top Level 2",
+      "visible": 0
+    },
+    {
+      "id": 19,
+      "shortname": "Ebene 3 Kurs",
+      "fullname": "Ebene 3 Kurs",
+      "level_two": "Verschiedenes 1",
+      "level_one": "Verschiedenes",
+      "visible": 0
+    },
+    {
+      "id": 21,
+      "shortname": "FB 01 Kurs im WS 17 18",
+      "fullname": "FB 01 Kurs im WS 17 18",
+      "level_two": "FB 01",
+      "level_one": "WiSe 2017/2018",
+      "visible": 1
+    },
+    {
+      "id": 30,
+      "shortname": "test",
+      "fullname": "test",
+      "level_two": "",
+      "level_one": "Verschiedenes",
+      "visible": 0
+    }
+  ],
+  "uniqueleveltwoes": [
+    "Verschiedenes 1",
+    "Testbereich mit (Klammern)",
+    "Level 1.1",
+    "Level 2.1",
+    "FB 01",
+    "FB 02",
+    "FB 03"
+  ],
+  "uniquelevelones": [
+    "Verschiedenes",
+    "Top Level 1",
+    "Top Level 2",
+    "SoSe 2018",
+    "WiSe 2017/2018",
+    "Semesteruebergreifende Kurse",
+    "HRZ / E-Learning - Weiterbildung",
+    "WiSe 2018/19",
+    "SoSe 2019"
+  ],
+  "label_level_1": "Semester",
+  "label_level_2": "Fachbereich"
+}
 
 }}
 <div data-region="course_table" class="card" style="border:1px solid #8a8a8a">
 	<div class = "card-header">
 		<div class="row">
 		    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
-		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></div></div>
 		</div>
 	</div>
 
@@ -78,8 +135,8 @@
 
                <ul class="dropdown-menu" id="courses_levelonedropdown">
                  {{#uniquelevelones}}
-                    <li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
-                        <label><input type="checkbox" value="{{{.}}}" name="courses_levelonecheckbox" id="courses_levelonecheckbox"> {{{.}}}</label>
+                    <li class = "dropdown-item" style="padding: 0 0 0 1.5rem"> <!-- padding: top, right, bottom, left -->
+                        <label><input type="checkbox" value="{{{.}}}" name="courses_levelonecheckbox"> {{{.}}}</label>
                     </li>
                  {{/uniquelevelones}}
                </ul>
@@ -89,8 +146,8 @@
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
                <ul class="dropdown-menu" id="courses_leveltwodropdown">
                  {{#uniqueleveltwoes}}
-                    <li class = "dropdown-item" style="padding: 0px 0px 0px 1.5rem"> <!-- padding: top, right, bottom, left -->
-                        <label><input type="checkbox" value="{{{.}}}" name="courses_leveltwocheckbox"  id="courses_leveltwocheckbox"> {{{.}}}</label>
+                    <li class = "dropdown-item" style="padding: 0 0 0 1.5rem"> <!-- padding: top, right, bottom, left -->
+                        <label><input type="checkbox" value="{{{.}}}" name="courses_leveltwocheckbox"> {{{.}}}</label>
                     </li>
                  {{/uniqueleveltwoes}}
                </ul>
@@ -100,7 +157,7 @@
     </div>
 	
 	<div class = "table table-responsive">
-	  <table id = "courseTable" class="stripe hover row-border compact" cellspacing="0" width="100%">
+	  <table id = "courseTable" class="stripe hover row-border">
 	    <thead>
 	      <tr>
 	        <th>ID  </th>
@@ -120,31 +177,32 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables', 'tool_supporter/table_filter'],
-    function(load_information, $, ajax, notification, templates, datatables, table_filter) {
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates',
+         'tool_supporter/datatables', 'tool_supporter/table_filter'],
+    function(loadInformation, $, ajax, notification, templates, datatables, tableFilter) {
 
-		var columns1 = [
-		                {data: 'id', name: 'ID'},
-		                {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
-		                {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
-		                {data: 'level_one', name: '{{label_level_1}}'},
-		                {data: 'level_two', name: '{{label_level_2}}'},
-		                {data: 'visible', name: '{{#str}}visible{{/str}}'}
-		            ];
-		
-		// Convert the table to dataTable and apply Filtering      
-		datatables.dataTable_ajax('#courseTable', 'tool_supporter_get_courses',{}, 'courses', columns1);
-		
-		// Refresh this table
-		load_information.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
-		
-		// Load detailed information about the clicked course
-		load_information.click_on_course('#courseTable'); //Load information about the clicked course
-		
-		// Search the table
-		table_filter.search_table('#courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);
-		
-		// Clear filters when button is clicked
-		table_filter.courses_clear_filters('#courseTable');
+        var columns1 = [
+                        {data: 'id', name: 'ID'},
+                        {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
+                        {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
+                        {data: 'level_one', name: '{{label_level_1}}'},
+                        {data: 'level_two', name: '{{label_level_2}}'},
+                        {data: 'visible', name: '{{#str}}visible{{/str}}'}
+                       ];
+
+        // Convert the table to dataTable and apply Filtering.
+        datatables.dataTable_ajax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
+
+        // Refresh this table.
+        loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
+
+        // Load detailed information about the clicked course.
+        loadInformation.click_on_course('#courseTable');
+
+        // Search the table.
+        tableFilter.search_table('#courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);
+
+        // Clear filters when button is clicked.
+        tableFilter.courses_clear_filters('#courseTable');
   });
 {{/js}}

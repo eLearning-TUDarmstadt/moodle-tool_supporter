@@ -24,29 +24,50 @@
     Context variables required for this template:
     * users - array of arrays: user details to be displayed in a table.
 
-    Example Input structure:
-    Array ( [users] =>
-    	Array (
-    	[0] => Array (
-    		[id] => 1
-    		[username] => guest
-    		[firstname] => Guest user
-    		[lastname] =>
-    		[email] => root@localhost )
-    	[1] => Array (
-    		[id] => 2 [username] => admin
-    		[firstname] => Admin
-    		[lastname] => User
-    		[email] => dummy@gmx.de )
-    	)
-    )
+Example context (json):
+{
+  "users": [
+    {
+      "id": 1,
+      "idnumber": "",
+      "username": "guest",
+      "firstname": "Gast",
+      "lastname": " ",
+      "email": "root@localhost"
+    },
+    {
+      "id": 2,
+      "idnumber": "",
+      "username": "admin",
+      "firstname": "Admin",
+      "lastname": "Nutzer",
+      "email": "hasbvdjh@sabdhadbvsdaj.de"
+    },
+    {
+      "id": 3,
+      "idnumber": "",
+      "username": "testnutzer",
+      "firstname": "testnutzer",
+      "lastname": "testnutzer",
+      "email": "testnutzer@bsdahuvugdvsaudvusdaau.de"
+    },
+    {
+      "id": 4,
+      "idnumber": "Matrikel",
+      "username": "deaktiviert_suspended",
+      "firstname": "deaktiviert_suspended",
+      "lastname": "deaktiviert_suspended",
+      "email": "deaktiviert_suspended@sadhbsaudbsaudbvasubd.net"
+    }
+  ]
+}
 
 }}
 <div data-region="user_table" class="card" style="border:1px solid #8a8a8a">
     <div class = "card-header">
 	    <div class="row">
 	    	<div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
-	    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></td></div></div>
+	    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></div></div>
 	    </div>
     </div>
     
@@ -63,7 +84,7 @@
 	</div>
 	
 	 <div class = "table table-responsive">
-	     <table class = "stripe hover row-border compact" id = "userTable" cellspacing="0" width="100%">
+	     <table class = "stripe hover row-border" id = "userTable">
 	         <thead>
 				<tr>
 			        <th>ID</th>
@@ -82,26 +103,27 @@
 </div>
 
 {{#js}}
-require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates', 'tool_supporter/datatables', 'tool_supporter/table_filter'],
-function(load_information, $, ajax, notification, templates, datatables, table_filter){
+require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notification', 'core/templates',
+         'tool_supporter/datatables', 'tool_supporter/table_filter'],
+function(loadInformation, $, ajax, notification, templates, datatables, tableFilter) {
 
-	var columns = [
-	                 {data: 'id', name: 'ID'},
-	                 {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
-	                 {data: 'username', name: '{{#str}}username{{/str}}'},
-	                 {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
-	                 {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
-	                 {data: 'email', name: '{{#str}}email{{/str}}'}
-	             ];
-	datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
-	
-	// Refresh this table
-	load_information.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
-	
-	//Load detailed information about the clicked user
-	load_information.click_on_user('#userTable'); 
+    var columns = [
+                     {data: 'id', name: 'ID'},
+                     {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
+                     {data: 'username', name: '{{#str}}username{{/str}}'},
+                     {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
+                     {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
+                     {data: 'email', name: '{{#str}}email{{/str}}'}
+                  ];
+    datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
-	// Search the table
-	table_filter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+    // Refresh this table.
+    loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
+
+    // Load detailed information about the clicked user.
+    loadInformation.click_on_user('#userTable');
+
+    // Search the table.
+    tableFilter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}

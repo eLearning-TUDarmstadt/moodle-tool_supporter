@@ -73,11 +73,22 @@ class external extends external_api {
      * @param string $fullname Desired fullname
      * @param int $visible Visibility
      * @param int $categoryid Id of the category
+     * @param $activateselfenrol
+     * @param $selfenrolpassword
+     * @param $startdate
+     * @param $enddate
      * @return array Course characteristics
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
-    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol, $selfenrolpassword, $startdate, $enddate) {
+    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol,
+                                             $selfenrolpassword, $startdate, $enddate) {
 
-        global $DB, $CFG;
+        global $DB;
 
         $catcontext = \context_coursecat::instance($categoryid);
         self::validate_context($catcontext);
@@ -113,14 +124,14 @@ class external extends external_api {
             throw new invalid_parameter_exception('shortnametaken already taken');
         }
 
-        // Convert string to date
+        // Convert string to date.
         $data->startdate = strtotime($params['startdate']);
         $data->enddate = strtotime($params['enddate']);
 
         $createdcourse = create_course($data);
 
         if ($activateselfenrol) {
-            $selfenrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), $fields = '*');
+            $selfenrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), '*');
 
             if (empty($selfenrolment)) {
                 // If self enrolment is NOT activated for new courses, add one.
@@ -190,9 +201,12 @@ class external extends external_api {
      * @param int $roleid Id of the role with which the user should be enrolled
      *
      * @return array Course info user was enrolled to
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function enrol_user_into_course($userid, $courseid, $roleid) {
-        global $DB;
         global $CFG;
         require_once("$CFG->dirroot/enrol/manual/externallib.php");
 
@@ -208,7 +222,7 @@ class external extends external_api {
         );
 
         // Parameters validation.
-        $params = self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
+        self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
 
         $enrolment = array('courseid' => $courseid, 'userid' => $userid, 'roleid' => $roleid);
         $enrolments[] = $enrolment;
@@ -246,6 +260,12 @@ class external extends external_api {
      *
      * Gets and transforms the information of the given user
      * @param int $userid The id of the user
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_user_information($userid) {
         global $DB, $CFG, $USER;
@@ -255,7 +275,7 @@ class external extends external_api {
         \require_capability('moodle/user:viewdetails', $context);
 
         // Parameters validation.
-        $params = self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
+        self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
 
         $userinformation = user_get_users_by_id(array('userid' => $userid));
 
@@ -276,9 +296,11 @@ class external extends external_api {
         $coursecontext = \context_course::instance(1);
         $assignableroles = \get_assignable_roles($coursecontext);
 
-        $categories = $DB->get_records("course_categories", $conditions = null, $sort = 'sortorder ASC', $fields = 'id, name, parent, depth, path');
+        $categories = $DB->get_records("course_categories", null, 'sortorder ASC',
+                                 'id, name, parent, depth, path');
         // Used for unenrolling users.
-        $userenrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
+        $userenrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue,
+                                               {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
 
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
@@ -452,9 +474,11 @@ class external extends external_api {
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
         if ($CFG->tool_supporter_user_table_excludesuspended) {
-            $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => 0), null, 'id, idnumber, username, firstname, lastname, email');
+            $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => 0), null,
+                                        'id, idnumber, username, firstname, lastname, email');
         } else {
-            $data['users'] = $DB->get_records('user', array('deleted' => '0'), null, 'id, idnumber, username, firstname, lastname, email');
+            $data['users'] = $DB->get_records('user', array('deleted' => '0'), null,
+                                        'id, idnumber, username, firstname, lastname, email');
         }
 
         return $data;
@@ -507,9 +531,12 @@ class external extends external_api {
         // Is the closest to the needed capability. Is used in /course/management.php.
         \require_capability('moodle/course:viewhiddencourses', $context);
 
-        $categories = $DB->get_records("course_categories", array("visible" => "1"), $sort = 'sortorder ASC', $fields = 'id, name, parent, depth, path');
-        $courses = $DB->get_records("course", $conditions = null, $sort = '', $fields = 'id, shortname, fullname, visible, category');
+        $categories = $DB->get_records("course_categories", array("visible" => "1"), 'sortorder ASC',
+                                 'id, name, parent, depth, path');
+        $courses = $DB->get_records("course", null, '',
+                              'id, shortname, fullname, visible, category');
 
+        $coursesarray = [];
         foreach ($courses as $course) {
             if ($course->category != 0) {
                 $category = $categories[$course->category];
@@ -611,9 +638,16 @@ class external extends external_api {
      * Accumulates and transforms course data to be displayed
      *
      * @param int $courseid Id of the course which needs to be displayed
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_course_info($courseid) {
-        global $DB, $CFG, $COURSE;
+        global $DB, $CFG;
 
         // Check parameters.
         $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
@@ -636,9 +670,9 @@ class external extends external_api {
         $parentcategoriesids = array_filter(explode('/', $coursedetails['path']));
 
         // Select the name of all parent categories.
-        $parentcategoriesnames = $DB->get_records_list('course_categories', 'id', $parentcategoriesids, null, 'id,name');
+        $parentcatnames = $DB->get_records_list('course_categories', 'id', $parentcategoriesids, null, 'id,name');
         $pathcategories = [];
-        foreach ($parentcategoriesnames as $val) {
+        foreach ($parentcatnames as $val) {
             $pathcategories[] = $val->name;
         }
         $coursedetails['level_one'] = $pathcategories[0];
@@ -667,12 +701,14 @@ class external extends external_api {
 
         // Get userinformation about users in course.
         $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
-        $userfields = 'u.id,u.username,u.firstname, u.lastname', $orderby = '', $limitfrom = 0, $limitnum = 0);
+        $userfields = 'u.id,u.username,u.firstname, u.lastname', '', 0, 0);
         $users = array();
-        $userenrolments = $DB->get_records_sql('SELECT ue.userid, ue.id FROM {user_enrolments} ue, {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', array($courseid));
+        $userenrolments = $DB->get_records_sql('SELECT ue.userid, ue.id FROM {user_enrolments} ue,
+                                               {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', array($courseid));
         foreach ($usersraw as $u) {
             $u = (array)$u;
-            $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess', array('courseid' => $courseid, 'userid' => $u['id'])));
+            $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess',
+                                                                        array('courseid' => $courseid, 'userid' => $u['id'])));
             // Find user specific roles, but without parent context (no global roles).
             $rolesofuser = get_user_roles($coursecontext, $u['id'], false);
             $userroles = [];
@@ -720,9 +756,9 @@ class external extends external_api {
         }
 
         if (\has_capability('moodle/course:update', \context_system::instance()) ) {
-            $isallowedtoupdatecourse = true;
+            $capupdatecourse = true;
         } else {
-            $isallowedtoupdatecourse = false;
+            $capupdatecourse = false;
         }
 
         $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
@@ -740,7 +776,7 @@ class external extends external_api {
             'activities' => (array)$activities,
             'links' => $links,
             'enrolmentMethods' => (array)$enrolmentmethods,
-            'isallowedtoupdatecourse' => $isallowedtoupdatecourse
+            'isallowedtoupdatecourse' => $capupdatecourse
         );
 
         $data['config'] = array(
@@ -779,8 +815,8 @@ class external extends external_api {
                 'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
                 'showpath' => new external_value(PARAM_BOOL, "Config setting if courses path should be displayed"),
                 'showtimecreated' => new external_value(PARAM_BOOL, "Config setting if courses timecreated should be displayed"),
-                'showusersamount' => new external_value(PARAM_BOOL, "Config setting if courses total amount of users should be displayed"),
-                'showrolesandamount' => new external_value(PARAM_BOOL, "Config setting if courses roles and their amount should be displayed"),
+                'showusersamount' => new external_value(PARAM_BOOL, "Setting if courses total amount of users should be displayed"),
+                'showrolesandamount' => new external_value(PARAM_BOOL, "Setting if courses roles and their amount are displayed"),
             ))),
             'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
@@ -821,7 +857,6 @@ class external extends external_api {
         ));
     }
 
-
     // ------------------------------------------------------------------------------------------------------------------------
 
     /**
@@ -838,6 +873,11 @@ class external extends external_api {
      * Wrapper for core function get_assignable_roles
      *
      * @param int $courseid Id of the course the roles are present
+     * @return array
+     * @throws \dml_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_assignable_roles($courseid) {
         global $CFG, $PAGE;
@@ -848,7 +888,7 @@ class external extends external_api {
         \require_capability('enrol/manual:enrol', $coursecontext);
 
         // Parameter validation.
-        $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
+        self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
 
         // Get assignable roles in the course.
         require_once($CFG->dirroot.'/enrol/locallib.php');
@@ -913,6 +953,13 @@ class external extends external_api {
      * Wrapper for core function toggle_course_visibility
      *
      * @param int $courseid Id of the course which is to be toggled
+     * @return array
+     * @throws \coding_exception
+     * @throws \dml_exception
+     * @throws \moodle_exception
+     * @throws \required_capability_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function toggle_course_visibility($courseid) {
 
@@ -959,9 +1006,11 @@ class external extends external_api {
      * Wrapper for core function toggle_course_visibility
      *
      * @return array: See return-function
+     * @throws \dml_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
      */
     public static function get_settings() {
-
         global $CFG;
 
         $systemcontext = \context_system::instance();
@@ -977,7 +1026,6 @@ class external extends external_api {
             'tool_supporter_course_table_pagelength' => $CFG->tool_supporter_course_table_pagelength,
             'tool_supporter_course_table_order' => $CFG->tool_supporter_course_table_order,
         );
-
         return $data;
     }
 
@@ -987,13 +1035,13 @@ class external extends external_api {
      */
     public static function get_settings_returns() {
         return new external_function_parameters(array(
-            'tool_supporter_user_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_user_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_user_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
-            'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_course_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
-            'tool_supporter_user_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_user_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_user_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
-            'tool_supporter_course_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as detailed in settings/config'),
+            'tool_supporter_course_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_course_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
         ));
     }

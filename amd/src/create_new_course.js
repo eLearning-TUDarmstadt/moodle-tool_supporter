@@ -68,7 +68,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 startdate: $('#new_course_startdate_input')[0].value,
                                 enddate: $('#new_course_enddate_input')[0].value,
                             }
-                        }]);
+                        }], true, true);
 
                         promises[0].done(function(data) {
                             // Display the created course.
@@ -79,19 +79,19 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
                                 // Add the newly created course to the DataTable without reloading the whole thing.
                                 $('#courseTable').DataTable().row.add({
-                                    "id": data.courseDetails.id,
-                                    "shortname": data.courseDetails.shortname,
-                                    "fullname": data.courseDetails.fullname,
-                                    "level_one": data.courseDetails.level_one,
-                                    "level_two": data.courseDetails.level_two,
-                                    "visible": +data.courseDetails.visible, // Implicity cast false to 0.
+                                    "id": data['courseDetails']['id'],
+                                    "shortname": data['courseDetails']['shortname'],
+                                    "fullname": data['courseDetails']['fullname'],
+                                    "level_one": data['courseDetails']['level_one'],
+                                    "level_two": data['courseDetails']['level_two'],
+                                    "visible": +data['courseDetails']['visible'], // Implicity cast false to 0.
                                 }).draw(false);
                             });
                         });
 
                         promises[0].fail(function(error) {
-                            console.log("There was an error during course creation - response is:");
-                            console.log(error);
+                            //console.log("There was an error during course creation - response is:");
+                            //console.log(error);
 
                             str.get_string('error', 'error').done(function(error_string) {
                                 str.get_string('ok', 'moodle').done(function(accept) {
@@ -99,8 +99,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     str.get_string('shortnametaken', 'error', wanted_shortname).done(
                                             function(shortnametaken_string) {
                                                 var error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
-                                                if (error.message) {error_message += "Error-Message:<br>" + error.message + "<br><br>";}
-                                                if (error.debuginfo) {error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";}
+                                                if (error.message) {
+                                                    error_message += "Error-Message:<br>" + error.message + "<br><br>";
+                                                }
+                                                if (error.debuginfo) {
+                                                    error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";
+                                                }
 
                                                 notification.alert(error_string, error_message, accept);
                                             });
