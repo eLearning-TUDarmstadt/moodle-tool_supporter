@@ -2,16 +2,16 @@ Copyright: 2018 Benedikt Schneider (@Nullmann), Klara Saary (@KlaraSaary)
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
-# tool_supporter [![Build Status](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter.svg?branch=Code_refactoring_with_IntelliJ_and_Travis)](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter)
+# tool_supporter [![Build Status](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter.svg?branch=master)](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter)
 
 ## About
 With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
 
 It is the successor to the [Moodle Analyst](https://moodle.org/plugins/report_moodleanalyst) which was also created at the TU Darmstadt.
 
-The Supporter is developed with amd and thus only retrieves the information from the database which are needed, not requiring reloading of the whole page; bringing a whole new user experience to moodle admins.
+The Supporter is developed with AMD and thus only retrieves the information from the database which are needed, not requiring reloading of the whole page; bringing a whole new user experience to moodle admins.
 
-It has built-in the standard Moodle Capability-Checks so there are no extra capabilites needed and multiple levels of Support can be accomplished (see chapter "Capabilites").
+It has the standard Moodle Capability-Checks built-in so there are no extra capabilites needed and multiple levels of Support can be accomplished (see chapter "Capabilites").
 
 ## Features
 * Find Students & Courses
@@ -57,8 +57,8 @@ level 2 Support (also write):
   * This requires the defined role to be able to "Allow role assignments" in its settings
 
 ## Configuration
- * Blocks are disabled by default and the nav drawer gets closed
-* The settings menu and it's functions are currently WIP and do not work at all.
+* Blocks are disabled by default and the nav drawer gets closed for maximum viewing 
+* The settings can be accessed with the cog in the header or by going to `/admin/settings.php?section=tool_supporter`
 
 ## Screenshot
-![screenshot](https://cloud.githubusercontent.com/assets/15816473/26623733/ec15ddf8-45ee-11e7-81e0-6414209d58e7.jpg)
+![screenshot](https://user-images.githubusercontent.com/15816473/53569114-b1a9b100-3b63-11e9-8eb5-697c9f89a5fd.PNG)
