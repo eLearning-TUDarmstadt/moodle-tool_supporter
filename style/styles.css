@@ -1,6 +1,16 @@
 #page-header .card {
+    /* More space for actual content */
     display: none;
 }
 tbody {
+    /* More space for actual content */
     line-height: 1;
+}
+#course_table_filtering .nav-tabs {
+    /* No double lines */
+    border-bottom:1px solid #fff;
+}
+#course_details #CoursePill_3 table {
+    /* Enlarges Enrolment methods */
+    width: 100%;
 }
