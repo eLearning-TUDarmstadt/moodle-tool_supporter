@@ -18,7 +18,7 @@
  * Class containing data for index page
  *
  * @package    tool_supporter
- * @copyright  2017 Benedikt Schneider, Klara Saary
+ * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
@@ -37,7 +37,7 @@ use stdClass;
  * Class containing data for index page
  * Gets passed to the renderer
  *
- * @copyright  2017 Benedikt Schneider
+ * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class index_page implements renderable, templatable {

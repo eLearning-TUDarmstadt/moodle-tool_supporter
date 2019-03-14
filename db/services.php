@@ -18,7 +18,7 @@
  * tool supporter external services.
  *
  * @package    tool_supporter
- * @copyright  2017 Benedikt Schneider, Klara Saary
+ * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

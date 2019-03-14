@@ -17,7 +17,7 @@
  * Version details.
  *
  * @package    tool_supporter
- * @copyright  2017, Klara Saary, Benedikt Schneider
+ * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;

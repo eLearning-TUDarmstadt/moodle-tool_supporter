@@ -16,7 +16,7 @@
 
 /**
  * @package   tool_supporter
- * @copyright 2018 Benedikt Schneider
+ * @copyright 2019 Benedikt Schneider
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
