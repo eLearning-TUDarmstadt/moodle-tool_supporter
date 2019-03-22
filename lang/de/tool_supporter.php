@@ -39,7 +39,7 @@ $string['sett_user_table'] = 'Benutzertabelle';
 $string['sett_user_details'] = 'Benutzerdetails';
 $string['sett_course_details'] = 'Kursdetails';
 
-$string['sett_course_table_desc'] = 'In diesem Abschnitt können auswählen wie die Kurstabelle angezeigt werden soll (unten links).';
+$string['sett_course_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Kurstabelle angezeigt werden soll (unten links).';
 $string['sett_course_table_pagelength'] = 'Die Anzahl der angezeigten Kurse';
 $string['sett_user_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Benutzertabelle angezeigt werden soll (unten rechts).';
 $string['sett_user_table_pagelength'] = 'Die Anzahl der angezeigten Benutzer';
