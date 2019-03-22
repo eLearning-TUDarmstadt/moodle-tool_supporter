@@ -1,16 +1,16 @@
-#page-header .card {
+.path-admin-tool-supporter #page-header .card {
     /* More space for actual content */
     display: none;
 }
-tbody {
+.path-admin-tool-supporter tbody {
     /* More space for actual content */
     line-height: 1;
 }
-#course_table_filtering .nav-tabs {
+.path-admin-tool-supporter #course_table_filtering .nav-tabs {
     /* No double lines */
     border-bottom: 1px solid #fff;
 }
-#course_details #CoursePill_3 table {
+.path-admin-tool-supporter #course_details #CoursePill_3 table {
     /* Enlarges Enrolment methods */
     width: 100%;
 }
