@@ -368,18 +368,18 @@ class external extends external_api {
         }
 
         $data['config'] = array(
-            'showusername' => $CFG->tool_supporter_user_details_showusername,
-            'showidnumber' => $CFG->tool_supporter_user_details_showidnumber,
-            'showfirstname' => $CFG->tool_supporter_user_details_showfirstname,
-            'showlastname' => $CFG->tool_supporter_user_details_showlastname,
-            'showmailadress' => $CFG->tool_supporter_user_details_showmailadress,
-            'showtimecreated' => $CFG->tool_supporter_user_details_showtimecreated,
-            'showtimemodified' => $CFG->tool_supporter_user_details_showtimemodified,
-            'showlastlogin' => $CFG->tool_supporter_user_details_showlastlogin,
+            'showusername' => get_config('tool_supporter', 'user_details_showusername'),
+            'showidnumber' => get_config('tool_supporter', 'user_details_showidnumber'),
+            'showfirstname' => get_config('tool_supporter', 'user_details_showfirstname'),
+            'showlastname' => get_config('tool_supporter', 'user_details_showlastname'),
+            'showmailadress' => get_config('tool_supporter', 'user_details_showmailadress'),
+            'showtimecreated' => get_config('tool_supporter', 'user_details_showtimecreated'),
+            'showtimemodified' => get_config('tool_supporter', 'user_details_showtimemodified'),
+            'showlastlogin' => get_config('tool_supporter', 'user_details_showlastlogin'),
         );
 
         // Get level labels.
-        $labels = $CFG->tool_supporter_level_labels;
+        $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
             $data['label_level_'.$count] = $label; // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
@@ -473,7 +473,7 @@ class external extends external_api {
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
         $data = array();
-        if ($CFG->tool_supporter_user_table_excludesuspended) {
+        if (get_config('tool_supporter', 'user_table_excludesuspended')) {
             $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => 0), null,
                                         'id, idnumber, username, firstname, lastname, email');
         } else {
@@ -575,7 +575,7 @@ class external extends external_api {
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
 
         // Get level labels.
-        $labels = $CFG->tool_supporter_level_labels;
+        $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
             $data['label_level_'.$count] = $label; // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
@@ -780,13 +780,13 @@ class external extends external_api {
         );
 
         $data['config'] = array(
-            'showshortname' => $CFG->tool_supporter_course_details_showshortname,
-            'showfullname'  => $CFG->tool_supporter_course_details_showfullname,
-            'showvisible'  => $CFG->tool_supporter_course_details_showvisible,
-            'showpath'  => $CFG->tool_supporter_course_details_showpath,
-            'showtimecreated'  => $CFG->tool_supporter_course_details_showtimecreated,
-            'showusersamount'  => $CFG->tool_supporter_course_details_showusersamount,
-            'showrolesandamount'  => $CFG->tool_supporter_course_details_showrolesandamount,
+            'showshortname' => get_config('tool_supporter', 'course_details_showshortname'),
+            'showfullname'  => get_config('tool_supporter', 'course_details_showfullname'),
+            'showvisible'  => get_config('tool_supporter', 'course_details_showvisible'),
+            'showpath'  => get_config('tool_supporter', 'course_details_showpath'),
+            'showtimecreated'  => get_config('tool_supporter', 'course_details_showtimecreated'),
+            'showusersamount'  => get_config('tool_supporter', 'course_details_showusersamount'),
+            'showrolesandamount'  => get_config('tool_supporter', 'course_details_showrolesandamount'),
         );
 
         return (array)$data;
@@ -1017,14 +1017,14 @@ class external extends external_api {
         self::validate_context($systemcontext);
 
         $data = array (
-            'tool_supporter_user_details_pagelength' => $CFG->tool_supporter_user_details_pagelength,
-            'tool_supporter_user_details_order' => $CFG->tool_supporter_user_details_order,
-            'tool_supporter_course_details_pagelength' => $CFG->tool_supporter_course_details_pagelength,
-            'tool_supporter_course_details_order' => $CFG->tool_supporter_course_details_order,
-            'tool_supporter_user_table_pagelength' => $CFG->tool_supporter_user_table_pagelength,
-            'tool_supporter_user_table_order' => $CFG->tool_supporter_user_table_order,
-            'tool_supporter_course_table_pagelength' => $CFG->tool_supporter_course_table_pagelength,
-            'tool_supporter_course_table_order' => $CFG->tool_supporter_course_table_order,
+            'tool_supporter_user_details_pagelength' => get_config('tool_supporter', 'user_details_pagelength'),
+            'tool_supporter_user_details_order' => get_config('tool_supporter', 'user_details_order'),
+            'tool_supporter_course_details_pagelength' => get_config('tool_supporter', 'course_details_pagelength'),
+            'tool_supporter_course_details_order' => get_config('tool_supporter', 'course_details_order'),
+            'tool_supporter_user_table_pagelength' => get_config('tool_supporter', 'user_table_pagelength'),
+            'tool_supporter_user_table_order' => get_config('tool_supporter', 'user_table_order'),
+            'tool_supporter_course_table_pagelength' => get_config('tool_supporter', 'course_table_pagelength'),
+            'tool_supporter_course_table_order' => get_config('tool_supporter', 'course_table_order'),
         );
         return $data;
     }

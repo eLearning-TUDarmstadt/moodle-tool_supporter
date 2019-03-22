@@ -61,8 +61,8 @@ class create_new_course implements renderable, templatable {
         $data['categories'] = $categories;
 
         $data['config'] = array (
-            'startdate' => $CFG->tool_supporter_new_course_startdate,
-            'enddate' => $CFG->tool_supporter_new_course_enddate,
+            'startdate' => get_config('tool_supporter', 'new_course_startdate'),
+            'enddate' => get_config('tool_supporter', 'new_course_enddate'),
         );
 
         return $data;
