@@ -39,12 +39,12 @@ $string['sett_user_table'] = 'Benutzertabelle';
 $string['sett_user_details'] = 'Benutzerdetails';
 $string['sett_course_details'] = 'Kursdetails';
 
-$string['sett_course_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Kurstabelle angezeigt werden soll (unten links).';
+$string['sett_course_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Kurstabelle angezeigt werden soll (linke Bildschirmhälfte).';
 $string['sett_course_table_pagelength'] = 'Die Anzahl der angezeigten Kurse';
-$string['sett_user_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Benutzertabelle angezeigt werden soll (unten rechts).';
-$string['sett_user_table_pagelength'] = 'Die Anzahl der angezeigten Benutzer';
+$string['sett_user_table_desc'] = 'In diesem Abschnitt können Sie auswählen wie die Benutzertabelle angezeigt werden soll (rechte Bildschirmhälfte).';
+$string['sett_user_table_pagelength'] = 'Die Anzahl der angezeigten Benutzer-Kurse';
 $string['sett_order_id'] = 'Sortierung der ersten ID-Spalte';
 $string['sett_user_details_desc'] = 'In diesem Abschnitt können Sie die Details auswählen, die Sie in den Benutzerdetails angezeigt haben möchten, d.h. wenn ein Benutzer angeklickt wird (oben rechts).';
 $string['sett_course_details_desc'] = 'In diesem Abschnitt können Sie die Details auswählen, die Sie in den Kursdetails angezeigt bekommen möchten, d.h. wenn ein Kurs angeklickt wird (oben links).';
-$string['sett_course_detail_showrolesandamount'] = 'Zeigt alle Rollen und ihre Anzahl';
-$string['sett_course_detail_showrolesandamount_desc'] = 'Zeigt explizit alle Rollen und deren Anzahl in einer separaten Tabellenzeile an, d.h. Anzahl der Lehrer, Anzahl der Schüler, etc';
+$string['sett_course_detail_showrolesandamount'] = 'Zeige alle Rollen und ihre Anzahl';
+$string['sett_course_detail_showrolesandamount_desc'] = 'Zeigt alle Rollen und deren Teilnehmer-Anzahl in einer separaten Tabellenzeile pro Rolle an, d.h. Anzahl der Trainer, Anzahl der Teilnehmer, etc.';
