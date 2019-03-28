@@ -275,10 +275,16 @@ Example context (json):
 	                <div class = "table table-responsive">
 	                    <table class = "stripe hover row-border">
 	                        <tbody>
+                                <tr>
+                                    <th>{{#str}}name{{/str}}</th>
+                                    <th>{{#str}}users{{/str}}</th>
+                                    <th>{{#str}}password{{/str}}</th>
+                                </tr>
 	                            {{#enrolmentMethods}}
 	                            <tr {{#enabled}} class="dimmed_text" {{/enabled}}>
 	                                <td>{{methodname}}</td>
-	                                <td>{{users}}</td>
+                                    <td>{{users_count}}</td>
+                                    <td>{{password}}</td>
 	                            </tr>
 	                            {{/enrolmentMethods}}
 	                        </tbody>

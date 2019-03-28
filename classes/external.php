@@ -737,13 +737,14 @@ class external extends external_api {
         foreach ($instances as $instance) {
             $plugin = $plugins[$instance->enrol];
 
+            $enrolmentmethod['password'] = $instance->password;
             $enrolmentmethod['methodname'] = $plugin->get_instance_name($instance);
             $enrolmentmethod['enabled'] = false;
             if (!enrol_is_enabled($instance->enrol) or $instance->status != ENROL_INSTANCE_ENABLED) {
                 $enrolmentmethod['enabled'] = true;
             }
 
-            $enrolmentmethod['users'] = $DB->count_records('user_enrolments', array('enrolid' => $instance->id));
+            $enrolmentmethod['users_count'] = $DB->count_records('user_enrolments', array('enrolid' => $instance->id));
             $enrolmentmethods[] = $enrolmentmethod;
         }
 
@@ -851,7 +852,8 @@ class external extends external_api {
                 new external_single_structure( array(
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
-                    'users' => new external_value(PARAM_INT, 'Amount of users enrolled with this method')
+                    'users_count' => new external_value(PARAM_INT, 'Amount of users enrolled with this method'),
+                    'password' =>  new external_value(PARAM_TEXT, 'Password for enrolment method'),
                 ))),
                 'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
         ));
