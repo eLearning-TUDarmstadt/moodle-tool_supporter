@@ -23,7 +23,7 @@
  */
 $string['toolsupporter'] = 'toolsupporter';
 
-$string['pagetitle'] = 'Dies ist das Tool für alle Moodle-Supporter da draußen!';
+$string['pagetitle'] = 'Moodle-Supporter';
 $string['pluginname'] = 'Supporter';
 $string['level'] = 'Ebene';
 $string['enable_selfenrolment'] = 'Selbsteinschreibung aktivieren und Passwort setzen';
