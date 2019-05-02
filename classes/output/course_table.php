@@ -30,16 +30,24 @@ use templatable;
 use renderer_base;
 use stdClass;
 
+/**
+ * Class containing data for course_table
+ *
+ * @package tool_supporter
+ * @copyright  2019 Klara Saary, Benedikt Schneider
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class course_table implements renderable, templatable {
 
 
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @param renderer_base $output
-     * @return stdClass
+     * @param renderer_base $output Standard renderer for php output
+     *
+     * @return stdClass Array with labels for each level
+     * @throws \dml_exception
      */
-
     public function export_for_template(renderer_base $output) {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.

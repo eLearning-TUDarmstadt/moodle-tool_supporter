@@ -32,7 +32,6 @@ use stdClass;
 
 /**
  * Class containing data for user_table
- * Gets passed to the renderer
  *
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -42,7 +41,9 @@ class create_new_course implements renderable, templatable {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @return stdClass
+     * @param renderer_base $output Standard renderer for php output
+     * @return stdClass Array of Moodle-categories and config-settings
+     * @throws \dml_exception
      */
     public function export_for_template(renderer_base $output) {
         global $DB, $CFG;

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for index page
+ * Class containing data for the section to enrol users
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
@@ -30,14 +30,20 @@ use templatable;
 use renderer_base;
 use stdClass;
 
+/**
+ * @copyright  2019 Klara Saary, Benedikt Schneider
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * Class enrolusersection
+ */
 class enrolusersection implements renderable, templatable {
 
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @return stdClass
+     * @param renderer_base $output
+     * @return stdClass Array of roles used in the selected course
      */
-
     public function export_for_template(renderer_base $output) {
 
         // Some testing data.

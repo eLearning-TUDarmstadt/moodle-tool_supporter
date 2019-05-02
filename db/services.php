@@ -84,7 +84,7 @@ $functions = array(
     ),
     'tool_supporter_toggle_course_visibility' => array(
         'classname'   => 'tool_supporter\external',
-        'methodname'  => 'toggle_course_visibility',
+        'methodname'  => 'toggleCourseVisibility',
         'classpath'   => 'tool/supporter/classes/external.php',
         'description' => 'hide/show the course',
         'type'        => 'write',

@@ -68,16 +68,17 @@ class external extends external_api {
     }
 
     /**
-     * Wrap the core function create_new_course.
-     * @param string $shortname Desired shortname. Has to be unique or error is returned
-     * @param string $fullname Desired fullname
-     * @param int $visible Visibility
-     * @param int $categoryid Id of the category
-     * @param $activateselfenrol
-     * @param $selfenrolpassword
-     * @param $startdate
-     * @param $enddate
-     * @return array Course characteristics
+     * Wrap the core function to create a new course, e.g. activating self enrolment
+     *
+     * @param string $shortname
+     * @param string $fullname
+     * @param bool $visible
+     * @param int $categoryid
+     * @param bool $activateselfenrol
+     * @param string $selfenrolpassword
+     * @param int $startdate
+     * @param int $enddate
+     * @return array
      * @throws \coding_exception
      * @throws \dml_exception
      * @throws \moodle_exception
@@ -853,7 +854,7 @@ class external extends external_api {
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
                     'users_count' => new external_value(PARAM_INT, 'Amount of users enrolled with this method'),
-                    'password' =>  new external_value(PARAM_TEXT, 'Password for enrolment method'),
+                    'password' => new external_value(PARAM_TEXT, 'Password for enrolment method'),
                 ))),
                 'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
         ));
@@ -952,7 +953,7 @@ class external extends external_api {
     }
 
     /**
-     * Wrapper for core function toggle_course_visibility
+     * Wrapper for core function toggleCourseVisibility
      *
      * @param int $courseid Id of the course which is to be toggled
      * @return array
@@ -1005,7 +1006,7 @@ class external extends external_api {
     }
 
     /**
-     * Wrapper for core function toggle_course_visibility
+     * Wrapper for core function toggleCourseVisibility
      *
      * @return array: See return-function
      * @throws \dml_exception

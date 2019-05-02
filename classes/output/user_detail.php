@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for index page
+ * Class containing data ffor user_detail
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
@@ -32,7 +32,6 @@ use stdClass;
 
 /**
  * Class containing data for user_detail
- * Gets passed to the renderer
  *
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -40,9 +39,10 @@ use stdClass;
 class user_detail implements renderable, templatable {
 
     /**
-     * Export this data so it can be used as the context for a mustache template.
+     * Standard functions which is needed, but does not get any data
      *
-     * @return stdClass
+     * @param renderer_base $output
+     * @return array without any content
      */
     public function export_for_template(renderer_base $output) {
         $array = null;

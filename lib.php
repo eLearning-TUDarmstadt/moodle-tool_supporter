@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Assigns Font-Awesome icons to Moodle icons
+ *
  * @package   tool_supporter
  * @copyright 2019 Benedikt Schneider
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

@@ -35,7 +35,7 @@ $PAGE->set_heading($title);
 $PAGE->blocks->show_only_fake_blocks(); // Disable blocks for layouts which do include pre-post blocks.
 require_login();
 
-$PAGE->requires->js_call_amd('tool_supporter/datatables', 'use_dataTable', array('.datatable', array()));
+$PAGE->requires->js_call_amd('tool_supporter/datatables', 'useDataTable', array('.datatable', array()));
 
 // Needed for sorting-arrows and responsive tables without horizontal scrollbars, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');

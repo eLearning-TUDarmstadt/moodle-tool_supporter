@@ -35,7 +35,6 @@ use stdClass;
 
 /**
  * Class containing data for index page
- * Gets passed to the renderer
  *
  * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -45,7 +44,10 @@ class index_page implements renderable, templatable {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @return stdClass
+     * @param renderer_base $output
+     * @return stdClass Array with Moodle-Root and a capability-check
+     * @throws \coding_exception
+     * @throws \dml_exception
      */
     public function export_for_template(renderer_base $output) {
         global $CFG;

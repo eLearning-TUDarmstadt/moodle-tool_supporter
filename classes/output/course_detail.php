@@ -44,7 +44,9 @@ class course_detail implements renderable, templatable {
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
-     * @return stdClass
+     * @param renderer_base $output Standard renderer for php output
+     *
+     * @return stdClass array with Moodle-Root
      */
     public function export_for_template(renderer_base $output) {
         global $CFG;
