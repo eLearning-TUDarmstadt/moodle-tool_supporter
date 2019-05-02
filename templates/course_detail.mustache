@@ -303,17 +303,17 @@ require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
     function($, search, sort, dataTable, loadInformation) {
 
     // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
-    dataTable.use_dataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
+    dataTable.useDataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
 
     // Convert activity-table to DataTable
-    dataTable.use_dataTable("#activityInCourse");
+    dataTable.useDataTable("#activityInCourse");
 
     // Load information about the clicked user
-    loadInformation.click_on_user('#userincourse');
+    loadInformation.clickOnUser('#userincourse');
 
     // Buttons on top
-    loadInformation.toggle_course_details();
-    loadInformation.toggle_course_visibility();
+    loadInformation.toggleCourseDetails();
+    loadInformation.toggleCourseVisibility();
 });
 
 {{/js}}

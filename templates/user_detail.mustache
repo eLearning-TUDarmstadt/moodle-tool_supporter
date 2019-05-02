@@ -113,11 +113,6 @@ Example context (json):
 <div style="display: none; padding-bottom: 15px" id = "user_details" data-region="user_details">
 	<div class="card" style="border:1px solid #8a8a8a">
 		<div class="card-header">
-            <!--
-			<div class = "float-left">
-                <a href="{{edituserlink}}" target="_blank"><h3>{{#userinformation}}{{firstname}}{{/userinformation}}</h3></a>
-			</div>
-        -->
             <div class = "float-left">
                 <h3><a href="{{edituserlink}}" target="_blank">{{#userinformation}}{{firstname}} {{lastname}}{{/userinformation}}</a></h3>
             </div>
@@ -236,12 +231,12 @@ require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_suppo
     function(search, sort, dataTable, loadInformation) {
 
         // Convert table to DataTable and add filter functionality to dropdown-menue.
-        dataTable.use_dataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
+        dataTable.useDataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
                                                        ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
 
         // Load information about the clicked course.
-        loadInformation.click_on_course('#userdetailcourses');
+        loadInformation.clickOnCourse('#userdetailcourses');
 
-        loadInformation.toggle_user_details();
+        loadInformation.toggleUserDetails();
     });
 {{/js}}

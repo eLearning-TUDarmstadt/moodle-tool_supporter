@@ -25,17 +25,14 @@
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
     // Private Stuff.
-
-    var show_enrol_section = function(courseID) {
+    var showEnrolSection = function(courseID) {
         var promise = ajax.call([{
             methodname: 'tool_supporter_get_assignable_roles',
             args: {
                 courseID: courseID
             }
         }], true, true);
-        promise[0].done(function(data){
-            //console.log("assignableRoles Returns: ");
-            //console.log(data);
+        promise[0].done(function(data) {
             // Render template with data.
             templates.render('tool_supporter/enrolusersection', data).done(function(html, js) {
                 $('[data-region="enroluserregion"]').replaceWith(html);
@@ -46,7 +43,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     };
 
     // Toggling course visibility on and off.
-    var toggle_course_visibility_private = function() {
+    var toggleCourseVisibilityPrivate = function() {
         var promises = ajax.call([{
             methodname: 'tool_supporter_toggle_course_visibility',
             args: {
@@ -55,9 +52,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         }], true, true);
 
         promises[0].done(function(course) {
-            //console.log("toggle visibility return data");
-            //console.log(course['courseDetails'].visible);
-
             // Re-render the template to show the changes.
             templates.render('tool_supporter/course_detail', course).done(function(html, js) {
                 $('[data-region="course_details"]').replaceWith(html);
@@ -72,27 +66,28 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     var public = {
 
         /**
-         * show the course details
-         * @method show_course_detail
+         * Show the course details
+         * @method showCourseDetail
+         * @param {number} courseID
+         * @param {boolean} boolreturn
+         * @return {array} course info
          */
-        show_course_detail: function(course_id, boolreturn) {
-            if(boolreturn === 'undefined') {
+        showCourseDetail: function(courseID, boolreturn) {
+            if (boolreturn === 'undefined') {
                 boolreturn = 0;
             }
             // Go to top.
             var position = $("#course_details").offset().top;
-            $("html, body").animate({ scrollTop: position - 50 }, "slow");
+            $("html, body").animate({scrollTop: position - 50}, "slow");
 
             var promise = ajax.call([{
                 methodname: 'tool_supporter_get_course_info',
                 args: {
-                    courseID: course_id
+                    courseID: courseID
                 }
             }]);
 
-            promise[0].done(function(data){
-                //console.log("Show course detail Returns: ");
-                //console.log(data);
+            promise[0].done(function(data) {
                 // Render template with data.
                 templates.render('tool_supporter/course_detail', data).done(function(html, js) {
                     $('[data-region="course_details"]').replaceWith(html);
@@ -102,37 +97,39 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                     // If a user is selected.
                     if ($('#selecteduserid').length === 1) {
-                        show_enrol_section(course_id);
+                        showEnrolSection(courseID);
                     }
 
                 }).fail(notification.exception);
             }).fail(notification.exception);
-            if(boolreturn){
+            if (boolreturn) {
                 return promise;
             }
+
+            return null;
         },
 
         /**
-         * toggle course visibility on and off
+         * Toggle course visibility on and off
          *
-         * @method toggle_course_visibility
+         * @method toggleCourseVisibility
          */
-        toggle_course_visibility: function() {
+        toggleCourseVisibility: function() {
             // Both are needed because of different ids.
             $('#hide_course_visibility').on('click', function() {
-                toggle_course_visibility_private();
+                toggleCourseVisibilityPrivate();
             });
             $('#show_course_visibility').on('click', function() {
-                toggle_course_visibility_private();
+                toggleCourseVisibilityPrivate();
             });
         },
 
         /**
          * Toggles the user block
          *
-         * @method toggle_user_details
+         * @method toggleUserDetails
          */
-        toggle_user_details: function() {
+        toggleUserDetails: function() {
             $('#btn_hide_user_details, #btn_show_user_details').on('click', function() {
                 $('#user_details_body').toggle();
                 $('#btn_hide_user_details').toggle();
@@ -145,7 +142,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          *
          * @method toggle_course_detail
          */
-        toggle_course_details: function() {
+        toggleCourseDetails: function() {
             $('#btn_hide_course_details, #btn_show_course_details').on('click', function() {
                 $('#course_details_body').toggle();
                 $('#btn_hide_course_details').toggle();
@@ -156,16 +153,16 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         /**
          * Get the details of the user and displays them
          *
-         * @method click_on_user
-         * @param tableID Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
+         * @method clickOnUser
+         * @param {string} tableID Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
          */
-        click_on_user: function(tableID) {
+        clickOnUser: function(tableID) {
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
 
                 // Get id (first column) of clicked row.
-                var user_id = $(this).find('td:first-child').text();
+                var userID = $(this).find('td:first-child').text();
 
-                if (!isNaN(user_id)) {
+                if (!isNaN(userID)) {
                     // Remove previous hightlights.
                     var dataTable = $(tableID).dataTable()[0];
                     $(dataTable.rows).css("background-color", "");
@@ -174,18 +171,16 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                     // Go to top.
                     var position = $("#user_details").offset().top;
-                    $("html, body").animate({ scrollTop: position - 50}, "slow");
+                    $("html, body").animate({scrollTop: position - 50}, "slow");
 
                     var promises = ajax.call([{
                         methodname: 'tool_supporter_get_user_information',
                         args: {
-                            userid: user_id
+                            userid: userID
                         }
                     }]);
 
                     promises[0].done(function(data) {
-                        //console.log("click on user Returns: ");
-                        //console.log(data);
                         templates.render('tool_supporter/user_detail', data[0]).done(function(html, js) {
                             $('[data-region="user_details"]').replaceWith(html);
                             $('[data-region="user_details"]').show();
@@ -193,7 +188,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                             // Only show the section if a course is selected.
                             if ($('[data-region="course_details"]').is(':visible')) {
                                 var courseid = $('#selectedcourseid')[0].textContent;
-                                show_enrol_section(courseid);
+                                showEnrolSection(courseid);
                             }
 
                             templates.runTemplateJS(js);
@@ -206,14 +201,16 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         /**
          * Helper function for jquery event
          *
-         * @method click_on_user
+         * @method clickOnUser
+         * @param {string} tableID
+         *
          */
-        click_on_course: function(tableID) {
-            var public_object = this;
+        clickOnCourse: function(tableID) {
+            var publicObject = this;
             $(tableID + ' tbody').on('click', 'tr', function() { // Click event on each row.
 
-                var course_id = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
-                if (!isNaN(course_id)) {
+                var courseID = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
+                if (!isNaN(courseID)) {
                     // Remove previous hightlights.
                     var dataTable = $(tableID).dataTable()[0];
                     $(dataTable.rows).css("background-color", "");
@@ -221,12 +218,12 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     $(this).css("background-color", "#bcbcbc");
 
                     // Show details of this course.
-                    public_object.show_course_detail(course_id, false);
+                    publicObject.showCourseDetail(courseID, false);
                 }
             });
         },
 
-        click_on_refresh: function(tableID, methodname, args) {
+        clickOnRefresh: function(tableID, methodname, args) {
             // For users table.
             $('#btn_refresh_users').on('click', function() {
                 var promises = ajax.call([{
@@ -234,8 +231,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     "args": args
                 }]);
                 promises[0].done(function(data) {
-                    //console.log("return data for refreshing a user");
-                    //console.log(data);
                     templates.render('tool_supporter/user_table', data).done(function(html, js) {
                         $('[data-region="user_table"]').replaceWith(html);
                         templates.runTemplateJS(js);
@@ -250,8 +245,6 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                     "args": args
                 }]);
                 promises[0].done(function(data) {
-                    //console.log("return data for refreshing a course");
-                    //console.log(data);
                     templates.render('tool_supporter/course_table', data).done(function(html, js) {
                         $('[data-region="course_table"]').replaceWith(html);
                         templates.runTemplateJS(js);
@@ -262,5 +255,5 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     };
 
     // Alias module:tool_supporter/load_information.
-    return  public;
+    return public;
 });

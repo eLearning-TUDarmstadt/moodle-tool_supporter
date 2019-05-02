@@ -191,18 +191,18 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
                        ];
 
         // Convert the table to dataTable and apply Filtering.
-        datatables.dataTable_ajax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
+        datatables.dataTableAjax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
 
         // Refresh this table.
-        loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
+        loadInformation.clickOnRefresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
 
         // Load detailed information about the clicked course.
-        loadInformation.click_on_course('#courseTable');
+        loadInformation.clickOnCourse('#courseTable');
 
         // Search the table.
-        tableFilter.search_table('#courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);
+        tableFilter.searchTable('#courseTable', '#course_table_column_chooser', '#course_table_search_input', columns1);
 
         // Clear filters when button is clicked.
-        tableFilter.courses_clear_filters('#courseTable');
+        tableFilter.coursesClearFilters('#courseTable');
   });
 {{/js}}

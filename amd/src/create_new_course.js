@@ -23,15 +23,15 @@
  * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'],
-        function($, ajax, templates, notification, str, load_information) {
-            return /** @alias module:tool_supporter/create_new_course */ {
+        function($, ajax, templates, notification, str, loadInformation) {
+            return /** @alias module:tool_supporter/createNewCourse */ {
 
                 /**
                  * Toggles the disabled-property of the password input
                  *
-                 * @method toggle_password_input
+                 * @method togglePasswordInput
                  */
-                toggle_password_input: function() {
+                togglePasswordInput: function() {
                     $('#new_course_enable_self').on('click', function() {
                         // Set to the opposite of the checkbox.
                         $('#new_course_self_password').prop('disabled', !this.checked);
@@ -39,11 +39,11 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 },
 
                 /**
-                 * show the form to create a course
+                 * Show the form to create a course
                  *
-                 * @method show_new_course
+                 * @method showNewCourse
                  */
-                show_new_course: function() {
+                showNewCourse: function() {
                     $('#btn_show_new_course').on('click', function() {
                         $('[data-region="create_new_course_section"]').toggle();
                     });
@@ -52,9 +52,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                 /**
                  * Create a course
                  *
-                 * @method create_new_course
+                 * @method createNewCourse
                  */
-                create_new_course: function() {
+                createNewCourse: function() {
                     $('#create_new_course_button').on('click', function() {
                         var promises = ajax.call([{
                             methodname: 'tool_supporter_create_new_course',
@@ -72,41 +72,38 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
                         promises[0].done(function(data) {
                             // Display the created course.
-                            var promise1 = load_information.show_course_detail(data.id, true);
+                            var promise1 = loadInformation.showCourseDetail(data.id, true);
 
-                            promise1[0].done(function(data){
+                            promise1[0].done(function(data) {
                                 $('[data-region="create_new_course_section"]').hide();
 
                                 // Add the newly created course to the DataTable without reloading the whole thing.
                                 $('#courseTable').DataTable().row.add({
-                                    "id": data['courseDetails']['id'],
-                                    "shortname": data['courseDetails']['shortname'],
-                                    "fullname": data['courseDetails']['fullname'],
-                                    "level_one": data['courseDetails']['level_one'],
-                                    "level_two": data['courseDetails']['level_two'],
-                                    "visible": +data['courseDetails']['visible'], // Implicity cast false to 0.
+                                    "id": data.courseDetails.id,
+                                    "shortname": data.courseDetails.shortname,
+                                    "fullname": data.courseDetails.fullname,
+                                    "level_one": data.courseDetails.level_one,
+                                    "level_two": data.courseDetails.level_two,
+                                    "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);
                             });
                         });
 
                         promises[0].fail(function(error) {
-                            //console.log("There was an error during course creation - response is:");
-                            //console.log(error);
-
-                            str.get_string('error', 'error').done(function(error_string) {
+                            str.get_string('error', 'error').done(function(errorString) {
                                 str.get_string('ok', 'moodle').done(function(accept) {
-                                    var wanted_shortname = $('#new_course_short_name_input')[0].value;
-                                    str.get_string('shortnametaken', 'error', wanted_shortname).done(
-                                            function(shortnametaken_string) {
-                                                var error_message = "Possible problem: " + shortnametaken_string + "<br><br>";
+                                    var wantedShortname = $('#new_course_short_name_input')[0].value;
+                                    str.get_string('shortnametaken', 'error', wantedShortname).done(
+                                            function(shortnametakenString) {
+                                                var errorMessage = "Possible problem: " + shortnametakenString + "<br><br>";
                                                 if (error.message) {
-                                                    error_message += "Error-Message:<br>" + error.message + "<br><br>";
+                                                    errorMessage += "Error-Message:<br>" + error.message + "<br><br>";
                                                 }
                                                 if (error.debuginfo) {
-                                                    error_message += "Debuginfo:<br>" + error.debuginfo + "<br><br>";
+                                                    errorMessage += "Debuginfo:<br>" + error.debuginfo + "<br><br>";
                                                 }
 
-                                                notification.alert(error_string, error_message, accept);
+                                                notification.alert(errorString, errorMessage, accept);
                                             });
                                 });
                             });

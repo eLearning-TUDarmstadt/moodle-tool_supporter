@@ -27,11 +27,11 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
         'core/ajax', 'core/notification', 'core/templates'],
 function($, datatables, str, filter, ajax, notification, templates) {
 
-    var use_filters = function(tableID, filterSelector){
+    var useFilters = function(tableID, filterSelector) {
         // Only execute if there are filters.
         if (typeof filterSelector != "undefined") {
             // Set filters for every dropdown-menu.
-            for(var i = 0; i < filterSelector.length; i++){
+            for (var i = 0; i < filterSelector.length; i++) {
                 // Params: checkbox, FormInput, column, tableID.
                 filter.filterEvent(filterSelector[i][0], filterSelector[i][1], filterSelector[i][2], tableID);
             }
@@ -41,12 +41,12 @@ function($, datatables, str, filter, ajax, notification, templates) {
     return /** @alias module:tool_supporter/datatables */ {
 
         /**
-         * @method use_dataTable
-         * @param tableID: ID of table you want to convert into datatable
-         * @param filterSelector: Array for filtering with the dropdown-menues
+         * @method useDataTable
+         * @param {string} tableID: ID of table you want to convert into datatable
+         * @param {number} filterSelector: Array for filtering with the dropdown-menues
          * There can be several filterSelectors, for example one for each dropdown-menue
          */
-        use_dataTable: function(tableID, filterSelector){
+        useDataTable: function(tableID, filterSelector) {
 
             var promises = ajax.call([{
                 methodname: "tool_supporter_get_settings",
@@ -55,60 +55,57 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
             promises[0].done(function(settings) {
 
-                var string_noresults = str.get_string('noresults', 'admin');
-                var string_search = str.get_string('search', 'moodle');
+                var stringNoResults = str.get_string('noresults', 'admin');
+                var stringSearch = str.get_string('search', 'moodle');
 
-                $.when(string_noresults, string_search).done(function (noresultsString, searchString) {
+                $.when(stringNoResults, stringSearch).done(function(noResultsString, searchString) {
                     // Standard settings for every "details"-table.
                     var options = {
-                        "retrieve": true,   // So the table can be accessed after initialization.
+                        "retrieve": true, // So the table can be accessed after initialization.
                         "responsive": true,
                         "lengthChange": true,
                         "language": {
-                            // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
-                            'info': "",
+                            'info': "", // Empty info. Legacy: Showing page _PAGE_ of _PAGES_ .
                             'search': searchString + ": ",
                             'lengthMenu': "_MENU_",
-                            'zeroRecords': noresultsString,
+                            'zeroRecords': noResultsString,
                         },
                         "dom": "<'row'<'col-sm-6'><'col-sm-6'f>>" +
                             "<'row'<'col-sm-12't>>" +
                             "<'row'<'col-sm-4'><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                         "pagingType": "numbers",
-                        //"scrollX": "false",
-                        //"sScrollX": "100%",
                     };
 
                     // Initialize depending on setting.
                     if (tableID == '#userincourse') {
-                        options.order = [[ 0, settings['tool_supporter_course_details_order'] ]];
-                        options.pageLength = settings['tool_supporter_course_details_pagelength'];
-                        options.lengthMenu = [settings['tool_supporter_course_details_pagelength'], 10, 25, 50, 100];
+                        options.order = [[0, settings.tool_supporter_course_details_order]];
+                        options.pageLength = settings.tool_supporter_course_details_pagelength;
+                        options.lengthMenu = [settings.tool_supporter_course_details_pagelength, 10, 25, 50, 100];
                     }
                     if (tableID == '#userdetailcourses') {
-                        options.order = [[ 0, settings['tool_supporter_user_details_order'] ]];
-                        options.pageLength = settings['tool_supporter_user_details_pagelength'];
-                        options.lengthMenu = [settings['tool_supporter_user_details_pagelength'], 10, 25, 50, 100];
+                        options.order = [[0, settings.tool_supporter_user_details_order]];
+                        options.pageLength = settings.tool_supporter_user_details_pagelength;
+                        options.lengthMenu = [settings.tool_supporter_user_details_pagelength, 10, 25, 50, 100];
                     }
 
                     $(tableID).DataTable(options);
 
                     // Apply Dropdown-Filters to DataTable.
-                    use_filters(tableID, filterSelector);
+                    useFilters(tableID, filterSelector);
 
                 });
             });
         },
 
         /**
-         * @method dataTable_ajax
-         * @param tableID : ID of table you want to convert into datatable
-         * @param methodname : Method to get the table data from
-         * @param args : arguments for ajax-call
-         * @param datainfo : where to find table data in return value of method
-         * @param columns : Name of table columns
+         * @method dataTableAjax
+         * @param {string} tableID : ID of table you want to convert into datatable
+         * @param {string} methodname : Method to get the table data from
+         * @param {string} args : arguments for ajax-call
+         * @param {string} datainfo : where to find table data in return value of method
+         * @param {string} columns : Name of table columns
          */
-        dataTable_ajax: function(tableID, methodname, args, datainfo, columns){
+        dataTableAjax: function(tableID, methodname, args, datainfo, columns) {
 
             var promise = ajax.call([{
                 "methodname": methodname,
@@ -123,10 +120,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
                 }], true, true);
 
                 promises[0].done(function(settings) {
-                    var string_noresults = str.get_string('noresults', 'admin');
-                    var string_search = str.get_string('search', 'moodle');
+                    var stringNoResults = str.get_string('noresults', 'admin');
+                    var stringSearch = str.get_string('search', 'moodle');
 
-                    $.when(string_noresults, string_search).done(function(noresultsString, searchString) {
+                    $.when(stringNoResults, stringSearch).done(function(noResultsString, searchString) {
                         var options = {
                             "data": data[datainfo],
                             "columns": columns,
@@ -139,14 +136,14 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                 'info': " ",
                                 'search': searchString + ": ",
                                 'lengthMenu': "_MENU_",
-                                'zeroRecords': noresultsString,
+                                'zeroRecords': noResultsString,
                             },
                             "dom": "<'col-sm-12't>" +
                                 "<'row'<'col-sm-4'><'col-sm-3'p><'col-sm-3'><'col-sm-1'l>>",
                             "paging": true,
                             "pagingType": "numbers",
                             "processing": true,
-                            "initComplete" : function () { // Execute after the dataTable was rendered.
+                            "initComplete": function() { // Execute after the dataTable was rendered.
                                 $(tableID + "-loadingIcon").hide();
 
                                 if (tableID == "#courseTable") {
@@ -159,7 +156,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                         $('[data-region="course_filtering"]').replaceWith(anchor[0].outerHTML);
 
                                         // Counting begins at 0, but the shortname-column is invisible.
-                                        use_filters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
+                                        useFilters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
                                             ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
                                     }).fail(notification.exception);
                                 }
@@ -167,19 +164,18 @@ function($, datatables, str, filter, ajax, notification, templates) {
                                     $('#users_dynamic_search').css('visibility', 'visible'); // Show search input.
                                 }
                             }
-
                         };
 
                         // Initialize depending on setting.
                         if (tableID == '#courseTable') {
-                            options.order = [[ 0, settings['tool_supporter_course_table_order'] ]];
-                            options.pageLength = settings['tool_supporter_course_table_pagelength'];
-                            options.lengthMenu = [settings['tool_supporter_course_table_pagelength'], 10, 25, 50, 100];
+                            options.order = [[0, settings.tool_supporter_course_table_order]];
+                            options.pageLength = settings.tool_supporter_course_table_pagelength;
+                            options.lengthMenu = [settings.tool_supporter_course_table_pagelength, 10, 25, 50, 100];
                         }
                         if (tableID == '#userTable') {
-                            options.order = [[ 0, settings['tool_supporter_user_table_order'] ]];
-                            options.pageLength = settings['tool_supporter_user_table_pagelength'];
-                            options.lengthMenu = [settings['tool_supporter_user_table_pagelength'], 10, 25, 50, 100];
+                            options.order = [[0, settings.tool_supporter_user_table_order]];
+                            options.pageLength = settings.tool_supporter_user_table_pagelength;
+                            options.lengthMenu = [settings.tool_supporter_user_table_pagelength, 10, 25, 50, 100];
                         }
 
                         $(tableID).DataTable(options);

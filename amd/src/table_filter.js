@@ -27,23 +27,22 @@
  */
 define(['jquery'], function($) {
 
-    var filterTable = function(checked_elements, otable, column){
+    var filterTable = function(checkedElements, otable, column) {
 
         var filterElements = [];
-        var string_value = '';
-        $(checked_elements).each(function(){
+        var stringValue = '';
+        $(checkedElements).each(function() {
             var val = $(this).val();
-            if(val === ""){
-                string_value = '^(?![\\s\\S])';
-            }
-            else {
+            if (val === "") {
+                stringValue = '^(?![\\s\\S])';
+            } else {
                 // Escape Regex-Characters which may be in names of categories.
                 val = val.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
                 // String value is added several times with different starts and endings.
                 // So filter for "Teacher" does not match "non-editing teacher".
-                string_value = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';
+                stringValue = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';
             }
-            filterElements.push(string_value);
+            filterElements.push(stringValue);
         });
         var filter = filterElements.join("|");
         otable.fnFilter(filter, column, true, false, false, true);
@@ -52,54 +51,44 @@ define(['jquery'], function($) {
     return /** @alias module:tool_supporter/table_filter */ {
 
         /**
-         * Filtering the table with the appropiate form!
+         * Filtering the table with the appropriate form!
          *
          * @method FilterEvent
-         * @param checkbox_name : Name of the checkboxes that are used to filter.
-         * @param tableID : ID of the table or part of the table you want to filter
-         * @param FormInput : The ID of the dropdownmenu or something similiary you want to use to filter the table
-         * @param column : which column should be filtered
+         * @param {string} checkboxName Name of the checkboxes that are used to filter.
+         * @param {number} FormInput The ID of the dropdownmenu or something similar you want to use to filter the table
+         * @param {number} column which column should be filtered
+         * @param {string} tableID ID of the table or part of the table you want to filter
          */
-        filterEvent: function(checkbox_name, FormInput, column, tableID) {
+        filterEvent: function(checkboxName, FormInput, column, tableID) {
             $(FormInput).change(function() {
-                $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+                if (tableID === '#courseTable') {
+                    $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+                }
 
-                var checked_elements = $('input[name=' + checkbox_name + ']:checked');
+                var checkedElements = $('input[name=' + checkboxName + ']:checked');
                 var otable = $(tableID).dataTable();
-                filterTable(checked_elements, otable, column);
+                filterTable(checkedElements, otable, column);
             });
-
         },
 
-        search_table: function(tableID, columnDropdownID, searchFieldID, columns) {
+        searchTable: function(tableID, columnDropdownID, searchFieldID, columns) {
             // Initialize Dropdown - add other options than "all".
             var counter = 0;
             columns.forEach(function(element) {
                 $(columnDropdownID).append($('<option>', {
                     value: counter,
-                    text : element.name
+                    text: element.name
                 }));
                 counter++;
             });
 
-            // Apply Filter when user is typing.
-            $(searchFieldID).on('keyup', actually_search);
-
-            var previousColumn;
-
-            // Safe last column when dropdown is clicked.
-            $(columnDropdownID).on('click', function(){
-                previousColumn = this.value;
-            });
-
-            // Clear previous search and apply new search.
-            $(columnDropdownID).on('change', function(){
-                $(tableID).DataTable().column(previousColumn).search("");
-                actually_search();
-            });
-
-            function actually_search() {
-                $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+            /**
+             * Filter the table
+             */
+            function actuallySearch() {
+                if (tableID === '#courseTable') {
+                    $('#courses_clear_filters').css('visibility', 'visible'); // Show "clear filter"-Button.
+                }
 
                 var otable = $(tableID).dataTable();
                 var searchValue = $(searchFieldID)[0].value;
@@ -110,13 +99,29 @@ define(['jquery'], function($) {
                     otable.fnFilter(searchValue, columnID, true, true, false, true); // Search a specific column.
                 }
             }
+
+            // Apply Filter when user is typing.
+            $(searchFieldID).on('keyup', actuallySearch);
+
+            var previousColumn;
+
+            // Safe last column when dropdown is clicked.
+            $(columnDropdownID).on('click', function() {
+                previousColumn = this.value;
+            });
+
+            // Clear previous search and apply new search.
+            $(columnDropdownID).on('change', function() {
+                $(tableID).DataTable().column(previousColumn).search("");
+                actuallySearch();
+            });
         },
 
-        courses_clear_filters: function(tableID) {
-            $('#courses_clear_filters').on('click', function(){
+        coursesClearFilters: function(tableID) {
+            $('#courses_clear_filters').on('click', function() {
                 $(tableID).DataTable().search('').columns().search('').draw();
                 $('#course_table_search_input')[0].value = '';
-                $('input[name^=courses_level]:checked').prop( "checked", false ); // Uncheck all checked Boxes.
+                $('input[name^=courses_level]:checked').prop("checked", false); // Uncheck all checked Boxes.
                 $(this).css('visibility', 'hidden');
             });
         },

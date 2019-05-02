@@ -115,15 +115,15 @@ function(loadInformation, $, ajax, notification, templates, datatables, tableFil
                      {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
                      {data: 'email', name: '{{#str}}email{{/str}}'}
                   ];
-    datatables.dataTable_ajax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
+    datatables.dataTableAjax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
     // Refresh this table.
-    loadInformation.click_on_refresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
+    loadInformation.clickOnRefresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
     // Load detailed information about the clicked user.
-    loadInformation.click_on_user('#userTable');
+    loadInformation.clickOnUser('#userTable');
 
     // Search the table.
-    tableFilter.search_table('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
+    tableFilter.searchTable('#userTable', '#user_table_column_chooser', '#user_table_search_input', columns);
 });
 {{/js}}
