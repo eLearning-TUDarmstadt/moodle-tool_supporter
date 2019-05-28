@@ -32,7 +32,6 @@ require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
 require_once("$CFG->dirroot/user/lib.php");
 require_once("$CFG->libdir/adminlib.php");
-require_once("$CFG->libdir/coursecatlib.php");
 
 use external_api;
 use external_function_parameters;
@@ -88,12 +87,10 @@ class external extends external_api {
      */
     public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol,
                                              $selfenrolpassword, $startdate, $enddate) {
-
         global $DB;
 
-        $catcontext = \context_coursecat::instance($categoryid);
-        self::validate_context($catcontext);
-        \require_capability('moodle/course:create', $catcontext);
+        self::validate_context(\context_coursecat::instance($categoryid));
+        \require_capability('moodle/course:create', \context_system::instance());
 
         $array = array (
             'shortname' => $shortname,
@@ -953,7 +950,7 @@ class external extends external_api {
     }
 
     /**
-     * Wrapper for core function toggleCourseVisibility
+     * Wrapper for core function toggle_course_visibility
      *
      * @param int $courseid Id of the course which is to be toggled
      * @return array
