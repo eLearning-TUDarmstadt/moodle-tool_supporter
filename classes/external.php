@@ -126,6 +126,7 @@ class external extends external_api {
         $data->startdate = strtotime($params['startdate']);
         $data->enddate = strtotime($params['enddate']);
 
+        $data->numsections = 10;
         $createdcourse = create_course($data);
 
         if ($activateselfenrol) {
@@ -280,9 +281,9 @@ class external extends external_api {
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
-            $info->timecreated = date('d.m.Y m:h', $info->timecreated);
-            $info->timemodified = date('d.m.Y m:h', $info->timemodified);
-            $info->lastlogin = date('d.m.Y m:h', $info->lastlogin);
+            $info->timecreated = date('Y-m-d H:i:s', $info->timecreated);
+            $info->timemodified = date('Y-m-d H:i:s', $info->timemodified);
+            $info->lastlogin = date('Y-m-d H:i:s', $info->lastlogin);
             // Cast as an array.
             $userinformationarray[] = (array)$info;
         }
@@ -661,7 +662,7 @@ class external extends external_api {
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
-        $coursedetails['timecreated'] = date('d.m.Y m:h', $coursedetails['timecreated']); // Convert timestamp to readable format.
+        $coursedetails['timecreated'] = date('Y-m-d H:i:s', $coursedetails['timecreated']); // Convert timestamp to readable format.
 
         // Get whole course-path.
         // Extract IDs from path and remove empty values by using array_filter.
@@ -705,8 +706,10 @@ class external extends external_api {
                                                {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', array($courseid));
         foreach ($usersraw as $u) {
             $u = (array)$u;
-            $u['lastaccess'] = date('d.m.Y m:h', $DB->get_field('user_lastaccess', 'timeaccess',
+
+            $u['lastaccess'] = date('Y-m-d H:i:s', $DB->get_field('user_lastaccess', 'timeaccess',
                                                                         array('courseid' => $courseid, 'userid' => $u['id'])));
+
             // Find user specific roles, but without parent context (no global roles).
             $rolesofuser = get_user_roles($coursecontext, $u['id'], false);
             $userroles = [];
