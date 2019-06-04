@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,16 +13,27 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * Plugin version info
+ * This is the external API for the supporter plugin.
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
-$plugin->version   = 2019060401; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2018051700; // Requires Moodle version 3.5 or higher for stable Bootstrap 4.
-$plugin->component = 'tool_supporter'; // Full name of the plugin (used for diagnostics).
-$plugin->release = 'v1.0';
-$plugin->maturity = MATURITY_STABLE;
+namespace tool_supporter\privacy;
+
+class provider implements
+    // This plugin does not store any personal user data.
+    \core_privacy\local\metadata\null_provider {
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason() : string {
+        return 'privacy:metadata';
+    }
+}

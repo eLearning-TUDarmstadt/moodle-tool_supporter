@@ -48,3 +48,4 @@ $string['sett_user_details_desc'] = 'In diesem Abschnitt können Sie die Details
 $string['sett_course_details_desc'] = 'In diesem Abschnitt können Sie die Details auswählen, die Sie in den Kursdetails angezeigt bekommen möchten, d.h. wenn ein Kurs angeklickt wird (oben links).';
 $string['sett_course_detail_showrolesandamount'] = 'Zeige alle Rollen und ihre Anzahl';
 $string['sett_course_detail_showrolesandamount_desc'] = 'Zeigt alle Rollen und deren Teilnehmer-Anzahl in einer separaten Tabellenzeile pro Rolle an, d.h. Anzahl der Trainer, Anzahl der Teilnehmer, etc.';
+$string['privacy:metadata'] = 'Dieses Plugin speichert keine nutzerspezifischen Daten, nur globale Einstellungemöglichkeiten.';

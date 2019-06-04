@@ -48,3 +48,4 @@ $string['sett_user_details_desc'] = 'In this section you can select all the thin
 $string['sett_course_details_desc'] = 'In this section you can select all the things you want to have shown in the course details, i.e. when a course is clicked (top left).';
 $string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amount';
 $string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in a seperate table row per role, i.e. amount of teachers, amount of students, etc.';
+$string['privacy:metadata'] = 'This plugin does not save user-specific data, only global settings.';

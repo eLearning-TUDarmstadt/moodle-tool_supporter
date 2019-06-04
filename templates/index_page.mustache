@@ -28,15 +28,15 @@ Example context (json):
 
 <div class="d-flex align-items-center">
 
-	&nbsp;|&nbsp;
-
 	{{#isallowedtocreatecourses}}
+        &nbsp;|&nbsp;
 		<a href="#" id="btn_show_new_course"><u>{{#pix}}i/addblock, core{{/pix}}{{#str}}addnewcourse{{/str}}</u></a>
 	{{/isallowedtocreatecourses}}
-	
-	&nbsp;|&nbsp;
-	
-	<a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank"><u>{{#pix}} i/settings, core{{/pix}}{{#str}}settings{{/str}}</u></a>
+
+    {{#isallowedtochangesiteconfig}}
+        &nbsp;|&nbsp;
+        <a href="{{wwwroot}}/admin/settings.php?section=tool_supporter" target="_blank"><u>{{#pix}} i/settings, core{{/pix}}{{#str}}settings{{/str}}</u></a>
+    {{/isallowedtochangesiteconfig}}
 </div>
 
 {{#js}}
