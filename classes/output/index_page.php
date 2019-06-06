@@ -52,13 +52,6 @@ class index_page implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $CFG;
         $data['wwwroot'] = $CFG->wwwroot;
-        /*
-        if (\has_capability('moodle/course:create', \context_system::instance()) ) {
-            $data['isallowedtocreatecourses'] = true;
-        } else {
-            $data['isallowedtocreatecourses'] = false;
-        }
-        */
         $data['isallowedtocreatecourses'] = \has_capability('moodle/course:create', \context_system::instance());
         $data['isallowedtochangesiteconfig'] = \has_capability('moodle/site:config', \context_system::instance());
 

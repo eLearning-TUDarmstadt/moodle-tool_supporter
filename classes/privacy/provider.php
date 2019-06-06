@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\privacy;
+
+defined('MOODLE_INTERNAL') || die;
 
 class provider implements
     // This plugin does not store any personal user data.
