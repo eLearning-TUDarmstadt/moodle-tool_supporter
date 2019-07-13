@@ -52,7 +52,7 @@ class course_table implements renderable, templatable {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = $label; // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
+            $data['label_level_'.$count] = format_string($label); // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
 
