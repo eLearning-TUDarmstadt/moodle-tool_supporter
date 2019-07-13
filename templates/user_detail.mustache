@@ -123,22 +123,22 @@ Example context (json):
 
 			<div class="btn-group mr-2 float-right">
 				{{#loginaslink}}
-					<a href="{{loginaslink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+					<a href="{{loginaslink}}" target="_blank" class="btn pr-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
 						{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
 					</a>
 				{{/loginaslink}}
 				{{#isallowedtoupdateusers}}
-					<a href="{{edituserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+					<a href="{{edituserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
 						{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
 					</a>
-					<a href="{{deleteuserlink}}" target="_blank" class="btn btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
+					<a href="{{deleteuserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
 						{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
 					</a>
 				{{/isallowedtoupdateusers}}
-				<a href="#" class="btn btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+				<a href="#" class="btn pr-1 ml-1 btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
 					{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 				</a>
-				<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_user_details" style="display: none">
+				<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_user_details" style="display: none">
 					{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 				</a>
 			</div>
@@ -148,8 +148,8 @@ Example context (json):
 			<!-- Enrol the user into the course -->
 			<br>
 	        {{> tool_supporter/enrolusersection}}
-			<br> 
-			
+			<br>
+
 			<!-- Show user details  -->
 	        <table class = "table borderless">
                 <tbody>
@@ -167,7 +167,7 @@ Example context (json):
                 </tbody>
 	        </table>
 	        <hr>
-	
+
 	        <!-- Navigation for users course table -->
 	          <ul class="nav nav-tabs nav-justified">
 	            <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
@@ -190,7 +190,7 @@ Example context (json):
 	              </ul>
 	            </li>
 	         </ul>
-	
+
 	       <!--Table showing users courses-->
 	        <div>
                 <table class = "table stripe hover row-border" id="userdetailcourses">
@@ -224,7 +224,7 @@ Example context (json):
 	              </tbody>
 	            </table>
 			</div>
-			
+
 	    </div>
 	</div>
 </div>

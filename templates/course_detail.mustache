@@ -121,29 +121,29 @@ Example context (json):
 					{{#isallowedtoupdatecourse}}
 						{{#courseDetails}}
 							{{^visible}}
-								<a href="#" class="btn btn-default" id="show_course_visibility">
+								<a href="#" class="btn pr-1 ml-1 btn-default" id="show_course_visibility">
 									{{#pix}} i/show, core, make visible {{/pix}}
 								</a>
 							{{/visible}}
 							{{#visible}}
-								<a href="#" class="btn btn-default" id="hide_course_visibility">
+								<a href="#" class="btn pr-1 ml-1 btn-default" id="hide_course_visibility">
 									{{#pix}} i/hide, core, make invisible {{/pix}}
 								</a>
 							{{/visible}}
 						{{/courseDetails}}
-						<a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn btn-default">
+						<a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
 							{{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
 						</a>
 					{{/isallowedtoupdatecourse}}
 					{{#deletelink}}
-						<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn btn-default">
+						<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
 							{{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
 						</a>
 					{{/deletelink}}
-					<a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn btn-default" id="btn_hide_course_details">
+					<a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_hide_course_details">
 						{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 					</a>
-					<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn btn-default" id="btn_show_course_details" style="display: none">
+					<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_course_details" style="display: none">
 						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 					</a>
 				</div>
@@ -170,7 +170,7 @@ Example context (json):
                 </tbody>
 	        </table>
 			<hr>
-	
+
 	        <!-- Navigation for user- and activity-table of selected course -->
 	        <div>
 	          <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -179,11 +179,11 @@ Example context (json):
 	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
 	          </ul>
 	        </div>
-	
+
 	        <div class="tab-content">
 	            <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
 	                <!-- Table of users in this course-->
-	
+
 		            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
 						<b>{{#str}}filter{{/str}}:</b>
 		                <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
@@ -194,7 +194,7 @@ Example context (json):
 		                     {{/rolesincourse}}
 		                </ul>
 		            </div>
-		            
+
 	                <div class = "float-right">
 			            <u>
                             <a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
@@ -202,7 +202,7 @@ Example context (json):
 			                </a>
                         </u>
 		            </div>
-	              
+
 	                <div class="table">
 	                    <table class="stripe hover row-border" id="userincourse">
 	                        <thead>
@@ -236,7 +236,7 @@ Example context (json):
 	                    </table>
 	                </div>
 	            </div>
-	
+
 	            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
 	                <!-- Table of activites in this course-->
 	                <div class="table table-responsive">
@@ -262,7 +262,7 @@ Example context (json):
 	                    </table>
 	                </div>
 	            </div>
-	            
+
 	            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
 	                <!-- Table of enrolment methods in this course-->
 	              	<div class = "float-right">
@@ -291,7 +291,7 @@ Example context (json):
 	                    </table>
 	                </div>
 	            </div>
-	            
+
 	        </div>
 	    </div>
 	</div>
