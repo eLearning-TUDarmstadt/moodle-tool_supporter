@@ -48,7 +48,6 @@ class user_detail implements renderable, templatable {
         global $CFG;
 
         $data = array();
-        $data['wwwroot'] = $CFG->wwwroot;
 
         return $data;
     }
