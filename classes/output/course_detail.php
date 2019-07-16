@@ -49,11 +49,8 @@ class course_detail implements renderable, templatable {
      * @return stdClass array with Moodle-Root
      */
     public function export_for_template(renderer_base $output) {
-        global $CFG;
+        $data = array();
 
-        $array = null;
-        $data = $array;
-        $data['wwwroot'] = $CFG->wwwroot;
         return $data;
     }
 }

@@ -360,6 +360,8 @@ class external extends external_api {
         $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
         $data['edituserlink'] = $link;
 
+        $data['wwwroot'] = $CFG->wwwroot;
+
         if (\has_capability('moodle/user:update', $context) ) {
             $data['isallowedtoupdateusers'] = true;
         } else {
@@ -441,6 +443,7 @@ class external extends external_api {
             'uniqueleveltwoes' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique second level categories')),
             'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
+            'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
             // For now, it is limited to 5 levels and this implementation is ugly.
             'label_level_1' => new external_value(PARAM_TEXT, 'label of first level', VALUE_OPTIONAL),
             'label_level_2' => new external_value(PARAM_TEXT, 'label of second level', VALUE_OPTIONAL),
@@ -778,7 +781,8 @@ class external extends external_api {
             'activities' => (array)$activities,
             'links' => $links,
             'enrolmentMethods' => (array)$enrolmentmethods,
-            'isallowedtoupdatecourse' => $capupdatecourse
+            'isallowedtoupdatecourse' => $capupdatecourse,
+            'wwwroot' => $CFG->wwwroot
         );
 
         $data['config'] = array(
@@ -856,7 +860,8 @@ class external extends external_api {
                     'users_count' => new external_value(PARAM_INT, 'Amount of users enrolled with this method'),
                     'password' => new external_value(PARAM_TEXT, 'Password for enrolment method'),
                 ))),
-                'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?")
+                'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?"),
+                'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance")
         ));
     }
 
