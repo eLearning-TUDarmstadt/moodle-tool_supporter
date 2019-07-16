@@ -29,7 +29,7 @@ $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('plugi
 
 // Settings page.
 if ($hassiteconfig) {
-    // These are currently stored in the "mdl_config"-table.
+    // These are stored in table 'config_plugins'.
     $settings = new admin_settingpage('tool_supporter', get_string('sett_title', 'tool_supporter'));
     // Add the config page to the administration menu.
     $ADMIN->add('reports', $settings);
@@ -61,9 +61,9 @@ if ($hassiteconfig) {
     // Standard settings for new course.
     $settings->add(new admin_setting_heading('header_new_course', get_string('addnewcourse', 'core'), ""));
     $settings->add(new admin_setting_configtext('tool_supporter/new_course_startdate',
-        get_string('standard')." ".get_string('startdate', 'core'), "", '01.10.2018', PARAM_TEXT));
+        get_string('standard')." ".get_string('startdate', 'core'), "", '01.04.2019', PARAM_TEXT));
     $settings->add(new admin_setting_configtext('tool_supporter/new_course_enddate',
-        get_string('standard')." ".get_string('enddate', 'core'), "", '31.03.2019', PARAM_TEXT));
+        get_string('standard')." ".get_string('enddate', 'core'), "", '30.09.2019', PARAM_TEXT));
 
     // Settings for course details (top left).
     $settings->add(new admin_setting_heading('header_course_details',
