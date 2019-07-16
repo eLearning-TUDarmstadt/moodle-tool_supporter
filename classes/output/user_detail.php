@@ -45,8 +45,11 @@ class user_detail implements renderable, templatable {
      * @return array without any content
      */
     public function export_for_template(renderer_base $output) {
-        $array = null;
-        $data['userinformation'] = $array;
+        global $CFG;
+
+        $data = array();
+        $data['wwwroot'] = $CFG->wwwroot;
+
         return $data;
     }
 }
