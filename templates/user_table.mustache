@@ -71,17 +71,17 @@ Example context (json):
 	    </div>
     </div>
 
-  	<div id="users_dynamic_search" class="btn-toolbar" role="toolbar" style="visibility: hidden;">
-		<div class="btn-group pull-right" role="group">
-			<select id="user_table_column_chooser" class="form-control-">
-				<!-- Additional Options will be added later with javascript -->
-				<option selected value="-1">{{#str}}all{{/str}}</option>
-			</select>
-		</div>
-		<div class="btn-group" role="group" style="width: 60%">
-			<input type="text" id="user_table_search_input" class="form-control form-control-sm" placeholder="Search">
-		</div>
-	</div>
+    <div id="users_dynamic_search" class="btn-toolbar ml-3 mt-1" role="toolbar" style="visibility: hidden;">
+        <div class="btn-group pull-right" role="group">
+            <select id="user_table_column_chooser" class="form-control custom-select mr-1">
+                <!-- Additional Options are later added with javascript -->
+                <option selected value="-1">{{#str}}all{{/str}}</option>
+            </select>
+        </div>
+        <div class="btn-group" role="group" style="width: 60%">
+            <input type="text" id="user_table_search_input" class="form-control form-control-sm" placeholder="Search">
+        </div>
+	  </div>
 
 	 <div class = "table table-responsive">
 	     <table class = "stripe hover row-border" id = "userTable">

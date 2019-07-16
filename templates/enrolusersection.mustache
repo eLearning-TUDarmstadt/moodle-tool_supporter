@@ -52,10 +52,10 @@ Example context (json):
   
   <div class="btn-toolbar" role="toolbar">
 	  <div class="btn-group" role="group">
-	    <button type="button" class="btn btn-primary" id ="enroluserintocoursebutton">{{#str}}enrolusers, enrol{{/str}}</button>
+	    <button type="button" class="btn btn-primary mr-1" id ="enroluserintocoursebutton">{{#str}}enrolusers, enrol{{/str}}</button>
 	  </div>
 	  <div class="btn-group" role="group">
-	    <select class="form-control" id="role-dropdown">
+	    <select class="form-control custom-select" id="role-dropdown">
           {{#assignableRoles}}
             <option value={{id}}>{{name}}</option>
           {{/assignableRoles}}
