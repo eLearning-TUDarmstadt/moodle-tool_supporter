@@ -22,7 +22,7 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Possible places in admin menu: root, users, courses, reports, (admin) tools
+// Possible places in admin menu: root, users, courses, reports, (admin) tools.
 // Add the plugin to Administration menu.
 $ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
          new moodle_url('/admin/tool/supporter/index.php')));
@@ -45,7 +45,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter/course_table_pagelength',
         get_string('sett_course_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
     $settings->add(new admin_setting_configselect('tool_supporter/course_table_order',
-        get_string('sett_order_id', 'tool_supporter'), "", "desc",
+        get_string('sett_sort_course_table', 'tool_supporter'), "", "desc",
         array("asc" => get_string('asc'), "desc" => get_string('desc'))));
 
     // Settings for user table (bottom right).
@@ -53,7 +53,7 @@ if ($hassiteconfig) {
         get_string('sett_user_table_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter/user_table_pagelength',
         get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter/user_table_order', get_string('sett_order_id', 'tool_supporter'),
+    $settings->add(new admin_setting_configselect('tool_supporter/user_table_order', get_string('sett_sort_user_table', 'tool_supporter'),
         "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/user_table_excludesuspended',
         get_string('exportonlyactive', 'grades'), "", 1));
@@ -72,7 +72,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter/course_details_pagelength',
         get_string('sett_course_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
     $settings->add(new admin_setting_configselect('tool_supporter/course_details_order',
-        get_string('sett_order_id', 'tool_supporter'), "", "desc",
+        get_string('sett_sort_course_details', 'tool_supporter'), "", "desc",
         array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_details_showshortname',
         get_string('shortnamecourse'), "", 1));
@@ -96,7 +96,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('tool_supporter/user_details_pagelength',
         get_string('sett_user_table_pagelength', 'tool_supporter'), "", 10, PARAM_INT));
     $settings->add(new admin_setting_configselect('tool_supporter/user_details_order',
-        get_string('sett_order_id', 'tool_supporter'),
+        get_string('sett_sort_user_details', 'tool_supporter'),
         "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/user_details_showusername',
         get_string('username'), "", 1));

@@ -32,20 +32,25 @@ $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 $string['sett_title'] = 'Supporter configuration';
 $string['sett_levels'] = 'Labeling of course category levels';
 $string['sett_levels_default'] = 'Semester;Department';
-$string['sett_levels_description'] = 'Here, you can specify the individual name of the course area levels. in descending order (uppermost level first) separated by semicolons. ';
+$string['sett_levels_description'] = 'Specify the displayed names of the course levels. In descending order (uppermost level first) and separated by semicolon. ';
 
 $string['sett_course_table'] = 'Course table';
 $string['sett_user_table'] = 'User table';
 $string['sett_user_details'] = 'User details';
 $string['sett_course_details'] = 'Course details';
 
-$string['sett_course_table_desc'] = 'In this section, you can select how the course table should be displayed (bottom left).';
+$string['sett_course_table_desc'] = 'The course table lists all courses and is displayed in the bottom left.';
 $string['sett_course_table_pagelength'] = 'The amount of courses shown';
-$string['sett_user_table_desc'] = 'In this section, you can select how the user table should be displayed (bottom right).';
+$string['sett_user_table_desc'] = 'The user table lists all users and is displayed in the bottom right.';
 $string['sett_user_table_pagelength'] = 'The amount of user-courses shown';
-$string['sett_order_id'] = 'Ordering of the first ID-Column';
-$string['sett_user_details_desc'] = 'In this section you can select all the things you want to have shown in the user details, i.e. when a user is clicked (top right).';
-$string['sett_course_details_desc'] = 'In this section you can select all the things you want to have shown in the course details, i.e. when a course is clicked (top left).';
+$string['sett_sort_course_table'] = 'Sorting of the ID-Column in course table';
+$string['sett_sort_course_details'] = 'Sorting of the ID-Column in course view (enrolled users)';
+$string['sett_sort_user_table'] = 'Sorting of the ID-Column in user table';
+$string['sett_sort_user_details'] = 'Sorting of the ID-Column in user view (enrolled courses)';
+$string['sett_user_details_desc'] = 'The user details are shown in the top right when a user is clicked.';
+$string['sett_course_details_desc'] = 'The course details are shown in the top left when a course is clicked.';
 $string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amount';
 $string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in a seperate table row per role, i.e. amount of teachers, amount of students, etc.';
+
+// Privacy API.
 $string['privacy:metadata'] = 'This plugin does not save user-specific data, only global settings.';
