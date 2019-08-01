@@ -309,7 +309,8 @@ class external extends external_api {
                 $category = $categories[$course->category];
                 $patharray = explode("/", $category->path);
                 if (isset($patharray[1])) {
-                    $patharray[1] = $categories[$patharray[1]]->name;
+                    // Support multilang course categories.
+                    $patharray[1] = external_format_string($categories[$patharray[1]]->name, $context);
                     $course->level_one = $patharray[1];
                     array_push($data['uniquelevelones'], $patharray[1]);
                 } else {
@@ -317,7 +318,8 @@ class external extends external_api {
                 }
 
                 if (isset($patharray[2])) {
-                    $patharray[2] = $categories[$patharray[2]]->name;
+                    // Support multilang course categories.
+                    $patharray[2] = external_format_string($categories[$patharray[2]]->name, $context);
                     $course->level_two = $patharray[2];
                     array_push($data['uniqueleveltwoes'], $patharray[2]);
                 } else {
@@ -333,6 +335,9 @@ class external extends external_api {
 
                 // Used for unenrolling users.
                 $course->enrol_id = $userenrolments[$course->id]->id;
+
+                // Support multilang course fullnames.
+                $course->fullname = external_format_string($course->fullname, $context);
 
                 $coursesarray[] = (array)$course;
             }
