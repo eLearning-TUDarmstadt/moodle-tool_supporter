@@ -26,11 +26,12 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 3.5
-  * No guarantees for other versions of Moodle!
+* This version is tested on Moodle 3.5, 3.6 and 3.7
+  * For 3.4 and older versions of Moodle, checkout the Branch "MOODLE_34_STABLE"
 * A php version of 5.5 or greater is needed
-* It is recommended to activate zlib compression in your php.ini to reduce transmitted data
-  * Add "zlib.output_compression = On"
+* It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
+  * Add "zlib.output_compression = On" in php.ini
+  * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
 
 ## Installation
 * Copy/Clone to `https://YOURSITE/admin/tool/` directory

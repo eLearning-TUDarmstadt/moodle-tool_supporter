@@ -122,12 +122,12 @@ Example context (json):
 						{{#courseDetails}}
 							{{^visible}}
 								<a href="#" class="btn pr-1 ml-1 btn-default" id="show_course_visibility">
-									{{#pix}} i/show, core, make visible {{/pix}}
+									{{#pix}} i/show, core, {{#str}}show{{/str}} {{/pix}}
 								</a>
 							{{/visible}}
 							{{#visible}}
 								<a href="#" class="btn pr-1 ml-1 btn-default" id="hide_course_visibility">
-									{{#pix}} i/hide, core, make invisible {{/pix}}
+									{{#pix}} i/hide, core, {{#str}}hide{{/str}} {{/pix}}
 								</a>
 							{{/visible}}
 						{{/courseDetails}}
