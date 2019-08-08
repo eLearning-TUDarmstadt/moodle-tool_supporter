@@ -47,6 +47,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configselect('tool_supporter/course_table_order',
         get_string('sett_sort_course_table', 'tool_supporter'), "", "desc",
         array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_viewhiddenscourses',
+        get_string('course:viewhiddencourses', 'role'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_viewhiddenscat',
+        get_string('category:viewhiddencategories', 'role'), "", 1));
 
     // Settings for user table (bottom right).
     $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'),

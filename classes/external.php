@@ -474,7 +474,7 @@ class external extends external_api {
      * Gets every moodle user
      */
     public static function get_users() {
-        global $DB, $CFG;
+        global $DB;
 
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
@@ -530,7 +530,7 @@ class external extends external_api {
      * Gets every moodle course
      */
     public static function get_courses() {
-        global $DB, $CFG;
+        global $DB;
 
         self::validate_parameters(self::get_courses_parameters(), array());
         $context = \context_system::instance();
@@ -538,10 +538,25 @@ class external extends external_api {
         // Is the closest to the needed capability. Is used in /course/management.php.
         \require_capability('moodle/course:viewhiddencourses', $context);
 
-        $categories = $DB->get_records("course_categories", array("visible" => "1"), 'sortorder ASC',
-                                 'id, name, parent, depth, path');
-        $courses = $DB->get_records("course", null, '',
-                              'id, shortname, fullname, visible, category');
+        $viewhiddencategories = get_config('tool_supporter', 'course_table_viewhiddenscat');
+        if ($viewhiddencategories) {
+            $categories = $DB->get_records("course_categories", array(), 'sortorder ASC',
+                'id, name, parent, depth, path');
+        } else {
+            // Only show visible categories
+            $categories = $DB->get_records("course_categories", array("visible" => "1"), 'sortorder ASC',
+                'id, name, parent, depth, path');
+        }
+
+        $viewhiddencourses = get_config('tool_supporter', 'course_table_viewhiddenscourses');
+        if ($viewhiddencourses) {
+            $courses = $DB->get_records("course", null, '',
+                'id, shortname, fullname, visible, category');
+        } else {
+            // Only show visible courses
+            $courses = $DB->get_records("course", array("visible" => "1"), '',
+                'id, shortname, fullname, visible, category');
+        }
 
         $coursesarray = [];
         foreach ($courses as $course) {
@@ -1038,7 +1053,6 @@ class external extends external_api {
      * @throws invalid_parameter_exception
      */
     public static function get_settings() {
-        global $CFG;
 
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
