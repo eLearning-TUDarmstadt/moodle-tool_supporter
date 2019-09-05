@@ -14,3 +14,11 @@
     /* Enlarges Enrolment methods */
     width: 100%;
 }
+
+table.dataTable td.dataTables_empty {
+    cursor: default !important;
+}
+
+table.dataTable.row-border tbody td {
+    cursor: pointer;
+}
