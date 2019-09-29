@@ -365,6 +365,9 @@ class external extends external_api {
         $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
         $data['edituserlink'] = $link;
 
+        $link = $CFG->wwwroot."/message/notificationpreferences.php?userid=".$data['userinformation']['id'];
+        $data['usernotificationpreferenceslink'] = $link;
+
         $data['wwwroot'] = $CFG->wwwroot;
 
         if (\has_capability('moodle/user:update', $context) ) {
@@ -442,6 +445,7 @@ class external extends external_api {
             'loginaslink' => new external_value(PARAM_TEXT, 'The link to login as the user', VALUE_OPTIONAL),
             'profilelink' => new external_value(PARAM_TEXT, 'The link to the users profile page'),
             'edituserlink' => new external_value(PARAM_TEXT, 'The link to edit the user'),
+            'usernotificationpreferenceslink' => new external_value(PARAM_TEXT, 'The link to edit the user\'s notification preferences'),
             'deleteuserlink' => new external_value(PARAM_TEXT, 'The link to delete the user, confirmation required'),
             'uniquelevelones' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique first level categories')),
