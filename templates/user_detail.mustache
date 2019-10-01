@@ -94,6 +94,7 @@ Example context (json):
     "loginaslink": "http://127.0.0.1/course/loginas.php?id=1&user=2&sesskey=H7BoGwKh63",
     "profilelink": "http://127.0.0.1/user/profile.php?id=2",
     "edituserlink": "http://127.0.0.1/user/editadvanced.php?id=2",
+    "usernotificationpreferenceslink": "http://127.0.0.1/message/notificationpreferences.php?userid=2",
     "deleteuserlink": "http://127.0.0.1/admin/user.php?delete=2&sesskey=H7BoGwKh63",
     "uniquelevelones": [
       "Verschiedenes",
@@ -133,6 +134,9 @@ Example context (json):
 					</a>
 					<a href="{{deleteuserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
 						{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
+					</a>
+					<a href="{{usernotificationpreferenceslink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}notificationpreferences, message{{/str}}">
+						{{#pix}} i/notifications, core, {{#str}}notificationpreferences, message{{/str}} {{/pix}}
 					</a>
 				{{/isallowedtoupdateusers}}
 				<a href="#" class="btn pr-1 ml-1 btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
