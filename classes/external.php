@@ -281,9 +281,24 @@ class external extends external_api {
         $userinformationarray = [];
         foreach ($userinformation as $info) {
             // Example: Monday, 15-Aug-05 15:52:01 UTC.
-            $info->timecreated = date('Y-m-d H:i:s', $info->timecreated);
-            $info->timemodified = date('Y-m-d H:i:s', $info->timemodified);
-            $info->lastlogin = date('Y-m-d H:i:s', $info->lastlogin);
+            if ($info->timecreated == 0) {
+                $info->timecreated = get_string('sett_never', 'tool_supporter');
+            } else {
+                $info->timecreated =
+                    userdate($info->timecreated, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+            }
+            if ($info->timemodified == 0) {
+                $info->timemodified = get_string('sett_never', 'tool_supporter');
+            } else {
+                $info->timemodified =
+                    userdate($info->timemodified, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+            }
+            if ($info->lastlogin == 0) {
+                $info->lastlogin = get_string('sett_never', 'tool_supporter');
+            } else {
+                $info->lastlogin =
+                    userdate($info->lastlogin, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+            }
             // Cast as an array.
             $userinformationarray[] = (array)$info;
         }
@@ -696,7 +711,12 @@ class external extends external_api {
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
-        $coursedetails['timecreated'] = date('Y-m-d H:i:s', $coursedetails['timecreated']); // Convert timestamp to readable format.
+        if ($coursedetails['timecreated'] == 0) {
+            $coursedetails['timecreated'] = get_string('sett_never', 'tool_supporter');
+        } else {
+            $coursedetails['timecreated'] =
+                userdate($coursedetails['timecreated'], get_string('strftimesecondsdatetimeshort', 'tool_supporter')); // Convert timestamp to readable format.
+        }
         // Support course multilang fullnames.
         $coursedetails['fullname'] = external_format_string($coursedetails['fullname'], $coursecontext);
 
@@ -745,8 +765,15 @@ class external extends external_api {
         foreach ($usersraw as $u) {
             $u = (array)$u;
 
-            $u['lastaccess'] = date('Y-m-d H:i:s', $DB->get_field('user_lastaccess', 'timeaccess',
-                                                                        array('courseid' => $courseid, 'userid' => $u['id'])));
+            $userlastaccess = $DB->get_field('user_lastaccess', 'timeaccess',
+                array('courseid' => $courseid, 'userid' => $u['id']));
+
+            if ($userlastaccess == 0) {
+                $u['lastaccess'] = get_string('sett_never', 'tool_supporter');
+            } else {
+                $u['lastaccess'] =
+                    userdate($userlastaccess, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+            }
 
             // Find user specific roles, but without parent context (no global roles).
             $rolesofuser = get_user_roles($coursecontext, $u['id'], false);
