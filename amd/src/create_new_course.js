@@ -132,7 +132,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                             notification.addNotification({
                                 message: beingduplicatedstring,
                                 type: "info"
-                            })
+                            });
                         });
 
 
