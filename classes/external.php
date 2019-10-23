@@ -1152,20 +1152,20 @@ class external extends external_api {
         self::validate_context($coursecontext);
         \require_capability('moodle/course:create', \context_system::instance());
 
-        $old_course = get_course($courseid);
-        $old_course = (array)$old_course;
+        $oldcourse = get_course($courseid);
+        $oldcourse = (array)$oldcourse;
 
-        $new_categoryid = $old_course["category"];
-        $new_visible = $old_course["visible"];
-        $new_fullname = $old_course["fullname"]." - duplicated";
-        $new_shortname = $old_course["shortname"]." - duplicated".rand(0, 1000); // Add random number to avoid shortnametaken.
+        $newcategoryid = $oldcourse["category"];
+        $newvisible = $oldcourse["visible"];
+        $newfullname = $oldcourse["fullname"]." - duplicated";
+        $newshortname = $oldcourse["shortname"]." - duplicated".rand(0, 1000); // Add random number to avoid shortnametaken.
 
         $options = array(
             array ('name' => 'activities', 'value' => 1),
             array ('name' => 'blocks', 'value' => 1),
             array ('name' => 'filters', 'value' => 1),
             array ('name' => 'users', 'value' => 0),
-            //array ('name' => 'enrolments', 'value' => backup::ENROL_WITHUSERS),
+            // array ('name' => 'enrolments', 'value' => backup::ENROL_WITHUSERS),
             array ('name' => 'role_assignments', 'value' => 0),
             array ('name' => 'comments', 'value' => 0),
             array ('name' => 'userscompletion', 'value' => 0),
@@ -1173,8 +1173,8 @@ class external extends external_api {
             array ('name' => 'grade_histories', 'value' => 0),
         );
 
-        $newcourse = \core_course_external::duplicate_course($courseid, $new_fullname, $new_shortname,
-                $new_categoryid, $new_visible, $options);
+        $newcourse = \core_course_external::duplicate_course($courseid, $newfullname, $newshortname,
+                $newcategoryid, $newvisible, $options);
 
         return $newcourse;
     }
@@ -1184,7 +1184,6 @@ class external extends external_api {
      * @return external_single_structure a course with toggled visibility
      */
     public static function duplicate_course_returns() {
-        //return \core_course_external::duplicate_course_returns;
         return new external_single_structure(
             array(
                 'id'       => new external_value(PARAM_INT, 'course id'),
