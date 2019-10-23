@@ -3,14 +3,15 @@ language: php
 
 # If using Behat, then this should be true due to an issue with Travis CI.
 # If not using Behat, recommended to use `sudo: false` as it is faster.
-sudo: false
+dist: xenial
+sudo: required
 
 # Installs the required version of Firefox for Behat, an updated version
 # of PostgreSQL and extra APT packages. Java 8 is only required
 # for Mustache command.
 addons:
   firefox: "47.0.1"
-  postgresql: "9.4"
+  postgresql: "9.6"
   apt:
     packages:
       - openjdk-8-jre-headless
@@ -20,6 +21,9 @@ cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
+
+services:
+  - mysql
 
 # Determines which versions of PHP to test our project against.  Each version
 # listed here will create a separate build and run the tests against that
@@ -56,7 +60,7 @@ before_install:
   # directories to build the project.
   - cd ../..
   # Install this project into a directory called "ci".
-  - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
+  - composer create-project -n --no-dev --prefer-dist moodlerooms/moodle-plugin-ci ci ^2
   # Update the $PATH so scripts from this project can be called easily.
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
@@ -97,13 +101,13 @@ script:
   # This step validates your plugin's upgrade steps.
   - moodle-plugin-ci savepoints
   # This step validates the HTML and Javascript in your Mustache templates.
-  - moodle-plugin-ci mustache
+  - moodle-plugin-ci mustache || true # report issues, but don't fail the build.
   # This step runs Grunt tasks on the plugin.  By default, it tries to run
   # tasks relevant to your plugin and Moodle version, but you can run
   # specific tasks by passing them as options,
   # EG: moodle-plugin-ci grunt -t task1 -t task2
   #- moodle-plugin-ci grunt -t eslint:amd -t uglify:amd # Do not run stylelint:css because third party css files cannot be ignored
-  - moodle-plugin-ci grunt
+  - moodle-plugin-ci grunt || true # report issues, but don't fail the build.
   # This step runs the PHPUnit tests of your plugin.  If your plugin has
   # PHPUnit tests, then it is highly recommended that you keep this step.
   - moodle-plugin-ci phpunit
