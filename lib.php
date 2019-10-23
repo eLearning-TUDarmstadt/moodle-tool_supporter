@@ -35,5 +35,6 @@ function tool_supporter_get_fontawesome_icon_map() {
         'tool_supporter:i/hide' => 'fa-eye-slash',
         'tool_supporter:i/minus' => 'fa-minus',
         'tool_supporter:i/plus' => 'fa-plus',
+        'tool_supporter:i/copy' => 'fa-copy',
     ];
 }

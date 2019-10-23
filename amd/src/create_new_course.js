@@ -111,6 +111,50 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         });
 
                     });
+                },
+
+                /**
+                 * Duplicate a course
+                 *
+                 * @method duplicateCourse
+                 */
+                duplicateCourse: function() {
+                    $('#duplicate_course_button').on('click', function() {
+
+                        var promises = ajax.call([{
+                            "methodname": 'tool_supporter_duplicate_course',
+                            args: {
+                                courseid: $('#selectedcourseid')[0].textContent
+                            }
+                        }]);
+
+                        str.get_string('beingduplicated', 'tool_supporter').done(function(beingduplicatedstring) {
+                            notification.addNotification({
+                                message: beingduplicatedstring,
+                                type: "info"
+                            })
+                        });
+
+
+                        promises[0].done(function(data) { // Returns courseid and shortname.
+                            // Display the created course.
+                            var promise1 = loadInformation.showCourseDetail(data.id, true);
+
+                            promise1[0].done(function(data) {
+                                // Add the newly created course to the DataTable without reloading the whole thing.
+                                $('#courseTable').DataTable().row.add({
+                                    "id": data.courseDetails.id,
+                                    "shortname": data.courseDetails.shortname,
+                                    "fullname": data.courseDetails.fullname,
+                                    "level_one": data.courseDetails.level_one,
+                                    "level_two": data.courseDetails.level_two,
+                                    "visible": +data.courseDetails.visible, // Implicity cast false to 0.
+                                }).draw(false);
+                            });
+
+                        }).fail(notification.exception);
+                    });
                 }
+
             };
         });
