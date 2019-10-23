@@ -131,9 +131,12 @@ Example context (json):
 								</a>
 							{{/visible}}
 						{{/courseDetails}}
-						<a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
-							{{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
-						</a>
+                        <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
+                            {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
+                        </a>
+                        <a data-toggle="tooltip" title="{{#str}}duplicate{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="duplicate_course_button">
+                            {{#pix}} i/copy, tool_supporter, {{#str}}duplicate{{/str}} {{/pix}}
+                        </a>
 					{{/isallowedtoupdatecourse}}
 					{{#deletelink}}
 						<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
@@ -299,8 +302,8 @@ Example context (json):
 
 {{#js}}
 require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
-         'tool_supporter/datatables', 'tool_supporter/load_information'],
-    function($, search, sort, dataTable, loadInformation) {
+         'tool_supporter/datatables', 'tool_supporter/load_information', 'tool_supporter/create_new_course'],
+    function($, search, sort, dataTable, loadInformation, createNewCourse) {
 
     // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
     dataTable.useDataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
@@ -314,6 +317,7 @@ require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
     // Buttons on top
     loadInformation.toggleCourseDetails();
     loadInformation.toggleCourseVisibility();
-});
+    createNewCourse.duplicateCourse();
 
+});
 {{/js}}

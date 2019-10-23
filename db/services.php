@@ -34,7 +34,7 @@ $functions = array(
         'description' => 'Get overview of all users',
         'type'        => 'read',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/site:viewparticipants'
+        'capabilities' => 'moodle/site:viewparticipants'
     ),
     'tool_supporter_get_user_information' => array(
         'classname'   => 'tool_supporter\external',
@@ -43,7 +43,7 @@ $functions = array(
         'description' => 'Get detailed user information (clicking on a user)',
         'type'        => 'read',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/user:viewdetails'
+        'capabilities' => 'moodle/user:viewdetails'
     ),
     'tool_supporter_get_courses' => array(
         'classname'   => 'tool_supporter\external',
@@ -52,7 +52,7 @@ $functions = array(
         'description' => 'Get overview of all courses',
         'type'        => 'read',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/course:viewhiddencourses'
+        'capabilities' => 'moodle/course:viewhiddencourses'
     ),
     'tool_supporter_get_course_info' => array(
         'classname'   => 'tool_supporter\external',
@@ -61,7 +61,7 @@ $functions = array(
         'description' => 'Get detailed course information (clicking on a course)',
         'type'        => 'read',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/course:view'
+        'capabilities' => 'moodle/course:view'
     ),
     'tool_supporter_get_settings' => array(
         'classname'   => 'tool_supporter\external',
@@ -70,7 +70,7 @@ $functions = array(
         'description' => 'Get settings of settings-page',
         'type'        => 'read',
         'ajax'        => true,
-        'requiredcapability' => ''
+        'capabilities' => '' // Every user can access this page, but not see everything
     ),
     /* -------- Write-capabilites --------- */
     'tool_supporter_create_new_course' => array(
@@ -80,7 +80,16 @@ $functions = array(
         'description' => 'Create a course',
         'type'        => 'write',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/course:create'
+        'capabilities' => 'moodle/course:create'
+    ),
+    'tool_supporter_duplicate_course' => array(
+        'classname'   => 'tool_supporter\external',
+        'methodname'  => 'duplicate_course',
+        'classpath'   => 'tool/supporter/classes/external.php',
+        'description' => 'Duplicates an existing course',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capabilities' => 'moodle/course:create'
     ),
     'tool_supporter_toggle_course_visibility' => array(
         'classname'   => 'tool_supporter\external',
@@ -89,7 +98,7 @@ $functions = array(
         'description' => 'hide/show the course',
         'type'        => 'write',
         'ajax'        => true,
-        'requiredcapability' => 'moodle/course:update'
+        'capabilities' => 'moodle/course:update'
     ),
     'tool_supporter_enrol_user_into_course' => array(
         'classname'   => 'tool_supporter\external',
@@ -98,7 +107,7 @@ $functions = array(
         'description' => 'Get course information',
         'type'        => 'write',
         'ajax'        => true,
-        'requiredcapability' => 'enrol/manual:enrol'
+        'capabilities' => 'enrol/manual:enrol'
     ),
     'tool_supporter_get_assignable_roles' => array(
         'classname'   => 'tool_supporter\external',
@@ -107,6 +116,6 @@ $functions = array(
         'description' => 'Get assignable Roles in the course, e.g. used for enrolling',
         'type'        => 'read, write',
         'ajax'        => true,
-        'requiredcapability' => 'enrol/manual:enrol'
+        'capabilities' => 'enrol/manual:enrol'
     ),
 );

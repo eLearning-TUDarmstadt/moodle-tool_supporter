@@ -32,6 +32,8 @@ require_once("$CFG->dirroot/webservice/externallib.php");
 require_once("$CFG->dirroot/course/lib.php");
 require_once("$CFG->dirroot/user/lib.php");
 require_once("$CFG->libdir/adminlib.php");
+require_once($CFG->dirroot . '/course/externallib.php');
+require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 
 use external_api;
 use external_function_parameters;
@@ -1117,4 +1119,78 @@ class external extends external_api {
             'tool_supporter_course_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
         ));
     }
+
+
+    // ------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns description of input parameters
+     * @return external_function_parameters
+     */
+    public static function duplicate_course_parameters() {
+        return new external_function_parameters(
+            array(
+                'courseid' => new external_value(PARAM_RAW, 'id of course you want to be duplicated and then shown')
+            ));
+    }
+
+    /**
+     * Wrapper for core function toggleCourseVisibility
+     *
+     * @return array: See return-function
+     * @throws \dml_exception
+     * @throws \restricted_context_exception
+     * @throws invalid_parameter_exception
+     */
+    public static function duplicate_course($courseid) {
+        // TODO
+        // Check parameters.
+        $params = self::validate_parameters(self::duplicate_course_parameters(), array('courseid' => $courseid));
+        $courseid = $params['courseid'];
+
+        $coursecontext = \context_course::instance($courseid);
+        self::validate_context($coursecontext);
+        \require_capability('moodle/course:create', \context_system::instance());
+
+        $old_course = get_course($courseid);
+        $old_course = (array)$old_course;
+
+        $new_categoryid = $old_course["category"];
+        $new_visible = $old_course["visible"];
+        $new_fullname = $old_course["fullname"]." - duplicated";
+        $new_shortname = $old_course["shortname"]." - duplicated".rand(0, 1000); // Add random number to avoid shortnametaken.
+
+        $options = array(
+            array ('name' => 'activities', 'value' => 1),
+            array ('name' => 'blocks', 'value' => 1),
+            array ('name' => 'filters', 'value' => 1),
+            array ('name' => 'users', 'value' => 0),
+            //array ('name' => 'enrolments', 'value' => backup::ENROL_WITHUSERS),
+            array ('name' => 'role_assignments', 'value' => 0),
+            array ('name' => 'comments', 'value' => 0),
+            array ('name' => 'userscompletion', 'value' => 0),
+            array ('name' => 'logs', 'value' => 0),
+            array ('name' => 'grade_histories', 'value' => 0),
+        );
+
+        $newcourse = \core_course_external::duplicate_course($courseid, $new_fullname, $new_shortname,
+                $new_categoryid, $new_visible, $options);
+
+        return $newcourse;
+    }
+
+    /**
+     * Specifies return parameters
+     * @return external_single_structure a course with toggled visibility
+     */
+    public static function duplicate_course_returns() {
+        //return \core_course_external::duplicate_course_returns;
+        return new external_single_structure(
+            array(
+                'id'       => new external_value(PARAM_INT, 'course id'),
+                'shortname' => new external_value(PARAM_TEXT, 'short name'),
+            )
+        );
+    }
+
 }
