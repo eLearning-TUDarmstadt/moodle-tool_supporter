@@ -1116,14 +1116,10 @@ class external extends external_api {
      * @throws invalid_parameter_exception
      */
     public static function duplicate_course($courseid) {
-
-        //$systemcontext = \context_system::instance();
-        //self::validate_context($systemcontext);
-
         // TODO
         // Check parameters.
-        //$params = self::validate_parameters(self::get_course_info_parameters(), array('courseid' => $courseid));
-        //$courseid = $params['courseid'];
+        $params = self::validate_parameters(self::duplicate_course_parameters(), array('courseid' => $courseid));
+        $courseid = $params['courseid'];
 
         $coursecontext = \context_course::instance($courseid);
         self::validate_context($coursecontext);
@@ -1135,7 +1131,7 @@ class external extends external_api {
         $new_categoryid = $old_course["category"];
         $new_visible = $old_course["visible"];
         $new_fullname = $old_course["fullname"]." - duplicated";
-        $new_shortname = $old_course["shortname"]." - duplicated".rand(); // Add random number to avoid shortnametaken.
+        $new_shortname = $old_course["shortname"]." - duplicated".rand(0, 1000); // Add random number to avoid shortnametaken.
 
         $options = array(
             array ('name' => 'activities', 'value' => 1),
@@ -1150,23 +1146,8 @@ class external extends external_api {
             array ('name' => 'grade_histories', 'value' => 0),
         );
 
-        // To simplify the skeleton code, let's run the whole thing as an admin. You probably *don't* want to do this in production code.
-        //$USER = get_admin();
-
-        try {
-            $newcourse = \core_course_external::duplicate_course($courseid, $new_fullname, $new_shortname,
-                $new_categoryid, $new_visible, $options
-            );
-        } catch (exception $e) {
-            // Some debugging information to see what went wrong
-            var_dump($e);
-        }
-
-
-        error_log(print_r('$newcourse -------------------------------------------------------', TRUE));
-        error_log(str_replace("stdClass Object", "Array",str_replace("\n", "", print_r($newcourse, TRUE))));
-
-        //$course = self::get_course_info($newcourse->id); // Get the information in the format we need
+        $newcourse = \core_course_external::duplicate_course($courseid, $new_fullname, $new_shortname,
+                $new_categoryid, $new_visible, $options);
 
         return $newcourse;
     }
