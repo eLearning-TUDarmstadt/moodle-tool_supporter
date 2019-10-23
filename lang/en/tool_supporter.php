@@ -53,7 +53,7 @@ $string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amo
 $string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in a seperate table row per role, i.e. amount of teachers, amount of students, etc.';
 
 $string['sett_never'] = 'never';
-$string['strftimesecondsdatetimeshort'] = '%d/%m/%y, %H:%M:%S';
+$string['strftimesecondsdatetimeshort'] = '%d/%m/%Y, %H:%M:%S';
 
 // Privacy API.
 $string['privacy:metadata'] = 'This plugin does not save user-specific data, only global settings.';
