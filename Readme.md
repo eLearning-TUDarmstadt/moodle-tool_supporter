@@ -26,7 +26,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 3.5, 3.6 and 3.7
+* This version is tested on Moodle 3.5, 3.6, 3.7, 3.8 and 3.9
   * For 3.4 and older versions of Moodle, checkout the Branch "MOODLE_34_STABLE"
 * A php version of 5.5 or greater is needed
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
