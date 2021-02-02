@@ -63,21 +63,21 @@ echo $output->header();
 set_user_preference('drawer-open-nav', $oldpref);
 
 echo'
-    <div class="row-fluid">
+    <div class="row">
         <div class="span12 col-sm-12">
-            <div class="row-fluid">
+            <div class="row">
                 <div class="span6 col-sm-6">
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="span12 col-md-12">
                           '.$createnewcourse.'
                         </div>
                     </div>
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="span12 col-sm-12">
                           '.$coursedetail.'
                         </div>
                     </div>
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="span12 col-sm-12">
                           '.$coursetable.'
                         </div>
@@ -85,12 +85,12 @@ echo'
                 </div>
 
                 <div class="span6 col-sm-6">
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="span12 col-sm-12">
                              '.$userdetail.'
                         </div>
                     </div>
-                    <div class="row-fluid">
+                    <div class="row">
                         <div class="span12 col-sm-12">
                             '.$usertable.'
                         </div>
