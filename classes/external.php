@@ -137,11 +137,12 @@ class external extends external_api {
             if (empty($selfenrolment)) {
                 // If self enrolment is NOT activated for new courses, add one.
                 $plugin = enrol_get_plugin('self');
-                $plugin->add_instance($createdcourse, array("password" => $selfenrolpassword));
+                $plugin->add_instance($createdcourse, array("password" => $selfenrolpassword, "roleid" => 5));
             } else {
                 // If self enrolment is activated for new courses, activaten and update it.
                 $selfenrolment->status = 0; // 0 is active!
                 $selfenrolment->password = $selfenrolpassword; // The PW is safed as plain text.
+                $selfenrolment->roleid = 5; // Set the default role id for new users that enroll in the course.
                 $DB->update_record("enrol", $selfenrolment);
             }
         }
