@@ -28,6 +28,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
 ## Prerequisites
 * This version is tested on Moodle 3.5, 3.6, 3.7, 3.8, 3.9 (master) and 3.10, 3.11 (branch 310)
   * For 3.4 and older versions of Moodle, checkout the Branch "MOODLE_34_STABLE"
+  * Also works with Moodle 4.0 and 4.1, but for the moment without link in navigation, navigate manually to /admin/tool/supporter
 * A php version of 5.5 or greater is needed
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
