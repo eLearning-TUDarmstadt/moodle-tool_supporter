@@ -960,8 +960,13 @@ class external extends external_api {
 
         $coursecontext = \context_course::instance($courseid);
         self::validate_context($coursecontext);
+
         // Is the user allowed to enrol a student into this course?
-        \require_capability('enrol/manual:enrol', $coursecontext);
+        //
+        // UPD: Checked on button click later anyway,
+        // comment out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110)
+        //
+        //\require_capability('enrol/manual:enrol', $coursecontext);
 
         // Parameter validation.
         self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
