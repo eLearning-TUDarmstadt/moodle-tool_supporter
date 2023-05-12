@@ -24,7 +24,7 @@ defined('MOODLE_INTERNAL') || die;
 
 // Possible places in admin menu: root, users, courses, reports, (admin) tools.
 // Add the plugin to Administration menu.
-$ADMIN->add('root', new admin_category('supportercategory', get_string('pluginsettings', 'tool_supporter')));
+$ADMIN->add('root', new admin_category('supportercategory', get_string('plugincategory', 'tool_supporter')));
 
 $ADMIN->add('supportercategory', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
          new moodle_url('/admin/tool/supporter/index.php')));
