@@ -59,7 +59,9 @@ Example context (json):
       "lastname": "deaktiviert_suspended",
       "email": "deaktiviert_suspended@sadhbsaudbsaudbvasubd.net"
     }
-  ]
+  ],
+  "searchname": "Suchen",
+  "refreshname": "Aktualisieren"
 }
 
 }}
@@ -67,7 +69,7 @@ Example context (json):
     <div class = "card-header">
 	    <div class="row">
 	    	<div class="col-sm-6"><h2>{{#str}}users{{/str}}</h2></div>
-	    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn pr-1" id="btn_refresh_users">{{#pix}} a/refresh, core, refresh {{/pix}}</button></div></div>
+	    	<div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn pr-1" id="btn_refresh_users">{{#pix}} a/refresh, core, {{refreshname}} {{/pix}}</button></div></div>
 	    </div>
     </div>
 
@@ -79,7 +81,7 @@ Example context (json):
             </select>
         </div>
         <div class="btn-group" role="group" style="width: 60%">
-            <input type="text" id="user_table_search_input" class="form-control form-control-sm" placeholder="Search">
+            <input type="text" id="user_table_search_input" class="form-control form-control-sm" placeholder={{searchname}}>
         </div>
 	  </div>
 

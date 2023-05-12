@@ -55,6 +55,8 @@ class course_table implements renderable, templatable {
             $data['label_level_'.$count] = format_string($label); // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
+        $data['searchname'] = get_string('searchcourses', 'tool_supporter');
+        $data['refreshname'] = get_string('refreshcourses', 'tool_supporter');
 
         return $data;
     }

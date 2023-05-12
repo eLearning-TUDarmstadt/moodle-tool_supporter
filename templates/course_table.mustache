@@ -98,7 +98,9 @@ Example context (json):
     "SoSe 2019"
   ],
   "label_level_1": "Semester",
-  "label_level_2": "Fachbereich"
+  "label_level_2": "Fachbereich",
+  "searchname": "Suchen",
+  "refreshname": "Aktualisieren"
 }
 
 }}
@@ -106,7 +108,7 @@ Example context (json):
 	<div class = "card-header">
 		<div class="row">
 		    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
-		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn pr-1" id="btn_refresh_courses">{{#pix}} a/refresh, core, refresh {{/pix}}</button></div></div>
+		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn pr-1" id="btn_refresh_courses">{{#pix}} a/refresh, core, {{refreshname}} {{/pix}}</button></div></div>
 		</div>
 	</div>
 
@@ -119,7 +121,7 @@ Example context (json):
                 </select>
             </div>
             <div class="btn-group" role="group" style="width: 55%">
-                <input type="text" id="course_table_search_input" class="form-control form-control-sm" placeholder="Search">
+                <input type="text" id="course_table_search_input" class="form-control form-control-sm" placeholder={{searchname}}>
             </div>
             <div class="col col-md-2">
                 <button type="button" class="btn" id="courses_clear_filters" style="visibility: hidden">&times; {{#str}}removeall, filters{{/str}}</button>

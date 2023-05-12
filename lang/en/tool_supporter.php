@@ -31,6 +31,11 @@ $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 
 $string['beingduplicated'] = "The course is being duplicated. This may take a while.";
 
+$string['searchcourses'] = 'Search';
+$string['refreshcourses'] = 'Refresh';
+$string['searchusers'] = 'Search';
+$string['refreshusers'] = 'Refresh';
+
 // Strings for setting page - settings.php.
 $string['sett_title'] = 'Supporter configuration';
 $string['sett_levels'] = 'Labeling of course category levels';
