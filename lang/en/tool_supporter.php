@@ -25,6 +25,7 @@ $string['toolsupporter'] = 'toolsupporter';
 
 $string['pagetitle'] = 'Moodle-Supporter';
 $string['pluginname'] = 'Supporter';
+$string['pluginsettings'] = 'Supporter';
 $string['level'] = 'Level';
 $string['enable_selfenrolment'] = 'Activate self enrolment and set password';
 
