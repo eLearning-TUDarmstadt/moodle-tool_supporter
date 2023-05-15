@@ -638,7 +638,6 @@ class external extends external_api {
             $count++;
         }
 
-        $data['showid'] = get_config('tool_supporter', 'course_table_showid');
         $data['showstartdate'] = get_config('tool_supporter', 'course_table_showstartdate');
         $data['showshortname'] = get_config('tool_supporter', 'course_table_showshortname');
         $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
@@ -682,7 +681,6 @@ class external extends external_api {
             'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
             'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
 
-            'showid'  => new external_value(PARAM_BOOL, "Setting if course id shoud be displayed"),
             'showstartdate'  => new external_value(PARAM_BOOL, "Setting if course startdate should be displayed"),
             'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),
             'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),

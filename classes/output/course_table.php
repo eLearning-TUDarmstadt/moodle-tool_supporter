@@ -56,7 +56,6 @@ class course_table implements renderable, templatable {
             $count++;
         }
 
-        $data['showid'] = get_config('tool_supporter', 'course_table_showid');
         $data['showstartdate'] = get_config('tool_supporter', 'course_table_showstartdate');
         $data['showshortname'] = get_config('tool_supporter', 'course_table_showshortname');
         $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
