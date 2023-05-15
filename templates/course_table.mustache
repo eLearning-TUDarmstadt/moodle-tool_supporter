@@ -30,6 +30,7 @@ Example context (json):
   "courses": [
         {
       "id": 8,
+      "startdate": "27/08/2022, 11:00:00",
       "shortname": "Kurs level 2",
       "fullname": "Kurs level 2",
       "level_two": "",
@@ -38,6 +39,7 @@ Example context (json):
     },
     {
       "id": 9,
+      "startdate": "24/12/2022, 00:00:00",
       "shortname": "Kurs level 2.1",
       "fullname": "Kurs level 2.1",
       "level_two": "Level 2.1",
@@ -46,6 +48,7 @@ Example context (json):
     },
     {
       "id": 17,
+      "startdate": "31/12/2022, 00:00:00",
       "shortname": "eee",
       "fullname": "eee",
       "level_two": "Level 2.1",
@@ -54,6 +57,7 @@ Example context (json):
     },
     {
       "id": 19,
+      "startdate": "01/07/2022, 09:00:00",
       "shortname": "Ebene 3 Kurs",
       "fullname": "Ebene 3 Kurs",
       "level_two": "Verschiedenes 1",
@@ -62,6 +66,7 @@ Example context (json):
     },
     {
       "id": 21,
+      "startdate": "22/07/2022, 09:00:00",
       "shortname": "FB 01 Kurs im WS 17 18",
       "fullname": "FB 01 Kurs im WS 17 18",
       "level_two": "FB 01",
@@ -70,6 +75,7 @@ Example context (json):
     },
     {
       "id": 30,
+      "startdate": "05/03/2022, 10:00:00",
       "shortname": "test",
       "fullname": "test",
       "level_two": "",
@@ -160,12 +166,13 @@ Example context (json):
 	  <table id = "courseTable" class="stripe hover row-border">
 	    <thead>
 	      <tr>
-	        <th>ID  </th>
-	        <th>{{#str}}shortnamecourse{{/str}}</th>
-	        <th>{{#str}}fullnamecourse{{/str}}</th>
-	        <th>{{label_level_1}}</th>
-	        <th>{{label_level_2}}</th>
-	        <th>{{#str}}visible{{/str}}</th>
+            <th>ID</th>
+            <th>Startdate</th>
+            <th>{{#str}}shortnamecourse{{/str}}</th>
+            <th>{{#str}}fullnamecourse{{/str}}</th>
+            <th>{{label_level_1}}</th>
+            <th>{{label_level_2}}</th>
+            <th>{{#str}}visible{{/str}}</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -182,12 +189,19 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
     function(loadInformation, $, ajax, notification, templates, datatables, tableFilter) {
 
         var columns1 = [
-                        {data: 'id', name: 'ID'},
-                        {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
-                        {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
-                        {data: 'level_one', name: '{{label_level_1}}'},
-                        {data: 'level_two', name: '{{label_level_2}}'},
-                        {data: 'visible', name: '{{#str}}visible{{/str}}'}
+            {data: 'id', "searchable": true, name: 'ID'},
+            {data: 'startdate', name: 'Startdate',
+                "visible": {{# showstartdate}}true{{/ showstartdate}}{{^ showstartdate}}false{{/ showstartdate}} },
+            {data: 'shortname', "searchable": true, name: '{{#str}}shortnamecourse{{/str}}',
+                "visible": {{# showshortname}}true{{/ showshortname}}{{^ showshortname}}false{{/ showshortname}} },
+            {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}',
+                "visible": {{# showfullname}}true{{/ showfullname}}{{^ showfullname}}false{{/ showfullname}} },
+            {data: 'level_one', name: '{{label_level_1}}',
+                "visible": {{# showlevel1}}true{{/ showlevel1}}{{^ showlevel1}}false{{/ showlevel1}} },
+            {data: 'level_two', name: '{{label_level_2}}',
+                "visible": {{# showlevel2}}true{{/ showlevel2}}{{^ showlevel2}}false{{/ showlevel2}} },
+            {data: 'visible', name: '{{#str}}visible{{/str}}',
+               "visible": {{# showvisible}}true{{/ showvisible}}{{^ showvisible}}false{{/ showvisible}} }
                        ];
 
         // Convert the table to dataTable and apply Filtering.
