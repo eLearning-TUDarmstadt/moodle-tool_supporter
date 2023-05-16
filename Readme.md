@@ -1,4 +1,4 @@
-Copyright: 2019 Benedikt Schneider (@Nullmann), developed and maintained by TU Darmstadt
+Copyright: developed and maintained by TU Darmstadt (initial release by Benedikt Schneider (@Nullmann), further development by @my-curiosity)
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
@@ -27,6 +27,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
 
 ## Prerequisites
 * This version is tested on Moodle 3.10, 3.11 (branch 310, master), 4.1, 4.2 (branch 4_dev, without link in navigation)
+* For Moodle 3.9 and older use v1.03
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
