@@ -2,7 +2,7 @@ Copyright: 2019 Benedikt Schneider (@Nullmann), developed and maintained by TU D
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
-# tool_supporter [![Build Status](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter.svg?branch=master)](https://travis-ci.org/eLearning-TUDarmstadt/moodle-tool_supporter)
+# tool_supporter
 
 ## About
 With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
@@ -26,10 +26,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 3.5, 3.6, 3.7, 3.8, 3.9 (master) and 3.10, 3.11 (branch 310)
-  * For 3.4 and older versions of Moodle, checkout the Branch "MOODLE_34_STABLE"
-  * Also works with Moodle 4.0 and 4.1, but for the moment without link in navigation, navigate manually to /admin/tool/supporter
-* A php version of 5.5 or greater is needed
+* This version is tested on Moodle 3.10, 3.11 (branch 310, master), 4.1, 4.2 (branch 4_dev, without link in navigation)
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
