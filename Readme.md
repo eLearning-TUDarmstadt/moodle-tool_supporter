@@ -35,7 +35,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
 * Copy/Clone to `https://YOURSITE/admin/tool/` directory
   * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter admin/tool/supporter` in your moodle root
 * Enable database upgrade
-* Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->Reports->Supporter`
+* Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->General->Supporter`
 
 ## Capabilites
 With this Plugin, we strove to implement all necessary Moodle-capabilities. As such, there is no need to give users additional caps. 
