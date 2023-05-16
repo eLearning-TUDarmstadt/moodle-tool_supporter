@@ -578,7 +578,7 @@ class external extends external_api {
             $courses = $DB->get_records("course", null, '',
                 'id, shortname, fullname, visible, category');
         } else {
-            // Only show visible courses
+            // Only show visible courses.
             $courses = $DB->get_records("course", array("visible" => "1"), '',
                 'id, shortname, fullname, visible, category');
         }
