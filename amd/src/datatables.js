@@ -18,7 +18,6 @@
  * the dataTabes Plugin
  *
  * @module     tool_supporter/datatables
- * @package    tool_supporter
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
@@ -27,6 +26,11 @@ define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporte
         'core/ajax', 'core/notification', 'core/templates'],
 function($, datatables, str, filter, ajax, notification, templates) {
 
+    /**
+     * @param {string} tableID : ID of table
+     * @param {number} filterSelector : Array for filtering with the dropdown-menues
+     * There can be several filterSelectors, for example one for each dropdown-menue
+     */
     var useFilters = function(tableID, filterSelector) {
         // Only execute if there are filters.
         if (typeof filterSelector != "undefined") {
@@ -42,8 +46,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
         /**
          * @method useDataTable
-         * @param {string} tableID: ID of table you want to convert into datatable
-         * @param {number} filterSelector: Array for filtering with the dropdown-menues
+         * @param {string} tableID : ID of table you want to convert into datatable
+         * @param {number} filterSelector : Array for filtering with the dropdown-menues
          * There can be several filterSelectors, for example one for each dropdown-menue
          */
         useDataTable: function(tableID, filterSelector) {

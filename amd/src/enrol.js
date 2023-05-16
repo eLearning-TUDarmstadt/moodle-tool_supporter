@@ -17,7 +17,6 @@
  * This Module provides a function to enrol a user into a course
  *
  * @module     tool_supporter/create_new_course
- * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1

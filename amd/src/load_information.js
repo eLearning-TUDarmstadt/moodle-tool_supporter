@@ -17,7 +17,6 @@
  * Module witch provides mostly jquery user interactions and ajax calls
  *
  * @module     tool_supporter/load_information
- * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      3.1.1
@@ -63,7 +62,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
     // Public Stuff.
 
-    var public = {
+    var publicvar = {
 
         /**
          * Show the course details
@@ -255,5 +254,5 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     };
 
     // Alias module:tool_supporter/load_information.
-    return public;
+    return publicvar;
 });
