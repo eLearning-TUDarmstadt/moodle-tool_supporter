@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is the external API for the supporter plugin.
+ * Privacy Subsystem implementing null_provider.
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider
@@ -23,8 +23,13 @@
  */
 namespace tool_supporter\privacy;
 
-defined('MOODLE_INTERNAL') || die;
-
+/**
+ * Privacy Subsystem implementing null_provider.
+ *
+ * @package    tool_supporter
+ * @copyright  2019 Benedikt Schneider
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class provider implements
     // This plugin does not store any personal user data.
     \core_privacy\local\metadata\null_provider {

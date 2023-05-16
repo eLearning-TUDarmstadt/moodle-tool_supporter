@@ -70,7 +70,7 @@ $functions = array(
         'description' => 'Get settings of settings-page',
         'type'        => 'read',
         'ajax'        => true,
-        'capabilities' => '' // Every user can access this page, but not see everything
+        'capabilities' => '' // Every user can access this page, but not see everything.
     ),
     /* -------- Write-capabilites --------- */
     'tool_supporter_create_new_course' => array(

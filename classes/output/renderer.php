@@ -23,8 +23,6 @@
  */
 namespace tool_supporter\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use plugin_renderer_base;
 
 /**

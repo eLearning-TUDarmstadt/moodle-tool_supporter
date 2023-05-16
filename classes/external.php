@@ -109,10 +109,10 @@ class external extends external_api {
         $params = self::validate_parameters(self::create_new_course_parameters (), $array );
 
         $data = new \stdClass();
-        $data->shortname = $params ['shortname'];
-        $data->fullname = $params ['fullname'];
-        $data->category = $params ['categoryid'];
-        $data->visible = $params ['visible'];
+        $data->shortname = $params['shortname'];
+        $data->fullname = $params['fullname'];
+        $data->category = $params['categoryid'];
+        $data->visible = $params['visible'];
 
         if (trim($params['shortname']) == '') {
             throw new invalid_parameter_exception('Invalid short name');
@@ -410,7 +410,8 @@ class external extends external_api {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = external_format_string($label, $context); // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
+            $data['label_level_'.$count] = external_format_string($label, $context);
+            // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
 
@@ -464,7 +465,8 @@ class external extends external_api {
             'loginaslink' => new external_value(PARAM_TEXT, 'The link to login as the user', VALUE_OPTIONAL),
             'profilelink' => new external_value(PARAM_TEXT, 'The link to the users profile page'),
             'edituserlink' => new external_value(PARAM_TEXT, 'The link to edit the user'),
-            'usernotificationpreferenceslink' => new external_value(PARAM_TEXT, 'The link to edit the user\'s notification preferences'),
+            'usernotificationpreferenceslink' => new external_value(PARAM_TEXT,
+                'The link to edit the user\'s notification preferences'),
             'deleteuserlink' => new external_value(PARAM_TEXT, 'The link to delete the user, confirmation required'),
             'uniquelevelones' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique first level categories')),
@@ -566,7 +568,7 @@ class external extends external_api {
             $categories = $DB->get_records("course_categories", array(), 'sortorder ASC',
                 'id, name, parent, depth, path');
         } else {
-            // Only show visible categories
+            // Only show visible categories.
             $categories = $DB->get_records("course_categories", array("visible" => "1"), 'sortorder ASC',
                 'id, name, parent, depth, path');
         }
@@ -630,7 +632,8 @@ class external extends external_api {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = external_format_string($label, $context); // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
+            $data['label_level_'.$count] = external_format_string($label, $context);
+            // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
 
@@ -719,7 +722,8 @@ class external extends external_api {
             $coursedetails['timecreated'] = get_string('never', 'moodle');
         } else {
             $coursedetails['timecreated'] =
-                userdate($coursedetails['timecreated'], get_string('strftimesecondsdatetimeshort', 'tool_supporter')); // Convert timestamp to readable format.
+                userdate($coursedetails['timecreated'], get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+            // Convert timestamp to readable format.
         }
         // Support course multilang fullnames.
         $coursedetails['fullname'] = external_format_string($coursedetails['fullname'], $coursecontext);
@@ -812,7 +816,7 @@ class external extends external_api {
             $enrolmentmethod['password'] = $instance->password;
             $enrolmentmethod['methodname'] = $plugin->get_instance_name($instance);
             $enrolmentmethod['enabled'] = false;
-            if (!enrol_is_enabled($instance->enrol) or $instance->status != ENROL_INSTANCE_ENABLED) {
+            if (!enrol_is_enabled($instance->enrol) || $instance->status != ENROL_INSTANCE_ENABLED) {
                 $enrolmentmethod['enabled'] = true;
             }
 
@@ -962,11 +966,10 @@ class external extends external_api {
         self::validate_context($coursecontext);
 
         // Is the user allowed to enrol a student into this course?
+        // \require_capability('enrol/manual:enrol', $coursecontext);
         //
         // UPD: Checked on button click later anyway,
-        // comment out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110)
-        //
-        //\require_capability('enrol/manual:enrol', $coursecontext);
+        // comment out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110).
 
         // Parameter validation.
         self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
@@ -1143,6 +1146,7 @@ class external extends external_api {
     /**
      * Wrapper for core function toggleCourseVisibility
      *
+     * @param int $courseid Id of the course
      * @return array: See return-function
      * @throws \dml_exception
      * @throws \restricted_context_exception
@@ -1171,7 +1175,6 @@ class external extends external_api {
             array ('name' => 'blocks', 'value' => 1),
             array ('name' => 'filters', 'value' => 1),
             array ('name' => 'users', 'value' => 0),
-            // array ('name' => 'enrolments', 'value' => backup::ENROL_WITHUSERS),
             array ('name' => 'role_assignments', 'value' => 0),
             array ('name' => 'comments', 'value' => 0),
             array ('name' => 'userscompletion', 'value' => 0),

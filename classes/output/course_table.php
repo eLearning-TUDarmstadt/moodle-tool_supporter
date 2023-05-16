@@ -23,8 +23,6 @@
  */
 namespace tool_supporter\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use renderable;
 use templatable;
 use renderer_base;

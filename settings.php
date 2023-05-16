@@ -59,7 +59,8 @@ if ($hassiteconfig) {
         get_string('sett_user_table_desc', 'tool_supporter')));
     $settings->add(new admin_setting_configtext('tool_supporter/user_table_pagelength',
         get_string('sett_user_table_pagelength', 'tool_supporter'), "", 30, PARAM_INT));
-    $settings->add(new admin_setting_configselect('tool_supporter/user_table_order', get_string('sett_sort_user_table', 'tool_supporter'),
+    $settings->add(new admin_setting_configselect('tool_supporter/user_table_order',
+        get_string('sett_sort_user_table', 'tool_supporter'),
         "", "asc", array("asc" => get_string('asc'), "desc" => get_string('desc'))));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/user_table_excludesuspended',
         get_string('exportonlyactive', 'grades'), "", 1));
