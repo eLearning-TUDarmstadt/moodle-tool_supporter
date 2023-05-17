@@ -36,7 +36,7 @@ define(['jquery'], function($) {
                 stringValue = '^(?![\\s\\S])';
             } else {
                 // Escape Regex-Characters which may be in names of categories.
-                val = val.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                val = val.replace(/[-[\]{}()*+!<=:?./\\^$|#\s,]/g, '\\$&');
                 // String value is added several times with different starts and endings.
                 // So filter for "Teacher" does not match "non-editing teacher".
                 stringValue = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';

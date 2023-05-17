@@ -62,6 +62,7 @@ jobs:
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+          IGNORE_NAMES: 'jquery.dataTables.js, dataTables.bootstrap4.js'
 
       - name: PHP Lint
         if: ${{ always() }}
@@ -99,7 +100,7 @@ jobs:
 
       - name: Grunt
         if: ${{ always() }}
-        run: moodle-plugin-ci grunt --show-lint-warnings || true  #no fail
+        run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       #- name: PHPUnit tests
       #  if: ${{ always() }}
