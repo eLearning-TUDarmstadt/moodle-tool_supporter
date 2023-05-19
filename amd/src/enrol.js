@@ -30,7 +30,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
          * The user and the course are selected and their ids are stored in the fields with the ids
          * selectedcourseid and selecteduserid
          *
-         * @method enroluserintocours
+         * @method enrolUserIntoCourse
          */
         enrolUserIntoCourse: function() {
             $('#enroluserintocoursebutton').on('click', function() {

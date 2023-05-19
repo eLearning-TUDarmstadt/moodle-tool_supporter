@@ -139,10 +139,10 @@ class external extends external_api {
                 $plugin = enrol_get_plugin('self');
                 $plugin->add_instance($createdcourse, array("password" => $selfenrolpassword, "roleid" => 5));
             } else {
-                // If self enrolment is activated for new courses, activaten and update it.
+                // If self enrolment is activated for new courses, activate and update it.
                 $selfenrolment->status = 0; // 0 is active!
-                $selfenrolment->password = $selfenrolpassword; // The PW is safed as plain text.
-                $selfenrolment->roleid = 5; // Set the default role id for new users that enroll in the course.
+                $selfenrolment->password = $selfenrolpassword; // The PW is saved as plain text.
+                $selfenrolment->roleid = 5; // Set the default role id for new users that enrol in the course.
                 $DB->update_record("enrol", $selfenrolment);
             }
         }
@@ -363,7 +363,7 @@ class external extends external_api {
         }
         $data['userscourses'] = $coursesarray;
 
-        // Filters should only appear once in the dropdown-menues.
+        // Filters should only appear once in the dropdown-menus.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
 
@@ -872,7 +872,7 @@ class external extends external_api {
 
     /**
      * Specifies return values
-     * @return external_single_structure a course with addition information
+     * @return external_single_structure a course with additional information
      */
     public static function get_course_info_returns() {
         return new external_single_structure( array(
@@ -969,7 +969,7 @@ class external extends external_api {
         // \require_capability('enrol/manual:enrol', $coursecontext);
         //
         // UPD: Checked on button click later anyway,
-        // comment out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110).
+        // commented out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110).
 
         // Parameter validation.
         self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
@@ -1061,7 +1061,7 @@ class external extends external_api {
         \require_capability('moodle/course:visibility', $coursecontext);
 
         $course = self::get_course_info($courseid);
-        // Second param is the desired visibility value.
+        // Second parameter is the desired visibility value.
         course_change_visibility($courseid, !($course['courseDetails']['visible']));
         $course['courseDetails']['visible'] = !$course['courseDetails']['visible'];
 

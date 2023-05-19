@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for index page
+ * Class containing data for course_detail
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary

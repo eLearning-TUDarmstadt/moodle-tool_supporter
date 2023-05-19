@@ -16,10 +16,8 @@
 }}
 {{!
 
-  Documentation gets here!
-
       @template tool_supporter/user_detail
-      Template which outputs the details of a user.
+      Template which outputs detailed data about a user.
 
       Classes required for JS:
       * dataTables
@@ -238,7 +236,7 @@ require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_suppo
          'tool_supporter/load_information'],
     function(search, sort, dataTable, loadInformation) {
 
-        // Convert table to DataTable and add filter functionality to dropdown-menue.
+        // Convert table to DataTable and add filter functionality to dropdown-menu.
         dataTable.useDataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
                                                        ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
 

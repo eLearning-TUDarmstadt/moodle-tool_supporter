@@ -196,7 +196,7 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
         datatables.dataTableAjax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
 
         // Refresh this table.
-        loadInformation.clickOnRefresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
+        loadInformation.clickOnRefresh('#courseTable', 'tool_supporter_get_courses', {}, 'users', columns1);
 
         // Load detailed information about the clicked course.
         loadInformation.clickOnCourse('#courseTable');

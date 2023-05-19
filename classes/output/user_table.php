@@ -29,7 +29,8 @@ use renderer_base;
 use stdClass;
 
 /**
- * Class user_table
+ * Class containing data for user_table
+ *
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

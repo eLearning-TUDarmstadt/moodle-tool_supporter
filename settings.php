@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Version details.
+ * Navigation and settings definitions.
  *
  * @package    tool_supporter
  * @copyright  2019 Klara Saary, Benedikt Schneider

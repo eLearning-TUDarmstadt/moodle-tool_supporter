@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This modules creates helper functions for creating a course
+ * This module contains helper functions for creating a course
  *
  * @module     tool_supporter/create_new_course
  * @copyright  2019 Benedikt Schneider

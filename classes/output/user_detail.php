@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data ffor user_detail
+ * Class containing data for user_detail
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary

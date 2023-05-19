@@ -14,8 +14,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This module provides setttings and implements
- * the dataTabes Plugin
+ * This module provides settings and implements
+ * the dataTables Plugin
  *
  * @module     tool_supporter/datatables
  * @copyright  2019 Klara Saary, Benedikt Schneider
@@ -28,8 +28,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
     /**
      * @param {string} tableID : ID of table
-     * @param {number} filterSelector : Array for filtering with the dropdown-menues
-     * There can be several filterSelectors, for example one for each dropdown-menue
+     * @param {number} filterSelector : Array for filtering with the dropdown-menus
+     * There can be several filterSelectors, for example one for each dropdown-menu
      */
     var useFilters = function(tableID, filterSelector) {
         // Only execute if there are filters.
@@ -47,8 +47,8 @@ function($, datatables, str, filter, ajax, notification, templates) {
         /**
          * @method useDataTable
          * @param {string} tableID : ID of table you want to convert into datatable
-         * @param {number} filterSelector : Array for filtering with the dropdown-menues
-         * There can be several filterSelectors, for example one for each dropdown-menue
+         * @param {number} filterSelector : Array for filtering with the dropdown-menus
+         * There can be several filterSelectors, for example one for each dropdown-menu
          */
         useDataTable: function(tableID, filterSelector) {
 
