@@ -19,7 +19,6 @@
  * @module     tool_supporter/load_information
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 

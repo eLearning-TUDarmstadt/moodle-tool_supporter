@@ -22,7 +22,6 @@
  * @module     tool_supporter/table_filter
  * @copyright  2019 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery'], function($) {
 

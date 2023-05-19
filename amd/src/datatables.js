@@ -20,7 +20,6 @@
  * @module     tool_supporter/datatables
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter',
         'core/ajax', 'core/notification', 'core/templates'],

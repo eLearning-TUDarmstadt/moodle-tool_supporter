@@ -16,10 +16,9 @@
 /**
  * This Module provides a function to enrol a user into a course
  *
- * @module     tool_supporter/create_new_course
+ * @module     tool_supporter/enrol
  * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
     return /** @alias module:tool_supporter/create_new_course */ {
