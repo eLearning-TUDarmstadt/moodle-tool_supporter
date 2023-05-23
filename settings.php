@@ -36,11 +36,6 @@ if ($hassiteconfig) {
     // Add the config page to the administration menu.
     $ADMIN->add('supportercategory', $settings);
 
-    $settings->add(new admin_setting_configcheckbox('tool_supporter/enable_lvl_1',
-        get_string('sett_enable_lvl_1', 'tool_supporter'), "", 1));
-    $settings->add(new admin_setting_configcheckbox('tool_supporter/enable_lvl_2',
-        get_string('sett_enable_lvl_2', 'tool_supporter'), "", 1));
-
     // Settings for level naming.
     $settings->add(new admin_setting_configtext('tool_supporter/level_labels', get_string('sett_levels', 'tool_supporter'),
         get_string('sett_levels_description', 'tool_supporter'),
@@ -58,6 +53,18 @@ if ($hassiteconfig) {
         get_string('course:viewhiddencourses', 'role'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_viewhiddenscat',
         get_string('category:viewhiddencategories', 'role'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showstartdate',
+        'Startdate', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showshortname',
+        'Shortname', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showfullname',
+        'Fullname', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel1',
+        'Level1', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel2',
+        'Level2', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showvisibility',
+        'Visible', "", 1));
 
     // Settings for user table (bottom right).
     $settings->add(new admin_setting_heading('header_user_table', get_string('sett_user_table', 'tool_supporter'),
@@ -86,6 +93,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configselect('tool_supporter/course_details_order',
         get_string('sett_sort_course_details', 'tool_supporter'), "", "desc",
         array("asc" => get_string('asc'), "desc" => get_string('desc'))));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_details_showid',
+        'ID', "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_details_showstartdate',
+        get_string('startdate'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_details_showshortname',
         get_string('shortnamecourse'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_details_showfullname',
