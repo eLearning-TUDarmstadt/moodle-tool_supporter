@@ -21,8 +21,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
-$plugin->version   = 2023052308; // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2023052309; // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2022041900; // Requires Moodle version 4.0 or higher.
 $plugin->component = 'tool_supporter'; // Full name of the plugin (used for diagnostics).
-$plugin->release = 'v1.04';
+$plugin->release = 'v1.05';
 $plugin->maturity = MATURITY_STABLE;

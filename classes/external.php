@@ -750,8 +750,9 @@ class external extends external_api {
                 userdate($coursedetails['timecreated'], get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
             // Convert timestamp to readable format.
         }
+        // Convert timestamp to readable format.
         $coursedetails['startdate'] =
-            userdate($coursedetails['startdate'], get_string('strftimesecondsdatetimeshort', 'tool_supporter')); // Convert timestamp to readable format.
+            userdate($coursedetails['startdate'], get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
         // Support course multilang fullnames.
         $coursedetails['fullname'] = external_format_string($coursedetails['fullname'], $coursecontext);
 
