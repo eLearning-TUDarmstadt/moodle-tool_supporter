@@ -574,11 +574,11 @@ class external extends external_api {
         $viewhiddencourses = get_config('tool_supporter', 'course_table_viewhiddenscourses');
         if ($viewhiddencourses) {
             $courses = $DB->get_records("course", null, '',
-                'id, shortname, fullname, visible, category');
+                'id, shortname, fullname, visible, category, startdate');
         } else {
             // Only show visible courses
             $courses = $DB->get_records("course", array("visible" => "1"), '',
-                'id, shortname, fullname, visible, category');
+                'id, shortname, fullname, visible, category, startdate');
         }
 
         $coursesarray = [];
@@ -603,6 +603,10 @@ class external extends external_api {
 
                 // Support multilang course fullnames.
                 $course->fullname = external_format_string($course->fullname, $context);
+
+                // Convert timestamp to readable format.
+                $course->startdate = userdate($course->startdate,
+                    get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
 
                 $coursesarray[] = (array)$course;
             }
@@ -634,6 +638,13 @@ class external extends external_api {
             $count++;
         }
 
+        $data['showstartdate'] = get_config('tool_supporter', 'course_table_showstartdate');
+        $data['showshortname'] = get_config('tool_supporter', 'course_table_showshortname');
+        $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
+        $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
+        $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showvisible'] = get_config('tool_supporter', 'course_table_showvisibility');
+
         return $data;
     }
 
@@ -652,7 +663,8 @@ class external extends external_api {
                         'fullname' => new external_value(PARAM_RAW, 'course name'),
                         'level_two' => new external_value(PARAM_RAW,  'parent category'),
                         'level_one' => new external_value(PARAM_RAW, 'course category'),
-                        'visible' => new external_value(PARAM_INT, 'Is the course visible')
+                        'visible' => new external_value(PARAM_INT, 'Is the course visible'),
+                        'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format')
                     )
                 )
             ),
@@ -668,6 +680,14 @@ class external extends external_api {
             'label_level_3' => new external_value(PARAM_TEXT, 'label of third level', VALUE_OPTIONAL),
             'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
             'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
+
+            'showstartdate'  => new external_value(PARAM_BOOL, "Setting if course startdate should be displayed"),
+            'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),
+            'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),
+            'showlevel1' => new external_value(PARAM_BOOL, "Config setting if level 1 should be displayed"),
+            'showlevel2' => new external_value(PARAM_BOOL, "Config setting if level 2 should be displayed"),
+            'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
+
         ));
     }
 
@@ -711,7 +731,7 @@ class external extends external_api {
         \require_capability('moodle/course:view', $coursecontext);
 
         // Get information about the course.
-        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, cat.path FROM {course} c, ".
+        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path FROM {course} c, ".
                   "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
@@ -721,6 +741,8 @@ class external extends external_api {
             $coursedetails['timecreated'] =
                 userdate($coursedetails['timecreated'], get_string('strftimesecondsdatetimeshort', 'tool_supporter')); // Convert timestamp to readable format.
         }
+        $coursedetails['startdate'] =
+            userdate($coursedetails['startdate'], get_string('strftimesecondsdatetimeshort', 'tool_supporter')); // Convert timestamp to readable format.
         // Support course multilang fullnames.
         $coursedetails['fullname'] = external_format_string($coursedetails['fullname'], $coursecontext);
 
@@ -861,6 +883,8 @@ class external extends external_api {
             'showtimecreated'  => get_config('tool_supporter', 'course_details_showtimecreated'),
             'showusersamount'  => get_config('tool_supporter', 'course_details_showusersamount'),
             'showrolesandamount'  => get_config('tool_supporter', 'course_details_showrolesandamount'),
+            'showid'  => get_config('tool_supporter', 'course_details_showid'),
+            'showstartdate'  => get_config('tool_supporter', 'course_details_showstartdate'),
         );
 
         return (array)$data;
@@ -880,6 +904,7 @@ class external extends external_api {
                 'path' => new external_value(PARAM_RAW, 'path to course'),
                 'enrolledUsers' => new external_value(PARAM_INT, 'number of users, without teachers'),
                 'timecreated' => new external_value(PARAM_TEXT, 'time the course was created as readable date format'),
+                'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format'),
                 'level_one' => new external_value(PARAM_TEXT, 'first level of the course'),
                 'level_two' => new external_value(PARAM_TEXT, 'second level of the course')
             )),
@@ -891,6 +916,8 @@ class external extends external_api {
                 'showtimecreated' => new external_value(PARAM_BOOL, "Config setting if courses timecreated should be displayed"),
                 'showusersamount' => new external_value(PARAM_BOOL, "Setting if courses total amount of users should be displayed"),
                 'showrolesandamount' => new external_value(PARAM_BOOL, "Setting if courses roles and their amount are displayed"),
+                'showid'  => new external_value(PARAM_BOOL, "Setting if course id shoud be displayed"),
+                'showstartdate'  => new external_value(PARAM_BOOL, "Setting if course startdate should be displayed"),
             ))),
             'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
