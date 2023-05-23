@@ -137,7 +137,6 @@ Example context (json):
         <!-- Filtering for course table -->
         <div id ="course_filtering" data-region = "course_filtering">
            <ul class="nav nav-tabs nav-justified">
-                {{#has_1_lvl}}
              <!-- Filter course list by selecting first level category-->
              <li class="nav-item dropdown">
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
@@ -150,8 +149,6 @@ Example context (json):
                  {{/uniquelevelones}}
                </ul>
              </li>
-                {{/has_1_lvl}}
-               {{#has_2_lvl}}
             <!-- Filter course list by selecting second level category -->
              <li class="nav-item dropdown">
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
@@ -163,7 +160,6 @@ Example context (json):
                  {{/uniqueleveltwoes}}
                </ul>
              </li>
-               {{/has_2_lvl}}
           </ul>
         </div>
     </div>
