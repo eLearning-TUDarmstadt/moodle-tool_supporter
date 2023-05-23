@@ -173,7 +173,7 @@ Example context (json):
 	    <thead>
 	      <tr>
               <th>ID</th>
-              <th>Startdate</th>
+              <th>{{#str}}startdate{{/str}}</th>
               <th>{{#str}}shortnamecourse{{/str}}</th>
               <th>{{#str}}fullnamecourse{{/str}}</th>
               <th>{{label_level_1}}</th>
@@ -196,7 +196,7 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
 
         var columns1 = [
             {data: 'id', "searchable": true, name: 'ID'},
-            {data: 'startdate', name: 'Startdate',
+            {data: 'startdate', name: '{{#str}}startdate{{/str}}',
                 "visible": {{#showstartdate}}true{{/showstartdate}}{{^showstartdate}}false{{/showstartdate}}},
             {data: 'shortname', "searchable": true, name: '{{#str}}shortnamecourse{{/str}}',
                 "visible": {{#showshortname}}true{{/showshortname}}{{^showshortname}}false{{/showshortname}}},

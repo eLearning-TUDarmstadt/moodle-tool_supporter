@@ -161,7 +161,7 @@ Example context (json):
                     {{#config}}
                         {{#courseDetails}}
                             <tr><th>ID</th><td id="selectedcourseid">{{id}}</td></tr>
-                            {{#showstartdate}}<tr><th>Startdatum</th><td>{{startdate}}</td></tr>{{/showstartdate}}
+                            {{#showstartdate}}<tr><th>{{#str}}startdate{{/str}}</th><td>{{startdate}}</td></tr>{{/showstartdate}}
                             {{#showshortname}}<tr><th>{{#str}}shortnamecourse{{/str}}</th><td>{{shortname}}</td></tr>{{/showshortname}}
                             {{#showfullname}}<tr><th>{{#str}}fullnamecourse{{/str}}</th><td>{{fullname}}</td></tr>{{/showfullname}}
                             {{#showvisible}}<tr><th>{{#str}}visible{{/str}}</th><td>{{visible}}</td></tr>{{/showvisible}}
