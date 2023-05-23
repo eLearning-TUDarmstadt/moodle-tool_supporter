@@ -56,6 +56,8 @@ class course_table implements renderable, templatable {
         }
         $data['searchname'] = get_string('searchcourses', 'tool_supporter');
         $data['refreshname'] = get_string('refreshcourses', 'tool_supporter');
+        $data['has_2_lvl'] = get_config('tool_supporter', 'enable_lvl_2');
+        $data['has_1_lvl'] = get_config('tool_supporter', 'enable_lvl_1');
 
         return $data;
     }

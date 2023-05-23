@@ -39,6 +39,8 @@ $string['refreshusers'] = 'Refresh';
 // Strings for setting page - settings.php.
 $string['sett_title'] = 'Supporter configuration';
 $string['sett_levels'] = 'Labeling of course category levels';
+$string['sett_enable_lvl_1'] = 'Enable Level 1';
+$string['sett_enable_lvl_2'] = 'Enable Level 2';
 $string['sett_levels_default'] = 'Semester;Department';
 $string['sett_levels_description'] = 'Specify the displayed names of the course levels. In descending order (uppermost level first) and separated by semicolon. ';
 

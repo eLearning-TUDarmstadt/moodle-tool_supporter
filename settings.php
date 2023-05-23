@@ -36,6 +36,11 @@ if ($hassiteconfig) {
     // Add the config page to the administration menu.
     $ADMIN->add('supportercategory', $settings);
 
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/enable_lvl_1',
+        get_string('sett_enable_lvl_1', 'tool_supporter'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/enable_lvl_2',
+        get_string('sett_enable_lvl_2', 'tool_supporter'), "", 1));
+
     // Settings for level naming.
     $settings->add(new admin_setting_configtext('tool_supporter/level_labels', get_string('sett_levels', 'tool_supporter'),
         get_string('sett_levels_description', 'tool_supporter'),

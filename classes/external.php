@@ -637,6 +637,11 @@ class external extends external_api {
             $count++;
         }
 
+        $data['searchname'] = get_string('searchcourses', 'tool_supporter');
+        $data['refreshname'] = get_string('refreshcourses', 'tool_supporter');
+        $data['has_2_lvl'] = get_config('tool_supporter', 'enable_lvl_2');
+        $data['has_1_lvl'] = get_config('tool_supporter', 'enable_lvl_1');
+
         return $data;
     }
 
@@ -671,6 +676,10 @@ class external extends external_api {
             'label_level_3' => new external_value(PARAM_TEXT, 'label of third level', VALUE_OPTIONAL),
             'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
             'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
+            'searchname' => new external_value(PARAM_TEXT, 'search field text'),
+            'refreshname' => new external_value(PARAM_TEXT, 'refresh button hover text'),
+            'has_1_lvl' => new external_value(PARAM_INT, 'is level 1 display enabled'),
+            'has_2_lvl' => new external_value(PARAM_INT, 'is level 2 display enabled')
         ));
     }
 

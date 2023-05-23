@@ -100,7 +100,9 @@ Example context (json):
   "label_level_1": "Semester",
   "label_level_2": "Fachbereich",
   "searchname": "Suchen",
-  "refreshname": "Aktualisieren"
+  "refreshname": "Aktualisieren",
+  "has_2_lvl": true,
+  "has_1_lvl": true
 }
 
 }}
@@ -131,6 +133,7 @@ Example context (json):
         <!-- Filtering for course table -->
         <div id ="course_filtering" data-region = "course_filtering">
            <ul class="nav nav-tabs nav-justified">
+                {{#has_1_lvl}}
              <!-- Filter course list by selecting first level category-->
              <li class="nav-item dropdown">
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
@@ -143,6 +146,8 @@ Example context (json):
                  {{/uniquelevelones}}
                </ul>
              </li>
+                {{/has_1_lvl}}
+               {{#has_2_lvl}}
             <!-- Filter course list by selecting second level category -->
              <li class="nav-item dropdown">
                <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
@@ -154,6 +159,7 @@ Example context (json):
                  {{/uniqueleveltwoes}}
                </ul>
              </li>
+               {{/has_2_lvl}}
           </ul>
         </div>
     </div>
@@ -165,8 +171,8 @@ Example context (json):
 	        <th>ID  </th>
 	        <th>{{#str}}shortnamecourse{{/str}}</th>
 	        <th>{{#str}}fullnamecourse{{/str}}</th>
-	        <th>{{label_level_1}}</th>
-	        <th>{{label_level_2}}</th>
+            {{#has_1_lvl}}<th>{{label_level_1}}</th>{{/has_1_lvl}}
+	        {{#has_2_lvl}}<th>{{label_level_2}}</th>{{/has_2_lvl}}
 	        <th>{{#str}}visible{{/str}}</th>
 	      </tr>
 	    </thead>
@@ -187,8 +193,8 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
                         {data: 'id', name: 'ID'},
                         {data: 'shortname', "visible": false, "searchable": true, name: '{{#str}}shortnamecourse{{/str}}'},
                         {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}'},
-                        {data: 'level_one', name: '{{label_level_1}}'},
-                        {data: 'level_two', name: '{{label_level_2}}'},
+                        {{#has_1_lvl}} {data: 'level_one', name: '{{label_level_1}}'}, {{/has_1_lvl}}
+                        {{#has_2_lvl}} {data: 'level_two', name: '{{label_level_2}}'}, {{/has_2_lvl}}
                         {data: 'visible', name: '{{#str}}visible{{/str}}'}
                        ];
 
