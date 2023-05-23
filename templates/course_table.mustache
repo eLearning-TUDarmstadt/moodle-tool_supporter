@@ -166,13 +166,13 @@ Example context (json):
 	  <table id = "courseTable" class="stripe hover row-border">
 	    <thead>
 	      <tr>
-            <th>ID</th>
-            <th>Startdate</th>
-            <th>{{#str}}shortnamecourse{{/str}}</th>
-            <th>{{#str}}fullnamecourse{{/str}}</th>
-            <th>{{label_level_1}}</th>
-            <th>{{label_level_2}}</th>
-            <th>{{#str}}visible{{/str}}</th>
+              <th>ID</th>
+              <th>{{#str}}startdate{{/str}}</th>
+              <th>{{#str}}shortnamecourse{{/str}}</th>
+              <th>{{#str}}fullnamecourse{{/str}}</th>
+              <th>{{label_level_1}}</th>
+              <th>{{label_level_2}}</th>
+              <th>{{#str}}visible{{/str}}</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -190,25 +190,25 @@ require(['tool_supporter/load_information', 'jquery', 'core/ajax', 'core/notific
 
         var columns1 = [
             {data: 'id', "searchable": true, name: 'ID'},
-            {data: 'startdate', name: 'Startdate',
-                "visible": {{# showstartdate}}true{{/ showstartdate}}{{^ showstartdate}}false{{/ showstartdate}} },
+            {data: 'startdate', name: '{{#str}}startdate{{/str}}',
+                "visible": {{#showstartdate}}true{{/showstartdate}}{{^showstartdate}}false{{/showstartdate}}},
             {data: 'shortname', "searchable": true, name: '{{#str}}shortnamecourse{{/str}}',
-                "visible": {{# showshortname}}true{{/ showshortname}}{{^ showshortname}}false{{/ showshortname}} },
+                "visible": {{#showshortname}}true{{/showshortname}}{{^showshortname}}false{{/showshortname}}},
             {data: 'fullname', name: '{{#str}}fullnamecourse{{/str}}',
-                "visible": {{# showfullname}}true{{/ showfullname}}{{^ showfullname}}false{{/ showfullname}} },
+                "visible": {{#showfullname}}true{{/showfullname}}{{^showfullname}}false{{/showfullname}}},
             {data: 'level_one', name: '{{label_level_1}}',
-                "visible": {{# showlevel1}}true{{/ showlevel1}}{{^ showlevel1}}false{{/ showlevel1}} },
+                "visible": {{#showlevel1}}true{{/showlevel1}}{{^showlevel1}}false{{/showlevel1}}},
             {data: 'level_two', name: '{{label_level_2}}',
-                "visible": {{# showlevel2}}true{{/ showlevel2}}{{^ showlevel2}}false{{/ showlevel2}} },
+                "visible": {{#showlevel2}}true{{/showlevel2}}{{^showlevel2}}false{{/showlevel2}}},
             {data: 'visible', name: '{{#str}}visible{{/str}}',
-               "visible": {{# showvisible}}true{{/ showvisible}}{{^ showvisible}}false{{/ showvisible}} }
+                "visible": {{#showvisible}}true{{/showvisible}}{{^showvisible}}false{{/showvisible}}}
                        ];
 
         // Convert the table to dataTable and apply Filtering.
         datatables.dataTableAjax('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
 
         // Refresh this table.
-        loadInformation.clickOnRefresh('#userTable', 'tool_supporter_get_users', {}, 'users', columns1);
+        loadInformation.clickOnRefresh('#courseTable', 'tool_supporter_get_courses', {}, 'courses', columns1);
 
         // Load detailed information about the clicked course.
         loadInformation.clickOnCourse('#courseTable');
