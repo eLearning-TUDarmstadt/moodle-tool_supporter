@@ -322,6 +322,9 @@ class external extends external_api {
 
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
+        $data['uniquelevelthrees'] = [];
+        $data['uniquelevelfours'] = [];
+        $data['uniquelevelfives'] = [];
         $coursesarray = [];
         foreach ($usercourses as $course) {
             if ($course->category != 0) {
@@ -345,6 +348,33 @@ class external extends external_api {
                     $course->level_two = "";
                 }
 
+                if (isset($patharray[3])) {
+                    // Support multilang course categories.
+                    $patharray[3] = external_format_string($categories[$patharray[3]]->name, $context);
+                    $course->level_three = $patharray[3];
+                    array_push($data['uniquelevelthrees'], $patharray[3]);
+                } else {
+                    $course->level_three = "";
+                }
+
+                if (isset($patharray[4])) {
+                    // Support multilang course categories.
+                    $patharray[4] = external_format_string($categories[$patharray[4]]->name, $context);
+                    $course->level_four = $patharray[4];
+                    array_push($data['uniquelevelfours'], $patharray[4]);
+                } else {
+                    $course->level_four = "";
+                }
+
+                if (isset($patharray[5])) {
+                    // Support multilang course categories.
+                    $patharray[5] = external_format_string($categories[$patharray[5]]->name, $context);
+                    $course->level_five = $patharray[5];
+                    array_push($data['uniquelevelfives'], $patharray[5]);
+                } else {
+                    $course->level_five = "";
+                }
+
                 // Get the used Roles the user is enrolled as (teacher, student, ...).
                 $usedroles = get_user_roles(\context_course::instance($course->id), $userid, false);
                 $course->roles = [];
@@ -366,6 +396,9 @@ class external extends external_api {
         // Filters should only appear once in the dropdown-menus.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
+        $data['uniquelevelthrees'] = array_filter(array_unique($data['uniquelevelthrees']));
+        $data['uniquelevelfours'] = array_filter(array_unique($data['uniquelevelfours']));
+        $data['uniquelevelfives'] = array_filter(array_unique($data['uniquelevelfives']));
 
         $context = \context_system::instance();
         if (\has_capability('moodle/user:loginas', $context) ) {
@@ -415,6 +448,12 @@ class external extends external_api {
             $count++;
         }
 
+        $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
+        $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
+
         return array($data);
     }
 
@@ -456,7 +495,10 @@ class external extends external_api {
                 'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
                 'visible' => new external_value(PARAM_INT, 'Is the course visible'),
                 'level_one' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
-                'level_two' => new external_value (PARAM_TEXT, 'the direkt name of the course category'),
+                'level_two' => new external_value (PARAM_TEXT, 'the direct name of the course category'),
+                'level_three' => new external_value (PARAM_TEXT, 'the name of level 3 category'),
+                'level_four' => new external_value (PARAM_TEXT, 'the name of level 4 category'),
+                'level_five' => new external_value (PARAM_TEXT, 'the name of level 5 category'),
                 'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course')),
                 'enrol_id' => new external_value (PARAM_INT, 'id of user enrolment')
                 // Additional information which could be added: idnumber, sortorder, defaultgroupingid, groupmode, groupmodeforce,
@@ -472,6 +514,12 @@ class external extends external_api {
                     new external_value(PARAM_TEXT, 'array with unique first level categories')),
             'uniqueleveltwoes' => new external_multiple_structure (
                     new external_value(PARAM_TEXT, 'array with unique second level categories')),
+            'uniquelevelthrees' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique third level categories')),
+            'uniquelevelfours' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique fourth level categories')),
+            'uniquelevelfives' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique fifth level categories')),
             'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
             'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
             // For now, it is limited to 5 levels and this implementation is ugly.
@@ -480,6 +528,12 @@ class external extends external_api {
             'label_level_3' => new external_value(PARAM_TEXT, 'label of third level', VALUE_OPTIONAL),
             'label_level_4' => new external_value(PARAM_TEXT, 'label of fourth level', VALUE_OPTIONAL),
             'label_level_5' => new external_value(PARAM_TEXT, 'label of fifth level', VALUE_OPTIONAL),
+
+            'showlevel1' => new external_value(PARAM_BOOL, "Config setting if level 1 should be displayed"),
+            'showlevel2' => new external_value(PARAM_BOOL, "Config setting if level 2 should be displayed"),
+            'showlevel3' => new external_value(PARAM_BOOL, "Config setting if level 3 should be displayed"),
+            'showlevel4' => new external_value(PARAM_BOOL, "Config setting if level 4 should be displayed"),
+            'showlevel5' => new external_value(PARAM_BOOL, "Config setting if level 5 should be displayed"),
         )));
     }
 
@@ -602,6 +656,27 @@ class external extends external_api {
                 } else {
                     $course->level_two = "";
                 }
+                if (isset($patharray[3])) {
+                    // Support multilang course categories.
+                    $patharray[3] = external_format_string($categories[$patharray[3]]->name, $context);
+                    $course->level_three = $patharray[3];
+                } else {
+                    $course->level_three = "";
+                }
+                if (isset($patharray[4])) {
+                    // Support multilang course categories.
+                    $patharray[4] = external_format_string($categories[$patharray[4]]->name, $context);
+                    $course->level_four = $patharray[4];
+                } else {
+                    $course->level_four = "";
+                }
+                if (isset($patharray[5])) {
+                    // Support multilang course categories.
+                    $patharray[5] = external_format_string($categories[$patharray[5]]->name, $context);
+                    $course->level_five = $patharray[5];
+                } else {
+                    $course->level_five = "";
+                }
 
                 // Support multilang course fullnames.
                 $course->fullname = external_format_string($course->fullname, $context);
@@ -617,6 +692,9 @@ class external extends external_api {
 
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
+        $data['uniquelevelthrees'] = [];
+        $data['uniquelevelfours'] = [];
+        $data['uniquelevelfives'] = [];
         foreach ($categories as $category) {
             if ($category->depth == 1) {
                 // Support multilang course categories.
@@ -626,11 +704,26 @@ class external extends external_api {
                 // Support multilang course categories.
                 array_push($data['uniqueleveltwoes'], external_format_string($category->name, $context));
             }
+            if ($category->depth == 3) {
+                // Support multilang course categories.
+                array_push($data['uniquelevelthrees'], external_format_string($category->name, $context));
+            }
+            if ($category->depth == 4) {
+                // Support multilang course categories.
+                array_push($data['uniquelevelfours'], external_format_string($category->name, $context));
+            }
+            if ($category->depth == 5) {
+                // Support multilang course categories.
+                array_push($data['uniquelevelfives'], external_format_string($category->name, $context));
+            }
         }
 
-        // Filters should only appear once in the dropdown-menues.
+        // Filters should only appear once in the dropdown-menus.
         $data['uniquelevelones'] = array_filter(array_unique($data['uniquelevelones']));
         $data['uniqueleveltwoes'] = array_filter(array_unique($data['uniqueleveltwoes']));
+        $data['uniquelevelthrees'] = array_filter(array_unique($data['uniquelevelthrees']));
+        $data['uniquelevelfours'] = array_filter(array_unique($data['uniquelevelfours']));
+        $data['uniquelevelfives'] = array_filter(array_unique($data['uniquelevelfives']));
 
         // Get level labels.
         $labels = get_config('tool_supporter', 'level_labels');
@@ -648,6 +741,9 @@ class external extends external_api {
         $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
         $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
         $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
         $data['showvisible'] = get_config('tool_supporter', 'course_table_showvisibility');
 
         return $data;
@@ -668,17 +764,24 @@ class external extends external_api {
                         'fullname' => new external_value(PARAM_RAW, 'course name'),
                         'level_two' => new external_value(PARAM_RAW,  'parent category'),
                         'level_one' => new external_value(PARAM_RAW, 'course category'),
+                        'level_three' => new external_value (PARAM_RAW, 'the name of level 3 category'),
+                        'level_four' => new external_value (PARAM_RAW, 'the name of level 4 category'),
+                        'level_five' => new external_value (PARAM_RAW, 'the name of level 5 category'),
                         'visible' => new external_value(PARAM_INT, 'Is the course visible'),
                         'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format')
                     )
                 )
             ),
-            'uniqueleveltwoes' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique category names of all first levels')
-            ),
             'uniquelevelones' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique category names of all second levels')
-            ),
+                new external_value(PARAM_TEXT, 'array with unique category names of all first levels')),
+            'uniqueleveltwoes' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique category names of all second levels')),
+            'uniquelevelthrees' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique third level categories')),
+            'uniquelevelfours' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique fourth level categories')),
+            'uniquelevelfives' => new external_multiple_structure (
+                new external_value(PARAM_TEXT, 'array with unique fifth level categories')),
             // For now, it is limited to 5 levels and this implementation is ugly.
             'label_level_1' => new external_value(PARAM_TEXT, 'label of first level', VALUE_OPTIONAL),
             'label_level_2' => new external_value(PARAM_TEXT, 'label of second level', VALUE_OPTIONAL),
@@ -694,6 +797,9 @@ class external extends external_api {
             'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),
             'showlevel1' => new external_value(PARAM_BOOL, "Config setting if level 1 should be displayed"),
             'showlevel2' => new external_value(PARAM_BOOL, "Config setting if level 2 should be displayed"),
+            'showlevel3' => new external_value(PARAM_BOOL, "Config setting if level 3 should be displayed"),
+            'showlevel4' => new external_value(PARAM_BOOL, "Config setting if level 4 should be displayed"),
+            'showlevel5' => new external_value(PARAM_BOOL, "Config setting if level 5 should be displayed"),
             'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
 
         ));
@@ -769,6 +875,9 @@ class external extends external_api {
         }
         $coursedetails['level_one'] = $pathcategories[0];
         isset($pathcategories[1]) ? $coursedetails['level_two'] = $pathcategories[1] : $coursedetails['level_two'] = "";
+        isset($pathcategories[2]) ? $coursedetails['level_three'] = $pathcategories[2] : $coursedetails['level_three'] = "";
+        isset($pathcategories[3]) ? $coursedetails['level_four'] = $pathcategories[3] : $coursedetails['level_four'] = "";
+        isset($pathcategories[4]) ? $coursedetails['level_five'] = $pathcategories[4] : $coursedetails['level_five'] = "";
         $coursedetails['path'] = implode('/', $pathcategories);
 
         // How many students are enrolled in the course?
@@ -916,7 +1025,10 @@ class external extends external_api {
                 'timecreated' => new external_value(PARAM_TEXT, 'time the course was created as readable date format'),
                 'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format'),
                 'level_one' => new external_value(PARAM_TEXT, 'first level of the course'),
-                'level_two' => new external_value(PARAM_TEXT, 'second level of the course')
+                'level_two' => new external_value(PARAM_TEXT, 'second level of the course'),
+                'level_three' => new external_value(PARAM_TEXT, 'third level of the course'),
+                'level_four' => new external_value(PARAM_TEXT, 'fourth level of the course'),
+                'level_five' => new external_value(PARAM_TEXT, 'fifth level of the course'),
             )),
             'config' => new external_single_structure( (array (
                 'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),

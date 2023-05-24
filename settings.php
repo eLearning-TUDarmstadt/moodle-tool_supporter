@@ -63,6 +63,12 @@ if ($hassiteconfig) {
         get_string('sett_enable_lvl_1', 'tool_supporter'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel2',
         get_string('sett_enable_lvl_2', 'tool_supporter'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel3',
+        get_string('sett_enable_lvl_3', 'tool_supporter'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel4',
+        get_string('sett_enable_lvl_4', 'tool_supporter'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel5',
+        get_string('sett_enable_lvl_5', 'tool_supporter'), "", 0));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showvisibility',
         get_string('visible'), "", 1));
 

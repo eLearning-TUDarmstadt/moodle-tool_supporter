@@ -45,7 +45,11 @@ class user_detail implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $CFG;
 
-        $data = array();
+        $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
+        $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
 
         return $data;
     }

@@ -62,6 +62,9 @@ class course_table implements renderable, templatable {
         $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
         $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
         $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
         $data['showvisible'] = get_config('tool_supporter', 'course_table_showvisibility');
 
         return $data;

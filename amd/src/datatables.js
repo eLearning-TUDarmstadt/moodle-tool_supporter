@@ -160,7 +160,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                                         // Counting begins at 0, but the shortname-column is invisible.
                                         useFilters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
-                                            ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
+                                            ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4],
+                                            ['courses_levelthreecheckbox', '#courses_levelthreedropdown', 5],
+                                            ['courses_levelfourcheckbox', '#courses_levelfourdropdown', 6],
+                                            ['courses_levelfivecheckbox', '#courses_levelfivedropdown', 7]]);
                                     }).fail(notification.exception);
                                 }
                                 if (tableID.includes("#userTable")) {
