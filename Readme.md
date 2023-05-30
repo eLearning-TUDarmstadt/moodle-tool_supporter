@@ -3,6 +3,7 @@ Copyright: developed and maintained by TU Darmstadt (initial release by Benedikt
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
 # tool_supporter
+![Moodle Plugin CI](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/actions/workflows/moodle-ci.yml/badge.svg?branch=moodle_4_dev)
 
 ## About
 With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
