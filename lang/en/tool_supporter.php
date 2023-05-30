@@ -44,7 +44,7 @@ $string['sett_enable_lvl_2'] = 'Enable Level 2';
 $string['sett_enable_lvl_3'] = 'Enable Level 3';
 $string['sett_enable_lvl_4'] = 'Enable Level 4';
 $string['sett_enable_lvl_5'] = 'Enable Level 5';
-$string['sett_levels_default'] = 'Semester;Department;Level3;Level4;Level5';
+$string['sett_levels_default'] = 'L1;L2;L3;L4;L5';
 $string['sett_levels_description'] = 'Specify the displayed names of the course levels. In descending order (uppermost level first) and separated by semicolon. ';
 
 $string['sett_course_table'] = 'Course table';

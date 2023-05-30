@@ -229,9 +229,6 @@ Example context (json):
 	                  <th>{{#str}}fullnamecourse{{/str}}</th>
 	                  <th>{{label_level_1}}</th>
 	                  <th>{{label_level_2}}</th>
-                      <th>{{label_level_3}}</th>
-                      <th>{{label_level_4}}</th>
-                      <th>{{label_level_5}}</th>
 	                  <th>{{#str}}roles{{/str}}</th>
 	                  <th>{{#str}}visible{{/str}}</th>
 	                  <th></th>
@@ -244,9 +241,6 @@ Example context (json):
                         <td>{{fullname}}</td>
                         <td>{{level_one}}</td> <!-- TUD intern: Semester -->
                         <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
-                        <td>{{level_three}}</td>
-                        <td>{{level_four}}</td>
-                        <td>{{level_five}}</td>
                         <td>{{roles}}</td>
                         <td>{{visible}}</td>
                         <td>
@@ -271,10 +265,7 @@ require(['tool_supporter/table_filter', 'tool_supporter/table_sort', 'tool_suppo
 
         // Convert table to DataTable and add filter functionality to dropdown-menu.
         dataTable.useDataTable('#userdetailcourses', [['user_detail_levelonecheckbox', '#user_detail_levelonedropdown', 2],
-                                                        ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3],
-                                                        ['user_detail_levelthreecheckbox', '#user_detail_levelthreedropdown', 4],
-                                                        ['user_detail_levelfourcheckbox', '#user_detail_levelfourdropdown', 5],
-                                                        ['user_detail_levelfivecheckbox', '#user_detail_levelfivedropdown', 6]]);
+                                                       ['user_detail_leveltwocheckbox', '#user_detail_leveltwodropdown', 3]]);
 
         // Load information about the clicked course.
         loadInformation.clickOnCourse('#userdetailcourses');
