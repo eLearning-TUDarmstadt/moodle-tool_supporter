@@ -1,8 +1,9 @@
-Copyright: 2019 Benedikt Schneider (@Nullmann), developed and maintained by TU Darmstadt
+Copyright: developed and maintained by TU Darmstadt (initial release by Benedikt Schneider (@Nullmann), further development by @my-curiosity)
 
 License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
 # tool_supporter
+![Moodle Plugin CI](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/actions/workflows/moodle-ci.yml/badge.svg?branch=moodle_4_dev)
 
 ## About
 With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
@@ -27,6 +28,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
 
 ## Prerequisites
 * This version is tested on Moodle 3.10, 3.11 (branch 310, master), 4.0, 4.1, 4.2 (branch 4_dev, without link in navigation)
+* For Moodle 3.9 and older use v1.03
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
@@ -60,7 +62,7 @@ level 2 Support (also write):
 * The settings can be accessed with the cog in the header or by going to `/admin/settings.php?section=tool_supporter`
 
 ## Limitations
-As of now, only 2 layers of course categories are represented. 
+As of now, user can choose from 0 to 5 layers of course categories to be represented, however, user detail table always shows 2. 
 
 ## Screenshot
 ![screenshot](https://user-images.githubusercontent.com/15816473/53569114-b1a9b100-3b63-11e9-8eb5-697c9f89a5fd.PNG)
