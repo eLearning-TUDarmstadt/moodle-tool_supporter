@@ -84,6 +84,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
+                                    "startdate" : data.courseDetails.startdate,
                                     "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);
                             });
@@ -148,6 +149,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
+                                    "startdate" : data.courseDetails.startdate,
                                     "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);
                             });
