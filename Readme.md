@@ -27,7 +27,7 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 3.10, 3.11 (branch 310, master), 4.0, 4.1, 4.2 (branch 4_dev, without link in navigation)
+* This version is tested on Moodle 4.0, 4.1, 4.2 (branch master and moodle_4_dev, without link in navigation), 3.10, 3.11 (branch 310)
 * For Moodle 3.9 and older use v1.03
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
@@ -62,7 +62,7 @@ level 2 Support (also write):
 * The settings can be accessed with the cog in the header or by going to `/admin/settings.php?section=tool_supporter`
 
 ## Limitations
-As of now, user can choose from 0 to 5 layers of course categories to be represented, however, user detail table always shows 2. 
+Since v4-r1 user can choose from 0 to 5 layers of course categories to be represented (from 0 to 2 layers in v1.07), however, user detail table always shows 2.
 
 ## Screenshot
 ![screenshot](https://user-images.githubusercontent.com/15816473/53569114-b1a9b100-3b63-11e9-8eb5-697c9f89a5fd.PNG)
