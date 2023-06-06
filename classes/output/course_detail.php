@@ -15,15 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for index page
+ * Class containing data for course_detail
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
-
-defined('MOODLE_INTERNAL') || die;
 
 use renderable;
 use templatable;

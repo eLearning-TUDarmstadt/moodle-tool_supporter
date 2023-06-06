@@ -23,14 +23,14 @@
  */
 namespace tool_supporter\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use renderable;
 use templatable;
 use renderer_base;
 use stdClass;
 
 /**
+ * Class containing data for the section to enrol users
+ *
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *

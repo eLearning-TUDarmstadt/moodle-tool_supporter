@@ -15,9 +15,10 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
+
     @template tool_supporter/course_detail
 
-    Template which outputs a table of courses.
+    Template which outputs detailed data about a course.
 
     Classes required for JS:
     * dataTables
@@ -307,7 +308,7 @@ require(['jquery', 'tool_supporter/table_filter', 'tool_supporter/table_sort',
          'tool_supporter/datatables', 'tool_supporter/load_information', 'tool_supporter/create_new_course'],
     function($, search, sort, dataTable, loadInformation, createNewCourse) {
 
-    // Convert userincourse-table to DataTable and add filter functionality to dropdown-menue
+    // Convert userincourse-table to DataTable and add filter functionality to dropdown-menu
     dataTable.useDataTable('#userincourse', [['rolesincourse', '#roledropdown', 4]]);
 
     // Convert activity-table to DataTable

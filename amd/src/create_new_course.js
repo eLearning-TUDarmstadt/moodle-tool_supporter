@@ -14,13 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This modules creates helper functions for creating a course
+ * This module contains helper functions for creating a course
  *
  * @module     tool_supporter/create_new_course
- * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str', 'tool_supporter/load_information'],
         function($, ajax, templates, notification, str, loadInformation) {
@@ -84,6 +82,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
+                                    "level_three": data.courseDetails.level_three,
+                                    "level_four": data.courseDetails.level_four,
+                                    "level_five": data.courseDetails.level_five,
                                     "startdate" : data.courseDetails.startdate,
                                     "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);
@@ -149,6 +150,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                     "fullname": data.courseDetails.fullname,
                                     "level_one": data.courseDetails.level_one,
                                     "level_two": data.courseDetails.level_two,
+                                    "level_three": data.courseDetails.level_three,
+                                    "level_four": data.courseDetails.level_four,
+                                    "level_five": data.courseDetails.level_five,
                                     "startdate" : data.courseDetails.startdate,
                                     "visible": +data.courseDetails.visible, // Implicity cast false to 0.
                                 }).draw(false);

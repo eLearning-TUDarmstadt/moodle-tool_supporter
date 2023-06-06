@@ -23,15 +23,14 @@
  */
 namespace tool_supporter\output;
 
-defined('MOODLE_INTERNAL') || die;
-
 use renderable;
 use templatable;
 use renderer_base;
 use stdClass;
 
 /**
- * Class user_table
+ * Class containing data for user_table
+ *
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -47,6 +46,8 @@ class user_table implements renderable, templatable {
 
         $array[] = null;
         $data = $array; // Uncoment to render direct: \tool_supporter\external::get_users().
+        $data['searchname'] = get_string('searchusers', 'tool_supporter');
+        $data['refreshname'] = get_string('refreshusers', 'tool_supporter');
         return $data;
     }
 }

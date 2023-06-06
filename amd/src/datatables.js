@@ -14,19 +14,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This module provides setttings and implements
- * the dataTabes Plugin
+ * This module provides settings and implements
+ * the dataTables Plugin
  *
  * @module     tool_supporter/datatables
- * @package    tool_supporter
  * @copyright  2019 Klara Saary, Benedikt Schneider
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'tool_supporter/jquery.dataTables', 'core/str', 'tool_supporter/table_filter',
         'core/ajax', 'core/notification', 'core/templates'],
 function($, datatables, str, filter, ajax, notification, templates) {
 
+    /**
+     * @param {string} tableID : ID of table
+     * @param {number} filterSelector : Array for filtering with the dropdown-menus
+     * There can be several filterSelectors, for example one for each dropdown-menu
+     */
     var useFilters = function(tableID, filterSelector) {
         // Only execute if there are filters.
         if (typeof filterSelector != "undefined") {
@@ -42,9 +45,9 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
         /**
          * @method useDataTable
-         * @param {string} tableID: ID of table you want to convert into datatable
-         * @param {number} filterSelector: Array for filtering with the dropdown-menues
-         * There can be several filterSelectors, for example one for each dropdown-menue
+         * @param {string} tableID : ID of table you want to convert into datatable
+         * @param {number} filterSelector : Array for filtering with the dropdown-menus
+         * There can be several filterSelectors, for example one for each dropdown-menu
          */
         useDataTable: function(tableID, filterSelector) {
 
@@ -157,7 +160,10 @@ function($, datatables, str, filter, ajax, notification, templates) {
 
                                         // Counting begins at 0, but the shortname-column is invisible.
                                         useFilters(tableID, [['courses_levelonecheckbox', '#courses_levelonedropdown', 3],
-                                            ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4]]);
+                                            ['courses_leveltwocheckbox', '#courses_leveltwodropdown', 4],
+                                            ['courses_levelthreecheckbox', '#courses_levelthreedropdown', 5],
+                                            ['courses_levelfourcheckbox', '#courses_levelfourdropdown', 6],
+                                            ['courses_levelfivecheckbox', '#courses_levelfivedropdown', 7]]);
                                     }).fail(notification.exception);
                                 }
                                 if (tableID.includes("#userTable")) {

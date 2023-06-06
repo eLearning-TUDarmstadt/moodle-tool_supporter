@@ -15,15 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data ffor user_detail
+ * Class containing data for user_detail
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
-
-defined('MOODLE_INTERNAL') || die;
 
 use renderable;
 use templatable;
@@ -47,7 +45,11 @@ class user_detail implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $CFG;
 
-        $data = array();
+        $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
+        $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
 
         return $data;
     }

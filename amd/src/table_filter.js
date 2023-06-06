@@ -14,16 +14,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This modules provides functionality to search the html tables
+ * This module provides functionality to search the html tables
  * with a specific Input Term
  *
  * It is modular in respect to the given table (body)
  *
  * @module     tool_supporter/table_filter
- * @package    tool_supporter
  * @copyright  2019 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery'], function($) {
 
@@ -37,7 +35,7 @@ define(['jquery'], function($) {
                 stringValue = '^(?![\\s\\S])';
             } else {
                 // Escape Regex-Characters which may be in names of categories.
-                val = val.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+                val = val.replace(/[-[\]{}()*+!<=:?./\\^$|#\s,]/g, '\\$&');
                 // String value is added several times with different starts and endings.
                 // So filter for "Teacher" does not match "non-editing teacher".
                 stringValue = ',' + val + '$|^' + val + ',|,' + val + ',|^' + val + '$';
@@ -55,7 +53,7 @@ define(['jquery'], function($) {
          *
          * @method FilterEvent
          * @param {string} checkboxName Name of the checkboxes that are used to filter.
-         * @param {number} FormInput The ID of the dropdownmenu or something similar you want to use to filter the table
+         * @param {number} FormInput The ID of the dropdown menu you want to use to filter the table
          * @param {number} column which column should be filtered
          * @param {string} tableID ID of the table or part of the table you want to filter
          */
@@ -105,7 +103,7 @@ define(['jquery'], function($) {
 
             var previousColumn;
 
-            // Safe last column when dropdown is clicked.
+            // Save last column when dropdown is clicked.
             $(columnDropdownID).on('click', function() {
                 previousColumn = this.value;
             });

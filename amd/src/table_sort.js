@@ -14,13 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This modules provides functionality to sort the tables
+ * This module provides functionality to sort the tables
  *
- * @module     tool_supporter/table_filter
- * @package    tool_supporter
+ * @module     tool_supporter/table_sort
  * @copyright  2019 Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery'], function($) {
 
@@ -39,14 +37,14 @@ define(['jquery'], function($) {
         dir = "asc";
         // Make a loop that will continue until no switching has been done.
         while (switching) {
-            // Start by saying: no switching are done.
+            // Start by saying: no switching is done.
             switching = false;
             rows = $(tableID + ' tr');
             // Loop through all table rows (except the first, which contains table headers).
             for (i = 1; i < (rows.length - 1); i++) {
                 // Start by saying there should be no switching.
                 shouldSwitch = false;
-                // Get the two elements you want to compare,one from current row and one from the next.
+                // Get the two elements you want to compare, one from current row and one from the next.
                 x = rows[i].getElementsByTagName('td')[column];
                 y = rows[i + 1].getElementsByTagName('td')[column];
                 // Check if the two rows should switch place, based on the direction, asc or desc.

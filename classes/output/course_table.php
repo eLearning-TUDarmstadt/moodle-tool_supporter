@@ -15,15 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for index page
+ * Class containing data for course_table
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace tool_supporter\output;
-
-defined('MOODLE_INTERNAL') || die;
 
 use renderable;
 use templatable;
@@ -52,9 +50,22 @@ class course_table implements renderable, templatable {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = format_string($label); // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
+            $data['label_level_'.$count] = format_string($label);
+            // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
+        $data['searchname'] = get_string('searchcourses', 'tool_supporter');
+        $data['refreshname'] = get_string('refreshcourses', 'tool_supporter');
+
+        $data['showstartdate'] = get_config('tool_supporter', 'course_table_showstartdate');
+        $data['showshortname'] = get_config('tool_supporter', 'course_table_showshortname');
+        $data['showfullname'] = get_config('tool_supporter', 'course_table_showfullname');
+        $data['showlevel1'] = get_config('tool_supporter', 'course_table_showlevel1');
+        $data['showlevel2'] = get_config('tool_supporter', 'course_table_showlevel2');
+        $data['showlevel3'] = get_config('tool_supporter', 'course_table_showlevel3');
+        $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
+        $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
+        $data['showvisible'] = get_config('tool_supporter', 'course_table_showvisibility');
 
         $data['showstartdate'] = get_config('tool_supporter', 'course_table_showstartdate');
         $data['showshortname'] = get_config('tool_supporter', 'course_table_showshortname');

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Version details.
+ * Navigation and settings definitions.
  *
  * @package    tool_supporter
  * @copyright  2019 Klara Saary, Benedikt Schneider
@@ -24,7 +24,9 @@ defined('MOODLE_INTERNAL') || die;
 
 // Possible places in admin menu: root, users, courses, reports, (admin) tools.
 // Add the plugin to Administration menu.
-$ADMIN->add('reports', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
+$ADMIN->add('root', new admin_category('supportercategory', get_string('plugincategory', 'tool_supporter')));
+
+$ADMIN->add('supportercategory', new admin_externalpage('toolsupporter', get_string('pluginname', 'tool_supporter'),
          new moodle_url('/admin/tool/supporter/index.php')));
 
 // Settings page.
@@ -32,7 +34,7 @@ if ($hassiteconfig) {
     // These are stored in table 'config_plugins'.
     $settings = new admin_settingpage('tool_supporter', get_string('sett_title', 'tool_supporter'));
     // Add the config page to the administration menu.
-    $ADMIN->add('reports', $settings);
+    $ADMIN->add('supportercategory', $settings);
 
     // Settings for level naming.
     $settings->add(new admin_setting_configtext('tool_supporter/level_labels', get_string('sett_levels', 'tool_supporter'),
@@ -61,6 +63,12 @@ if ($hassiteconfig) {
         get_string('sett_enable_lvl_1', 'tool_supporter'), "", 1));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel2',
         get_string('sett_enable_lvl_2', 'tool_supporter'), "", 1));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel3',
+        get_string('sett_enable_lvl_3', 'tool_supporter'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel4',
+        get_string('sett_enable_lvl_4', 'tool_supporter'), "", 0));
+    $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showlevel5',
+        get_string('sett_enable_lvl_5', 'tool_supporter'), "", 0));
     $settings->add(new admin_setting_configcheckbox('tool_supporter/course_table_showvisibility',
         get_string('visible'), "", 1));
 

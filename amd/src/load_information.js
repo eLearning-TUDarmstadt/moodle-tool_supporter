@@ -14,13 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Module witch provides mostly jquery user interactions and ajax calls
+ * Module which provides jquery user interactions and ajax calls
  *
  * @module     tool_supporter/load_information
- * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since      3.1.1
  */
 define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
@@ -63,7 +61,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
     // Public Stuff.
 
-    var public = {
+    var publicvar = {
 
         /**
          * Show the course details
@@ -151,7 +149,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
         },
 
         /**
-         * Get the details of the user and displays them
+         * Get the details of the user and display them
          *
          * @method clickOnUser
          * @param {string} tableID Id of datatable. Example: '#{{uniqid}}-courseTable tbody'.
@@ -163,7 +161,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
                 var userID = $(this).find('td:first-child').text();
 
                 if (!isNaN(userID)) {
-                    // Remove previous hightlights.
+                    // Remove previous highlights.
                     var dataTable = $(tableID).dataTable()[0];
                     $(dataTable.rows).css("background-color", "");
                     // Highlight the clicked user.
@@ -211,7 +209,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
 
                 var courseID = $(this).find('td:first-child').text(); // Get id (first column) of clicked row.
                 if (!isNaN(courseID)) {
-                    // Remove previous hightlights.
+                    // Remove previous highlights.
                     var dataTable = $(tableID).dataTable()[0];
                     $(dataTable.rows).css("background-color", "");
                     // Highlight the clicked course.
@@ -255,5 +253,5 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function(
     };
 
     // Alias module:tool_supporter/load_information.
-    return public;
+    return publicvar;
 });
