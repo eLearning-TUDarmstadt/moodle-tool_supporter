@@ -932,7 +932,7 @@ class external extends external_api {
 
         // Get Activities in course.
         $activities = array();
-        $modules = \get_array_of_activities($courseid);
+        $modules = \course_modinfo::get_array_of_activities(get_course($courseid));
         foreach ($modules as $mo) {
             $section = \get_section_name($courseid, $mo->section);
             // Support section and activity multilang names.
