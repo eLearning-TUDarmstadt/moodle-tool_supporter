@@ -35,7 +35,7 @@ $PAGE->set_heading($title);
 $PAGE->blocks->show_only_fake_blocks(); // Disable blocks for layouts which do include pre-post blocks.
 require_login();
 
-$PAGE->requires->js_call_amd('tool_supporter/datatables', 'useDataTable', array('.datatable', array()));
+$PAGE->requires->js_call_amd('tool_supporter/datatables', 'useDataTable', ['.datatable', []]);
 
 // Needed for sorting-arrows and responsive tables without horizontal scrollbars, version 1.10.18.
 $PAGE->requires->css('/admin/tool/supporter/style/dataTables.bootstrap4.css');
@@ -69,17 +69,17 @@ echo'
                 <div class="span6 col-sm-6">
                     <div class="row">
                         <div class="span12 col-md-12">
-                          '.$createnewcourse.'
+                          ' . $createnewcourse . '
                         </div>
                     </div>
                     <div class="row">
                         <div class="span12 col-sm-12">
-                          '.$coursedetail.'
+                          ' . $coursedetail . '
                         </div>
                     </div>
                     <div class="row">
                         <div class="span12 col-sm-12">
-                          '.$coursetable.'
+                          ' . $coursetable . '
                         </div>
                     </div>
                 </div>
@@ -87,12 +87,12 @@ echo'
                 <div class="span6 col-sm-6">
                     <div class="row">
                         <div class="span12 col-sm-12">
-                             '.$userdetail.'
+                             ' . $userdetail . '
                         </div>
                     </div>
                     <div class="row">
                         <div class="span12 col-sm-12">
-                            '.$usertable.'
+                            ' . $usertable . '
                         </div>
                     </div>
                 </div>

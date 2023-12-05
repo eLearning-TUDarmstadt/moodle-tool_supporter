@@ -36,8 +36,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_table implements renderable, templatable {
-
-
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
@@ -50,7 +48,7 @@ class course_table implements renderable, templatable {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = format_string($label);
+            $data['label_level_' . $count] = format_string($label);
             // Each label will be available with {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
