@@ -165,6 +165,8 @@ Example context (json):
                     {{#showtimecreated}}<tr><th>{{#str}}eventusercreated{{/str}}</th><td>{{timecreated}}</td></tr>{{/showtimecreated}}
                     {{#showtimemodified}}<tr><th>{{#str}}lastmodified{{/str}}</th><td>{{timemodified}}</td></tr>{{/showtimemodified}}
                     {{#showlastlogin}}<tr><th>{{#str}}lastlogin{{/str}}</th><td>{{lastlogin}}</td></tr>{{/showlastlogin}}
+                    {{#showsuspension}}<tr><th>{{#str}}suspended{{/str}}</th><td>{{suspended}}</td></tr>{{/showsuspension}}
+                    {{#showauthtype}}<tr><th>{{#str}}authentication{{/str}}</th><td>{{auth}}</td></tr>{{/showauthtype}}
                 {{/config}}{{/userinformation}}
                 </tbody>
 	        </table>

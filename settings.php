@@ -322,4 +322,16 @@ if ($hassiteconfig) {
         "",
         1
     ));
+    $settings->add(new admin_setting_configcheckbox(
+        'tool_supporter/user_details_showsuspension',
+        get_string('suspended'),
+        "",
+        1
+    ));
+    $settings->add(new admin_setting_configcheckbox(
+        'tool_supporter/user_details_showauthtype',
+        get_string('authentication'),
+        "",
+        1
+    ));
 }

@@ -453,6 +453,8 @@ class external extends external_api {
             'showtimecreated' => get_config('tool_supporter', 'user_details_showtimecreated'),
             'showtimemodified' => get_config('tool_supporter', 'user_details_showtimemodified'),
             'showlastlogin' => get_config('tool_supporter', 'user_details_showlastlogin'),
+            'showsuspension' => get_config('tool_supporter', 'user_details_showsuspension'),
+            'showauthtype' => get_config('tool_supporter', 'user_details_showauthtype'),
         ];
 
         // Get level labels.
@@ -492,6 +494,7 @@ class external extends external_api {
                 'lang' => new external_value(PARAM_TEXT, 'lang of the user'),
                 'auth' => new external_value(PARAM_TEXT, 'auth of the user'),
                 'idnumber' => new external_value(PARAM_TEXT, 'idnumber of the user'),
+                'suspended' => new external_value(PARAM_BOOL, 'suspension of the user'),
             ]),
             'config' => new external_single_structure(( [
                 'showusername' => new external_value(PARAM_BOOL, "Show username of user in user details"),
@@ -502,6 +505,8 @@ class external extends external_api {
                 'showtimecreated' => new external_value(PARAM_BOOL, "Show time created of user in user details"),
                 'showtimemodified' => new external_value(PARAM_BOOL, "Show time modified of user in user details"),
                 'showlastlogin' => new external_value(PARAM_BOOL, "Show last login of user in user details"),
+                'showsuspension' => new external_value(PARAM_BOOL, "Show suspension status of user in user details"),
+                'showauthtype' => new external_value(PARAM_BOOL, "Show auth type of user in user details"),
             ])),
             'userscourses' => new external_multiple_structure(new external_single_structure([
                 'id' => new external_value(PARAM_INT, 'id of course'),
