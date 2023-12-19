@@ -49,23 +49,23 @@ use invalid_parameter_exception;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class external extends external_api {
-
     /**
      * Returns description of input parameters
      * @return external_function_parameters
      */
     public static function create_new_course_parameters() {
-        return new external_function_parameters (
-        array (
-            'shortname' => new external_value ( PARAM_TEXT, 'The short name of the course to be created' ),
-            'fullname' => new external_value ( PARAM_TEXT, 'The full name of the course to be created' ),
-            'visible' => new external_value ( PARAM_BOOL, 'Toggles visibility of course' ),
-            'categoryid' => new external_value ( PARAM_INT, 'ID of category the course should be created in' ),
-            'activateselfenrol' => new external_value ( PARAM_BOOL, 'Toggles if self_enrolment should be activated' ),
-            'selfenrolpassword' => new external_value ( PARAM_TEXT, 'Password of self enrolment' ),
-            'startdate' => new external_value ( PARAM_TEXT, 'Course start date' ),
-            'enddate' => new external_value ( PARAM_TEXT, 'Course end date' ),
-        ));
+        return new external_function_parameters(
+            [
+            'shortname' => new external_value(PARAM_TEXT, 'The short name of the course to be created'),
+            'fullname' => new external_value(PARAM_TEXT, 'The full name of the course to be created'),
+            'visible' => new external_value(PARAM_BOOL, 'Toggles visibility of course'),
+            'categoryid' => new external_value(PARAM_INT, 'ID of category the course should be created in'),
+            'activateselfenrol' => new external_value(PARAM_BOOL, 'Toggles if self_enrolment should be activated'),
+            'selfenrolpassword' => new external_value(PARAM_TEXT, 'Password of self enrolment'),
+            'startdate' => new external_value(PARAM_TEXT, 'Course start date'),
+            'enddate' => new external_value(PARAM_TEXT, 'Course end date'),
+            ]
+        );
     }
 
     /**
@@ -87,14 +87,22 @@ class external extends external_api {
      * @throws \restricted_context_exception
      * @throws invalid_parameter_exception
      */
-    public static function create_new_course($shortname, $fullname, $visible, $categoryid, $activateselfenrol,
-                                             $selfenrolpassword, $startdate, $enddate) {
+    public static function create_new_course(
+        $shortname,
+        $fullname,
+        $visible,
+        $categoryid,
+        $activateselfenrol,
+        $selfenrolpassword,
+        $startdate,
+        $enddate
+    ) {
         global $DB;
 
         self::validate_context(\context_coursecat::instance($categoryid));
         \require_capability('moodle/course:create', \context_system::instance());
 
-        $array = array (
+        $array = [
             'shortname' => $shortname,
             'fullname' => $fullname,
             'visible' => $visible,
@@ -103,10 +111,10 @@ class external extends external_api {
             'selfenrolpassword' => $selfenrolpassword,
             'startdate' => $startdate,
             'enddate' => $enddate,
-        );
+        ];
 
         // Parameters validation.
-        $params = self::validate_parameters(self::create_new_course_parameters (), $array );
+        $params = self::validate_parameters(self::create_new_course_parameters(), $array);
 
         $data = new \stdClass();
         $data->shortname = $params['shortname'];
@@ -120,7 +128,7 @@ class external extends external_api {
         if (trim($params['fullname']) == '') {
             throw new invalid_parameter_exception('Invalid full name');
         }
-        if ($DB->record_exists('course', array('shortname' => $data->shortname))) {
+        if ($DB->record_exists('course', ['shortname' => $data->shortname])) {
             throw new invalid_parameter_exception('shortnametaken already taken');
         }
 
@@ -132,12 +140,12 @@ class external extends external_api {
         $createdcourse = create_course($data);
 
         if ($activateselfenrol) {
-            $selfenrolment = $DB->get_record("enrol", array ('courseid' => $createdcourse->id, 'enrol' => 'self'), '*');
+            $selfenrolment = $DB->get_record("enrol", ['courseid' => $createdcourse->id, 'enrol' => 'self'], '*');
 
             if (empty($selfenrolment)) {
                 // If self enrolment is NOT activated for new courses, add one.
                 $plugin = enrol_get_plugin('self');
-                $plugin->add_instance($createdcourse, array("password" => $selfenrolpassword, "roleid" => 5));
+                $plugin->add_instance($createdcourse, ["password" => $selfenrolpassword, "roleid" => 5]);
             } else {
                 // If self enrolment is activated for new courses, activate and update it.
                 $selfenrolment->status = 0; // 0 is active!
@@ -147,7 +155,7 @@ class external extends external_api {
             }
         }
 
-        $returndata = array(
+        $returndata = [
             'id' => $createdcourse->id,
             'category' => $createdcourse->category,
             'fullname' => $createdcourse->fullname,
@@ -155,8 +163,8 @@ class external extends external_api {
             'startdate' => $createdcourse->startdate,
             'visible' => $createdcourse->visible,
             'timecreated' => $createdcourse->timecreated,
-            'timemodified' => $createdcourse->timemodified
-        );
+            'timemodified' => $createdcourse->timemodified,
+        ];
 
         return $returndata;
     }
@@ -166,17 +174,18 @@ class external extends external_api {
      * @return external_single_structure the created course
      */
     public static function create_new_course_returns() {
-        return new external_single_structure (
-            array (
-                'id' => new external_value ( PARAM_INT, 'The id of the newly created course' ),
-                'category' => new external_value ( PARAM_INT, 'The category of the newly created course' ),
-                'fullname' => new external_value ( PARAM_TEXT, 'The fullname of the newly created course' ),
-                'shortname' => new external_value ( PARAM_TEXT, 'The shortname of the newly created course' ),
-                'startdate' => new external_value ( PARAM_INT, 'The startdate of the newly created course' ),
-                'visible' => new external_value ( PARAM_BOOL, 'The visible of the newly created course' ),
-                'timecreated' => new external_value ( PARAM_INT, 'The id of the newly created course' ),
-                'timemodified' => new external_value ( PARAM_INT, 'The id of the newly created course' )
-        ));
+        return new external_single_structure(
+            [
+                'id' => new external_value(PARAM_INT, 'The id of the newly created course'),
+                'category' => new external_value(PARAM_INT, 'The category of the newly created course'),
+                'fullname' => new external_value(PARAM_TEXT, 'The fullname of the newly created course'),
+                'shortname' => new external_value(PARAM_TEXT, 'The shortname of the newly created course'),
+                'startdate' => new external_value(PARAM_INT, 'The startdate of the newly created course'),
+                'visible' => new external_value(PARAM_BOOL, 'The visible of the newly created course'),
+                'timecreated' => new external_value(PARAM_INT, 'The id of the newly created course'),
+                'timemodified' => new external_value(PARAM_INT, 'The id of the newly created course'),
+            ]
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -187,11 +196,12 @@ class external extends external_api {
      */
     public static function enrol_user_into_course_parameters() {
         return new external_function_parameters(
-            array(
-                'userid' => new external_value (PARAM_INT, 'The id of the user to be enrolled'),
-                'courseid' => new external_value (PARAM_INT, 'The id of the course to be enrolled into'),
-                'roleid' => new external_value (PARAM_INT, 'The id of the role the user should be enrolled with')
-        ));
+            [
+                'userid' => new external_value(PARAM_INT, 'The id of the user to be enrolled'),
+                'courseid' => new external_value(PARAM_INT, 'The id of the course to be enrolled into'),
+                'roleid' => new external_value(PARAM_INT, 'The id of the role the user should be enrolled with'),
+            ]
+        );
     }
 
     /**
@@ -217,16 +227,16 @@ class external extends external_api {
         // Check that the user has the permission to manual enrol.
         \require_capability('enrol/manual:enrol', $context);
 
-        $params = array(
+        $params = [
             'userid' => $userid,
             'courseid' => $courseid,
-            'roleid' => $roleid
-        );
+            'roleid' => $roleid,
+        ];
 
         // Parameters validation.
         self::validate_parameters(self::enrol_user_into_course_parameters(), $params);
 
-        $enrolment = array('courseid' => $courseid, 'userid' => $userid, 'roleid' => $roleid);
+        $enrolment = ['courseid' => $courseid, 'userid' => $userid, 'roleid' => $roleid];
         $enrolments[] = $enrolment;
         \enrol_manual_external::enrol_users($enrolments);
 
@@ -252,9 +262,10 @@ class external extends external_api {
      */
     public static function get_user_information_parameters() {
         return new external_function_parameters(
-            array(
-                'userid' => new external_value ( PARAM_INT, 'The id of the user' )
-        ));
+            [
+                'userid' => new external_value(PARAM_INT, 'The id of the user'),
+            ]
+        );
     }
 
     /**
@@ -277,9 +288,9 @@ class external extends external_api {
         \require_capability('moodle/user:viewdetails', $context);
 
         // Parameters validation.
-        self::validate_parameters(self::get_user_information_parameters (), array('userid' => $userid));
+        self::validate_parameters(self::get_user_information_parameters(), ['userid' => $userid]);
 
-        $userinformation = user_get_users_by_id(array('userid' => $userid));
+        $userinformation = user_get_users_by_id(['userid' => $userid]);
 
         $userinformationarray = [];
         $neverstring = get_string('never', 'moodle');
@@ -314,11 +325,15 @@ class external extends external_api {
         $coursecontext = \context_course::instance(1);
         $assignableroles = \get_assignable_roles($coursecontext);
 
-        $categories = $DB->get_records("course_categories", null, 'sortorder ASC',
-                                 'id, name, parent, depth, path');
+        $categories = $DB->get_records(
+            "course_categories",
+            null,
+            'sortorder ASC',
+            'id, name, parent, depth, path'
+        );
         // Used for unenrolling users.
         $userenrolments = $DB->get_records_sql('SELECT e.courseid, ue.id FROM {user_enrolments} ue,
-                                               {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', array($userid));
+                                               {enrol} e WHERE e.id = ue.enrolid AND ue.userid = ?', [$userid]);
 
         $data['uniquelevelones'] = [];
         $data['uniqueleveltwoes'] = [];
@@ -401,34 +416,35 @@ class external extends external_api {
         $data['uniquelevelfives'] = array_filter(array_unique($data['uniquelevelfives']));
 
         $context = \context_system::instance();
-        if (\has_capability('moodle/user:loginas', $context) ) {
-            $link = $CFG->wwwroot."/course/loginas.php?id=1&user=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
+        if (\has_capability('moodle/user:loginas', $context)) {
+            $link = $CFG->wwwroot . "/course/loginas.php?id=1&user=" . $data['userinformation']['id'] . "&sesskey="
+            . $USER->sesskey;
             $data['loginaslink'] = $link;
         } else {
             $data['loginaslink'] = false;
         }
 
-        $link = $CFG->wwwroot."/user/profile.php?id=".$data['userinformation']['id'];
+        $link = $CFG->wwwroot . "/user/profile.php?id=" . $data['userinformation']['id'];
         $data['profilelink'] = $link;
 
-        $link = $CFG->wwwroot."/admin/user.php?delete=".$data['userinformation']['id']."&sesskey=".$USER->sesskey;
+        $link = $CFG->wwwroot . "/admin/user.php?delete=" . $data['userinformation']['id'] . "&sesskey=" . $USER->sesskey;
         $data['deleteuserlink'] = $link;
 
-        $link = $CFG->wwwroot."/user/editadvanced.php?id=".$data['userinformation']['id'];
+        $link = $CFG->wwwroot . "/user/editadvanced.php?id=" . $data['userinformation']['id'];
         $data['edituserlink'] = $link;
 
-        $link = $CFG->wwwroot."/message/notificationpreferences.php?userid=".$data['userinformation']['id'];
+        $link = $CFG->wwwroot . "/message/notificationpreferences.php?userid=" . $data['userinformation']['id'];
         $data['usernotificationpreferenceslink'] = $link;
 
         $data['wwwroot'] = $CFG->wwwroot;
 
-        if (\has_capability('moodle/user:update', $context) ) {
+        if (\has_capability('moodle/user:update', $context)) {
             $data['isallowedtoupdateusers'] = true;
         } else {
             $data['isallowedtoupdateusers'] = false;
         }
 
-        $data['config'] = array(
+        $data['config'] = [
             'showusername' => get_config('tool_supporter', 'user_details_showusername'),
             'showidnumber' => get_config('tool_supporter', 'user_details_showidnumber'),
             'showfirstname' => get_config('tool_supporter', 'user_details_showfirstname'),
@@ -437,13 +453,15 @@ class external extends external_api {
             'showtimecreated' => get_config('tool_supporter', 'user_details_showtimecreated'),
             'showtimemodified' => get_config('tool_supporter', 'user_details_showtimemodified'),
             'showlastlogin' => get_config('tool_supporter', 'user_details_showlastlogin'),
-        );
+            'showsuspension' => get_config('tool_supporter', 'user_details_showsuspension'),
+            'showauthtype' => get_config('tool_supporter', 'user_details_showauthtype'),
+        ];
 
         // Get level labels.
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = external_format_string($label, $context);
+            $data['label_level_' . $count] = external_format_string($label, $context);
             // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
@@ -454,7 +472,7 @@ class external extends external_api {
         $data['showlevel4'] = get_config('tool_supporter', 'course_table_showlevel4');
         $data['showlevel5'] = get_config('tool_supporter', 'course_table_showlevel5');
 
-        return array($data);
+        return [$data];
     }
 
     /**
@@ -463,21 +481,22 @@ class external extends external_api {
      * @return external_multiple_structure the user's courses and information
      */
     public static function get_user_information_returns() {
-        return new external_multiple_structure (new external_single_structure (array (
-            'userinformation' => new external_single_structure ( array (
-                'id' => new external_value (PARAM_INT, 'id of the user'),
-                'username' => new external_value (PARAM_TEXT, 'username of the user'),
-                'firstname' => new external_value (PARAM_TEXT, 'firstname of the user'),
-                'lastname' => new external_value (PARAM_TEXT, 'lastname of the user'),
-                'email' => new external_value (PARAM_TEXT, 'email of the user'),
-                'timecreated' => new external_value (PARAM_TEXT, 'timecreated of the user as date'),
-                'timemodified' => new external_value (PARAM_TEXT, 'timemodified of the user as date'),
-                'lastlogin' => new external_value (PARAM_TEXT, 'last login of the user as date'),
-                'lang' => new external_value (PARAM_TEXT, 'lang of the user'),
-                'auth' => new external_value (PARAM_TEXT, 'auth of the user'),
-                'idnumber' => new external_value (PARAM_TEXT, 'idnumber of the user'),
-            )),
-            'config' => new external_single_structure( (array (
+        return new external_multiple_structure(new external_single_structure([
+            'userinformation' => new external_single_structure([
+                'id' => new external_value(PARAM_INT, 'id of the user'),
+                'username' => new external_value(PARAM_TEXT, 'username of the user'),
+                'firstname' => new external_value(PARAM_TEXT, 'firstname of the user'),
+                'lastname' => new external_value(PARAM_TEXT, 'lastname of the user'),
+                'email' => new external_value(PARAM_TEXT, 'email of the user'),
+                'timecreated' => new external_value(PARAM_TEXT, 'timecreated of the user as date'),
+                'timemodified' => new external_value(PARAM_TEXT, 'timemodified of the user as date'),
+                'lastlogin' => new external_value(PARAM_TEXT, 'last login of the user as date'),
+                'lang' => new external_value(PARAM_TEXT, 'lang of the user'),
+                'auth' => new external_value(PARAM_TEXT, 'auth of the user'),
+                'idnumber' => new external_value(PARAM_TEXT, 'idnumber of the user'),
+                'suspended' => new external_value(PARAM_BOOL, 'suspension of the user'),
+            ]),
+            'config' => new external_single_structure(( [
                 'showusername' => new external_value(PARAM_BOOL, "Show username of user in user details"),
                 'showidnumber' => new external_value(PARAM_BOOL, "Show idnumber of user in user details"),
                 'showfirstname' => new external_value(PARAM_BOOL, "Show first name of user in user details"),
@@ -486,40 +505,49 @@ class external extends external_api {
                 'showtimecreated' => new external_value(PARAM_BOOL, "Show time created of user in user details"),
                 'showtimemodified' => new external_value(PARAM_BOOL, "Show time modified of user in user details"),
                 'showlastlogin' => new external_value(PARAM_BOOL, "Show last login of user in user details"),
-            ))),
-            'userscourses' => new external_multiple_structure (new external_single_structure (array (
-                'id' => new external_value (PARAM_INT, 'id of course'),
-                'category' => new external_value (PARAM_INT, 'category id of the course'),
-                'shortname' => new external_value (PARAM_TEXT, 'short name of the course'),
-                'fullname' => new external_value (PARAM_TEXT, 'long name of the course'),
-                'startdate' => new external_value (PARAM_INT, 'starting date of the course'),
+                'showsuspension' => new external_value(PARAM_BOOL, "Show suspension status of user in user details"),
+                'showauthtype' => new external_value(PARAM_BOOL, "Show auth type of user in user details"),
+            ])),
+            'userscourses' => new external_multiple_structure(new external_single_structure([
+                'id' => new external_value(PARAM_INT, 'id of course'),
+                'category' => new external_value(PARAM_INT, 'category id of the course'),
+                'shortname' => new external_value(PARAM_TEXT, 'short name of the course'),
+                'fullname' => new external_value(PARAM_TEXT, 'long name of the course'),
+                'startdate' => new external_value(PARAM_INT, 'starting date of the course'),
                 'visible' => new external_value(PARAM_INT, 'Is the course visible'),
-                'level_one' => new external_value (PARAM_TEXT, 'the parent category name of the course'),
-                'level_two' => new external_value (PARAM_TEXT, 'the direct name of the course category'),
-                'level_three' => new external_value (PARAM_TEXT, 'the name of level 3 category'),
-                'level_four' => new external_value (PARAM_TEXT, 'the name of level 4 category'),
-                'level_five' => new external_value (PARAM_TEXT, 'the name of level 5 category'),
-                'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each course')),
-                'enrol_id' => new external_value (PARAM_INT, 'id of user enrolment')
+                'level_one' => new external_value(PARAM_TEXT, 'the parent category name of the course'),
+                'level_two' => new external_value(PARAM_TEXT, 'the direct name of the course category'),
+                'level_three' => new external_value(PARAM_TEXT, 'the name of level 3 category'),
+                'level_four' => new external_value(PARAM_TEXT, 'the name of level 4 category'),
+                'level_five' => new external_value(PARAM_TEXT, 'the name of level 5 category'),
+                'roles' => new external_multiple_structure(new external_value(PARAM_TEXT, 'array with roles for each course')),
+                'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment'),
                 // Additional information which could be added: idnumber, sortorder, defaultgroupingid, groupmode, groupmodeforce,
                 // And: ctxid, ctxpath, ctsdepth, ctxinstance, ctxlevel.
-            ))),
+            ])),
             'loginaslink' => new external_value(PARAM_TEXT, 'The link to login as the user', VALUE_OPTIONAL),
             'profilelink' => new external_value(PARAM_TEXT, 'The link to the users profile page'),
             'edituserlink' => new external_value(PARAM_TEXT, 'The link to edit the user'),
-            'usernotificationpreferenceslink' => new external_value(PARAM_TEXT,
-                'The link to edit the user\'s notification preferences'),
+            'usernotificationpreferenceslink' => new external_value(
+                PARAM_TEXT,
+                'The link to edit the user\'s notification preferences'
+            ),
             'deleteuserlink' => new external_value(PARAM_TEXT, 'The link to delete the user, confirmation required'),
-            'uniquelevelones' => new external_multiple_structure (
-                    new external_value(PARAM_TEXT, 'array with unique first level categories')),
-            'uniqueleveltwoes' => new external_multiple_structure (
-                    new external_value(PARAM_TEXT, 'array with unique second level categories')),
-            'uniquelevelthrees' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique third level categories')),
-            'uniquelevelfours' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique fourth level categories')),
-            'uniquelevelfives' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique fifth level categories')),
+            'uniquelevelones' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique first level categories')
+            ),
+            'uniqueleveltwoes' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique second level categories')
+            ),
+            'uniquelevelthrees' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique third level categories')
+            ),
+            'uniquelevelfours' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique fourth level categories')
+            ),
+            'uniquelevelfives' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique fifth level categories')
+            ),
             'isallowedtoupdateusers' => new external_value(PARAM_BOOL, "Is the user allowed to update users' globally?"),
             'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
             // For now, it is limited to 5 levels and this implementation is ugly.
@@ -534,7 +562,7 @@ class external extends external_api {
             'showlevel3' => new external_value(PARAM_BOOL, "Config setting if level 3 should be displayed"),
             'showlevel4' => new external_value(PARAM_BOOL, "Config setting if level 4 should be displayed"),
             'showlevel5' => new external_value(PARAM_BOOL, "Config setting if level 5 should be displayed"),
-        )));
+        ]));
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -545,7 +573,8 @@ class external extends external_api {
      */
     public static function get_users_parameters() {
         return new external_function_parameters(
-            array());
+            []
+        );
     }
 
     /**
@@ -558,13 +587,21 @@ class external extends external_api {
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
         \require_capability('moodle/site:viewparticipants', $systemcontext);
-        $data = array();
+        $data = [];
         if (get_config('tool_supporter', 'user_table_excludesuspended')) {
-            $data['users'] = $DB->get_records('user', array('deleted' => '0', 'suspended' => 0), null,
-                                        'id, idnumber, username, firstname, lastname, email');
+            $data['users'] = $DB->get_records(
+                'user',
+                ['deleted' => '0', 'suspended' => 0],
+                null,
+                'id, idnumber, username, firstname, lastname, email'
+            );
         } else {
-            $data['users'] = $DB->get_records('user', array('deleted' => '0'), null,
-                                        'id, idnumber, username, firstname, lastname, email');
+            $data['users'] = $DB->get_records(
+                'user',
+                ['deleted' => '0'],
+                null,
+                'id, idnumber, username, firstname, lastname, email'
+            );
         }
 
         return $data;
@@ -577,20 +614,21 @@ class external extends external_api {
      **/
     public static function get_users_returns() {
         return new external_single_structure(
-            array(
+            [
                 'users' => new external_multiple_structure(
                     new external_single_structure(
-                        array(
+                        [
                             'id' => new external_value(PARAM_INT, 'id of user'),
                             'idnumber' => new external_value(PARAM_RAW, 'idnumber of user'),
                             'username' => new external_value(PARAM_TEXT, 'username of user'),
                             'firstname' => new external_value(PARAM_TEXT, 'firstname of user'),
                             'lastname' => new external_value(PARAM_TEXT, 'lastname of user'),
-                            'email' => new external_value(PARAM_TEXT, 'email adress of user')
-                        )
+                            'email' => new external_value(PARAM_TEXT, 'email adress of user'),
+                        ]
                     )
-                )
-            ));
+                ),
+            ]
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -601,7 +639,8 @@ class external extends external_api {
      */
     public static function get_courses_parameters() {
         return new external_function_parameters(
-            array());
+            []
+        );
     }
     /**
      * Wrapper for core function get_courses
@@ -611,7 +650,7 @@ class external extends external_api {
     public static function get_courses() {
         global $DB;
 
-        self::validate_parameters(self::get_courses_parameters(), array());
+        self::validate_parameters(self::get_courses_parameters(), []);
         $context = \context_system::instance();
         self::validate_context($context);
         // Is the closest to the needed capability. Is used in /course/management.php.
@@ -619,22 +658,38 @@ class external extends external_api {
 
         $viewhiddencategories = get_config('tool_supporter', 'course_table_viewhiddenscat');
         if ($viewhiddencategories) {
-            $categories = $DB->get_records("course_categories", array(), 'sortorder ASC',
-                'id, name, parent, depth, path');
+            $categories = $DB->get_records(
+                "course_categories",
+                [],
+                'sortorder ASC',
+                'id, name, parent, depth, path'
+            );
         } else {
             // Only show visible categories.
-            $categories = $DB->get_records("course_categories", array("visible" => "1"), 'sortorder ASC',
-                'id, name, parent, depth, path');
+            $categories = $DB->get_records(
+                "course_categories",
+                ["visible" => "1"],
+                'sortorder ASC',
+                'id, name, parent, depth, path'
+            );
         }
 
         $viewhiddencourses = get_config('tool_supporter', 'course_table_viewhiddenscourses');
         if ($viewhiddencourses) {
-            $courses = $DB->get_records("course", null, '',
-                'id, shortname, fullname, visible, category, startdate');
+            $courses = $DB->get_records(
+                "course",
+                null,
+                '',
+                'id, shortname, fullname, visible, category, startdate'
+            );
         } else {
             // Only show visible courses.
-            $courses = $DB->get_records("course", array("visible" => "1"), '',
-                'id, shortname, fullname, visible, category, startdate');
+            $courses = $DB->get_records(
+                "course",
+                ["visible" => "1"],
+                '',
+                'id, shortname, fullname, visible, category, startdate'
+            );
         }
 
         $coursesarray = [];
@@ -682,8 +737,10 @@ class external extends external_api {
                 $course->fullname = external_format_string($course->fullname, $context);
 
                 // Convert timestamp to readable format.
-                $course->startdate = userdate($course->startdate,
-                    get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+                $course->startdate = userdate(
+                    $course->startdate,
+                    get_string('strftimesecondsdatetimeshort', 'tool_supporter')
+                );
 
                 $coursesarray[] = (array)$course;
             }
@@ -729,7 +786,7 @@ class external extends external_api {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_'.$count] = external_format_string($label, $context);
+            $data['label_level_' . $count] = external_format_string($label, $context);
             // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
@@ -755,33 +812,38 @@ class external extends external_api {
      * @return external_single_structure of array of courses
      */
     public static function get_courses_returns() {
-        return new external_single_structure (array (
+        return new external_single_structure([
             'courses' => new external_multiple_structure(
                 new external_single_structure(
-                    array(
+                    [
                         'id' => new external_value(PARAM_INT, 'id of course'),
                         'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
                         'fullname' => new external_value(PARAM_RAW, 'course name'),
-                        'level_two' => new external_value(PARAM_RAW,  'parent category'),
+                        'level_two' => new external_value(PARAM_RAW, 'parent category'),
                         'level_one' => new external_value(PARAM_RAW, 'course category'),
-                        'level_three' => new external_value (PARAM_RAW, 'the name of level 3 category'),
-                        'level_four' => new external_value (PARAM_RAW, 'the name of level 4 category'),
-                        'level_five' => new external_value (PARAM_RAW, 'the name of level 5 category'),
+                        'level_three' => new external_value(PARAM_RAW, 'the name of level 3 category'),
+                        'level_four' => new external_value(PARAM_RAW, 'the name of level 4 category'),
+                        'level_five' => new external_value(PARAM_RAW, 'the name of level 5 category'),
                         'visible' => new external_value(PARAM_INT, 'Is the course visible'),
-                        'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format')
-                    )
+                        'startdate' => new external_value(PARAM_TEXT, 'startdate of course as readable date format'),
+                    ]
                 )
             ),
-            'uniquelevelones' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique category names of all first levels')),
-            'uniqueleveltwoes' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique category names of all second levels')),
-            'uniquelevelthrees' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique third level categories')),
-            'uniquelevelfours' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique fourth level categories')),
-            'uniquelevelfives' => new external_multiple_structure (
-                new external_value(PARAM_TEXT, 'array with unique fifth level categories')),
+            'uniquelevelones' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique category names of all first levels')
+            ),
+            'uniqueleveltwoes' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique category names of all second levels')
+            ),
+            'uniquelevelthrees' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique third level categories')
+            ),
+            'uniquelevelfours' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique fourth level categories')
+            ),
+            'uniquelevelfives' => new external_multiple_structure(
+                new external_value(PARAM_TEXT, 'array with unique fifth level categories')
+            ),
             // For now, it is limited to 5 levels and this implementation is ugly.
             'label_level_1' => new external_value(PARAM_TEXT, 'label of first level', VALUE_OPTIONAL),
             'label_level_2' => new external_value(PARAM_TEXT, 'label of second level', VALUE_OPTIONAL),
@@ -802,7 +864,7 @@ class external extends external_api {
             'showlevel5' => new external_value(PARAM_BOOL, "Config setting if level 5 should be displayed"),
             'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
 
-        ));
+        ]);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -813,9 +875,10 @@ class external extends external_api {
      */
     public static function get_course_info_parameters() {
         return new external_function_parameters(
-            array(
-                'courseID' => new external_value(PARAM_RAW, 'id of course you want to show')
-        ));
+            [
+                'courseID' => new external_value(PARAM_RAW, 'id of course you want to show'),
+            ]
+        );
     }
 
     /**
@@ -836,7 +899,7 @@ class external extends external_api {
         global $DB, $CFG;
 
         // Check parameters.
-        $params = self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
+        $params = self::validate_parameters(self::get_course_info_parameters(), ['courseID' => $courseid]);
         $courseid = $params['courseID'];
 
         $coursecontext = \context_course::instance($courseid);
@@ -845,8 +908,8 @@ class external extends external_api {
         \require_capability('moodle/course:view', $coursecontext);
 
         // Get information about the course.
-        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path FROM {course} c, ".
-                  "{course_categories} cat WHERE c.category = cat.id AND c.id = ".$courseid;
+        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path FROM {course} c, " .
+                  "{course_categories} cat WHERE c.category = cat.id AND c.id = " . $courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
         if ($coursedetails['timecreated'] == 0) {
@@ -887,7 +950,7 @@ class external extends external_api {
         $usedrolesincourse = get_assignable_roles($coursecontext);
 
         // Which roles are used and how many users have this role?
-        $roles = array();
+        $roles = [];
         $rolesincourse = [];
 
         foreach ($usedrolesincourse as $rid => $rname) {
@@ -902,16 +965,26 @@ class external extends external_api {
         asort($rolesincourse);
 
         // Get userinformation about users in course.
-        $usersraw = \get_enrolled_users($coursecontext, $withcapability = '', $groupid = 0,
-        $userfields = 'u.id,u.username,u.firstname, u.lastname', '', 0, 0);
-        $users = array();
+        $usersraw = \get_enrolled_users(
+            $coursecontext,
+            $withcapability = '',
+            $groupid = 0,
+            $userfields = 'u.id,u.username,u.firstname, u.lastname',
+            '',
+            0,
+            0
+        );
+        $users = [];
         $userenrolments = $DB->get_records_sql('SELECT ue.userid, ue.id FROM {user_enrolments} ue,
-                                               {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', array($courseid));
+                                               {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', [$courseid]);
         foreach ($usersraw as $u) {
             $u = (array)$u;
 
-            $userlastaccess = $DB->get_field('user_lastaccess', 'timeaccess',
-                array('courseid' => $courseid, 'userid' => $u['id']));
+            $userlastaccess = $DB->get_field(
+                'user_lastaccess',
+                'timeaccess',
+                ['courseid' => $courseid, 'userid' => $u['id']]
+            );
 
             if ($userlastaccess == 0) {
                 $u['lastaccess'] = get_string('never', 'moodle');
@@ -931,8 +1004,8 @@ class external extends external_api {
         }
 
         // Get Activities in course.
-        $activities = array();
-        $modules = \get_array_of_activities($courseid);
+        $activities = [];
+        $modules = \course_modinfo::get_array_of_activities(get_course($courseid));
         foreach ($modules as $mo) {
             $section = \get_section_name($courseid, $mo->section);
             // Support section and activity multilang names.
@@ -943,7 +1016,7 @@ class external extends external_api {
         }
 
         // Get Enrolment Methods in course.
-        $enrolmentmethods = array();
+        $enrolmentmethods = [];
         $instances = enrol_get_instances($courseid, false);
         $plugins   = enrol_get_plugins(false);
         // Iterate through enrol plugins and add to the display table.
@@ -957,32 +1030,32 @@ class external extends external_api {
                 $enrolmentmethod['enabled'] = true;
             }
 
-            $enrolmentmethod['users_count'] = $DB->count_records('user_enrolments', array('enrolid' => $instance->id));
+            $enrolmentmethod['users_count'] = $DB->count_records('user_enrolments', ['enrolid' => $instance->id]);
             $enrolmentmethods[] = $enrolmentmethod;
         }
 
         // Get links for navigation.
-        $settingslink = $CFG->wwwroot."/course/edit.php?id=".$courseid;
-        if (\has_capability('moodle/course:delete', $coursecontext) ) {
-            $deletelink = $CFG->wwwroot."/course/delete.php?id=".$courseid;
+        $settingslink = $CFG->wwwroot . "/course/edit.php?id=" . $courseid;
+        if (\has_capability('moodle/course:delete', $coursecontext)) {
+            $deletelink = $CFG->wwwroot . "/course/delete.php?id=" . $courseid;
         } else {
             $deletelink = false;
         }
 
-        if (\has_capability('moodle/course:update', \context_system::instance()) ) {
+        if (\has_capability('moodle/course:update', \context_system::instance())) {
             $capupdatecourse = true;
         } else {
             $capupdatecourse = false;
         }
 
-        $courselink = $CFG->wwwroot."/course/view.php?id=".$courseid;
+        $courselink = $CFG->wwwroot . "/course/view.php?id=" . $courseid;
 
-        $links = array(
+        $links = [
             'settingslink' => $settingslink,
             'deletelink' => $deletelink,
-            'courselink' => $courselink
-        );
-        $data = array(
+            'courselink' => $courselink,
+        ];
+        $data = [
             'courseDetails' => (array)$coursedetails,
             'rolesincourse' => (array)$rolesincourse,
             'roles' => (array)$roles,
@@ -991,10 +1064,10 @@ class external extends external_api {
             'links' => $links,
             'enrolmentMethods' => (array)$enrolmentmethods,
             'isallowedtoupdatecourse' => $capupdatecourse,
-            'wwwroot' => $CFG->wwwroot
-        );
+            'wwwroot' => $CFG->wwwroot,
+        ];
 
-        $data['config'] = array(
+        $data['config'] = [
             'showshortname' => get_config('tool_supporter', 'course_details_showshortname'),
             'showfullname'  => get_config('tool_supporter', 'course_details_showfullname'),
             'showvisible'  => get_config('tool_supporter', 'course_details_showvisible'),
@@ -1004,7 +1077,7 @@ class external extends external_api {
             'showrolesandamount'  => get_config('tool_supporter', 'course_details_showrolesandamount'),
             'showid'  => get_config('tool_supporter', 'course_details_showid'),
             'showstartdate'  => get_config('tool_supporter', 'course_details_showstartdate'),
-        );
+        ];
 
         return (array)$data;
     }
@@ -1014,8 +1087,8 @@ class external extends external_api {
      * @return external_single_structure a course with additional information
      */
     public static function get_course_info_returns() {
-        return new external_single_structure( array(
-            'courseDetails' => new external_single_structure( array(
+        return new external_single_structure([
+            'courseDetails' => new external_single_structure([
                 'id' => new external_value(PARAM_INT, 'id of course'),
                 'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
                 'fullname' => new external_value(PARAM_RAW, 'course name'),
@@ -1029,8 +1102,8 @@ class external extends external_api {
                 'level_three' => new external_value(PARAM_TEXT, 'third level of the course'),
                 'level_four' => new external_value(PARAM_TEXT, 'fourth level of the course'),
                 'level_five' => new external_value(PARAM_TEXT, 'fifth level of the course'),
-            )),
-            'config' => new external_single_structure( (array (
+            ]),
+            'config' => new external_single_structure(( [
                 'showshortname' => new external_value(PARAM_BOOL, "Config setting if courses shortname should be displayed"),
                 'showfullname' => new external_value(PARAM_BOOL, "Config setting if courses fullname should be displayed"),
                 'showvisible' => new external_value(PARAM_BOOL, "Config setting if courses visible status should be displayed"),
@@ -1040,46 +1113,50 @@ class external extends external_api {
                 'showrolesandamount' => new external_value(PARAM_BOOL, "Setting if courses roles and their amount are displayed"),
                 'showid'  => new external_value(PARAM_BOOL, "Setting if course id shoud be displayed"),
                 'showstartdate'  => new external_value(PARAM_BOOL, "Setting if course startdate should be displayed"),
-            ))),
-            'rolesincourse' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles used in course')),
+            ])),
+            'rolesincourse' => new external_multiple_structure(new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
-            new external_single_structure( array(
+                new external_single_structure([
                 'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
-                'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roleName')
-            ))),
+                'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roleName'),
+                ])
+            ),
             'users' => new external_multiple_structure(
-                new external_single_structure( array(
+                new external_single_structure([
                     'id' => new external_value(PARAM_INT, 'id of user'),
                     'username' => new external_value(PARAM_RAW, 'name of user'),
                     'firstname' => new external_value(PARAM_RAW, 'firstname of user'),
                     'lastname' => new external_value(PARAM_RAW, 'lastname of user'),
                     'lastaccess' => new external_value(PARAM_RAW, 'lastaccess of the user to the course'),
-                    'roles' => new external_multiple_structure (new external_value(PARAM_TEXT, 'array with roles for each user')),
-                    'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment to course')
-                ))),
+                    'roles' => new external_multiple_structure(new external_value(PARAM_TEXT, 'array with roles for each user')),
+                    'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment to course'),
+                ])
+            ),
                 'activities' => new external_multiple_structure(
-                new external_single_structure( array(
+                    new external_single_structure([
                     'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
                     'activity' => new external_value(PARAM_RAW, 'kind of activity'),
                     'name' => new external_value(PARAM_RAW, 'Name of this activity'),
-                    'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no')
-                ))),
-                'links' => new external_single_structure( array(
+                    'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no'),
+                    ])
+                ),
+                'links' => new external_single_structure([
                     'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
                     'deletelink' => new external_value(PARAM_RAW, 'link to delete the course if allowed, '
                         . 'additional affirmation needed afterwards', VALUE_OPTIONAL),
-                    'courselink' => new external_value(PARAM_RAW, 'link to the course')
-                )),
+                    'courselink' => new external_value(PARAM_RAW, 'link to the course'),
+                ]),
             'enrolmentMethods' => new external_multiple_structure(
-                new external_single_structure( array(
+                new external_single_structure([
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
                     'enabled' => new external_value(PARAM_BOOL, 'Is method enabled'),
                     'users_count' => new external_value(PARAM_INT, 'Amount of users enrolled with this method'),
                     'password' => new external_value(PARAM_TEXT, 'Password for enrolment method'),
-                ))),
+                ])
+            ),
                 'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?"),
-                'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance")
-        ));
+                'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
+        ]);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1089,9 +1166,9 @@ class external extends external_api {
      * @return external_function_parameters
      */
     public static function get_assignable_roles_parameters() {
-        return new external_function_parameters( array(
-            'courseID' => new external_value(PARAM_RAW, 'id of course you want to show')
-        ));
+        return new external_function_parameters([
+            'courseID' => new external_value(PARAM_RAW, 'id of course you want to show'),
+        ]);
     }
 
     /**
@@ -1117,10 +1194,10 @@ class external extends external_api {
         // commented out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110).
 
         // Parameter validation.
-        self::validate_parameters(self::get_course_info_parameters(), array('courseID' => $courseid));
+        self::validate_parameters(self::get_course_info_parameters(), ['courseID' => $courseid]);
 
         // Get assignable roles in the course.
-        require_once($CFG->dirroot.'/enrol/locallib.php');
+        require_once($CFG->dirroot . '/enrol/locallib.php');
         $course = get_course($courseid);
         $manager = new \course_enrolment_manager($PAGE, $course);
         $usedroles = $manager->get_assignable_roles();
@@ -1144,9 +1221,9 @@ class external extends external_api {
             $count++;
         }
 
-        $data = array(
-        'assignableRoles' => (array)$arrayofroles
-        );
+        $data = [
+        'assignableRoles' => (array)$arrayofroles,
+        ];
 
         return $data;
     }
@@ -1156,14 +1233,14 @@ class external extends external_api {
      * @return external_single_structure the assignable Roles
      */
     public static function get_assignable_roles_returns() {
-        return new external_single_structure( array(
+        return new external_single_structure([
             'assignableRoles' => new external_multiple_structure(
-                new external_single_structure( array(
+                new external_single_structure([
                     'id' => new external_value(PARAM_INT, 'id of the role'),
-                    'name' => new external_value(PARAM_RAW, 'Name of the role')
-                ))
-            )
-        ));
+                    'name' => new external_value(PARAM_RAW, 'Name of the role'),
+                ])
+            ),
+        ]);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1173,9 +1250,9 @@ class external extends external_api {
      * @return external_function_parameters
      */
     public static function toggle_course_visibility_parameters() {
-        return new external_function_parameters(array(
-            'courseID' => new external_value(PARAM_INT, 'id of course')
-        ));
+        return new external_function_parameters([
+            'courseID' => new external_value(PARAM_INT, 'id of course'),
+        ]);
     }
 
     /**
@@ -1198,7 +1275,7 @@ class external extends external_api {
         \require_capability('moodle/course:update', $coursecontext);
 
         // Checking parameters.
-        self::validate_parameters(self::toggle_course_visibility_parameters(), array('courseID' => $courseid));
+        self::validate_parameters(self::toggle_course_visibility_parameters(), ['courseID' => $courseid]);
         // Security checks.
         $coursecontext = \context_course::instance($courseid);
         self::validate_context($coursecontext);
@@ -1228,7 +1305,7 @@ class external extends external_api {
      * @return external_function_parameters
      */
     public static function get_settings_parameters() {
-        return new external_function_parameters(array());
+        return new external_function_parameters([]);
     }
 
     /**
@@ -1244,7 +1321,7 @@ class external extends external_api {
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
 
-        $data = array (
+        $data = [
             'tool_supporter_user_details_pagelength' => get_config('tool_supporter', 'user_details_pagelength'),
             'tool_supporter_user_details_order' => get_config('tool_supporter', 'user_details_order'),
             'tool_supporter_course_details_pagelength' => get_config('tool_supporter', 'course_details_pagelength'),
@@ -1253,7 +1330,7 @@ class external extends external_api {
             'tool_supporter_user_table_order' => get_config('tool_supporter', 'user_table_order'),
             'tool_supporter_course_table_pagelength' => get_config('tool_supporter', 'course_table_pagelength'),
             'tool_supporter_course_table_order' => get_config('tool_supporter', 'course_table_order'),
-        );
+        ];
         return $data;
     }
 
@@ -1262,7 +1339,7 @@ class external extends external_api {
      * @return external_single_structure a course with toggled visibility
      */
     public static function get_settings_returns() {
-        return new external_function_parameters(array(
+        return new external_function_parameters([
             'tool_supporter_user_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_user_details_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
             'tool_supporter_course_details_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
@@ -1271,7 +1348,7 @@ class external extends external_api {
             'tool_supporter_user_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
             'tool_supporter_course_table_pagelength' => new external_value(PARAM_INT, 'Amount shown per page as set in settings'),
             'tool_supporter_course_table_order' => new external_value(PARAM_TEXT, 'Sorting of ID-Column, either ASC or DESC '),
-        ));
+        ]);
     }
 
 
@@ -1283,9 +1360,10 @@ class external extends external_api {
      */
     public static function duplicate_course_parameters() {
         return new external_function_parameters(
-            array(
-                'courseid' => new external_value(PARAM_RAW, 'id of course you want to be duplicated and then shown')
-            ));
+            [
+                'courseid' => new external_value(PARAM_RAW, 'id of course you want to be duplicated and then shown'),
+            ]
+        );
     }
 
     /**
@@ -1300,7 +1378,7 @@ class external extends external_api {
     public static function duplicate_course($courseid) {
         // TODO
         // Check parameters.
-        $params = self::validate_parameters(self::duplicate_course_parameters(), array('courseid' => $courseid));
+        $params = self::validate_parameters(self::duplicate_course_parameters(), ['courseid' => $courseid]);
         $courseid = $params['courseid'];
 
         $coursecontext = \context_course::instance($courseid);
@@ -1312,23 +1390,29 @@ class external extends external_api {
 
         $newcategoryid = $oldcourse["category"];
         $newvisible = $oldcourse["visible"];
-        $newfullname = $oldcourse["fullname"]." - duplicated";
-        $newshortname = $oldcourse["shortname"]." - duplicated".rand(0, 1000); // Add random number to avoid shortnametaken.
+        $newfullname = $oldcourse["fullname"] . " - duplicated";
+        $newshortname = $oldcourse["shortname"] . " - duplicated" . rand(0, 1000); // Add random number to avoid shortnametaken.
 
-        $options = array(
-            array ('name' => 'activities', 'value' => 1),
-            array ('name' => 'blocks', 'value' => 1),
-            array ('name' => 'filters', 'value' => 1),
-            array ('name' => 'users', 'value' => 0),
-            array ('name' => 'role_assignments', 'value' => 0),
-            array ('name' => 'comments', 'value' => 0),
-            array ('name' => 'userscompletion', 'value' => 0),
-            array ('name' => 'logs', 'value' => 0),
-            array ('name' => 'grade_histories', 'value' => 0),
+        $options = [
+             ['name' => 'activities', 'value' => 1],
+             ['name' => 'blocks', 'value' => 1],
+             ['name' => 'filters', 'value' => 1],
+             ['name' => 'users', 'value' => 0],
+             ['name' => 'role_assignments', 'value' => 0],
+             ['name' => 'comments', 'value' => 0],
+             ['name' => 'userscompletion', 'value' => 0],
+             ['name' => 'logs', 'value' => 0],
+             ['name' => 'grade_histories', 'value' => 0],
+        ];
+
+        $newcourse = \core_course_external::duplicate_course(
+            $courseid,
+            $newfullname,
+            $newshortname,
+            $newcategoryid,
+            $newvisible,
+            $options
         );
-
-        $newcourse = \core_course_external::duplicate_course($courseid, $newfullname, $newshortname,
-                $newcategoryid, $newvisible, $options);
 
         return $newcourse;
     }
@@ -1339,11 +1423,10 @@ class external extends external_api {
      */
     public static function duplicate_course_returns() {
         return new external_single_structure(
-            array(
+            [
                 'id'       => new external_value(PARAM_INT, 'course id'),
                 'shortname' => new external_value(PARAM_TEXT, 'short name'),
-            )
+            ]
         );
     }
-
 }

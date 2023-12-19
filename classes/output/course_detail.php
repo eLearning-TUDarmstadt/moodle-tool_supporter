@@ -38,7 +38,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_detail implements renderable, templatable {
-
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
@@ -47,7 +46,7 @@ class course_detail implements renderable, templatable {
      * @return stdClass array with Moodle-Root
      */
     public function export_for_template(renderer_base $output) {
-        $data = array();
+        $data = [];
 
         return $data;
     }

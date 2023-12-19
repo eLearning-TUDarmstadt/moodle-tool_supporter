@@ -35,7 +35,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class user_detail implements renderable, templatable {
-
     /**
      * Standard functions which is needed, but does not get any data
      *

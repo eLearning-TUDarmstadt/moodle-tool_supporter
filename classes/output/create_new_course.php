@@ -35,7 +35,6 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class create_new_course implements renderable, templatable {
-
     /**
      * Export this data so it can be used as the context for a mustache template.
      *
@@ -59,10 +58,10 @@ class create_new_course implements renderable, templatable {
         }
         $data['categories'] = $categories;
 
-        $data['config'] = array (
+        $data['config'] = [
             'startdate' => get_config('tool_supporter', 'new_course_startdate'),
             'enddate' => get_config('tool_supporter', 'new_course_enddate'),
-        );
+        ];
 
         return $data;
     }
