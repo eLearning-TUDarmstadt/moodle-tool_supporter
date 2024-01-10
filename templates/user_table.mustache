@@ -112,11 +112,11 @@ function(loadInformation, $, ajax, notification, templates, datatables, tableFil
 
     var columns = [
                      {data: 'id', name: 'ID'},
-                     {data: 'idnumber', name: '{{#str}}idnumbermod{{/str}}'},
-                     {data: 'username', name: '{{#str}}username{{/str}}'},
-                     {data: 'firstname', name: '{{#str}}firstname{{/str}}'},
-                     {data: 'lastname', name: '{{#str}}lastname{{/str}}'},
-                     {data: 'email', name: '{{#str}}email{{/str}}'}
+                     {data: 'idnumber', name: "{{#str}}idnumbermod{{/str}}"},
+                     {data: 'username', name: "{{#str}}username{{/str}}"},
+                     {data: 'firstname', name: "{{#str}}firstname{{/str}}"},
+                     {data: 'lastname', name: "{{#str}}lastname{{/str}}"},
+                     {data: 'email', name: "{{#str}}email{{/str}}"}
                   ];
     datatables.dataTableAjax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 
