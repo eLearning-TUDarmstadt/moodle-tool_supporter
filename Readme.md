@@ -15,12 +15,12 @@ The Supporter is developed with asynchronous calls and thus only retrieves the i
 It has the standard Moodle Capability-Checks built-in so there are no extra capabilites needed and multiple levels of Support can be accomplished (see chapter "Capabilites").
 
 ## Features
-* Find Students & Courses
+* Find students & courses
 * Display additional information about your students
-  * Enrolled Courses/Students
-  * Amount of enrolled Students
+  * Enrolled courses/students
+  * Amount of enrolled students
 * Enrol users into courses
-* Create a new Course
+* Create a new course
 * Delete users from courses
 * Hotlinks to additional Features
   * Edit, Settings, Visibility of courses
@@ -66,3 +66,5 @@ Since v4-r1 user can choose from 0 to 5 layers of course categories to be repres
 
 ## Screenshot
 ![screenshot](https://user-images.githubusercontent.com/15816473/53569114-b1a9b100-3b63-11e9-8eb5-697c9f89a5fd.PNG)
+![Supporter_settings](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/assets/1639438/2f6d85fe-a71b-4ece-bc5d-e8310016371f)
+![Supporter_courses-users-overview](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/assets/1639438/b71ce44b-cbb6-46d3-a466-aa53839e4e44)
