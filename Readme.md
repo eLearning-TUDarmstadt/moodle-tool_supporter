@@ -6,28 +6,28 @@ License: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 ![Moodle Plugin CI](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/actions/workflows/moodle-ci.yml/badge.svg?branch=master)
 
 ## About
-With the Supporter you can simply find & manage your students and courses - all in one, intuitve window.
+With the Supporter you can simply find & manage your students and courses - all in one, intuitive window.
 
 It is the successor to the [Moodle Analyst](https://moodle.org/plugins/report_moodleanalyst) which was also created at the TU Darmstadt.
 
-The Supporter is developed with asynchronous calls and thus only retrieves the information from the database which are needed, not requiring reloading of the whole page; bringing a whole new user experience to moodle admins.
+The Supporter is developed with asynchronous calls and thus only retrieves the information from the database which are needed, not requiring reloading of the whole page; bringing a whole new user experience to Moodle admins.
 
-It has the standard Moodle Capability-Checks built-in so there are no extra capabilites needed and multiple levels of Support can be accomplished (see chapter "Capabilites").
+It has the standard Moodle Capability-Checks built-in, so there are no extra capabilities needed and multiple levels of Support can be accomplished (see chapter "Capabilities").
 
 ## Features
 * Find students & courses
 * Display additional information about your students
   * Enrolled courses/students
   * Amount of enrolled students
-* Enrol users into courses
+* Enrol users in courses
 * Create a new course
 * Delete users from courses
-* Hotlinks to additional Features
+* Hotlinks to additional features
   * Edit, Settings, Visibility of courses
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 4.0, 4.1, 4.2 (branch master and moodle_4_dev, without link in navigation), 3.10, 3.11 (branch 310)
+* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3 (branch master and moodle_4_dev, without a link in navigation), 3.10, 3.11 (branch 310)
 * For Moodle 3.9 and older use v1.03
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
@@ -35,13 +35,13 @@ It has the standard Moodle Capability-Checks built-in so there are no extra capa
 
 ## Installation
 * Copy/Clone to `https://YOURSITE/admin/tool/` directory
-  * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter admin/tool/supporter` in your moodle root
+  * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter admin/tool/supporter` in your Moodle root
 * Enable database upgrade
 * Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->General->Supporter`
 
-## Capabilites
+## Capabilities
 With this Plugin, we strove to implement all necessary Moodle-capabilities. As such, there is no need to give users additional caps. 
-If there is a need to divide different levels of support, these caps need to be set on a system-context:
+If there is a need to divide different levels of support, these caps need to be set in a system-context:
 
 Level 1 Support (read-only): 
 - moodle/site:viewparticipants
@@ -50,7 +50,7 @@ Level 1 Support (read-only):
 - moodle/course:view (requires course:viewhiddencourses)
 		
 level 2 Support (also write):
-- Read-Capabilites from above
+- Read-Capabilities from above
 - moodle/user:loginas		
 - moodle/course:create	
 - moodle/course:update
