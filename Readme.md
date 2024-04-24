@@ -65,6 +65,15 @@ level 2 Support (also write):
 Since v4-r1 user can choose from 0 to 5 layers of course categories to be represented (from 0 to 2 layers in v1.07), however, user detail table always shows 2.
 
 ## Screenshots
+### Supporter overview: courses in left column, users in right column
 ![Supporter_courses-users-overview](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/assets/1639438/b71ce44b-cbb6-46d3-a466-aa53839e4e44)
+<br />
+<br />
+<br />
+### Supporter settings
 ![Supporter_settings](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/assets/1639438/2f6d85fe-a71b-4ece-bc5d-e8310016371f)
+<br />
+<br />
+<br />
+### Create a new course
 ![Supporter_create-course](https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter/assets/1639438/d0c14d13-5155-41a4-be45-e80135ec7375)
