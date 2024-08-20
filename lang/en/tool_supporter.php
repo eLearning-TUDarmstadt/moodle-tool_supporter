@@ -21,52 +21,42 @@
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['toolsupporter'] = 'toolsupporter';
-
-$string['pagetitle'] = 'Moodle-Supporter';
-$string['pluginname'] = 'Supporter';
-$string['plugincategory'] = 'Supporter';
-$string['level'] = 'Level';
-$string['enable_selfenrolment'] = 'Activate self enrolment and set password';
-
 $string['beingduplicated'] = "The course is being duplicated. This may take a while.";
-
-$string['searchcourses'] = 'Search';
+$string['enable_selfenrolment'] = 'Activate self enrolment and set password';
+$string['level'] = 'Level';
+$string['pagetitle'] = 'Moodle-Supporter';
+$string['plugincategory'] = 'Supporter';
+$string['pluginname'] = 'Supporter';
+$string['privacy:metadata'] = 'This plugin does not save user-specific data, only global settings.';
 $string['refreshcourses'] = 'Refresh';
-$string['searchusers'] = 'Search';
 $string['refreshusers'] = 'Refresh';
-
-// Strings for setting page - settings.php.
-$string['sett_title'] = 'Supporter configuration';
-$string['sett_levels'] = 'Labeling of course category levels';
+$string['searchcourses'] = 'Search';
+$string['searchusers'] = 'Search';
+$string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amount';
+$string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in a seperate table row per role, i.e. amount of teachers, amount of students, etc.';
+$string['sett_course_details'] = 'Course details';
+$string['sett_course_details_desc'] = 'The course details are shown in the top left when a course is clicked.';
+$string['sett_course_table'] = 'Course table';
+$string['sett_course_table_desc'] = 'The course table lists all courses and is displayed in the bottom left.';
+$string['sett_course_table_pagelength'] = 'The amount of courses shown';
 $string['sett_enable_lvl_1'] = 'Enable Level 1';
 $string['sett_enable_lvl_2'] = 'Enable Level 2';
 $string['sett_enable_lvl_3'] = 'Enable Level 3';
 $string['sett_enable_lvl_4'] = 'Enable Level 4';
 $string['sett_enable_lvl_5'] = 'Enable Level 5';
+$string['sett_levels'] = 'Labeling of course category levels';
 $string['sett_levels_default'] = 'L1;L2;L3;L4;L5';
 $string['sett_levels_description'] = 'Specify the displayed names of the course levels. In descending order (uppermost level first) and separated by semicolon. ';
-
-$string['sett_course_table'] = 'Course table';
-$string['sett_user_table'] = 'User table';
+$string['sett_never'] = 'never';
+$string['sett_sort_course_details'] = 'Sorting of the ID-Column in course view (enrolled users)';
+$string['sett_sort_course_table'] = 'Sorting of the ID-Column in course table';
+$string['sett_sort_user_details'] = 'Sorting of the ID-Column in user view (enrolled courses)';
+$string['sett_sort_user_table'] = 'Sorting of the ID-Column in user table';
+$string['sett_title'] = 'Supporter configuration';
 $string['sett_user_details'] = 'User details';
-$string['sett_course_details'] = 'Course details';
-
-$string['sett_course_table_desc'] = 'The course table lists all courses and is displayed in the bottom left.';
-$string['sett_course_table_pagelength'] = 'The amount of courses shown';
+$string['sett_user_details_desc'] = 'The user details are shown in the top right when a user is clicked.';
+$string['sett_user_table'] = 'User table';
 $string['sett_user_table_desc'] = 'The user table lists all users and is displayed in the bottom right.';
 $string['sett_user_table_pagelength'] = 'The amount of user-courses shown';
-$string['sett_sort_course_table'] = 'Sorting of the ID-Column in course table';
-$string['sett_sort_course_details'] = 'Sorting of the ID-Column in course view (enrolled users)';
-$string['sett_sort_user_table'] = 'Sorting of the ID-Column in user table';
-$string['sett_sort_user_details'] = 'Sorting of the ID-Column in user view (enrolled courses)';
-$string['sett_user_details_desc'] = 'The user details are shown in the top right when a user is clicked.';
-$string['sett_course_details_desc'] = 'The course details are shown in the top left when a course is clicked.';
-$string['sett_course_detail_showrolesandamount'] = 'Show all roles and their amount';
-$string['sett_course_detail_showrolesandamount_desc'] = 'Explicitly shows all roles and their amounts in a seperate table row per role, i.e. amount of teachers, amount of students, etc.';
-
-$string['sett_never'] = 'never';
 $string['strftimesecondsdatetimeshort'] = '%d/%m/%Y, %H:%M:%S';
-
-// Privacy API.
-$string['privacy:metadata'] = 'This plugin does not save user-specific data, only global settings.';
+$string['toolsupporter'] = 'toolsupporter';

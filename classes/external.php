@@ -56,14 +56,14 @@ class external extends external_api {
     public static function create_new_course_parameters() {
         return new external_function_parameters(
             [
-            'shortname' => new external_value(PARAM_TEXT, 'The short name of the course to be created'),
-            'fullname' => new external_value(PARAM_TEXT, 'The full name of the course to be created'),
-            'visible' => new external_value(PARAM_BOOL, 'Toggles visibility of course'),
-            'categoryid' => new external_value(PARAM_INT, 'ID of category the course should be created in'),
-            'activateselfenrol' => new external_value(PARAM_BOOL, 'Toggles if self_enrolment should be activated'),
-            'selfenrolpassword' => new external_value(PARAM_TEXT, 'Password of self enrolment'),
-            'startdate' => new external_value(PARAM_TEXT, 'Course start date'),
-            'enddate' => new external_value(PARAM_TEXT, 'Course end date'),
+                'shortname' => new external_value(PARAM_TEXT, 'The short name of the course to be created'),
+                'fullname' => new external_value(PARAM_TEXT, 'The full name of the course to be created'),
+                'visible' => new external_value(PARAM_BOOL, 'Toggles visibility of course'),
+                'categoryid' => new external_value(PARAM_INT, 'ID of category the course should be created in'),
+                'activateselfenrol' => new external_value(PARAM_BOOL, 'Toggles if self_enrolment should be activated'),
+                'selfenrolpassword' => new external_value(PARAM_TEXT, 'Password of self enrolment'),
+                'startdate' => new external_value(PARAM_TEXT, 'Course start date'),
+                'enddate' => new external_value(PARAM_TEXT, 'Course end date'),
             ]
         );
     }
@@ -418,7 +418,7 @@ class external extends external_api {
         $context = \context_system::instance();
         if (\has_capability('moodle/user:loginas', $context)) {
             $link = $CFG->wwwroot . "/course/loginas.php?id=1&user=" . $data['userinformation']['id'] . "&sesskey="
-            . $USER->sesskey;
+                . $USER->sesskey;
             $data['loginaslink'] = $link;
         } else {
             $data['loginaslink'] = false;
@@ -909,7 +909,7 @@ class external extends external_api {
 
         // Get information about the course.
         $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path FROM {course} c, " .
-                  "{course_categories} cat WHERE c.category = cat.id AND c.id = " . $courseid;
+            "{course_categories} cat WHERE c.category = cat.id AND c.id = " . $courseid;
         $coursedetails = $DB->get_record_sql($select);
         $coursedetails = (array)$coursedetails;
         if ($coursedetails['timecreated'] == 0) {
@@ -1117,8 +1117,8 @@ class external extends external_api {
             'rolesincourse' => new external_multiple_structure(new external_value(PARAM_TEXT, 'array with roles used in course')),
             'roles' => new external_multiple_structure(
                 new external_single_structure([
-                'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
-                'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roleName'),
+                    'roleName' => new external_value(PARAM_RAW, 'name of one role in course'),
+                    'roleNumber' => new external_value(PARAM_INT, 'number of participants with role = roleName'),
                 ])
             ),
             'users' => new external_multiple_structure(
@@ -1132,20 +1132,20 @@ class external extends external_api {
                     'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment to course'),
                 ])
             ),
-                'activities' => new external_multiple_structure(
-                    new external_single_structure([
+            'activities' => new external_multiple_structure(
+                new external_single_structure([
                     'section' => new external_value(PARAM_RAW, 'Name of section, in which the activity appears'),
                     'activity' => new external_value(PARAM_RAW, 'kind of activity'),
                     'name' => new external_value(PARAM_RAW, 'Name of this activity'),
                     'visible' => new external_value(PARAM_INT, 'Is the activity visible? 1: yes, 0: no'),
-                    ])
-                ),
-                'links' => new external_single_structure([
-                    'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
-                    'deletelink' => new external_value(PARAM_RAW, 'link to delete the course if allowed, '
-                        . 'additional affirmation needed afterwards', VALUE_OPTIONAL),
-                    'courselink' => new external_value(PARAM_RAW, 'link to the course'),
-                ]),
+                ])
+            ),
+            'links' => new external_single_structure([
+                'settingslink' => new external_value(PARAM_RAW, 'link to the settings of the course'),
+                'deletelink' => new external_value(PARAM_RAW, 'link to delete the course if allowed, '
+                    . 'additional affirmation needed afterwards', VALUE_OPTIONAL),
+                'courselink' => new external_value(PARAM_RAW, 'link to the course'),
+            ]),
             'enrolmentMethods' => new external_multiple_structure(
                 new external_single_structure([
                     'methodname' => new external_value(PARAM_TEXT, 'Name of the enrolment method'),
@@ -1154,8 +1154,8 @@ class external extends external_api {
                     'password' => new external_value(PARAM_TEXT, 'Password for enrolment method'),
                 ])
             ),
-                'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?"),
-                'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
+            'isallowedtoupdatecourse' => new external_value(PARAM_BOOL, "Is the user allowed to update the course globally?"),
+            'wwwroot' => new external_value(PARAM_TEXT, "Root URL of this moodle instance"),
         ]);
     }
 
@@ -1222,7 +1222,7 @@ class external extends external_api {
         }
 
         $data = [
-        'assignableRoles' => (array)$arrayofroles,
+            'assignableRoles' => (array)$arrayofroles,
         ];
 
         return $data;
@@ -1376,7 +1376,6 @@ class external extends external_api {
      * @throws invalid_parameter_exception
      */
     public static function duplicate_course($courseid) {
-        // TODO
         // Check parameters.
         $params = self::validate_parameters(self::duplicate_course_parameters(), ['courseid' => $courseid]);
         $courseid = $params['courseid'];
@@ -1394,15 +1393,15 @@ class external extends external_api {
         $newshortname = $oldcourse["shortname"] . " - duplicated" . rand(0, 1000); // Add random number to avoid shortnametaken.
 
         $options = [
-             ['name' => 'activities', 'value' => 1],
-             ['name' => 'blocks', 'value' => 1],
-             ['name' => 'filters', 'value' => 1],
-             ['name' => 'users', 'value' => 0],
-             ['name' => 'role_assignments', 'value' => 0],
-             ['name' => 'comments', 'value' => 0],
-             ['name' => 'userscompletion', 'value' => 0],
-             ['name' => 'logs', 'value' => 0],
-             ['name' => 'grade_histories', 'value' => 0],
+            ['name' => 'activities', 'value' => 1],
+            ['name' => 'blocks', 'value' => 1],
+            ['name' => 'filters', 'value' => 1],
+            ['name' => 'users', 'value' => 0],
+            ['name' => 'role_assignments', 'value' => 0],
+            ['name' => 'comments', 'value' => 0],
+            ['name' => 'userscompletion', 'value' => 0],
+            ['name' => 'logs', 'value' => 0],
+            ['name' => 'grade_histories', 'value' => 0],
         ];
 
         $newcourse = \core_course_external::duplicate_course(
