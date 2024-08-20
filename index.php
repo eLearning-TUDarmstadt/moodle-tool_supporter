@@ -15,12 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is the only page in this plugin.
+ * Admin tool "Supporter" - Index page
  *
  * @package    tool_supporter
  * @copyright  2019 Benedikt Schneider, Klara Saary
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require_once(__DIR__ . '/../../../config.php');
 
 $title = get_string('pagetitle', 'tool_supporter');
