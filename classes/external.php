@@ -135,8 +135,7 @@ class external extends external_api {
         // Convert string to date.
         $data->startdate = strtotime($params['startdate']);
         $data->enddate = strtotime($params['enddate']);
-
-        $data->numsections = 10;
+        $data->numsections = get_config('moodlecourse', 'numsections');
         $createdcourse = create_course($data);
 
         if ($activateselfenrol) {
