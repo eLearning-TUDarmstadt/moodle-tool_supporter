@@ -34,6 +34,7 @@ require_once("$CFG->dirroot/user/lib.php");
 require_once("$CFG->libdir/adminlib.php");
 require_once($CFG->dirroot . '/course/externallib.php');
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
+require_once("$CFG->dirroot/enrol/locallib.php");
 
 use external_api;
 use external_function_parameters;
@@ -974,7 +975,7 @@ class external extends external_api {
             0
         );
         $users = [];
-        $userenrolments = $DB->get_records_sql('SELECT ue.userid, ue.id FROM {user_enrolments} ue,
+        $userenrolments = $DB->get_records_sql('SELECT ue.userid, ue.id, ue.enrolid FROM {user_enrolments} ue,
                                                {enrol} e WHERE e.id = ue.enrolid AND e.courseid = ?', [$courseid]);
         foreach ($usersraw as $u) {
             $u = (array)$u;
@@ -999,6 +1000,13 @@ class external extends external_api {
             }
             $u['roles'] = $userroles;
             $u['enrol_id'] = $userenrolments[$u['id']]->id;
+
+            // Get enrol instance name for this user.
+            $enrolid = $userenrolments[$u['id']]->enrolid;
+            $instance = $DB->get_record('enrol', array('id'=>$enrolid), '*', MUST_EXIST);
+            $plugin = enrol_get_plugin($instance->enrol);
+            $u['enrol_name'] = $plugin->get_instance_name($instance);
+
             $users[] = $u;
         }
 
@@ -1129,6 +1137,7 @@ class external extends external_api {
                     'lastaccess' => new external_value(PARAM_RAW, 'lastaccess of the user to the course'),
                     'roles' => new external_multiple_structure(new external_value(PARAM_TEXT, 'array with roles for each user')),
                     'enrol_id' => new external_value(PARAM_INT, 'id of user enrolment to course'),
+                    'enrol_name' => new external_value(PARAM_TEXT, 'name of user enrolment'),
                 ])
             ),
             'activities' => new external_multiple_structure(

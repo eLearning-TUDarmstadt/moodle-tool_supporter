@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: true
             },
-            files: ["**/amd/src/*.js"]
+            files: ["**/amd/src/*.js", '!**/amd/src/jquery.dataTables.js']
         },
         uglify: {
             dynamic_mappings: {

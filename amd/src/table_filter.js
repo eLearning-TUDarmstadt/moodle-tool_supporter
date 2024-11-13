@@ -75,7 +75,8 @@ define(['jquery'], function($) {
             columns.forEach(function(element) {
                 $(columnDropdownID).append($('<option>', {
                     value: counter,
-                    text: element.name
+                    text: element.name,
+                    hidden: !element.visible ? true : undefined
                 }));
                 counter++;
             });
