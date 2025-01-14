@@ -1003,7 +1003,7 @@ class external extends external_api {
 
             // Get enrol instance name for this user.
             $enrolid = $userenrolments[$u['id']]->enrolid;
-            $instance = $DB->get_record('enrol', array('id'=>$enrolid), '*', MUST_EXIST);
+            $instance = $DB->get_record('enrol', ['id' => $enrolid], '*', MUST_EXIST);
             $plugin = enrol_get_plugin($instance->enrol);
             $u['enrol_name'] = $plugin->get_instance_name($instance);
 
