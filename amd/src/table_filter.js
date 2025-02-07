@@ -76,7 +76,7 @@ define(['jquery'], function($) {
                 $(columnDropdownID).append($('<option>', {
                     value: counter,
                     text: element.name,
-                    hidden: !element.visible ? true : undefined
+                    hidden: (element.visible === false) ? true : undefined
                 }));
                 counter++;
             });
