@@ -27,7 +27,7 @@ It has the standard Moodle Capability-Checks built-in, so there are no extra cap
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3, 4.4 (branch master and moodle_4_dev, without a link in navigation), 3.10, 3.11 (branch 310)
+* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3, 4.4, 4.5 (branch master, without a link in navigation), 3.10, 3.11 (branch 310)
 * For Moodle 3.9 and older use v1.03
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
