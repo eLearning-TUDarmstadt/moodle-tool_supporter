@@ -12,7 +12,7 @@ It is the successor to the [Moodle Analyst](https://moodle.org/plugins/report_mo
 
 The Supporter is developed with asynchronous calls and thus only retrieves the information from the database which are needed, not requiring reloading of the whole page; bringing a whole new user experience to Moodle admins.
 
-It has the standard Moodle Capability-Checks built-in, so there are no extra capabilities needed and multiple levels of Support can be accomplished (see chapter "Capabilities").
+It has the standard Moodle capability-checks built-in, so there are no extra capabilities needed and multiple levels of support can be accomplished (see chapter "Capabilities").
 
 ## Features
 * Find students & courses
@@ -27,8 +27,7 @@ It has the standard Moodle Capability-Checks built-in, so there are no extra cap
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3, 4.4, 4.5 (branch master, without a link in navigation), 3.10, 3.11 (branch 310)
-* For Moodle 3.9 and older use v1.03
+* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3, 4.4, 4.5
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
@@ -40,7 +39,7 @@ It has the standard Moodle Capability-Checks built-in, so there are no extra cap
 * Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->General->Supporter`
 
 ## Capabilities
-With this Plugin, we strove to implement all necessary Moodle-capabilities. As such, there is no need to give users additional caps. 
+With this plugin, we strove to implement all necessary Moodle-capabilities. As such, there is no need to give users additional caps. 
 If there is a need to divide different levels of support, these caps need to be set in a system-context:
 
 Level 1 Support (read-only): 
@@ -50,7 +49,7 @@ Level 1 Support (read-only):
 - moodle/course:view (requires course:viewhiddencourses)
 		
 level 2 Support (also write):
-- Read-Capabilities from above
+- read-capabilities from above
 - moodle/user:loginas		
 - moodle/course:create	
 - moodle/course:update
