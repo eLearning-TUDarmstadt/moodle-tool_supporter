@@ -137,6 +137,7 @@ class external extends external_api {
         $data->startdate = strtotime($params['startdate']);
         $data->enddate = strtotime($params['enddate']);
         $data->numsections = get_config('moodlecourse', 'numsections');
+        $data->maxbytes = get_config('moodlecourse', 'maxbytes');
         $createdcourse = create_course($data);
 
         if ($activateselfenrol) {
