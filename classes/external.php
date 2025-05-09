@@ -309,11 +309,11 @@ class external extends external_api {
                 $info->timemodified =
                     userdate($info->timemodified, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
             }
-            if ($info->lastlogin == 0) {
-                $info->lastlogin = $neverstring;
+            if ($info->currentlogin == 0) {
+                $info->currentlogin = $neverstring;
             } else {
-                $info->lastlogin =
-                    userdate($info->lastlogin, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
+                $info->currentlogin =
+                    userdate($info->currentlogin, get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
             }
             // Cast as an array.
             $userinformationarray[] = (array)$info;
@@ -453,7 +453,7 @@ class external extends external_api {
             'showmailadress' => get_config('tool_supporter', 'user_details_showmailadress'),
             'showtimecreated' => get_config('tool_supporter', 'user_details_showtimecreated'),
             'showtimemodified' => get_config('tool_supporter', 'user_details_showtimemodified'),
-            'showlastlogin' => get_config('tool_supporter', 'user_details_showlastlogin'),
+            'showcurrentlogin' => get_config('tool_supporter', 'user_details_showcurrentlogin'),
             'showsuspension' => get_config('tool_supporter', 'user_details_showsuspension'),
             'showauthtype' => get_config('tool_supporter', 'user_details_showauthtype'),
         ];
@@ -491,7 +491,7 @@ class external extends external_api {
                 'email' => new external_value(PARAM_TEXT, 'email of the user'),
                 'timecreated' => new external_value(PARAM_TEXT, 'timecreated of the user as date'),
                 'timemodified' => new external_value(PARAM_TEXT, 'timemodified of the user as date'),
-                'lastlogin' => new external_value(PARAM_TEXT, 'last login of the user as date'),
+                'currentlogin' => new external_value(PARAM_TEXT, 'last login of the user as date'),
                 'lang' => new external_value(PARAM_TEXT, 'lang of the user'),
                 'auth' => new external_value(PARAM_TEXT, 'auth of the user'),
                 'idnumber' => new external_value(PARAM_TEXT, 'idnumber of the user'),
@@ -505,7 +505,7 @@ class external extends external_api {
                 'showmailadress' => new external_value(PARAM_BOOL, "Show mail adress of user in user details"),
                 'showtimecreated' => new external_value(PARAM_BOOL, "Show time created of user in user details"),
                 'showtimemodified' => new external_value(PARAM_BOOL, "Show time modified of user in user details"),
-                'showlastlogin' => new external_value(PARAM_BOOL, "Show last login of user in user details"),
+                'showcurrentlogin' => new external_value(PARAM_BOOL, "Show last login of user in user details"),
                 'showsuspension' => new external_value(PARAM_BOOL, "Show suspension status of user in user details"),
                 'showauthtype' => new external_value(PARAM_BOOL, "Show auth type of user in user details"),
             ])),

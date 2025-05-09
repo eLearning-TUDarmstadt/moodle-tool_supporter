@@ -42,7 +42,7 @@ Example context (json):
       "email": "hasbvdjh@sabdhadbvsdaj.de",
       "timecreated": "01.01.1970 01:01",
       "timemodified": "29.08.2018 08:02",
-      "lastlogin": "07.01.2019 01:04",
+      "currentlogin": "07.01.2019 01:04",
       "lang": "de",
       "auth": "manual",
       "idnumber": "378910"
@@ -55,7 +55,7 @@ Example context (json):
       "showmailadress": true,
       "showtimecreated": true,
       "showtimemodified": true,
-      "showlastlogin": true
+      "showcurrentlogin": true
     },
     "userscourses": [
       {
@@ -164,7 +164,7 @@ Example context (json):
                     {{#showmailadress}}<tr><th>{{#str}}email{{/str}}</th><td>{{email}}</td></tr>{{/showmailadress}}
                     {{#showtimecreated}}<tr><th>{{#str}}eventusercreated{{/str}}</th><td>{{timecreated}}</td></tr>{{/showtimecreated}}
                     {{#showtimemodified}}<tr><th>{{#str}}lastmodified{{/str}}</th><td>{{timemodified}}</td></tr>{{/showtimemodified}}
-                    {{#showlastlogin}}<tr><th>{{#str}}lastlogin{{/str}}</th><td>{{lastlogin}}</td></tr>{{/showlastlogin}}
+                    {{#showcurrentlogin}}<tr><th>{{#str}}lastlogin{{/str}}</th><td>{{currentlogin}}</td></tr>{{/showcurrentlogin}}
                     {{#showsuspension}}<tr><th>{{#str}}suspended{{/str}}</th><td>{{suspended}}</td></tr>{{/showsuspension}}
                     {{#showauthtype}}<tr><th>{{#str}}authentication{{/str}}</th><td>{{auth}}</td></tr>{{/showauthtype}}
                 {{/config}}{{/userinformation}}

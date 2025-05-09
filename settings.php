@@ -318,7 +318,7 @@ if ($hassiteconfig) {
         1
     ));
     $settings->add(new admin_setting_configcheckbox(
-        'tool_supporter/user_details_showlastlogin',
+        'tool_supporter/user_details_showcurrentlogin',
         get_string('lastlogin'),
         "",
         1
