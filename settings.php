@@ -30,7 +30,14 @@ $ADMIN->add('root', new admin_category('supportercategory', get_string('pluginca
 $ADMIN->add('supportercategory', new admin_externalpage(
     'toolsupporter',
     get_string('pluginname', 'tool_supporter'),
-    new moodle_url('/admin/tool/supporter/index.php')
+    new moodle_url('/admin/tool/supporter/index.php'),
+    // Require only basic support capabilities.
+    [
+        'moodle/site:viewparticipants',
+        'moodle/user:viewdetails',
+        'moodle/course:viewhiddencourses',
+        'moodle/course:view',
+    ]
 ));
 
 // Settings page.
