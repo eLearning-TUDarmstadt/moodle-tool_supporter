@@ -133,22 +133,22 @@ Example context (json):
 								</a>
 							{{/visible}}
 						{{/courseDetails}}
-                        <a data-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
+                        <a data-bs-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
                             {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
                         </a>
-                        <a data-toggle="tooltip" title="{{#str}}duplicate{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="duplicate_course_button">
+                        <a data-bs-toggle="tooltip" title="{{#str}}duplicate{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="duplicate_course_button">
                             {{#pix}} i/copy, tool_supporter, {{#str}}duplicate{{/str}} {{/pix}}
                         </a>
 					{{/isallowedtoupdatecourse}}
 					{{#deletelink}}
-						<a data-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
+						<a data-bs-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
 							{{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
 						</a>
 					{{/deletelink}}
-					<a data-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_hide_course_details">
+					<a data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_hide_course_details">
 						{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 					</a>
-					<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_course_details" style="display: none">
+					<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_course_details" style="display: none">
 						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 					</a>
 				</div>
@@ -180,9 +180,9 @@ Example context (json):
 	        <!-- Navigation for user- and activity-table of selected course -->
 	        <div>
 	          <ul class="nav nav-tabs nav-justified" role="tablist">
-	              <li class = "nav-item"><a class = "nav-link active" data-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
-	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
-	              <li class = "nav-item"><a class = "nav-link" data-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
+	              <li class = "nav-item"><a class = "nav-link active" data-bs-toggle="tab" href="#CoursePill_1" role = "tab">{{#str}}enrolledusers, enrol{{/str}}</a></li>
+	              <li class = "nav-item"><a class = "nav-link" data-bs-toggle="tab" href="#CoursePill_2" role = "tab">{{#str}}activities{{/str}}</a></li>
+	              <li class = "nav-item"><a class = "nav-link" data-bs-toggle="tab" href="#CoursePill_3" role = "tab">{{#str}}enrolmentinstances, enrol{{/str}}</a></li>
 	          </ul>
 	        </div>
 
@@ -192,7 +192,7 @@ Example context (json):
 
 		            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
 						<b>{{#str}}filter{{/str}}:</b>
-		                <a class = "dropdown-toggle" href='javascript:void(0)' data-toggle="dropdown">{{#str}}roles{{/str}}</a>
+		                <a class = "dropdown-toggle" href='javascript:void(0)' data-bs-toggle="dropdown">{{#str}}roles{{/str}}</a>
 		                <ul class="dropdown-menu" id="roledropdown">
 		                    <!--filter user list by selecting wanted role-->
 		                     {{#rolesincourse}}

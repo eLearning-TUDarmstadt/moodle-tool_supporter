@@ -122,25 +122,25 @@ Example context (json):
 
 			<div class="btn-group mr-2 float-right">
 				{{#loginaslink}}
-					<a href="{{loginaslink}}" target="_blank" class="btn pr-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+					<a href="{{loginaslink}}" target="_blank" class="btn pr-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}loginas{{/str}}">
 						{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
 					</a>
 				{{/loginaslink}}
 				{{#isallowedtoupdateusers}}
-					<a href="{{edituserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+					<a href="{{edituserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}edituser{{/str}}">
 						{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
 					</a>
-					<a href="{{deleteuserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
+					<a href="{{deleteuserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
 						{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
 					</a>
-					<a href="{{usernotificationpreferenceslink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-toggle="tooltip" title="{{#str}}notificationpreferences, message{{/str}}">
+					<a href="{{usernotificationpreferenceslink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}notificationpreferences, message{{/str}}">
 						{{#pix}} i/notifications, core, {{#str}}notificationpreferences, message{{/str}} {{/pix}}
 					</a>
 				{{/isallowedtoupdateusers}}
-				<a href="#" class="btn pr-1 ml-1 btn-default" role="button" id="btn_hide_user_details" data-toggle="tooltip" title="{{#str}}hide{{/str}}">
+				<a href="#" class="btn pr-1 ml-1 btn-default" role="button" id="btn_hide_user_details" data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}">
 					{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 				</a>
-				<a data-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_user_details" style="display: none">
+				<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_user_details" style="display: none">
 					{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 				</a>
 			</div>
@@ -177,7 +177,7 @@ Example context (json):
 	            <li class = "nav-item"><a class = "nav-link"><b>{{#str}}courses{{/str}}</b></a></li>
 	            <!--filter course list by selecting wanted first level category -->
 	            <li class="nav-item dropdown" {{^showlevel1}}hidden{{/showlevel1}}>
-	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
 	              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
 	                {{#uniquelevelones}}
 	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
@@ -185,7 +185,7 @@ Example context (json):
 	              </ul>
 	            </li>
 	            <li class="nav-item dropdown" {{^showlevel2}}hidden{{/showlevel2}}>
-	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
+	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_2}}<span class="caret"></span></a>
 	              <!--filter course list by selecting wanted second level category-->
 	              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
 	                {{#uniqueleveltwoes}}
@@ -194,7 +194,7 @@ Example context (json):
 	              </ul>
 	            </li>
                   <li class="nav-item dropdown" {{^showlevel3}}hidden{{/showlevel3}}>
-                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_3}}<span class="caret"></span></a>
+                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_3}}<span class="caret"></span></a>
                       <!--filter course list by selecting wanted third level category-->
                       <ul class="dropdown-menu" id="user_detail_levelthreedropdown">
                           {{#uniquelevelthrees}}
@@ -203,7 +203,7 @@ Example context (json):
                       </ul>
                   </li>
                   <li class="nav-item dropdown" {{^showlevel4}}hidden{{/showlevel4}}>
-                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_4}}<span class="caret"></span></a>
+                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_4}}<span class="caret"></span></a>
                       <!--filter course list by selecting wanted fourth level category-->
                       <ul class="dropdown-menu" id="user_detail_levelfourdropdown">
                           {{#uniquelevelfours}}
@@ -212,7 +212,7 @@ Example context (json):
                       </ul>
                   </li>
                   <li class="nav-item dropdown" {{^showlevel5}}hidden{{/showlevel5}}>
-                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{label_level_5}}<span class="caret"></span></a>
+                      <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_5}}<span class="caret"></span></a>
                       <!--filter course list by selecting wanted fifth level category-->
                       <ul class="dropdown-menu" id="user_detail_levelfivedropdown">
                           {{#uniquelevelfives}}
