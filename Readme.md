@@ -27,7 +27,7 @@ It has the standard Moodle capability-checks built-in, so there are no extra cap
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 4.0, 4.1, 4.2, 4.3, 4.4, 4.5
+* This version is tested on Moodle 4.5 and 5.0
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
