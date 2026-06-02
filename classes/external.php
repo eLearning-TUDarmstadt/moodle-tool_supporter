@@ -149,8 +149,8 @@ class external extends external_api {
             list($summerday, $summermonth) = explode('.', $summerstart); // Expects "DD.MM"
             list($winterday, $wintermonth) = explode('.', $winterstart); // Expects "DD.MM"
 
-            $summertimestamp = mktime(0, 0, 0, $summerday, $summermonth, date('Y'));
-            $wintertimestamp = mktime(0, 0, 0, $winterday, $wintermonth, date('Y') - 1);
+            $summertimestamp = mktime(0, 0, 0, $summermonth, $summerday, date('Y'));
+            $wintertimestamp = mktime(0, 0, 0, $wintermonth, $winterday, date('Y') - 1);
 
             if (time() > $summertimestamp) {
                 $data->startdate = $summertimestamp;
