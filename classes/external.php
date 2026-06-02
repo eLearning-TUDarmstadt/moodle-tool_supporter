@@ -65,6 +65,9 @@ class external extends external_api {
                 'selfenrolpassword' => new external_value(PARAM_TEXT, 'Password of self enrolment'),
                 'startdate' => new external_value(PARAM_TEXT, 'Course start date'),
                 'enddate' => new external_value(PARAM_TEXT, 'Course end date'),
+                'usesemesterdate' => new external_value(PARAM_BOOL, 'Use semester start/end date for the course'),
+                'summerstart' => new external_value(PARAM_TEXT, 'Summer semester start date'),
+                'winterstart' => new external_value(PARAM_TEXT, 'Winter semester start date'),
             ]
         );
     }
@@ -80,6 +83,9 @@ class external extends external_api {
      * @param string $selfenrolpassword
      * @param int $startdate
      * @param int $enddate
+     * @param bool $usesemesterdate
+     * @param string $summerstart
+     * @param string $winterstart
      * @return array
      * @throws \coding_exception
      * @throws \dml_exception
@@ -96,7 +102,10 @@ class external extends external_api {
         $activateselfenrol,
         $selfenrolpassword,
         $startdate,
-        $enddate
+        $enddate,
+        $usesemesterdate,
+        $summerstart,
+        $winterstart
     ) {
         global $DB;
 
@@ -112,6 +121,9 @@ class external extends external_api {
             'selfenrolpassword' => $selfenrolpassword,
             'startdate' => $startdate,
             'enddate' => $enddate,
+            'usesemesterdate' => $usesemesterdate,
+            'summerstart' => $summerstart,
+            'winterstart' => $winterstart,
         ];
 
         // Parameters validation.
@@ -133,9 +145,26 @@ class external extends external_api {
             throw new invalid_parameter_exception('shortnametaken already taken');
         }
 
-        // Convert string to date.
-        $data->startdate = strtotime($params['startdate']);
-        $data->enddate = strtotime($params['enddate']);
+        if ($usesemesterdate) {
+            list($summerday, $summermonth) = explode('.', $summerstart); // Expects "DD.MM"
+            list($winterday, $wintermonth) = explode('.', $winterstart); // Expects "DD.MM"
+
+            $summertimestamp = mktime(0, 0, 0, $summerday, $summermonth, date('Y'));
+            $wintertimestamp = mktime(0, 0, 0, $winterday, $wintermonth, date('Y') - 1);
+
+            if (time() > $summertimestamp) {
+                $data->startdate = $summertimestamp;
+                $data->enddate = strtotime('+6 month', $summertimestamp);
+            } else {
+                $data->startdate = $wintertimestamp;
+                $data->enddate = strtotime('+6 month', $wintertimestamp);
+            }
+
+        } else {
+            // Convert string to date.
+            $data->startdate = strtotime($params['startdate']);
+            $data->enddate = strtotime($params['enddate']);
+        }
         $data->numsections = get_config('moodlecourse', 'numsections');
         $data->maxbytes = get_config('moodlecourse', 'maxbytes');
         $createdcourse = create_course($data);
