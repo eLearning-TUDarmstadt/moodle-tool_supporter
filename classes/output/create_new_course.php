@@ -59,8 +59,10 @@ class create_new_course implements renderable, templatable {
         $data['categories'] = $categories;
 
         if (get_config('tool_supporter', 'new_course_usesemesterdate')) {
-            list($summerday, $summermonth) = explode('.', get_config('tool_supporter', 'new_course_summerstart')); // Expects "DD.MM"
-            list($winterday, $wintermonth) = explode('.', get_config('tool_supporter', 'new_course_winterstart')); // Expects "DD.MM"
+            // Expects "DD.MM".
+            [$summerday, $summermonth] = explode('.', get_config('tool_supporter', 'new_course_summerstart'));
+            // Expects "DD.MM".
+            [$winterday, $wintermonth] = explode('.', get_config('tool_supporter', 'new_course_winterstart'));
 
             $summertimestamp = mktime(0, 0, 0, $summermonth, $summerday, date('Y'));
             $wintertimestamp = mktime(0, 0, 0, $wintermonth, $winterday, date('Y') - 1);
@@ -76,8 +78,7 @@ class create_new_course implements renderable, templatable {
                     'enddate' => date("d.m.Y", strtotime('+6 month', $wintertimestamp)),
                 ];
             }
-        }
-        else {
+        } else {
                 $data['config'] = [
                     'startdate' => get_config('tool_supporter', 'new_course_startdate'),
                     'enddate' => get_config('tool_supporter', 'new_course_enddate'),
