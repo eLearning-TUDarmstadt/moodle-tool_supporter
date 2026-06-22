@@ -27,14 +27,17 @@ It has the standard Moodle capability-checks built-in, so there are no extra cap
   * Log in as the selected user
 
 ## Prerequisites
-* This version is tested on Moodle 5.0, 5.1
+* This version is tested on Moodle 5.0, 5.1, 5.2
 * It is highly recommended to activate compression to reduce transmitted data (e.g. from 4.36MB to 1.05 MB)
   * Add "zlib.output_compression = On" in php.ini
   * Or add deflate to your apache/nginx/lighttpd, see https://docs.moodle.org/en/Performance_recommendations
 
 ## Installation
-* Copy/Clone to `https://YOURSITE/admin/tool/` directory
-  * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter admin/tool/supporter` in your Moodle root
+* Copy/Clone to
+  * up to Moodle 5.0: https://YOURSITE/admin/tool/ directory 
+   * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter admin/tool/supporter` in your Moodle root
+  * Moodle 5.1 and higher: https://YOURSITE/public/admin/tool/ directory
+   * Alternatively use `git clone https://github.com/eLearning-TUDarmstadt/moodle-tool_supporter public/admin/tool/supporter` in your Moodle root
 * Enable database upgrade
 * Go to `https://YOURSITE/admin/tool/supporter` or `Site Administration->General->Supporter`
 
