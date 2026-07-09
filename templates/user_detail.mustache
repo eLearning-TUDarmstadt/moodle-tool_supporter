@@ -112,7 +112,7 @@ Example context (json):
 <div style="display: none; padding-bottom: 15px" id = "user_details" data-region="user_details">
 	<div class="card" style="border:1px solid #8a8a8a">
 		<div class="card-header">
-            <div class = "float-left">
+            <div class = "float-start">
                 <a href="{{profilelink}}" target="_blank">
                     {{#userinformation}}
 						<h3>{{firstname}} {{lastname}}</h3>
@@ -120,27 +120,27 @@ Example context (json):
                 </a>
             </div>
 
-			<div class="btn-group mr-2 float-right">
+			<div class="btn-group ms-2 float-end">
 				{{#loginaslink}}
-					<a href="{{loginaslink}}" target="_blank" class="btn pr-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}loginas{{/str}}">
+					<a href="{{loginaslink}}" target="_blank" class="btn pe-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}loginas{{/str}}">
 						{{#pix}}i/signin, tool_supporter, {{#str}}loginas{{/str}}{{/pix}}
 					</a>
 				{{/loginaslink}}
 				{{#isallowedtoupdateusers}}
-					<a href="{{edituserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}edituser{{/str}}">
+					<a href="{{edituserlink}}" target="_blank" class="btn pe-1 ms-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}edituser{{/str}}">
 						{{#pix}} i/edit, core, {{#str}}edituser{{/str}} {{/pix}}
 					</a>
-					<a href="{{deleteuserlink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
+					<a href="{{deleteuserlink}}" target="_blank" class="btn pe-1 ms-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}deleteuser, admin{{/str}}">
 						{{#pix}} i/delete, core, {{#str}}deleteuser, admin{{/str}} {{/pix}}
 					</a>
-					<a href="{{usernotificationpreferenceslink}}" target="_blank" class="btn pr-1 ml-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}notificationpreferences, message{{/str}}">
+					<a href="{{usernotificationpreferenceslink}}" target="_blank" class="btn pe-1 ms-1 btn-default" role="button" data-bs-toggle="tooltip" title="{{#str}}notificationpreferences, message{{/str}}">
 						{{#pix}} i/notifications, core, {{#str}}notificationpreferences, message{{/str}} {{/pix}}
 					</a>
 				{{/isallowedtoupdateusers}}
-				<a href="#" class="btn pr-1 ml-1 btn-default" role="button" id="btn_hide_user_details" data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}">
+				<a href="#" class="btn pe-1 ms-1 btn-default" role="button" id="btn_hide_user_details" data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}">
 					{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 				</a>
-				<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_user_details" style="display: none">
+				<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pe-1 ms-1 btn-default" id="btn_show_user_details" style="display: none">
 					{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 				</a>
 			</div>
@@ -224,7 +224,7 @@ Example context (json):
 
 	        <!--Table showing users courses-->
             <div class="table table-responsive">
-                <table class="stripe hover row-border table-reboot" id="userdetailcourses">
+                <table class="table table-striped table-hover row-border table-reboot" id="userdetailcourses">
 	              <thead>
 	                <tr>
 	                  <th>ID</th>

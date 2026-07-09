@@ -349,7 +349,7 @@ class external extends external_api {
                 $patharray = explode("/", $category->path);
                 if (isset($patharray[1])) {
                     // Support multilang course categories.
-                    $patharray[1] = external_format_string($categories[$patharray[1]]->name, $context);
+                    $patharray[1] = \core_external\util::format_string($categories[$patharray[1]]->name, $context);
                     $course->level_one = $patharray[1];
                     array_push($data['uniquelevelones'], $patharray[1]);
                 } else {
@@ -358,7 +358,7 @@ class external extends external_api {
 
                 if (isset($patharray[2])) {
                     // Support multilang course categories.
-                    $patharray[2] = external_format_string($categories[$patharray[2]]->name, $context);
+                    $patharray[2] = \core_external\util::format_string($categories[$patharray[2]]->name, $context);
                     $course->level_two = $patharray[2];
                     array_push($data['uniqueleveltwoes'], $patharray[2]);
                 } else {
@@ -367,7 +367,7 @@ class external extends external_api {
 
                 if (isset($patharray[3])) {
                     // Support multilang course categories.
-                    $patharray[3] = external_format_string($categories[$patharray[3]]->name, $context);
+                    $patharray[3] = \core_external\util::format_string($categories[$patharray[3]]->name, $context);
                     $course->level_three = $patharray[3];
                     array_push($data['uniquelevelthrees'], $patharray[3]);
                 } else {
@@ -376,7 +376,7 @@ class external extends external_api {
 
                 if (isset($patharray[4])) {
                     // Support multilang course categories.
-                    $patharray[4] = external_format_string($categories[$patharray[4]]->name, $context);
+                    $patharray[4] = \core_external\util::format_string($categories[$patharray[4]]->name, $context);
                     $course->level_four = $patharray[4];
                     array_push($data['uniquelevelfours'], $patharray[4]);
                 } else {
@@ -385,7 +385,7 @@ class external extends external_api {
 
                 if (isset($patharray[5])) {
                     // Support multilang course categories.
-                    $patharray[5] = external_format_string($categories[$patharray[5]]->name, $context);
+                    $patharray[5] = \core_external\util::format_string($categories[$patharray[5]]->name, $context);
                     $course->level_five = $patharray[5];
                     array_push($data['uniquelevelfives'], $patharray[5]);
                 } else {
@@ -403,7 +403,7 @@ class external extends external_api {
                 $course->enrol_id = $userenrolments[$course->id]->id;
 
                 // Support multilang course fullnames.
-                $course->fullname = external_format_string($course->fullname, $context);
+                $course->fullname = \core_external\util::format_string($course->fullname, $context);
 
                 $coursesarray[] = (array)$course;
             }
@@ -463,7 +463,7 @@ class external extends external_api {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_' . $count] = external_format_string($label, $context);
+            $data['label_level_' . $count] = \core_external\util::format_string($label, $context);
             // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
@@ -701,42 +701,42 @@ class external extends external_api {
                 $patharray = explode("/", $category->path);
                 if (isset($patharray[1])) {
                     // Support multilang course categories.
-                    $patharray[1] = external_format_string($categories[$patharray[1]]->name, $context);
+                    $patharray[1] = \core_external\util::format_string($categories[$patharray[1]]->name, $context);
                     $course->level_one = $patharray[1];
                 } else {
                     $course->level_one = "";
                 }
                 if (isset($patharray[2])) {
                     // Support multilang course categories.
-                    $patharray[2] = external_format_string($categories[$patharray[2]]->name, $context);
+                    $patharray[2] = \core_external\util::format_string($categories[$patharray[2]]->name, $context);
                     $course->level_two = $patharray[2];
                 } else {
                     $course->level_two = "";
                 }
                 if (isset($patharray[3])) {
                     // Support multilang course categories.
-                    $patharray[3] = external_format_string($categories[$patharray[3]]->name, $context);
+                    $patharray[3] = \core_external\util::format_string($categories[$patharray[3]]->name, $context);
                     $course->level_three = $patharray[3];
                 } else {
                     $course->level_three = "";
                 }
                 if (isset($patharray[4])) {
                     // Support multilang course categories.
-                    $patharray[4] = external_format_string($categories[$patharray[4]]->name, $context);
+                    $patharray[4] = \core_external\util::format_string($categories[$patharray[4]]->name, $context);
                     $course->level_four = $patharray[4];
                 } else {
                     $course->level_four = "";
                 }
                 if (isset($patharray[5])) {
                     // Support multilang course categories.
-                    $patharray[5] = external_format_string($categories[$patharray[5]]->name, $context);
+                    $patharray[5] = \core_external\util::format_string($categories[$patharray[5]]->name, $context);
                     $course->level_five = $patharray[5];
                 } else {
                     $course->level_five = "";
                 }
 
                 // Support multilang course fullnames.
-                $course->fullname = external_format_string($course->fullname, $context);
+                $course->fullname = \core_external\util::format_string($course->fullname, $context);
 
                 // Convert timestamp to readable format.
                 $course->startdate = userdate(
@@ -757,23 +757,23 @@ class external extends external_api {
         foreach ($categories as $category) {
             if ($category->depth == 1) {
                 // Support multilang course categories.
-                array_push($data['uniquelevelones'], external_format_string($category->name, $context));
+                array_push($data['uniquelevelones'], \core_external\util::format_string($category->name, $context));
             }
             if ($category->depth == 2) {
                 // Support multilang course categories.
-                array_push($data['uniqueleveltwoes'], external_format_string($category->name, $context));
+                array_push($data['uniqueleveltwoes'], \core_external\util::format_string($category->name, $context));
             }
             if ($category->depth == 3) {
                 // Support multilang course categories.
-                array_push($data['uniquelevelthrees'], external_format_string($category->name, $context));
+                array_push($data['uniquelevelthrees'], \core_external\util::format_string($category->name, $context));
             }
             if ($category->depth == 4) {
                 // Support multilang course categories.
-                array_push($data['uniquelevelfours'], external_format_string($category->name, $context));
+                array_push($data['uniquelevelfours'], \core_external\util::format_string($category->name, $context));
             }
             if ($category->depth == 5) {
                 // Support multilang course categories.
-                array_push($data['uniquelevelfives'], external_format_string($category->name, $context));
+                array_push($data['uniquelevelfives'], \core_external\util::format_string($category->name, $context));
             }
         }
 
@@ -788,7 +788,7 @@ class external extends external_api {
         $labels = get_config('tool_supporter', 'level_labels');
         $count = 1; // Root is level 0, so we begin at 1.
         foreach (explode(';', $labels) as $label) {
-            $data['label_level_' . $count] = external_format_string($label, $context);
+            $data['label_level_' . $count] = \core_external\util::format_string($label, $context);
             // Each label will be available under {{label_level_0}}, {{label_level_1}}, etc.
             $count++;
         }
@@ -925,7 +925,7 @@ class external extends external_api {
         $coursedetails['startdate'] =
             userdate($coursedetails['startdate'], get_string('strftimesecondsdatetimeshort', 'tool_supporter'));
         // Support course multilang fullnames.
-        $coursedetails['fullname'] = external_format_string($coursedetails['fullname'], $coursecontext);
+        $coursedetails['fullname'] = \core_external\util::format_string($coursedetails['fullname'], $coursecontext);
 
         // Get whole course-path.
         // Extract IDs from path and remove empty values by using array_filter.
@@ -936,7 +936,7 @@ class external extends external_api {
         $pathcategories = [];
         foreach ($parentcatnames as $val) {
             // Support multilang course categories.
-            $pathcategories[] = external_format_string($val->name, $coursecontext);
+            $pathcategories[] = \core_external\util::format_string($val->name, $coursecontext);
         }
         $coursedetails['level_one'] = $pathcategories[0];
         isset($pathcategories[1]) ? $coursedetails['level_two'] = $pathcategories[1] : $coursedetails['level_two'] = "";
@@ -957,7 +957,7 @@ class external extends external_api {
 
         foreach ($usedrolesincourse as $rid => $rname) {
             // Support multilang roles.
-            $rolename = external_format_string($rname, $coursecontext);
+            $rolename = \core_external\util::format_string($rname, $coursecontext);
             $rolenumber = \count_role_users($rid, $coursecontext);
             if ($rolenumber != 0) {
                 $roles[] = ['roleName' => $rolename, 'roleNumber' => $rolenumber];
@@ -1018,9 +1018,9 @@ class external extends external_api {
         foreach ($modules as $mo) {
             $section = \get_section_name($courseid, $mo->section);
             // Support section and activity multilang names.
-            $activity = ['section' => external_format_string($section, $coursecontext),
+            $activity = ['section' => \core_external\util::format_string($section, $coursecontext),
                 'activity' => get_string('pluginname', $mo->mod),
-                'name' => external_format_string($mo->name, $coursecontext), 'visible' => $mo->visible];
+                'name' => \core_external\util::format_string($mo->name, $coursecontext), 'visible' => $mo->visible];
             $activities[] = $activity;
         }
 
