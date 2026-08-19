@@ -114,14 +114,14 @@ Example context (json):
 	<div class = "card-header">
 		<div class="row">
 		    <div class="col-sm-6"><h2>{{#str}}courses{{/str}}</h2></div>
-		    <div class="col-sm-6 pull-right"><div class="pull-right"><button class="btn pr-1" id="btn_refresh_courses">{{#pix}} a/refresh, core, {{refreshname}} {{/pix}}</button></div></div>
+		    <div class="col-sm-6"><button class="btn pe-1" id="btn_refresh_courses">{{#pix}} a/refresh, core, {{refreshname}} {{/pix}}</button></div>
 		</div>
 	</div>
 
     <div id="course_table_filtering" style="visibility: hidden;">
-        <div class="btn-toolbar ml-3 mt-1" role="toolbar">
+        <div class="btn-toolbar align-items-center ms-3 mt-1" role="toolbar">
             <div class="btn-group" role="group">
-                <select id="course_table_column_chooser" class="form-control custom-select mr-1">
+                <select id="course_table_column_chooser" class="form-select form-select-sm me-1">
                     <!-- Additional Options will be added later with javascript -->
                     <option selected value="-1">{{#str}}all{{/str}}</option>
                 </select>
@@ -130,7 +130,7 @@ Example context (json):
                 <input type="text" id="course_table_search_input" class="form-control form-control-sm" placeholder={{searchname}}>
             </div>
             <div class="col col-md-3">
-                <button type="button" class="btn" id="courses_clear_filters" style="visibility: hidden">&times; {{#str}}removeall, filters{{/str}}</button>
+                <button type="button" class="btn btn-sm" id="courses_clear_filters" style="visibility: hidden">&times; {{#str}}removeall, filters{{/str}}</button>
             </div>
         </div>
 
@@ -198,7 +198,7 @@ Example context (json):
     </div>
 
 	<div class = "table table-responsive">
-	  <table id = "courseTable" class="stripe hover row-border table-reboot">
+	  <table id = "courseTable" class="table table-striped table-hover row-border table-reboot">
 	    <thead>
 	      <tr>
               <th>ID</th>

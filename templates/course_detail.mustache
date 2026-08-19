@@ -116,39 +116,39 @@ Example context (json):
 	<div class="card" style="border:1px solid #8a8a8a">
 	    <div class="card-header">
 			{{#links}}
-				<div class = "float-left">
-					<a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{fullname}}{{/courseDetails}}</h3></a>
+				<div class = "float-start">
+					<a href="{{courselink}}" target="_blank"><h3>{{#courseDetails}}{{{fullname}}}{{/courseDetails}}</h3></a>
 				</div>
-				<div class="btn-group mr-2 float-right">
+				<div class="btn-group me-2 float-end">
 					{{#isallowedtoupdatecourse}}
 						{{#courseDetails}}
 							{{^visible}}
-								<a href="#" class="btn pr-1 ml-1 btn-default" id="show_course_visibility">
+								<a href="#" class="btn pe-1 ms-1 btn-default" id="show_course_visibility">
 									{{#pix}} i/show, core, {{#str}}show{{/str}} {{/pix}}
 								</a>
 							{{/visible}}
 							{{#visible}}
-								<a href="#" class="btn pr-1 ml-1 btn-default" id="hide_course_visibility">
+								<a href="#" class="btn pe-1 ms-1 btn-default" id="hide_course_visibility">
 									{{#pix}} i/hide, core, {{#str}}hide{{/str}} {{/pix}}
 								</a>
 							{{/visible}}
 						{{/courseDetails}}
-                        <a data-bs-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
+                        <a data-bs-toggle="tooltip" title="{{#str}}editsettings{{/str}}" href="{{settingslink}}" target="_blank" class="btn pe-1 ms-1 btn-default">
                             {{#pix}} i/edit, core, {{#str}}editsettings{{/str}} {{/pix}}
                         </a>
-                        <a data-bs-toggle="tooltip" title="{{#str}}duplicate{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="duplicate_course_button">
+                        <a data-bs-toggle="tooltip" title="{{#str}}duplicate{{/str}}" href="#" class="btn pe-1 ms-1 btn-default" id="duplicate_course_button">
                             {{#pix}} i/copy, tool_supporter, {{#str}}duplicate{{/str}} {{/pix}}
                         </a>
 					{{/isallowedtoupdatecourse}}
 					{{#deletelink}}
-						<a data-bs-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pr-1 ml-1 btn-default">
+						<a data-bs-toggle="tooltip" title="{{#str}}deletecourse{{/str}}" href="{{deletelink}}" target="_blank" class="btn pe-1 ms-1 btn-default">
 							{{#pix}} i/delete, core, {{#str}}deletecourse{{/str}} {{/pix}}
 						</a>
 					{{/deletelink}}
-					<a data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_hide_course_details">
+					<a data-bs-toggle="tooltip" title="{{#str}}hide{{/str}}" href="#" class="btn pe-1 ms-1 btn-default" id="btn_hide_course_details">
 						{{#pix}}i/minus, tool_supporter, {{#str}}collapse{{/str}} {{/pix}}
 					</a>
-					<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pr-1 ml-1 btn-default" id="btn_show_course_details" style="display: none">
+					<a data-bs-toggle="tooltip" title="{{#str}}show{{/str}}" href="#" class="btn pe-1 ms-1 btn-default" id="btn_show_course_details" style="display: none">
 						{{#pix}}i/plus, tool_supporter, {{#str}}show{{/str}} {{/pix}}
 					</a>
 				</div>
@@ -163,9 +163,9 @@ Example context (json):
                             <tr><th>ID</th><td id="selectedcourseid">{{id}}</td></tr>
                             {{#showstartdate}}<tr><th>{{#str}}startdate{{/str}}</th><td>{{startdate}}</td></tr>{{/showstartdate}}
                             {{#showshortname}}<tr><th>{{#str}}shortnamecourse{{/str}}</th><td>{{shortname}}</td></tr>{{/showshortname}}
-                            {{#showfullname}}<tr><th>{{#str}}fullnamecourse{{/str}}</th><td>{{fullname}}</td></tr>{{/showfullname}}
+                            {{#showfullname}}<tr><th>{{#str}}fullnamecourse{{/str}}</th><td>{{{fullname}}}</td></tr>{{/showfullname}}
                             {{#showvisible}}<tr><th>{{#str}}visible{{/str}}</th><td>{{visible}}</td></tr>{{/showvisible}}
-                            {{#showpath}}<tr><th>{{#str}}path{{/str}}</th><td>{{path}}</td></tr>{{/showpath}}
+                            {{#showpath}}<tr><th>{{#str}}path{{/str}}</th><td>{{{path}}}</td></tr>{{/showpath}}
                             {{#showtimecreated}}<tr><th>{{#str}}eventcoursecreated{{/str}}</th><td>{{timecreated}}</td></tr>{{/showtimecreated}}
                             {{#showusersamount}}<tr><th>{{#str}}users{{/str}}</th><td>{{enrolledUsers}}</td></tr>{{/showusersamount}}
                         {{/courseDetails}}
@@ -190,7 +190,7 @@ Example context (json):
 	            <div id="CoursePill_1" class="tab-pane active" role="tabpanel">
 	                <!-- Table of users in this course-->
 
-		            <div class = "nav-item dropdown float-left" style="padding-left: 5px;">
+		            <div class = "nav-item dropdown float-start" style="padding-left: 5px;">
 						<b>{{#str}}filter{{/str}}:</b>
 		                <a class = "dropdown-toggle" href='javascript:void(0)' data-bs-toggle="dropdown">{{#str}}roles{{/str}}</a>
 		                <ul class="dropdown-menu" id="roledropdown">
@@ -201,7 +201,7 @@ Example context (json):
 		                </ul>
 		            </div>
 
-	                <div class = "float-right">
+	                <div class = "float-end">
 			            <u>
                             <a href="{{wwwroot}}/user/index.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
 			            	    {{#pix}} i/settings, core{{/pix}}
@@ -210,7 +210,7 @@ Example context (json):
 		            </div>
 
 	                <div class="table table-responsive">
-	                    <table class="stripe hover row-border table-reboot" id="userincourse">
+	                    <table class="table table-striped table-hover row-border table-reboot" id="userincourse">
 	                        <thead>
 	                            <tr>
                                     <th hidden="">ID</th>
@@ -248,7 +248,7 @@ Example context (json):
 	            <div id="CoursePill_2" class="tab-pane" role="tabpanel">
 	                <!-- Table of activites in this course-->
 	                <div class="table table-responsive">
-	                    <table class="stripe hover row-border" id="activityInCourse">
+	                    <table class="table table-striped table-hover row-border" id="activityInCourse">
 	                        <thead>
 	                            <tr>
 	                                <th>{{#str}}sectionname{{/str}}</th>
@@ -273,7 +273,7 @@ Example context (json):
 
 	            <div id="CoursePill_3" class="tab-pane" role="tabpanel">
 	                <!-- Table of enrolment methods in this course-->
-	              	<div class = "float-right">
+	              	<div class = "float-end">
 			            <u>
                             <a href="{{wwwroot}}/enrol/instances.php?id={{#courseDetails}}{{id}}{{/courseDetails}}" target="_blank">
 			            	    {{#pix}} i/settings, core{{/pix}}
@@ -281,7 +281,7 @@ Example context (json):
                         </u>
 		            </div>
 	                <div class = "table table-responsive">
-	                    <table class = "stripe hover row-border">
+	                    <table class = "table table-striped table-hover row-border">
 	                        <tbody>
                                 <tr>
                                     <th>{{#str}}name{{/str}}</th>
