@@ -63,4 +63,3 @@ $string['summer_startdate'] = 'Summer semester start date';
 $string['toolsupporter'] = 'toolsupporter';
 $string['use_semester_dates'] = 'Use semester start/end date for the course';
 $string['winter_startdate'] = 'Winter semester start date';
-
