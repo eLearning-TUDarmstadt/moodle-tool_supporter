@@ -95,7 +95,8 @@ Example context (json):
 			        <th>{{#str}}username{{/str}}</th>
 			        <th>{{#str}}firstname{{/str}}</th>
 			        <th>{{#str}}lastname{{/str}}</th>
-			        <th>{{#str}}email{{/str}}</th>
+					<th>{{#str}}email{{/str}}</th>
+					<th>{{#str}}authentication, core{{/str}}</th>
 				</tr>
 			  </thead>
 			  <tbody>
@@ -116,7 +117,8 @@ function(loadInformation, $, ajax, notification, templates, datatables, tableFil
                      {data: 'username', name: '{{#cleanstr}}username{{/cleanstr}}'},
                      {data: 'firstname', name: '{{#cleanstr}}firstname{{/cleanstr}}'},
                      {data: 'lastname', name: '{{#cleanstr}}lastname{{/cleanstr}}'},
-                     {data: 'email', name: '{{#cleanstr}}email{{/cleanstr}}'}
+                     {data: 'email', name: '{{#cleanstr}}email{{/cleanstr}}'},
+                                          {data: 'auth', name: '{{#cleanstr}}authentication, core{{/cleanstr}}'}
                   ];
     datatables.dataTableAjax('#userTable', 'tool_supporter_get_users', {}, 'users', columns);
 

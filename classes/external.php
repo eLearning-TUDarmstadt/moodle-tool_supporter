@@ -595,14 +595,14 @@ class external extends external_api {
                 'user',
                 ['deleted' => '0', 'suspended' => 0],
                 null,
-                'id, idnumber, username, firstname, lastname, email'
+                'id, idnumber, username, firstname, lastname, email, auth'
             );
         } else {
             $data['users'] = $DB->get_records(
                 'user',
                 ['deleted' => '0'],
                 null,
-                'id, idnumber, username, firstname, lastname, email'
+                'id, idnumber, username, firstname, lastname, email, auth'
             );
         }
 
@@ -626,6 +626,7 @@ class external extends external_api {
                             'firstname' => new external_value(PARAM_TEXT, 'firstname of user'),
                             'lastname' => new external_value(PARAM_TEXT, 'lastname of user'),
                             'email' => new external_value(PARAM_TEXT, 'email adress of user'),
+                            'auth' => new external_value(PARAM_TEXT, 'authentication method of user'),
                         ]
                     )
                 ),
