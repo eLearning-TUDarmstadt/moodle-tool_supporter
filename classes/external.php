@@ -605,7 +605,10 @@ class external extends external_api {
                 'id, idnumber, username, firstname, lastname, email, auth'
             );
         }
-
+        foreach ($data['users'] as $user) {
+            // Some users (e.g. archived ones) may have no authentication method set.
+            $user->auth = $user->auth ?? '';
+        }
         return $data;
     }
 
