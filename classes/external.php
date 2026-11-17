@@ -1206,8 +1206,7 @@ class external extends external_api {
      * @throws \restricted_context_exception
      * @throws invalid_parameter_exception
      */
-    public static function get_assignable_roles($courseid)
-    {
+    public static function get_assignable_roles($courseid) {
         global $CFG, $PAGE;
 
         $coursecontext = \context_course::instance($courseid);
@@ -1340,8 +1339,7 @@ class external extends external_api {
      * @throws \restricted_context_exception
      * @throws invalid_parameter_exception
      */
-    public static function get_settings()
-    {
+    public static function get_settings() {
 
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
