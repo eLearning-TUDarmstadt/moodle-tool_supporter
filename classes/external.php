@@ -621,7 +621,7 @@ class external extends external_api {
                     new external_single_structure(
                         [
                             'id' => new external_value(PARAM_INT, 'id of user'),
-                            'idnumber' => new external_value(PARAM_RAW, 'idnumber of user'),
+                            'idnumber' => new external_value(PARAM_TEXT, 'idnumber of user'),
                             'username' => new external_value(PARAM_TEXT, 'username of user'),
                             'firstname' => new external_value(PARAM_TEXT, 'firstname of user'),
                             'lastname' => new external_value(PARAM_TEXT, 'lastname of user'),
@@ -738,6 +738,9 @@ class external extends external_api {
                 // Support multilang course fullnames.
                 $course->fullname = \core_external\util::format_string($course->fullname, $context);
 
+                // Support multilang course shortnames / clean raw value.
+                $course->shortname = \core_external\util::format_string($course->shortname, $context);
+
                 // Convert timestamp to readable format.
                 $course->startdate = userdate(
                     $course->startdate,
@@ -819,8 +822,8 @@ class external extends external_api {
                 new external_single_structure(
                     [
                         'id' => new external_value(PARAM_INT, 'id of course'),
-                        'shortname' => new external_value(PARAM_RAW, 'shortname of course'),
-                        'fullname' => new external_value(PARAM_RAW, 'course name'),
+                        'shortname' => new external_value(PARAM_TEXT, 'shortname of course'),
+                        'fullname' => new external_value(PARAM_TEXT, 'course name'),
                         'level_two' => new external_value(PARAM_RAW, 'parent category'),
                         'level_one' => new external_value(PARAM_RAW, 'course category'),
                         'level_three' => new external_value(PARAM_RAW, 'the name of level 3 category'),
@@ -878,7 +881,7 @@ class external extends external_api {
     public static function get_course_info_parameters() {
         return new external_function_parameters(
             [
-                'courseID' => new external_value(PARAM_RAW, 'id of course you want to show'),
+                'courseID' => new external_value(PARAM_INT, 'id of course you want to show'),
             ]
         );
     }
@@ -910,9 +913,11 @@ class external extends external_api {
         \require_capability('moodle/course:view', $coursecontext);
 
         // Get information about the course.
-        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path FROM {course} c, " .
-            "{course_categories} cat WHERE c.category = cat.id AND c.id = " . $courseid;
-        $coursedetails = $DB->get_record_sql($select);
+        $select = "SELECT c.id, c.shortname, c.fullname, c.visible, c.timecreated, c.startdate, cat.path
+                     FROM {course} c
+                     JOIN {course_categories} cat ON c.category = cat.id
+                    WHERE c.id = :courseid";
+        $coursedetails = $DB->get_record_sql($select, ['courseid' => $courseid]);
         $coursedetails = (array)$coursedetails;
         if ($coursedetails['timecreated'] == 0) {
             $coursedetails['timecreated'] = get_string('never', 'moodle');
@@ -1027,12 +1032,18 @@ class external extends external_api {
         // Get Enrolment Methods in course.
         $enrolmentmethods = [];
         $instances = enrol_get_instances($courseid, false);
-        $plugins   = enrol_get_plugins(false);
+        $plugins = enrol_get_plugins(false);
         // Iterate through enrol plugins and add to the display table.
         foreach ($instances as $instance) {
             $plugin = $plugins[$instance->enrol];
 
-            $enrolmentmethod['password'] = $instance->password;
+            // Only expose the enrolment password if the current user is allowed to configure this method.
+            if (\has_capability('enrol/' . $instance->enrol . ':config', $coursecontext)) {
+                $enrolmentmethod['password'] = $instance->password;
+            } else {
+                $enrolmentmethod['password'] = '';
+            }
+
             $enrolmentmethod['methodname'] = $plugin->get_instance_name($instance);
             $enrolmentmethod['enabled'] = false;
             if (!enrol_is_enabled($instance->enrol) || $instance->status != ENROL_INSTANCE_ENABLED) {
@@ -1177,7 +1188,7 @@ class external extends external_api {
      */
     public static function get_assignable_roles_parameters() {
         return new external_function_parameters([
-            'courseID' => new external_value(PARAM_RAW, 'id of course you want to show'),
+            'courseID' => new external_value(PARAM_INT, 'id of course you want to show'),
         ]);
     }
 
@@ -1191,17 +1202,16 @@ class external extends external_api {
      * @throws \restricted_context_exception
      * @throws invalid_parameter_exception
      */
-    public static function get_assignable_roles($courseid) {
+    public static function get_assignable_roles($courseid)
+    {
         global $CFG, $PAGE;
 
         $coursecontext = \context_course::instance($courseid);
         self::validate_context($coursecontext);
 
-        // Is the user allowed to enrol a student into this course?
-        // \require_capability('enrol/manual:enrol', $coursecontext);
-        //
-        // UPD: Checked on button click later anyway,
-        // commented out to avoid opening 'nopermissions' window without clicking on enrol in some cases(issue #110).
+        // Is the user at least allowed to view the course? The actual enrol capability
+        // is re-checked when the enrol action is triggered (issue #110).
+        \require_capability('moodle/course:view', $coursecontext);
 
         // Parameter validation.
         self::validate_parameters(self::get_course_info_parameters(), ['courseID' => $courseid]);
@@ -1326,10 +1336,13 @@ class external extends external_api {
      * @throws \restricted_context_exception
      * @throws invalid_parameter_exception
      */
-    public static function get_settings() {
+    public static function get_settings()
+    {
 
         $systemcontext = \context_system::instance();
         self::validate_context($systemcontext);
+        // Require at least the baseline capability used throughout this tool.
+        \require_capability('moodle/course:viewhiddencourses', $systemcontext);
 
         $data = [
             'tool_supporter_user_details_pagelength' => get_config('tool_supporter', 'user_details_pagelength'),

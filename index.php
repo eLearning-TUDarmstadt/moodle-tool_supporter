@@ -23,18 +23,16 @@
  */
 
 require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->libdir . '/adminlib.php');
 
 $title = get_string('pagetitle', 'tool_supporter');
 $pagetitle = get_string('pagetitle', 'tool_supporter');
-// Set up the page.
-$url = new moodle_url("/admin/tool/supporter/index.php");
 
-$PAGE->set_context(context_system::instance());
-$PAGE->set_url($url);
+admin_externalpage_setup('toolsupporter');
+
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->blocks->show_only_fake_blocks(); // Disable blocks for layouts which do include pre-post blocks.
-require_login();
 
 $PAGE->requires->js_call_amd('tool_supporter/datatables', 'useDataTable', ['.datatable', []]);
 

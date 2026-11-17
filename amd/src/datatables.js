@@ -41,6 +41,27 @@ function($, datatables, str, filter, ajax, notification, templates) {
         }
     };
 
+    /**
+    * Ensures every column without an explicit custom renderer uses the built-in
+    * text renderer, so DataTables HTML-escapes cell content instead of injecting it
+    * via innerHTML. This is a defensive measure even though values are already
+    * cleaned server-side.
+    *
+    * @param {Array} columns : Array of column definitions passed to DataTables
+    * @return {Array} columns with a safe render function applied where missing
+    */
+    var applySafeRender = function (columns) {
+        if (!Array.isArray(columns)) {
+            return columns;
+        }
+        return columns.map(function (column) {
+            if (!column.render) {
+                column.render = $.fn.dataTable.render.text();
+            }
+            return column;
+        });
+    };
+
     return /** @alias module:tool_supporter/datatables */ {
 
         /**
@@ -100,6 +121,7 @@ function($, datatables, str, filter, ajax, notification, templates) {
             });
         },
 
+
         /**
          * @method dataTableAjax
          * @param {string} tableID : ID of table you want to convert into datatable
@@ -108,7 +130,9 @@ function($, datatables, str, filter, ajax, notification, templates) {
          * @param {string} datainfo : where to find table data in return value of method
          * @param {string} columns : Name of table columns
          */
-        dataTableAjax: function(tableID, methodname, args, datainfo, columns) {
+        dataTableAjax: function (tableID, methodname, args, datainfo, columns) {
+
+            columns = applySafeRender(columns);
 
             var promise = ajax.call([{
                 "methodname": methodname,

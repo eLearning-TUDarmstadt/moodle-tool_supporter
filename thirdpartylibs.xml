@@ -7,4 +7,16 @@
     <license>MIT</license>
     <version>1.10.18</version>
   </library>
+  <library>
+    <location>style/jquery.dataTables.css</location>
+    <name>DataTable</name>
+    <license>MIT</license>
+    <version>1.10.18</version>
+  </library>
+  <library>
+    <location>style/dataTables.bootstrap4.css</location>
+    <name>DataTable</name>
+    <license>MIT</license>
+    <version>1.10.18</version>
+  </library>
 </libraries>

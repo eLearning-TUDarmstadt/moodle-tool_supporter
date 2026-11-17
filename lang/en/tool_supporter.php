@@ -60,3 +60,7 @@ $string['sett_user_table_desc'] = 'The user table lists all users and is display
 $string['sett_user_table_pagelength'] = 'The amount of user-courses shown';
 $string['strftimesecondsdatetimeshort'] = '%d/%m/%Y, %H:%M:%S';
 $string['toolsupporter'] = 'toolsupporter';
+$string['use_semester_dates'] = 'Use semester start/end date for the course';
+$string['summer_startdate'] = 'Summer semester start date';
+$string['winter_startdate'] = 'Winter semester start date';
+
