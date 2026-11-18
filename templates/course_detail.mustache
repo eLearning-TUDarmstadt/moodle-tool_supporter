@@ -170,7 +170,7 @@ Example context (json):
                             {{#showusersamount}}<tr><th>{{#str}}users{{/str}}</th><td>{{enrolledUsers}}</td></tr>{{/showusersamount}}
                         {{/courseDetails}}
                         {{#showrolesandamount}}{{#roles}}
-                            <tr><th>{{roleName}}</th><td>{{roleNumber}}</td></tr>
+                            <tr><th>{{{roleName}}}</th><td>{{roleNumber}}</td></tr>
                         {{/roles}}{{/showrolesandamount}}
                     {{/config}}
                 </tbody>
@@ -196,7 +196,7 @@ Example context (json):
 		                <ul class="dropdown-menu" id="roledropdown">
 		                    <!--filter user list by selecting wanted role-->
 		                     {{#rolesincourse}}
-		                     	<li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="rolesincourse" id="rolesincourse"> {{{.}}}</li>
+		                     	<li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="rolesincourse" id="rolesincourse"> {{{.}}}</li>
 		                     {{/rolesincourse}}
 		                </ul>
 		            </div>
@@ -231,7 +231,7 @@ Example context (json):
 	                                <td>{{username}}</td>
 	                                <td>{{firstname}}</td>
 	                                <td>{{lastname}}</td>
-	                                <td>{{roles}}</td>
+	                                <td>{{{roles}}}</td>
 	                                <td>{{lastaccess}}</td>
 	                                <td>
                                         <a href="{{wwwroot}}/enrol/unenroluser.php?id={{#courseDetails}}{{id}}{{/courseDetails}}&ue={{enrol_id}}" target="_blank">
@@ -260,9 +260,9 @@ Example context (json):
 	                        <tbody>
 	                            {{#activities}}
 	                            <tr>
-	                                <td>{{section}}</td>
+	                                <td>{{{section}}}</td>
 	                                <td>{{activity}}</td>
-	                                <td>{{name}}</td>
+	                                <td>{{{name}}}</td>
 	                                <td>{{visible}}</td>
 	                            </tr>
 	                            {{/activities}}
