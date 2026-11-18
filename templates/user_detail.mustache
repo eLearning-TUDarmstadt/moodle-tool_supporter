@@ -180,7 +180,7 @@ Example context (json):
 	              <a class = "nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">{{label_level_1}}<span class="caret"></span></a>
 	              <ul class="dropdown-menu" id="user_detail_levelonedropdown">
 	                {{#uniquelevelones}}
-	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
+	                <li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="user_detail_levelonecheckbox" id="user_detail_levelonecheckbox"> {{{.}}}</li>
 	                {{/uniquelevelones}}
 	              </ul>
 	            </li>
@@ -189,7 +189,7 @@ Example context (json):
 	              <!--filter course list by selecting wanted second level category-->
 	              <ul class="dropdown-menu" id="user_detail_leveltwodropdown">
 	                {{#uniqueleveltwoes}}
-	                <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_leveltwocheckbox"  id="user_detail_leveltwocheckbox"> {{{.}}}</li>
+	                <li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="user_detail_leveltwocheckbox"  id="user_detail_leveltwocheckbox"> {{{.}}}</li>
 	                {{/uniqueleveltwoes}}
 	              </ul>
 	            </li>
@@ -198,7 +198,7 @@ Example context (json):
                       <!--filter course list by selecting wanted third level category-->
                       <ul class="dropdown-menu" id="user_detail_levelthreedropdown">
                           {{#uniquelevelthrees}}
-                              <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelthreecheckbox"  id="user_detail_levelthreecheckbox"> {{{.}}}</li>
+                              <li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="user_detail_levelthreecheckbox"  id="user_detail_levelthreecheckbox"> {{{.}}}</li>
                           {{/uniquelevelthrees}}
                       </ul>
                   </li>
@@ -207,7 +207,7 @@ Example context (json):
                       <!--filter course list by selecting wanted fourth level category-->
                       <ul class="dropdown-menu" id="user_detail_levelfourdropdown">
                           {{#uniquelevelfours}}
-                              <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelfourcheckbox"  id="user_detail_levelfourcheckbox"> {{{.}}}</li>
+                              <li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="user_detail_levelfourcheckbox"  id="user_detail_levelfourcheckbox"> {{{.}}}</li>
                           {{/uniquelevelfours}}
                       </ul>
                   </li>
@@ -216,7 +216,7 @@ Example context (json):
                       <!--filter course list by selecting wanted fifth level category-->
                       <ul class="dropdown-menu" id="user_detail_levelfivedropdown">
                           {{#uniquelevelfives}}
-                              <li class = "dropdown-item"><input type="checkbox" value="{{{.}}}" name="user_detail_levelfivecheckbox"  id="user_detail_levelfivecheckbox"> {{{.}}}</li>
+                              <li class = "dropdown-item"><input type="checkbox" value="{{.}}" name="user_detail_levelfivecheckbox"  id="user_detail_levelfivecheckbox"> {{{.}}}</li>
                           {{/uniquelevelfives}}
                       </ul>
                   </li>
@@ -243,7 +243,7 @@ Example context (json):
                         <td>{{fullname}}</td>
                         <td>{{level_one}}</td> <!-- TUD intern: Semester -->
                         <td>{{level_two}}</td> <!-- TUD intern: Fachbereiche -->
-                        <td>{{roles}}</td>
+                        <td>{{{roles}}}</td>
                         <td>{{visible}}</td>
                         <td>
                             <a href="{{wwwroot}}/enrol/unenroluser.php?id={{id}}&ue={{enrol_id}}" target="_blank">

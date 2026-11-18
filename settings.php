@@ -174,20 +174,20 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_heading('header_new_course', get_string('addnewcourse', 'core'), ""));
     $settings->add(new admin_setting_configcheckbox(
         'tool_supporter/new_course_usesemesterdate',
-        "Use semester start/end date for the course",
+        get_string('use_semester_dates', 'tool_supporter'),
         "",
         1
     ));
     $settings->add(new admin_setting_configtext(
         'tool_supporter/new_course_summerstart',
-        "Summer semester start date",
+        get_string('summer_startdate', 'tool_supporter'),
         "",
         '01.04',
         PARAM_TEXT
     ));
     $settings->add(new admin_setting_configtext(
         'tool_supporter/new_course_winterstart',
-        "Winter semester start date",
+        get_string('winter_startdate', 'tool_supporter'),
         "",
         '01.10',
         PARAM_TEXT
